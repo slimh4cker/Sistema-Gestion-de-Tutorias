@@ -1,0 +1,40 @@
+## APIs de prueba relacionadas con sesiones de usuario
+
+## Realizado cuando uno inicia sesion como alumno
+GET http://localhost:1234/sesion/alumno 
+
+GET http://localhost:1234/sesion/asesor    
+
+GET http://localhost:1234/sesion/administrador
+
+## Para agregar una cuenta
+POST http://localhost:1234/sesion/alumno 
+Content-Type: application/json
+{
+    "name": "Juan Perez",
+    "course": "Ingenieria de Software",
+    "telephone": "1234567890",
+    "matricula": "A01234567",
+    "email": "juanPerez@hotmail.com",
+    "password": "123456"
+}
+
+POST http://localhost:1234/sesion/asesor 
+Content-Type: application/json
+{
+    "name": "Emilio Sanshez",
+    "speciality": "Ingenieria de Software",
+    "telephone": "1234567890",
+    "email": "juanPerez@hotmail.com",
+    "password": "123456"
+}
+
+POST http://localhost:1234/sesion/administrador 
+Content-Type: application/json
+{
+    "name": "Maria Tomez",
+    "telephone": "1234567890",
+    "num_employee": "43543253",
+    "email": "Maria@hotmail.com",
+    "password": "123456"
+}
