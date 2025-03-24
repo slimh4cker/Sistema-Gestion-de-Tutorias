@@ -1,13 +1,17 @@
 ## APIs de prueba relacionadas con sesiones de usuario
 
-## Realizado cuando uno inicia sesion como alumno
+## Realizado cuando uno inicia sesion
+## Alumno
 GET http://localhost:1234/sesion/alumno 
 
+## Asesor
 GET http://localhost:1234/sesion/asesor    
 
+## Administrador
 GET http://localhost:1234/sesion/administrador
 
 ## Para agregar una cuenta
+## Alumno
 POST http://localhost:1234/sesion/alumno 
 Content-Type: application/json
 {
@@ -19,6 +23,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
+## Asesor
 POST http://localhost:1234/sesion/asesor 
 Content-Type: application/json
 {
@@ -29,6 +34,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
+## Admin
 POST http://localhost:1234/sesion/administrador 
 Content-Type: application/json
 {
