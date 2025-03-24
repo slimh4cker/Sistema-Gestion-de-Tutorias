@@ -1,17 +1,34 @@
 ## APIs de prueba relacionadas con sesiones de usuario
+## Utiliza extencion de VSC REST Client para probarlas
+
 
 ## Realizado cuando uno inicia sesion
-## Alumno
+### Alumno
 GET http://localhost:1234/sesion/alumno 
+Content-Type: application/json
+{
+    "email": "juanPerez@hotmail.com",
+    "password": "123456"
+}
 
-## Asesor
+### Asesor
 GET http://localhost:1234/sesion/asesor    
+Content-Type: application/json
+{
+    "email": "EmilioSanshez@hotmail.com",
+    "password": "123456"
+}
 
-## Administrador
+### Administrador
 GET http://localhost:1234/sesion/administrador
+Content-Type: application/json
+{
+    "email": "Maria@hotmail.com",
+    "password": "123456"
+}
 
 ## Para agregar una cuenta
-## Alumno
+### Alumno
 POST http://localhost:1234/sesion/alumno 
 Content-Type: application/json
 {
@@ -23,18 +40,18 @@ Content-Type: application/json
     "password": "123456"
 }
 
-## Asesor
+### Asesor
 POST http://localhost:1234/sesion/asesor 
 Content-Type: application/json
 {
     "name": "Emilio Sanshez",
     "speciality": "Ingenieria de Software",
     "telephone": "1234567890",
-    "email": "juanPerez@hotmail.com",
+    "email": "EmilioSanshez@hotmail.com",
     "password": "123456"
 }
 
-## Admin
+### Admin
 POST http://localhost:1234/sesion/administrador 
 Content-Type: application/json
 {
