@@ -3,7 +3,7 @@
 
 
 ## Realizado cuando uno inicia sesion
-## Alumno
+### Alumno
 GET http://localhost:1234/sesion/alumno 
 Content-Type: application/json
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
-## Asesor
+### Asesor
 GET http://localhost:1234/sesion/asesor    
 Content-Type: application/json
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
-## Administrador
+### Administrador
 GET http://localhost:1234/sesion/administrador
 {
     "email": "Maria@hotmail.com",
@@ -27,7 +27,7 @@ GET http://localhost:1234/sesion/administrador
 }
 
 ## Para agregar una cuenta
-## Alumno
+### Alumno
 POST http://localhost:1234/sesion/alumno 
 Content-Type: application/json
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
-## Asesor
+### Asesor
 POST http://localhost:1234/sesion/asesor 
 Content-Type: application/json
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
     "password": "123456"
 }
 
-## Admin
+### Admin
 POST http://localhost:1234/sesion/administrador 
 Content-Type: application/json
 {
