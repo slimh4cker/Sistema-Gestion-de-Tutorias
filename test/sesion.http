@@ -21,6 +21,7 @@ Content-Type: application/json
 
 ### Administrador
 GET http://localhost:1234/sesion/administrador
+Content-Type: application/json
 {
     "email": "Maria@hotmail.com",
     "password": "123456"
