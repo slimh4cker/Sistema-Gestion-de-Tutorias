@@ -7,10 +7,10 @@ dotenv.config();
 const { DB_NAME, USER, PASSWORD, HOST, PORT } = process.env;
 
 
-const sequelize = new Sequelize(DB_NAME, USER, PASSWORD,{
-    host: HOST,
+const sequelize = new Sequelize("asesorias", 'root', '1234',{
+    host: 'localhost',
     dialect: 'mysql',
-    port: PORT,
+    port: '3306',
 });
 
 export { sequelize };
