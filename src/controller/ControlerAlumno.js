@@ -51,11 +51,6 @@ export class AlumnoControler {
       res.status(400).json({ error: JSON.parse(result.error.message) })
       return
     }
-
-    // asegurarme que no cuente con el campo correo para cambiar
-    if (datos.emal) {
-      res.status(400).json({ error: "no se puede cambiar correo mediante esta API"})
-    }
     
     // alterar datos
     try {
