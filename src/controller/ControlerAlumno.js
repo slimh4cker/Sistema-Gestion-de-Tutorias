@@ -1,5 +1,5 @@
 import { AlumnoModel } from "../models/AlumnoModel.js";
-import { validarAlumno } from "../schemas/alumno.js";
+import { validarAlumno, validarParcialAlumno } from "../schemas/alumno.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
 export class AlumnoControler {
@@ -38,6 +38,35 @@ export class AlumnoControler {
 
     // retornar mensaje de que fue realizado correctamente
     res.status(200).json({ message: "Alumno creado correctamente" })
+
+  }
+
+  // Actualizar toda la tabla del alumno con los datos nuevos
+  static async updateAlumno(req, res) {
+    // obtener datos
+    datos = req.body
+
+    // asegurarme que sus datos esten correctos
+    if (! validarParcialAlumno(datos)) {
+      res.status(400).json({ error: JSON.parse(result.error.message) })
+      return
+    }
+
+    // asegurarme que no cuente con el campo correo para cambiar
+    if (datos.emal) {
+      res.status(400).json({ error: "no se puede cambiar correo mediante esta API"})
+    }
+    
+    // alterar datos
+    try {
+      AlumnoModel.updateAlumno(datos)
+    } catch (error) {
+      res.status(500).json({error})
+    }
+   
+    // enviar mensaje de que salio correctamente
+    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+    
 
   }
 }
