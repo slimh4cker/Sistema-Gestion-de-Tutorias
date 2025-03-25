@@ -21,13 +21,14 @@
   },
   "homepage": "https://github.com/slimh4cker/Sistema-Gestion-de-Tutorias#readme",
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mysql2": "^3.14.0",
-    "sequelize": "^6.37.6",
-    "sequelize-cli": "^6.6.2"
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "ioredis": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+    "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": "14.x"
+  } 
 }
