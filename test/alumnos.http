@@ -25,13 +25,12 @@ Content-Type: application/json
 }
 
 ### Editar atributos del alumno
-GET http://localhost:1234/alumno/alumno
+PUT http://localhost:1234/alumno/alumno
 Content-Type: application/json
 {
     "nombre": "Juan Perez",
     "curso": "Ingenieria de Software",
     "telefono": "1234567890",
-    "matricula": "A01234567",
-    "email": "juanPerez@hotmail.com",
+    "matricula": "01234567",
     "password": "miPassword33"
 }
