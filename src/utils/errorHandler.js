@@ -1,0 +1,1 @@
+// Manejo estructurado de errores

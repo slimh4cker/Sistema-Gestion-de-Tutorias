@@ -1,29 +1,17 @@
-// routes/auth/administradores.js
 const express = require('express');
 const router = express.Router();
-const { body } = require('express-validator');
-const authController = require('../../controllers/authController');
-const validators = require('../../middlewares/validators');
-const authMiddleware = require('../../middlewares/auth');
+const { registroAdministrador, getSessionAdministrador } = require('../../controllers/authController');
+const { validarRegistroAdministrador } = require('../../middlewares/validators');
+const { verifyToken, requireRole } = require('../../middlewares/auth');
 
-// Registro
-router.post(
-  '/',
-  [
-    body('name').trim().notEmpty(),
-    body('num_employee').isNumeric(),
-    validators.validateEmail,
-    validators.validatePassword
-  ],
-  authController.registerAdministrador
-);
+// Registrar nuevo administrador
+router.post('/', validarRegistroAdministrador, registroAdministrador);
 
-// Obtener sesión
-router.get(
-  '/',
-  authMiddleware.verifyToken,
-  authMiddleware.requireRole('administrador'),
-  authController.getAdminSession
+// Obtener sesión del administrador (protegida)
+router.get('/', 
+  verifyToken, 
+  requireRole('administrador'), 
+  getSessionAdministrador
 );
 
 module.exports = router;
