@@ -1,17 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { registrarEstudiante, loginEstudiante } from '../controllers/auth/estudianteAuth.js';
+
 const router = express.Router();
-const { registroAlumno, getSessionAlumno } = require('../../controllers/authController');
-const { validarRegistroAlumno } = require('../../middlewares/validators');
-const { verifyToken, requireRole } = require('../../middlewares/auth');
 
-// Registrar nuevo alumno
-router.post('/', validarRegistroAlumno, registroAlumno);
+router.post('/registrar', registrarEstudiante);
+router.post('/login', loginEstudiante);
 
-// Obtener sesión del alumno (protegida)
-router.get('/', 
-  verifyToken, 
-  requireRole('alumno'), 
-  getSessionAlumno
-);
-
-module.exports = router;
+export default router;

@@ -1,46 +1,49 @@
 import { modelo_cuenta_estudiante } from "../src/models/AmazonRDS/Modelo_cuentas.js";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { registrarUsuario, iniciarSesion } from "../src/utils/authUtils.js";
 
 export const registrarEstudiante = async (req, res) => {
-    try {
-      const { nombre, email, password } = req.body;
-      const existe = await modelo_cuenta_estudiante.findOne({ where: { email } });
-      if (existe) return res.status(400).json({ error: 'Email ya registrado' });
-  
-      const estudiante = await modelo_cuenta_estudiante.create({ nombre, email, password });
-      const token = jwt.sign(
-        { id: estudiante.id, role: 'estudiante' },
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' }
-      );
-  
-      const { password: _, ...usuarioSeguro } = estudiante.get();
-      res.status(201).json({ token, usuario: usuarioSeguro });
-    } catch (error) {
-      res.status(500).json({ error: 'Error al registrar estudiante' });
-    }
-  };
-  
-  export const loginEstudiante = async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      const estudiante = await modelo_cuenta_estudiante.findOne({ where: { email } });
-  
-      if (!estudiante || !(await bcrypt.compare(password, estudiante.password))) {
-        return res.status(401).json({ error: 'Credenciales inválidas' });
-      }
-  
-      const token = jwt.sign(
-        { id: estudiante.id, role: 'estudiante' },
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' }
-      );
-  
-      const { password: _, ...usuarioSeguro } = estudiante.get();
-      res.json({ token, usuario: usuarioSeguro });
-    } catch (error) {
-      res.status(500).json({ error: 'Error en el login' });
-    }
-  };
-  
+  try {
+    const { nombre, email, password, matricula } = req.body;
+    
+    const resultado = await registrarUsuario(
+      modelo_cuenta_estudiante,
+      { nombre, email, password, matricula },
+      'estudiante'
+    );
+
+    res.status(201).json({
+      success: true,
+      token: resultado.token,
+      estudiante: resultado.usuario
+    });
+
+  } catch (error) {
+    res.status(error.code).json({
+      error: error.message
+    });
+  }
+};
+
+export const loginEstudiante = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    const resultado = await iniciarSesion(
+      modelo_cuenta_estudiante,
+      email,
+      password,
+      'estudiante'
+    );
+
+    res.json({
+      success: true,
+      token: resultado.token,
+      estudiante: resultado.usuario
+    });
+
+  } catch (error) {
+    res.status(error.code).json({
+      error: error.message
+    });
+  }
+};
