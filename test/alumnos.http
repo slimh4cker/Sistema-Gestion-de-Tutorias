@@ -28,10 +28,10 @@ Content-Type: application/json
 GET http://localhost:1234/alumno/alumno
 Content-Type: application/json
 {
-    "name": "Juan Perez",
-    "course": "Ingenieria de Software",
-    "telephone": "1234567890",
+    "nombre": "Juan Perez",
+    "curso": "Ingenieria de Software",
+    "telefono": "1234567890",
     "matricula": "A01234567",
     "email": "juanPerez@hotmail.com",
-    "password": "123456"
+    "password": "miPassword33"
 }
