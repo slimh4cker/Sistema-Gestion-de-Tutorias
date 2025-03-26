@@ -51,10 +51,17 @@ export class AlumnoControler {
       res.status(400).json({ error: JSON.parse(result.error.message) })
       return
     }
+
+    // obtener correo
+    const email = req.user.email
+    if (!email) {
+      res.status(400).json({ error: "No se ha encontrado el correo al momento de alterar el usuario" })
+      return
+    }
     
     // alterar datos
     try {
-      AlumnoModel.updateAlumno(datos)
+      AlumnoModel.updateAlumno(datos, email)
     } catch (error) {
       res.status(500).json({error})
     }
