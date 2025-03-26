@@ -1,5 +1,4 @@
 import express, { json } from 'express';
-import authRouter from './src/routers/auth/authRouter.js';
 
 
 export const createApp = () => {
@@ -10,7 +9,6 @@ export const createApp = () => {
   // Poner aqui middlewares
 
   // Enrutadores aqui
-  // app.use('/sesion', authRouter);
 
 
   //  configuracion de puerto
