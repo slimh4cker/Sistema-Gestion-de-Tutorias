@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-
+import authRouter from './src/routers/auth/authRouter.js';
 
 export const createApp = () => {
   const app = express();
@@ -9,7 +9,7 @@ export const createApp = () => {
   // Poner aqui middlewares
 
   // Enrutadores aqui
-
+  app.use( '/sesion', authRouter )
 
   //  configuracion de puerto
   const PORT = process.env.PORT || 1234; // puerto default 1234
