@@ -6,6 +6,7 @@
 ### Alumno
 GET http://localhost:1234/sesion/alumno 
 Content-Type: application/json
+
 {
     "email": "juanPerez@hotmail.com",
     "password": "myPassword33"
@@ -14,6 +15,7 @@ Content-Type: application/json
 ### Asesor
 GET http://localhost:1234/sesion/asesor    
 Content-Type: application/json
+
 {
     "email": "EmilioSanshez@hotmail.com",
     "password": "myPassword33"
@@ -22,6 +24,7 @@ Content-Type: application/json
 ### Administrador
 GET http://localhost:1234/sesion/administrador
 Content-Type: application/json
+
 {
     "email": "Maria@hotmail.com",
     "password": "myPassword33"
@@ -31,6 +34,7 @@ Content-Type: application/json
 ### Alumno
 POST http://localhost:1234/sesion/alumno 
 Content-Type: application/json
+
 {
     "nombre": "Juan Perez",
     "email": "juanPerez@hotmail.com",
@@ -40,6 +44,7 @@ Content-Type: application/json
 ### Asesor
 POST http://localhost:1234/sesion/asesor 
 Content-Type: application/json
+
 {
     "nombre": "Emilio Sanshez",
     "area_especializacion": "Ingenieria de Software",
@@ -51,6 +56,7 @@ Content-Type: application/json
 ### Admin
 POST http://localhost:1234/sesion/administrador 
 Content-Type: application/json
+
 {
     "nombre": "Maria Tomez",
     "email": "Maria@hotmail.com",
