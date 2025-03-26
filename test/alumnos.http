@@ -34,3 +34,5 @@ Content-Type: application/json
     "matricula": "01234567",
     "password": "miPassword33"
 }
+
+DELETE http://localhost:1234/alumno/alumno
