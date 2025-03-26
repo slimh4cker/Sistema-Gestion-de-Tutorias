@@ -64,4 +64,22 @@ export class AlumnoControler {
     
 
   }
+
+  static async deleteAlumno(req, res) {
+    // obtener correo
+    const correo = req.user.email
+    // TODO asegurarse de que este funcione con nuestra implementacion de JWT o cookies
+
+    // asegurarse de que el alumno exista
+    if (!AlumnoModel.getAlumnoByMail(correo)) {
+      res.status(404).json({ error: "No se ha encontrado el alumno" })
+      return
+    }
+
+    // borrar alumno
+    AlumnoModel.deleteAlumno(correo)
+
+    // enviar mensaje de que salio correctamente
+    res.status(200).json({message: "El alumno ha sido borrado correctamente"})
+  }
 }
