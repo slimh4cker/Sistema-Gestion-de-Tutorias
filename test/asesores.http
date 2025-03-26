@@ -1,0 +1,44 @@
+### APIs de referencia y prueba a utilizar en el proyecto utilizando la extensión REST Client de Visual Studio Code.
+## estas son las utilizadas por los Asesores desde su paguina.
+
+### Obtener datos de la cuenta del asesor
+GET http://localhost:1234/asesores/asesores
+
+### Agregar mensaje 
+## TODO
+
+### Agregar comentario respecto a una asesoria
+POST http://localhost:1234/solicitud
+Content-Type: application/json
+{
+    "id_solicitud": 1,
+    "comentario": "Comentario de prueba"
+}
+
+### Agregar solicitud
+POST http://localhost:1234/asesores/solicitud
+Content-Type: application/json
+{
+   
+}
+
+### editar datos del asesor
+PUT http://localhost:1234/asesores/asesores
+Content-Type: application/json
+{
+    "nombre": "Emilio Sanshez",
+    "area_especializacion": "Ingenieria de Software",
+    "email": "EmilioSanshez@hotmail.com",
+    "password": "myPassword33"
+    //"disponibilidad": "", !! por determinar su inclusion
+}
+
+PUT http://localhost:1234/asesores/solicitud
+Content-Type: application/json
+{
+   
+}
+
+### borrar cuenta del asesor
+DELETE http://localhost:1234/asesores/asesor
+

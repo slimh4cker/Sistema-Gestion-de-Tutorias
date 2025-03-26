@@ -8,7 +8,7 @@ GET http://localhost:1234/sesion/alumno
 Content-Type: application/json
 {
     "email": "juanPerez@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
 }
 
 ### Asesor
@@ -16,7 +16,7 @@ GET http://localhost:1234/sesion/asesor
 Content-Type: application/json
 {
     "email": "EmilioSanshez@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
 }
 
 ### Administrador
@@ -24,7 +24,7 @@ GET http://localhost:1234/sesion/administrador
 Content-Type: application/json
 {
     "email": "Maria@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
 }
 
 ## Para agregar una cuenta
@@ -32,32 +32,27 @@ Content-Type: application/json
 POST http://localhost:1234/sesion/alumno 
 Content-Type: application/json
 {
-    "name": "Juan Perez",
-    "course": "Ingenieria de Software",
-    "telephone": "1234567890",
-    "matricula": "A01234567",
+    "nombre": "Juan Perez",
     "email": "juanPerez@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
 }
 
 ### Asesor
 POST http://localhost:1234/sesion/asesor 
 Content-Type: application/json
 {
-    "name": "Emilio Sanshez",
-    "speciality": "Ingenieria de Software",
-    "telephone": "1234567890",
+    "nombre": "Emilio Sanshez",
+    "area_especializacion": "Ingenieria de Software",
     "email": "EmilioSanshez@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
+    //"disponibilidad": "", !! por determinar su inclusion
 }
 
 ### Admin
 POST http://localhost:1234/sesion/administrador 
 Content-Type: application/json
 {
-    "name": "Maria Tomez",
-    "telephone": "1234567890",
-    "num_employee": "43543253",
+    "nombre": "Maria Tomez",
     "email": "Maria@hotmail.com",
-    "password": "123456"
+    "password": "myPassword33"
 }
