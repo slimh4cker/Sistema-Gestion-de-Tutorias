@@ -43,6 +43,32 @@ export class AdminControler {
     res.status(200).json({ message: "Administrador creado correctamente"})
   }
 
+  static async updateAdmin(req,res) {
+    const email = obtenerMailDeReq(req)
+    const datos = req.body
+
+    //verificar que este correcto
+    if (!validarParcialAdmin(email)){
+      res.status(400).json({error:"datos incorredctos del administrador"})
+    }
+
+    //verificar que si hay un correo se corrobore que no sea uno que ya exista
+    if (datos.email){
+      if (!AdminModel.getAdminByMail(datos.email)){
+        res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
+      }
+    }
+    
+    //alterar datos
+    try {
+      AdminModel.updateAdmin(datos, email)
+    } catch(error){
+      res.status(500).json({error})
+    }
+
+    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+  }
+
   static async deleteAdmin(req,res) {
     const correo = obtenerMailDeReq(req)
 
