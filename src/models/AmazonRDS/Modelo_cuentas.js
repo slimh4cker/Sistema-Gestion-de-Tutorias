@@ -24,13 +24,7 @@ const modelo_cuenta_administrador = sequelize.define('modelo_cuenta_administrado
         type: DataTypes.STRING(255),
         allowNull: false,
         defaultValue: null,
-    },
-    fecha_registro: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        onUpdate: sequelize.literal('CURRENT_TIMESTAMP'),
-    },
+    }
 },
     {tableName: 'administradores',
     timestamps: false,
@@ -71,12 +65,6 @@ const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesores',{
         type: DataTypes.STRING(255),
         allowNull: true,
         defaultValue: null,
-    },
-    fecha_registro: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        onUpdate: sequelize.literal('CURRENT_TIMESTAMP'),
     }
 },
 { tableName: 'asesores',
@@ -109,13 +97,7 @@ const modelo_cuenta_estudiante = sequelize.define('modelo_cuenta_estudiante', {
         type: DataTypes.STRING(255),
         allowNull: false,
         defaultValue: null,
-    },
-    fecha_registro: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        onUpdate: sequelize.literal('CURRENT_TIMESTAMP'),
-    },
+    }
 },
     { tableName: 'estudiantes',
         timestamps: false,
