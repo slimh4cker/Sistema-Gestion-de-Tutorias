@@ -5,7 +5,7 @@ import { validarAlumno, validarParcialAlumno } from "../schemas/alumno.js";
 export class AlumnoControler {
   static async getAlumnoByMail(req, res) {
     // Recuperar correo
-    const correo = req.user.email 
+    const correo = obtenerMailDeReq(req)
     // TODO, asegurarse de que este funcione con nuestra implementacion de JWT o cookies
 
     // Buscar en la base de datos los datos de el alumno segun este correo
@@ -76,7 +76,7 @@ export class AlumnoControler {
 
   static async deleteAlumno(req, res) {
     // obtener correo
-    const correo = req.user.email
+    const correo = obtenerMailDeReq(req)
     // TODO asegurarse de que este funcione con nuestra implementacion de JWT o cookies
 
     // asegurarse de que el alumno exista
@@ -90,5 +90,10 @@ export class AlumnoControler {
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El alumno ha sido borrado correctamente"})
+  }
+
+
+  static async obtenerMailDeReq(req){
+    return req.user.email
   }
 }
