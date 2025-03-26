@@ -1,5 +1,5 @@
-import { modelo_cuenta_estudiante } from "../src/models/AmazonRDS/Modelo_cuentas.js";
-import { registrarUsuario, iniciarSesion } from "../src/utils/authUtils.js";
+import { modelo_cuenta_estudiante } from "../../models/AmazonRDS/Modelo_cuentas.js";
+import { registrarUsuario, iniciarSesion } from "../../utils/authUtils.js";
 
 export const registrarEstudiante = async (req, res) => {
   try {
