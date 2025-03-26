@@ -1,5 +1,5 @@
 import { AsesorModel } from "../models/AsesorModel.js";
-import { validarAsesor, validarParcialAsesor } from "../schemas/asesor.js";
+import { validarAsesor, validarParcialAsesor } from "../schemas/users/asesor.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los asesores.
 export class AsesorControler {
