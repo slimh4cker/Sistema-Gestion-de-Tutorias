@@ -1,6 +1,6 @@
 import z from 'zod'
 
-const alumnoSchema = z.object({
+const asesorSchema = z.object({
   nombre: z.string().min(2).max(100),
   email: z.string().email().max(150),
   password: z.string().min(8).max(255)
@@ -16,12 +16,12 @@ const alumnoSchema = z.object({
 
 // funcion para validar alumno si queremos que CUENTE CON TODOS LOS DATOS
 // retorna true o false
-export function validarAlumno(alumno) {
-  return alumnoSchema.safeParse(alumno)
+export function validarAsesor(asesor) {
+  return asesorSchema.safeParse(asesor)
 }
 
 // funcion para validar alumno si NO NOS IMPORTA que cuente con todos los datos
 // retorna true o false
-export function validarParcialAlumno(alumno){
-  return alumnoSchema.partial().safeParse(alumno) 
+export function validarParcialAlumno(asesor){
+  return asesorSchema.partial().safeParse(asesor) 
 }
