@@ -1,16 +1,10 @@
 import z from 'zod'
+import { nombreAtributo, emailAtributo, passwordAtributo } from 'commons'
 
 const alumnoSchema = z.object({
-  nombre: z.string().min(2).max(100),
-  email: z.string().email().maxLength(150),
-  password: z.string().min(8).max(255)
-  .refine(password => {
-    // Al menos una mayúscula
-    const hasUpperCase = /[A-Z]/.test(password);
-    // Al menos un número
-    const hasNumber = /[0-9]/.test(password);
-    return hasUpperCase && hasNumber;
-  }),
+  nombre: nombreAtributo,
+  email: emailAtributo,
+  password: passwordAtributo, 
 })
 
 // funcion para validar alumno si queremos que CUENTE CON TODOS LOS DATOS
