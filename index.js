@@ -1,18 +1,19 @@
-import express, { json } from 'express';
-
+import express from 'express';
+import routerAsesor from './src/routers/auth/RouterAsesor.js'; // Ruta al archivo RouterAsesor.js
 
 export const createApp = () => {
   const app = express();
 
-  app.disable("x-powered-by"); //Ocultar la cabecera de express
+  app.disable("x-powered-by");
 
-  // Poner aqui middlewares
+  // Middlewares aquí
+  app.use(express.json()); // Asegúrate de tener esta línea para procesar JSON en las solicitudes
 
-  // Enrutadores aqui
+  // Enrutadores aquí
+  app.use('/api', routerAsesor);
 
-
-  //  configuracion de puerto
-  const PORT = process.env.PORT || 1234; // puerto default 1234
+  // Configuración de puerto
+  const PORT = process.env.PORT || 1234; // Puerto default 1234
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
