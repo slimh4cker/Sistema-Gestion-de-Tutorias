@@ -1,5 +1,5 @@
 import express from 'express';
-import routerAsesor from './src/routers/RouterAsesor.js'; // Ruta al archivo RouterAsesor.js
+import routerAsesor from './src/routers/auth/RouterAsesor.js'; // Ruta al archivo RouterAsesor.js
 
 export const createApp = () => {
   const app = express();
