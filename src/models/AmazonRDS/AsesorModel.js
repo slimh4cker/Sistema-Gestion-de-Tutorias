@@ -7,7 +7,7 @@ export class AsesorModel{
     static async getAsesorByMail(datos) {
         const correo_asesor = await modelo_cuenta_asesor.findOne({
             where: {
-                email: correo // unicamente se necesita buscar por correo
+                email: datos.email // unicamente se necesita buscar por correo
             },
         })
         return JSON.stringify(correo_asesor, null,1) // Retorna un JSON con los datos del alumno

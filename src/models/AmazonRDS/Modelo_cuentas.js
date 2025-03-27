@@ -38,7 +38,7 @@ const modelo_cuenta_administrador = sequelize.define('modelo_cuenta_administrado
 });
 
 // Definición del modelo de la tabla 'asesores'
-const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesores',{
+const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesor',{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
