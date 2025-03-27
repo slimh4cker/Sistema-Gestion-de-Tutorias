@@ -1,5 +1,8 @@
 import {DataTypes, Sequelize, TEXT} from 'sequelize'
 import {sequelize} from '../../utils/database_connection.js'
+import { AlumnoModel } from './AlumnoModel.js'
+import { AsesorModel } from './AsesorModel.js'
+import { modelo_cuenta_asesor } from './Modelo_cuentas.js'
 
 // Definición del modelo de la tabla contenido_apoyo
 
@@ -10,6 +13,15 @@ const modelo_contenido_apoyo = sequelize.define('modelo_contenido_apoyo',{
         allowNull: false,
         defaultValue: false,
         autoIncrement: true
+    },
+    asesor_id : {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        references: {
+            model: AsesorModel,
+            key: 'id'
+        }
+        
     },
 
     titulo: {
@@ -74,6 +86,7 @@ const modelo_encuesta = sequelize.define('modelo_encuesta', {
     updatedAt: false
 }
 )
+
 
 export{modelo_encuesta}
 export{modelo_contenido_apoyo}
