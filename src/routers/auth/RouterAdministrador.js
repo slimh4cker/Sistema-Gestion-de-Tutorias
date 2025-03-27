@@ -1,17 +1,19 @@
-const express = require('express');
+import express from 'express';
+import { AdminControler } from '../src/controllers/ControlerAdministrador';
+import { verificarToken, requiereRol } from '../src/middlewares/auth.js';
+
 const router = express.Router();
-const { registroAdministrador, getSessionAdministrador } = require('../../controllers/authController');
-const { validarRegistroAdministrador } = require('../../middlewares/validators');
-const { verifyToken, requireRole } = require('../../middlewares/auth');
 
-// Registrar nuevo administrador
-router.post('/', validarRegistroAdministrador, registroAdministrador);
+// Obtener los datos del administrador por correo (requiere autenticación)
+router.get('/admin', verificarToken, requiereRol('administrador'), AdminControler.getAdminByMail);
 
-// Obtener sesión del administrador (protegida)
-router.get('/', 
-  verifyToken, 
-  requireRole('administrador'), 
-  getSessionAdministrador
-);
+// Crear un nuevo administrador (requiere autenticación y rol de administrador)
+router.post('/admin', verificarToken, requiereRol('administrador'), AdminControler.createAdmin);
 
-module.exports = router;
+// Actualizar datos de un administrador (requiere autenticación y rol de administrador)
+router.put('/admin', verificarToken, requiereRol('administrador'), AdminControler.updateAdmin);
+
+// Eliminar un administrador (requiere autenticación y rol de administrador)
+router.delete('/admin', verificarToken, requiereRol('administrador'), AdminControler.deleteAdmin);
+
+export default router;
