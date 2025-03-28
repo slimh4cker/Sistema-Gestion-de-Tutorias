@@ -23,8 +23,8 @@ export class SolicitudControler {
   static async getSolicitudesSinAsignar(req, res) {
     try {
       const datos = SolicitudModel.getSolicitudesSinAsignar()
-    } catch (s) {
-      res.status(500).json({ error: "Error interno al buscar solicitudes del alumno" })
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar solicitudes sin asignar" })
       return
     }
     
