@@ -14,7 +14,10 @@ GET http://localhost:1234/alumno/solicitud?estado=no_aceptado
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
 {
-
+    "modalidad": "en_linea",
+    "tema": "calculo integral",
+    "fecha_limite": "13-4-2025",
+    "observaciones": "ninguna",
 }
 
 ### Respuesta del alumno segun la encuesta TODO
