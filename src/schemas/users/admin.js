@@ -10,11 +10,13 @@ const adminSchema = z.object({
 // funcion para validar admin si queremos que CUENTE CON TODOS LOS DATOS
 // retorna true o false
 export async function validarAdmin(admin) {
-  return adminSchema.safeParse(admin)
+  const resultado = adminSchema.safeParse(admin)
+  return resultado.success;
 }
 
 // funcion para validar admin si NO NOS IMPORTA que cuente con todos los datos
 // retorna true o false
 export async function validarParcialAdmin(admin){
-  return alumnoSchema.partial().safeParse(admin)
+  const resultado = alumnoSchema.partial().safeParse(admin)
+  return resultado.success;
 }

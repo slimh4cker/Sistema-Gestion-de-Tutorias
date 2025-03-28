@@ -11,11 +11,13 @@ const asesorSchema = z.object({
 // funcion para validar alumno si queremos que CUENTE CON TODOS LOS DATOS
 // retorna true o false
 export function validarAsesor(asesor) {
-  return asesorSchema.safeParse(asesor)
+ const resultado =  asesorSchema.safeParse(asesor)
+ return resultado.success;
 }
 
 // funcion para validar alumno si NO NOS IMPORTA que cuente con todos los datos
 // retorna true o false
 export function validarParcialAlumno(asesor){
-  return asesorSchema.partial().safeParse(asesor) 
+  const resultado = asesorSchema.partial().safeParse(asesor) 
+  return resultado.success;
 }
