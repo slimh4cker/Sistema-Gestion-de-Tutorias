@@ -3,6 +3,7 @@ import { AlumnoModel } from "../src/models/AmazonRDS/AlumnoModel.js";
 import { ContenidoModel } from "../src/models/AmazonRDS/ContenidoModel.js";
 import { ReportesModel } from "../src/models/AmazonRDS/ReportesModel.js";
 import { SolicitudModel } from "../src/models/AmazonRDS/SolicitudModel.js";
+import { AsesoriaModel } from "../src/models/AmazonRDS/AsesoriaModel.js";
 
 class PruebasAlumnos{
     // Obtiene un alumno por su correo
@@ -82,11 +83,23 @@ class PruebasReportes {
 class PruebasSolicitudes {
     static async obtener_solicitud(datos){
         const solicitud = SolicitudModel.buscarSolicitudByID(datos.estudiante_id)
+        console.log(solicitud)
     }
 
     static async crear_solicitud(datos){
         const solicitud = await SolicitudModel.agregarSolicitud(datos)
         console.log(solicitud)
+    }
+}
+
+class PruebasAsesorias {
+    static async crear_asesoria(datos){
+        const asesoria = await AsesoriaModel.crearAsesoria(datos)
+        console.log(asesoria)
+    }
+    static async obtener_asesoria(email){
+        const asesoria = await AsesoriaModel.getAseoriaByAlumnoEmail(email)
+        console.log(asesoria)
     }
 }
 
@@ -168,6 +181,16 @@ class PruebasSolicitudes {
 /* PruebasReportes.buscar_reporte(3) */
 
 /* PruebasSolicitudes.crear_solicitud({
+"estudiante_id": '2',
+    "asesor_id": '2',
+    "tema": "Cálculo Multivariable",
+    "observaciones": null,
+    "fecha_limite": "2025-10-18",
+    "modalidad": "presencial",
+    "nivel_urgencia": "baja"
+}) */
+
+/* PruebasSolicitudes.obtener_solicitud({
     "estudiante_id": 1,
     "asesor_id": 2,
     "tema": "Ecuaciones Diferenciales",
@@ -178,13 +201,18 @@ class PruebasSolicitudes {
     "estado": "activo"
 }) */
 
-PruebasSolicitudes.obtener_solicitud({
-    "estudiante_id": 1,
-    "asesor_id": 2,
-    "tema": "Ecuaciones Diferenciales",
-    "observaciones": "ninguna",
-    'fecha_limite': "2025-8-13",
-    "modalidad": "presencial",
-    "nivel_urgencia": "baja",
-    "estado": "activo"
-})
+/*     PruebasAsesorias.crear_asesoria({
+        solicitud_id: 1,
+        estado: "asignada",
+        fecha_creacion: "2025-05-24",
+        fecha_atencion: "2025-06-01",
+        hora_inicial: '12:00:00',
+        hora_final: '13:07:01',
+        horas_total: 2.3,
+        porcentaje_cumplimiento: 78.00,
+        require_sesiones: 1
+    }) */
+
+    PruebasAsesorias.obtener_asesoria({
+        email: 'luis@estudiante.com'
+    })

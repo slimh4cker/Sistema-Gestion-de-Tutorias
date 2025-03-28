@@ -31,7 +31,5 @@ export class SolicitudModel{
 
     static async agregarSolicitud(datos){
             return await modelo_solicitudes.create(datos)
-            
-
     }
 }

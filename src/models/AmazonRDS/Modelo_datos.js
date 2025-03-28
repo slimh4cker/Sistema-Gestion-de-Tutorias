@@ -2,6 +2,69 @@ import {DataTypes, INTEGER, Sequelize} from 'sequelize'
 import {sequelize} from '../../utils/database_connection.js'
 import { modelo_cuenta_asesor, modelo_cuenta_estudiante, modelo_cuenta_administrador } from './Modelo_cuentas.js'
 
+
+const modelo_asesorias = sequelize.define('modelo_asesorias',{
+    id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        primaryKey: true,
+        defaultValue: false,
+        autoIncrement: true
+    },
+    solicitud_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: null
+    },
+    estado: {
+        type: DataTypes.ENUM('pendiente', 'asignada', 'en _proceso', 'terminada', 'aplazada'),
+        allowNull: true,
+        defaultValue: null
+    },
+    fecha_creacion: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    fecha_atencion: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    hora_inicial: {
+        type: DataTypes.TIME,
+        allowNull: true,
+        defaultValue: null
+    },
+    hora_final: {
+        type: DataTypes.TIME,
+        allowNull: true,
+        defaultValue: null
+    },
+    total_horas: {
+        type: DataTypes.DECIMAL(5,2),
+        allowNull: true,
+        defaultValue: null
+    },
+    porcentaje_cumplimiento: {
+        type: DataTypes.DECIMAL(5,2),
+        allowNull: true,
+        defaultValue: null
+    },
+    requiere_sesiones: {
+        type: DataTypes.TINYINT(1),
+        allowNull: true,
+        defaultValue: null
+    }
+
+},
+{
+    tableName: 'asesorias',
+    createdAt: false,
+    updatedAt: false
+}
+)
+
 // Definición de la tabla solicitudes
 const modelo_solicitudes = sequelize.define('modelo_solicitudes',{
     id: {
@@ -57,7 +120,7 @@ const modelo_solicitudes = sequelize.define('modelo_solicitudes',{
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull: true,
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     },
 },
 {
@@ -65,6 +128,8 @@ const modelo_solicitudes = sequelize.define('modelo_solicitudes',{
     createdAt: false,
     updatedAt: false
 })
+modelo_solicitudes.hasMany(modelo_asesorias, {foreignKey: 'solicitud_id'})
+modelo_asesorias.belongsTo(modelo_solicitudes, {foreignKey: 'solicitud_id'})
 
 // Asociación uno a muchos entre Solicitudes y Asesores
 modelo_cuenta_asesor.hasMany(modelo_solicitudes, {foreignKey: 'asesor_id'})
@@ -261,7 +326,7 @@ const modelo_reportes = sequelize.define('modelo_reportes',{
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull: true,
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     }
 },
 {
@@ -270,67 +335,7 @@ const modelo_reportes = sequelize.define('modelo_reportes',{
     updatedAt: false
 })
 
-const modelo_asesorias = sequelize.define('modelo_asesorias',{
-    id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        defaultValue: false,
-        autoIncrement: true
-    },
-    solicitud_id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        defaultValue: null
-    },
-    estado: {
-        type: DataTypes.ENUM('pendiente', 'asignada', 'en _proceso', 'terminada', 'aplazada'),
-        allowNull: true,
-        defaultValue: null
-    },
-    fecha_creacion: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null
-    },
-    fecha_atencion: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null
-    },
-    hora_inicial: {
-        type: DataTypes.TIME,
-        allowNull: true,
-        defaultValue: null
-    },
-    hora_final: {
-        type: DataTypes.TIME,
-        allowNull: true,
-        defaultValue: null
-    },
-    total_horas: {
-        type: DataTypes.DECIMAL(5,2),
-        allowNull: true,
-        defaultValue: null
-    },
-    porcentaje_cumplimiento: {
-        type: DataTypes.DECIMAL(5,2),
-        allowNull: true,
-        defaultValue: null
-    },
-    requiere_sesiones: {
-        type: DataTypes.TINYINT(1),
-        allowNull: true,
-        defaultValue: null
-    }
 
-},
-{
-    tableName: 'asesorias',
-    createdAt: false,
-    updatedAt: false
-}
-)
 
 // Relación muchos a muchos en la tabla asesorias y reportes
 const modelo_asesorias_reportes = sequelize.define('modelo_asesorias_reportes',{
@@ -402,7 +407,7 @@ const modelo_contenido_apoyo = sequelize.define('modelo_contenido_apoyo',{
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull: true,
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     }
 },{
     tableName: 'contenido_apoyo',
@@ -440,7 +445,7 @@ const modelo_encuesta = sequelize.define('modelo_encuesta', {
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull: true, 
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     }
 },
 {
@@ -471,7 +476,7 @@ const modelo_preguntas_encuestas = sequelize.define('modelo_preguntas_encuestas'
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull: true,
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     }
 },
 {
@@ -526,7 +531,7 @@ const modelo_calendario = sequelize.define('modelo_calendario', {
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
         allowNull:false,
-        defaultValue: ['activo']
+        defaultValue: ('activo')
     }
 },
 {
