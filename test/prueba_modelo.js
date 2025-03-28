@@ -78,11 +78,12 @@ class PruebasReportes {
     }
 }
 
-/* PruebasAlumnos.obtener_alumno({"nombre": "Juan Perez",
-    "email": "luis@estudiante.com",
+PruebasAlumnos.obtener_alumno({"nombre": "Juan Perez",
+    "email": "jorge.sanchez@example.com",
     "telefono": "1234567890",
     "matricula": "01234567",
-    "password": "miPassword33"}); */
+    "password": "miPassword33",
+    'estado': 'activo'});
 
 /* PruebasAlumnos.agregar_alumno({
     "nombre": "Brandon Vincenso",
@@ -96,12 +97,12 @@ class PruebasReportes {
 
 /* PruebasAlumnos.borrar_alumno({
     "nombre": "Luis Rámirez",
-    "email": "luis@estudiante.com"
+    "email": "jorge.sanchez@example.com",
 }) */
 
-PruebasAsesores.obtener_asesor({
+/* PruebasAsesores.obtener_asesor({
   "email": "carlos.ramirez@example.com",
-})
+}) */
 
  /*  PruebasAsesores.agregar_asesor({
     "id": 5,
