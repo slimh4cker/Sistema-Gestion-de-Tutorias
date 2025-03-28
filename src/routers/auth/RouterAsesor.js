@@ -1,17 +1,19 @@
-const express = require('express');
+import express from 'express';
+import { AsesorControler } from '../../controller/ControlerAsesor.js';
+import { verificarToken, requiereRol } from '../middlewares/auth.js';
+
 const router = express.Router();
-const { registroAsesor, getSessionAsesor } = require('../../controllers/authController');
-const { validarRegistroAsesor } = require('../../middlewares/validators');
-const { verifyToken, requireRole } = require('../../middlewares/auth');
 
-// Registrar nuevo asesor
-router.post('/', validarRegistroAsesor, registroAsesor);
+// Obtener los datos del asesor por correo (requiere autenticación)
+router.get('/asesor', verificarToken, AsesorControler.getAsesorByMail);
 
-// Obtener sesión del asesor (protegida)
-router.get('/', 
-  verifyToken, 
-  requireRole('asesor'), 
-  getSessionAsesor
-);
+// Crear un nuevo asesor (requiere autenticación y rol de administrador)
+router.post('/asesor', verificarToken, requiereRol('administrador'), AsesorControler.createAsesor);
 
-module.exports = router;
+// Actualizar los datos del asesor (requiere autenticación)
+router.put('/asesor', verificarToken, AsesorControler.updateAsesor);
+
+// Eliminar un asesor (requiere autenticación y rol de administrador)
+router.delete('/asesor', verificarToken, requiereRol('administrador'), AsesorControler.deleteAsesor);
+
+export default routerAsesor;

@@ -24,6 +24,11 @@ const modelo_cuenta_administrador = sequelize.define('modelo_cuenta_administrado
         type: DataTypes.STRING(255),
         allowNull: false,
         defaultValue: null,
+    },
+    estado: {
+        type: DataTypes.ENUM("activo", "inactivo"),
+        allowNull: true,
+        defaultValue: 'activo'
     }
 },
     {tableName: 'administradores',
@@ -33,7 +38,7 @@ const modelo_cuenta_administrador = sequelize.define('modelo_cuenta_administrado
 });
 
 // Definición del modelo de la tabla 'asesores'
-const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesores',{
+const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesor',{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -65,6 +70,11 @@ const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesores',{
         type: DataTypes.STRING(255),
         allowNull: true,
         defaultValue: null,
+    },
+    estado: {
+        type: DataTypes.ENUM('activo', 'inactivo'),
+        allowNull: true,
+        defaultValue: 'activo'
     }
 },
 { tableName: 'asesores',
@@ -97,6 +107,11 @@ const modelo_cuenta_estudiante = sequelize.define('modelo_cuenta_estudiante', {
         type: DataTypes.STRING(255),
         allowNull: false,
         defaultValue: null,
+    },
+    estado: {
+        type: DataTypes.ENUM('activo', 'inactivo'),
+        allowNull: true,
+        defaultValue: 'activo'
     }
 },
     { tableName: 'estudiantes',

@@ -1,19 +1,28 @@
-import express, { json } from 'express';
-import authRouter from './src/routers/auth/authRouter.js';
+import express from 'express';
+import { authRouter } from './src/routers/auth/authRouter.js';
 
 export const createApp = () => {
   const app = express();
 
-  app.disable("x-powered-by"); //Ocultar la cabecera de express
+  app.disable("x-powered-by");
 
-  // Poner aqui middlewares
+  // Middlewares
+  app.use(express.json());
 
-  // Enrutadores aqui
-  app.use( '/sesion', authRouter )
+  // Enrutadores
+  app.use('/auth', authRouter);
 
-  //  configuracion de puerto
-  const PORT = process.env.PORT || 1234; // puerto default 1234
+  // Ruta de prueba básica
+  app.get('/', (req, res) => {
+    res.send('¡API funcionando correctamente!');
+  });
 
+  // Manejo de rutas no existentes (404)
+  app.use((req, res) => {
+    res.status(404).json({ error: "Ruta no encontrada" });
+  });
+
+  const PORT = process.env.PORT || 1234;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

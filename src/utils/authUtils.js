@@ -50,8 +50,10 @@ export const iniciarSesion = async (modelo, email, password, rol) => {
       throw { code: 401, message: 'Credenciales inválidas' };
     }
 
+    // Generar token
     const token = generarToken(usuario.id, rol);
 
+    // Excluir campos sensibles
     const usuarioSafe = excluirCampos(usuario.get(), ['password']);
 
     return { usuario: usuarioSafe, token };
