@@ -2,6 +2,7 @@ import { AsesorModel } from "../src/models/AmazonRDS/AsesorModel.js";
 import { AlumnoModel } from "../src/models/AmazonRDS/AlumnoModel.js";
 import { ContenidoModel } from "../src/models/AmazonRDS/ContenidoModel.js";
 import { ReportesModel } from "../src/models/AmazonRDS/ReportesModel.js";
+import { SolicitudModel } from "../src/models/AmazonRDS/SolicitudModel.js";
 
 class PruebasAlumnos{
     // Obtiene un alumno por su correo
@@ -78,12 +79,23 @@ class PruebasReportes {
     }
 }
 
-PruebasAlumnos.obtener_alumno({"nombre": "Juan Perez",
+class PruebasSolicitudes {
+    static async obtener_solicitud(datos){
+        const solicitud = SolicitudModel.buscarSolicitudByID(datos.estudiante_id)
+    }
+
+    static async crear_solicitud(datos){
+        const solicitud = await SolicitudModel.agregarSolicitud(datos)
+        console.log(solicitud)
+    }
+}
+
+/* PruebasAlumnos.obtener_alumno({"nombre": "Juan Perez",
     "email": "jorge.sanchez@example.com",
     "telefono": "1234567890",
     "matricula": "01234567",
     "password": "miPassword33",
-    'estado': 'activo'});
+    'estado': 'activo'}); */
 
 /* PruebasAlumnos.agregar_alumno({
     "nombre": "Brandon Vincenso",
@@ -154,3 +166,25 @@ PruebasAlumnos.obtener_alumno({"nombre": "Juan Perez",
 
 
 /* PruebasReportes.buscar_reporte(3) */
+
+/* PruebasSolicitudes.crear_solicitud({
+    "estudiante_id": 1,
+    "asesor_id": 2,
+    "tema": "Ecuaciones Diferenciales",
+    "observaciones": "ninguna",
+    'fecha_limite': "2025-8-13",
+    "modalidad": "presencial",
+    "nivel_urgencia": "baja",
+    "estado": "activo"
+}) */
+
+PruebasSolicitudes.obtener_solicitud({
+    "estudiante_id": 1,
+    "asesor_id": 2,
+    "tema": "Ecuaciones Diferenciales",
+    "observaciones": "ninguna",
+    'fecha_limite': "2025-8-13",
+    "modalidad": "presencial",
+    "nivel_urgencia": "baja",
+    "estado": "activo"
+})
