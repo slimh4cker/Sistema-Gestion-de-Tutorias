@@ -7,10 +7,11 @@ export class AlumnoModel{
     static async getAlumnoByMail(email) {
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
             where: {
-                email: email // unicamente se necesita buscar por correo
+                email: email,// unicamente se necesita buscar por correo
+                estado: 'activo' // y estado se igual a activo
             }
         })
-        return JSON.stringify(correo_alumno, null,1) // Retorna un JSON con los datos del alumno
+        return JSON.stringify(correo_alumno, null, 1) // Retorna un JSON con los datos del alumno
     }
 
     static async createAlumno(datos) {
