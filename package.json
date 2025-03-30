@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^2.0.7"
   },
   "engines": {
