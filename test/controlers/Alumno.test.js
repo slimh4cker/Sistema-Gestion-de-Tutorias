@@ -1,7 +1,7 @@
 // pruebas de los metodos de alumno
 // Import de los controlers
 import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
-// Import de los controladores
+import { jest } from '@jest/globals';
 
 
 // Mock de req y res de Express

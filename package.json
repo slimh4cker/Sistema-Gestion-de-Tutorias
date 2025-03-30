@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "type": "module",
+  "jest": {
+    "transform": {}
+  },
   "bugs": {
     "url": "https://github.com/slimh4cker/Sistema-Gestion-de-Tutorias/issues"
   },
