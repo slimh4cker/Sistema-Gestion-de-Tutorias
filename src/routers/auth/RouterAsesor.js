@@ -16,4 +16,4 @@ router.put('/asesor', verificarToken, AsesorControler.updateAsesor);
 // Eliminar un asesor (requiere autenticación y rol de administrador)
 router.delete('/asesor', verificarToken, requiereRol('administrador'), AsesorControler.deleteAsesor);
 
-export default routerAsesor;
+export default router;

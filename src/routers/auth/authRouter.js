@@ -4,7 +4,7 @@ import alumnoRouter from './RouterAlumno.js';
 import asesorRouter from './RouterAsesor.js';
 import administradorRouter from './RouterAdministrador.js';
 
-const authRouter = express.Router();
+export const authRouter = express.Router();
 
 // Middleware para todas las rutas /sesion
 authRouter.use((req, res, next) => {
