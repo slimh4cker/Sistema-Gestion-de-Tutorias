@@ -1,6 +1,6 @@
 import express from 'express';
-import { AlumnoControler } from '../controllers/ControlerAlumno';
-import { verificarToken, requiereRol } from '../src/middlewares/auth';
+import { AlumnoControler } from '../../controller/ControlerAlumno.js';
+import { verificarToken, requiereRol } from '../../../src/middlewares/auth.js';
 
 const router = express.Router();
 
