@@ -40,7 +40,7 @@ export class AdminControler {
     }
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Administrador creado correctamente"})
+    res.status(201).json({ message: "Administrador creado correctamente"})
   }
 
   static async updateAdmin(req,res) {

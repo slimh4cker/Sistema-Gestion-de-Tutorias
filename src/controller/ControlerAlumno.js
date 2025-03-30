@@ -39,7 +39,7 @@ export class AlumnoControler {
     AlumnoModel.createAlumno(req.body)
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Alumno creado correctamente" })
+    res.status(201).json({ message: "Alumno creado correctamente" })
 
   }
 

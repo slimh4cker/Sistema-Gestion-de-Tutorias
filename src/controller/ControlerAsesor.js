@@ -38,7 +38,7 @@ export class AsesorControler {
     AsesorModel.createAsesor(req.body)
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Asesor creado correctamente" })
+    res.status(201).json({ message: "Asesor creado correctamente" })
 
   }
 
