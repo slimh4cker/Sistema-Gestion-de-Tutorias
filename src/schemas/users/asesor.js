@@ -1,5 +1,5 @@
 import z from 'zod'
-import { nombreAtributo, emailAtributo, passwordAtributo } from 'commons'
+import { nombreAtributo, emailAtributo, passwordAtributo } from './commons.js'
 
 const asesorSchema = z.object({
   nombre: nombreAtributo,
@@ -17,7 +17,7 @@ export function validarAsesor(asesor) {
 
 // funcion para validar alumno si NO NOS IMPORTA que cuente con todos los datos
 // retorna true o false
-export function validarParcialAlumno(asesor){
+export function validarParcialAsesor(asesor){
   const resultado = asesorSchema.partial().safeParse(asesor) 
   return resultado.success;
 }

@@ -1,5 +1,5 @@
 import z from 'zod'
-import { nombreAtributo, emailAtributo, passwordAtributo } from 'commons'
+import { nombreAtributo, emailAtributo, passwordAtributo } from './commons.js'
 
 const alumnoSchema = z.object({
   nombre: nombreAtributo,
