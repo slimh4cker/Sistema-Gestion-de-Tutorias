@@ -1,4 +1,4 @@
-import { AlumnoModel } from "../models/AlumnoModel.js";
+import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
