@@ -33,7 +33,7 @@ describe('validacion de esquemas de usuario', () => {
     it('probando alumo con contrasenia invalida ', () => {
       const alumno = {
         nombre: "Juan Perez",
-        email: "peres@mail",
+        email: "peres@mail.com",
         password: "pas"
       }
       
@@ -42,14 +42,62 @@ describe('validacion de esquemas de usuario', () => {
     })
 
     it('probando validacion parcial sin email', () => {
-      alumno = {
+      const alumno = {
         nombre: "Juan Perez",
         password: "Password123!"
       }
       
-      resultado = validarAlumnoParcial(alumno)
+      const resultado = validarAlumnoParcial(alumno)
       expect(resultado).toBe(true)
     })
+    
+    describe('Schema de asesor', () => {
+      it('probando asesor con todos los datos correctos', () => {
+        const asesor = {
+          nombre: "Ana Lucia",
+          email: "analucia@hotmail.com",
+          password: "Password123!",
+          area_especializacion: "Matematica"
+        }
+
+        const resultado = validarAsesor(asesor)
+        expect(resultado).toBe(true)
+      })
+
+      it('probando asesor sin email', () => {
+        const asesor = {
+          nombre: "Ana Lucia",
+          password: "Password123!",
+          area_especializacion: "Matematica"
+        }
+
+        const resultado = validarAsesor(asesor)
+        expect(resultado).toBe(false)
+      })
+
+      it('probando asesor con correo equivocado', () => {
+        const asesor = {
+          nombre: "Ana Lucia",
+          email: "analucia@hotmail",
+          password: "Password123!",
+          area_especializacion: "Matematica"
+        }
+        const resultado = validarAsesor(asesor)
+        expect(resultado).toBe(false)
+      })
+
+      it('probando validacion parcial (solo nombre)', () => {
+        const asesor = {
+          nombre: "Ana Lucia",
+        }
+
+        const resultado = validarParcialAsesor(asesor)
+        expect(resultado).toBe(true)
+      })
+    })
+
+
+
   })
 
 })
