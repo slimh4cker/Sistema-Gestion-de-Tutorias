@@ -1,5 +1,6 @@
 import { AdminModel } from "../models/AmazonRDS/AdminModel.js"
 import {validarAdmin, validarParcialAdmin } from "../schemas/users/admin.js"
+import { obtenerMailDeReq } from "../utils/obtenerMailDeReq.js";
 
 export class AdminControler {
   // retorna los datos del admin segun el correo
@@ -85,10 +86,5 @@ export class AdminControler {
 
     // respuesta de ejecucion correcta
     res.status(200).json({ message: "El administrador fue eliminado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }

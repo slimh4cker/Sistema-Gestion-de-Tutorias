@@ -1,5 +1,6 @@
 import { AsesorModel } from "../models/AmazonRDS/AsesorModel.js";
 import { validarAsesor, validarParcialAsesor } from "../schemas/users/asesor.js";
+import { obtenerMailDeReq } from "../utils/obtenerMailDeReq.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los asesores.
 export class AsesorControler {
@@ -88,10 +89,5 @@ export class AsesorControler {
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El asesor ha sido borrado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }

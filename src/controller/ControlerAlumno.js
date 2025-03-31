@@ -1,5 +1,6 @@
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
+import { obtenerMailDeReq } from "../utils/obtenerMailDeReq.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
 export class AlumnoControler {
@@ -90,10 +91,5 @@ export class AlumnoControler {
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El alumno ha sido borrado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }
