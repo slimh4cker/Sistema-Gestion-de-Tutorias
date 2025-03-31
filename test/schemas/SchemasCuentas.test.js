@@ -47,11 +47,12 @@ describe('validacion de esquemas de usuario', () => {
         password: "Password123!"
       }
       
-      const resultado = validarAlumnoParcial(alumno)
+      const resultado = validarParcialAlumno(alumno)
       expect(resultado).toBe(true)
     })
-    
-    describe('Schema de asesor', () => {
+  })  
+
+  describe('Schema de asesor', () => {
       it('probando asesor con todos los datos correctos', () => {
         const asesor = {
           nombre: "Ana Lucia",
@@ -94,11 +95,33 @@ describe('validacion de esquemas de usuario', () => {
         const resultado = validarParcialAsesor(asesor)
         expect(resultado).toBe(true)
       })
-    })
-
-
-
   })
 
+  describe('Schema de admin', () => {
+    it('probando admin con todos los datos correctos', () => {
+      const admin = {
+        nombre: "Elian Gonzalez",
+        email: "elian@gmail.com",
+        password: "Password123!"
+      }
+      const resultado = validarAdmin(admin)
+      expect(resultado).toBe(true)
+    })
+    it('probando admin sin password', () => {
+      const admin = {
+        nombre: "Elian Gonzalez",
+        email: "elian@gmail.com",
+      }
+      const resultado = validarAdmin(admin)
+      expect(resultado).toBe(false)
+    })
+    it('probando validacion parcial de admin', () => {
+      const admin = {
+        email: "elian@mail.com",
+      }
+      const resultado = validarParcialAdmin(admin)
+      expect(resultado).toBe(true)
+    })
+  })
 })
 
