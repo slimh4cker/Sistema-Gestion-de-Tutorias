@@ -3,7 +3,7 @@ import alumnoRouter from './RouterAlumno.js';
 import asesorRouter from './RouterAsesor.js';
 import administradorRouter from './RouterAdministrador.js';
 
-const authRouter = express.Router();
+export const authRouter = express.Router();
 
 // Middleware global para todas las rutas de auth
 authRouter.use((req, res, next) => {

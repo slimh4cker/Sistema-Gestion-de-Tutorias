@@ -1,5 +1,6 @@
 import { AdminModel } from "../models/AmazonRDS/AdminModel.js"
-import {validarAdmin, validarParcialAdmin } from " ../schemas/users/admin.js"
+import {validarAdmin, validarParcialAdmin } from "../schemas/users/admin.js"
+import { obtenerMailDeReq } from "../utils/request.js";
 
 export class AdminControler {
   // retorna los datos del admin segun el correo
@@ -7,7 +8,12 @@ export class AdminControler {
 
     const correo = obtenerMailDeReq(req)
 
-    const datos = AdminModel.getAdminByMail(correo)
+    let datos = null
+    try {
+      datos = AdminModel.getAdminByMail(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el admin" })
+    }
 
     if (!datos) {
       res.status(404).json({ error:"No se encontro datos del asesor"})
@@ -26,8 +32,15 @@ export class AdminControler {
       return
     }
 
+    try {
+      AdminMail = AdminModel.getAdminByMail(admin.email)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el correo" })
+      return  
+    }
+    
     // comprobar que no exista otro con este correo
-    if (AdminModel.getAdminByMail(admin.email)) {
+    if (AdminMail) {
       res.status(400).json({ error: "Ya existe un admin con ese correo"})
       return
     }
@@ -40,7 +53,7 @@ export class AdminControler {
     }
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Administrador creado correctamente"})
+    res.status(201).json({ message: "Administrador creado correctamente"})
   }
 
   static async updateAdmin(req,res) {
@@ -54,9 +67,15 @@ export class AdminControler {
 
     //verificar que si hay un correo se corrobore que no sea uno que ya exista
     if (datos.email){
-      if (!AdminModel.getAdminByMail(datos.email)){
-        res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
+      try {
+        const adminMail = AdminModel.getAdminByMail(datos.email)
+        if (!adminMail){
+          res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
+        }
+      } catch (error) {
+        res.status(500).json({error: "error interno al buscar el correo"})
       }
+
     }
     
     //alterar datos
@@ -72,7 +91,15 @@ export class AdminControler {
   static async deleteAdmin(req,res) {
     const correo = obtenerMailDeReq(req)
 
-    if (!AdminModel.getAdminByMail(correo)) {
+
+    AdminMail = null
+
+    try {
+      AdminMail = AdminModel.getAdminByMail(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el correo" })
+    }
+    if (!AdminMail) {
       res.status(404).json({error: "no se encontro el administador"})
     }
 
@@ -85,10 +112,5 @@ export class AdminControler {
 
     // respuesta de ejecucion correcta
     res.status(200).json({ message: "El administrador fue eliminado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }

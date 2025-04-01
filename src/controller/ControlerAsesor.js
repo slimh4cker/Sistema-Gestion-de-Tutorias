@@ -1,5 +1,6 @@
 import { AsesorModel } from "../models/AmazonRDS/AsesorModel.js";
 import { validarAsesor, validarParcialAsesor } from "../schemas/users/asesor.js";
+import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los asesores.
 export class AsesorControler {
@@ -8,7 +9,13 @@ export class AsesorControler {
     const correo = obtenerMailDeReq(req)
 
     // Buscar en la base de datos los datos de el asesor segun este correo
-    const datos = AsesorModel.getAsesorByMail(correo)
+    let datos = null
+    try {
+      datos = AsesorModel.getAsesorByMail(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el asesor" })
+    }
+    
 
     if (!datos) {
       res.status(404).json({ error: "No se ha encontrado el asesor" })
@@ -30,15 +37,28 @@ export class AsesorControler {
     }
 
     // comprobar que no exista ya en la base de datos el correo
-    if (AsesorModel.getAsesorByMail(asesor.email)) {
+    let AsesorMail = null
+    try {
+      AsesorMail = AsesorModel.getAsesorByMail(asesor.email)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el correo" })
+      return  
+    }
+
+    if (AsesorMail) {
       res.status(400).json({ error: "Ya existe un asesor con ese correo" })
       return
     }
 
-    AsesorModel.createAsesor(req.body)
+    try{
+      AsesorModel.createAsesor(asesor)
+    } catch {
+      res.status(500).json({ error: "Error interno al crear un asesor" })
+      return
+    }
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Asesor creado correctamente" })
+    res.status(201).json({ message: "Asesor creado correctamente" })
 
   }
 
@@ -65,12 +85,11 @@ export class AsesorControler {
       AsesorModel.updateAsesor(datos, email)
     } catch (error) {
       res.status(500).json({error})
+      return
     }
    
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "Los datos han sido cambiados correctamente"})
-    
-
   }
 
   static async deleteAsesor(req, res) {
@@ -84,14 +103,13 @@ export class AsesorControler {
     }
 
     // borrar asesor
-    AsesorModel.deleteAsesor(correo)
+    try {
+      AsesorModel.deleteAsesor(correo) 
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al borrar el asesor" })
+    }
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El asesor ha sido borrado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }

@@ -1,16 +1,22 @@
-import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js"
+import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
+import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
 export class AlumnoControler {
   static async getAlumnoByMail(req, res) {
     // Recuperar correo
     const correo = obtenerMailDeReq(req)
-    // TODO, asegurarse de que este funcione con nuestra implementacion de JWT o cookies
 
     // Buscar en la base de datos los datos de el alumno segun este correo
-    const datos = AlumnoModel.getAlumnoByMail(correo)
-
+    let datos = null
+    try {
+      datos = AlumnoModel.getAlumnoByMail(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el alumno" })
+      return
+    }
+    
     if (!datos) {
       res.status(404).json({ error: "No se ha encontrado el alumno" })
       return
@@ -30,16 +36,29 @@ export class AlumnoControler {
       return
     }
 
+    try {
+      alumnoMail = AlumnoModel.getAlumnoByMail(alumno.email)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el correo" })
+      return  
+    }
+    
     // comprobar que no exista ya en la base de datos el correo
-    if (AlumnoModel.getAlumnoByMail(alumno.email)) {
+    if (alumnoMail) {
       res.status(400).json({ error: "Ya existe un alumno con ese correo" })
       return
     }
 
-    AlumnoModel.createAlumno(req.body)
+    try {
+      AlumnoModel.createAlumno(req.body)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al crear un alumno" })
+      return
+    }
+    
 
     // retornar mensaje de que fue realizado correctamente
-    res.status(200).json({ message: "Alumno creado correctamente" })
+    res.status(201).json({ message: "Alumno creado correctamente" })
 
   }
 
@@ -55,7 +74,7 @@ export class AlumnoControler {
     }
 
     // obtener correo
-    const email = req.user.email
+    const email = obtenerMailDeReq(req)
     if (!email) {
       res.status(400).json({ error: "No se ha encontrado el correo al momento de alterar el usuario" })
       return
@@ -70,30 +89,33 @@ export class AlumnoControler {
    
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "Los datos han sido cambiados correctamente"})
-    
-
   }
 
   static async deleteAlumno(req, res) {
     // obtener correo
     const correo = obtenerMailDeReq(req)
-    // TODO asegurarse de que este funcione con nuestra implementacion de JWT o cookies
 
     // asegurarse de que el alumno exista
-    if (!AlumnoModel.getAlumnoByMail(correo)) {
+    try {
+      emailAlumno = AlumnoModel.getAlumnoByMail(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar el alumno" })
+    }
+
+    if (!emailAlumno) {
       res.status(404).json({ error: "No se ha encontrado el alumno" })
       return
     }
 
     // borrar alumno
-    AlumnoModel.deleteAlumno(correo)
+    try {
+      AlumnoModel.deleteAlumno(correo)
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al borrar el alumno" })
+      return
+    }
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El alumno ha sido borrado correctamente"})
-  }
-
-
-  static async obtenerMailDeReq(req){
-    return req.user.email
   }
 }
