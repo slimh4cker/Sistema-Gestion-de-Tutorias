@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { modelo_cuenta_estudiante, modelo_cuenta_administrador, modelo_cuenta_asesor } from "../src/models/AmazonRDS/Modelo_cuentas";
+import { modelo_cuenta_estudiante, modelo_cuenta_administrador, modelo_cuenta_asesor } from "../models/AmazonRDS/Modelo_cuentas.js"
 
 // Middleware para verificar el token
 export const verificarToken = async (req, res, next) => {

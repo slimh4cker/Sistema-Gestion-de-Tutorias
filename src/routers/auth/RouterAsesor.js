@@ -1,6 +1,6 @@
 import express from 'express';
 import { AsesorControler } from '../../controller/ControlerAsesor.js';
-import { verificarToken, requiereRol } from '../middlewares/auth.js';
+import { verificarToken, requiereRol } from '../../middlewares/auth.js';
 
 const router = express.Router();
 

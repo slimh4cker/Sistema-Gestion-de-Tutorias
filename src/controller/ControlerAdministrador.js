@@ -1,4 +1,4 @@
-import { AdminModel } from "../models/AmazonRDS/AdminModel"
+import { AdminModel } from "../models/AmazonRDS/AdminModel.js"
 import {validarAdmin, validarParcialAdmin } from " ../schemas/users/admin.js"
 
 export class AdminControler {

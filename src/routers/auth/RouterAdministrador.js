@@ -1,6 +1,6 @@
 import express from 'express';
-import { AdminControler } from '../src/controllers/ControlerAdministrador';
-import { verificarToken, requiereRol } from '../src/middlewares/auth.js';
+import { AdminControler } from '../../controller/ControlerAdministrador.js';
+import { verificarToken, requiereRol } from '../../middlewares/auth.js';
 
 const router = express.Router();
 
