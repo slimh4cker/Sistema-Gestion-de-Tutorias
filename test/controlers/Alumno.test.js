@@ -1,8 +1,11 @@
 // pruebas de los metodos de alumno
 // Import de los controlers
-import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
+//import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
 import { jest } from '@jest/globals';
 
+afterAll(async () => {
+  await database.close(); // Cierra la conexión para evitar que Jest cierre antes de tiempo
+});
 
 // Mock de req y res de Express
 const mockRequest = (body = {}, params = {}, query = {}, user = {}) => ({
@@ -24,6 +27,13 @@ const mockResponse = () => {
 jest.mock('jsonwebtoken', () => ({
   verify: jest.fn().mockReturnValue({ email: 'juan@example.com' })
 }));
+
+let AlumnoControler;
+
+beforeAll(async () => {
+  const { AlumnoControler: Controller } = await import("../../src/controller/ControlerAlumno.js");
+  AlumnoControler = Controller;
+});
 
 describe('Controladores de Alumno', () => {
   let req, res;
@@ -73,6 +83,14 @@ describe('Controladores de Alumno', () => {
         email: 'juan@example.com'})
       );
     });
+
+    it('deveria retornar vacio', async () =>{
+      req = mockRequest({}, {}, {}, {email: 'no@existo.com'} );
+
+      await AlumnoControler.getAlumnoByMail(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+    });      
   });
 
   describe('updateAlumno', () => {

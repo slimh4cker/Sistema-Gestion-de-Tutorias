@@ -7,21 +7,22 @@ export class AlumnoModel{
     static async getAlumnoByMail(email) {
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
             where: {
-                email: email,// unicamente se necesita buscar por correo
-                estado: 'activo' // y estado se igual a activo
+                email: email, // Unicamente se necesita buscar por correo
+                estado: 'activo' // Y estado debe ser igual a activo
             }
-        })
-        return JSON.stringify(correo_alumno, null, 1) // Retorna un JSON con los datos del alumno
-    }
+        });
+    
+        return correo_alumno ? JSON.stringify(correo_alumno, null, 1) : false;
+    }    
 
     static async createAlumno(datos) {
         return await modelo_cuenta_estudiante.create(datos)
     }
 
-    static async updateAlumno(datos) {
+    static async updateAlumno(datos, emailOriginal) {
         return await modelo_cuenta_estudiante.update(datos, {
             where: {
-                email: datos.email
+                email: emailOriginal
             }
         })
     }
@@ -29,7 +30,7 @@ export class AlumnoModel{
     static async deleteAlumno(correo) {
         return await modelo_cuenta_estudiante.update({estado: 2},{
             where: {
-                email: correo.email
+                email: correo
             }
         })
     }

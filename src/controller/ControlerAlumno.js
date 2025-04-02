@@ -1,5 +1,6 @@
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
+import { emailAtributo } from "../schemas/users/commons.js";
 import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
@@ -32,7 +33,7 @@ export class AlumnoControler {
 
     // comprobar modelo con Zod
     if (!validarAlumno(alumno)) {
-      res.status(400).json({ error: JSON.parse(result.error.message) })
+      res.status(400).json({ error: "datos del alumno no validos" })
       return
     }
 
@@ -65,7 +66,7 @@ export class AlumnoControler {
   // Actualizar toda la tabla del alumno con los datos nuevos
   static async updateAlumno(req, res) {
     // obtener datos
-    datos = req.body
+    let datos = req.body
 
     // asegurarme que sus datos esten correctos
     if (! validarParcialAlumno(datos)) {
@@ -96,6 +97,7 @@ export class AlumnoControler {
     const correo = obtenerMailDeReq(req)
 
     // asegurarse de que el alumno exista
+    let emailAlumno = false
     try {
       emailAlumno = AlumnoModel.getAlumnoByMail(correo)
     } catch (error) {

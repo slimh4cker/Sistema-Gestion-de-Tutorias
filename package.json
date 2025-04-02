@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:controlers": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=test/controlers/Alumno.test.js",
-    "test:schemas": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=test/schemas/SchemasCuentas.test.js"
+    "test:schemas": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --testPathPattern=test/schemas/SchemasCuentas.test.js"
   },
   "repository": {
     "type": "git",
