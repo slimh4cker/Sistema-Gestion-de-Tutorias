@@ -4,6 +4,8 @@ import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
 
 export class AlumnoModel{
     // Metodo para obtener un alumno por su correo
+    // Si no encuentra el alumno devuelve null
+    // de lo contrario retorna un diccionario con los datos del alumno
     static async getAlumnoByMail(email) {
         const alumno = await modelo_cuenta_estudiante.findOne({
             where: {
