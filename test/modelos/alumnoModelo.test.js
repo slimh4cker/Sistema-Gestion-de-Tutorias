@@ -21,5 +21,32 @@ describe('validar alumno', () => {
     })
   })
 
+  describe('alterar alumno', () => {
+    it('alterando el nombre a pablo', async () => {
+      const alumnoOriginal = {
+        nombre: "Laura Fernández",
+        email: "laura@estudiante.com"
+      }
+
+      const alumnoAlterado = {
+        nombre: "laurita",
+        email: "nolaura@existe.com"
+      }
+      await AlumnoModel.updateAlumno(alumnoAlterado, alumnoOriginal.email)
+
+      //revisar que este correcto
+      const resultado = await AlumnoModel.getAlumnoByMail(alumnoAlterado.email)
+
+      expect(resultado).toEqual(expect.objectContaining({
+        email: alumnoAlterado.email,
+        nombre: alumnoAlterado.nombre
+      }));
+
+      // alterar a estado previo
+
+      await AlumnoModel.updateAlumno(alumnoOriginal, alumnoAlterado.email)
+    })
+  })
+
 })
 
