@@ -10,15 +10,16 @@ export class AlumnoControler {
     const correo = obtenerMailDeReq(req)
 
     // Buscar en la base de datos los datos de el alumno segun este correo
-    let datos = null
+    let datos
     try {
-      datos = AlumnoModel.getAlumnoByMail(correo)
+      datos = await AlumnoModel.getAlumnoByMail(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el alumno" })
       return
     }
     
-    if (!datos) {
+    
+    if (datos == null) {
       res.status(404).json({ error: "No se ha encontrado el alumno" })
       return
     }
@@ -87,6 +88,7 @@ export class AlumnoControler {
     } catch (error) {
       res.status(500).json({error})
     }
+    
    
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "Los datos han sido cambiados correctamente"})
@@ -111,7 +113,7 @@ export class AlumnoControler {
 
     // borrar alumno
     try {
-      AlumnoModel.deleteAlumno(correo)
+      await AlumnoModel.deleteAlumno(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al borrar el alumno" })
       return
