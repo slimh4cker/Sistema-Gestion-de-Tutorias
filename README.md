@@ -3,31 +3,8 @@ Desarrollar un sistema de software que facilite la gestión y el seguimiento de 
 
 ## Estructura del proyecto
 
-Sistema-Gestion-de-Tutorias/
-├── src/
-│   ├── controllers/ 
-│   │   ├── auth/ 
-│   ├── middlewares/
-│   ├── models/
-|   │   ├── AmazonRDS/ 
-│   ├── routers/
-│   │   ├── auth/ 
-│   ├── schemas/
-│   │   ├── users/ 
-│   ├── utils/
-│   ├── view/
-│   │   ├── frontend/
-│   │   │   ├── assets/
-│   │   │   ├── js/
-│   │   │   ├── styles/
-├── test/
-├── .gitignore/
-├── asesorias.sql/
-├── index.js/
-├── LICENSE/
-├── package-lock.json/
-├── package.json/
-├── README.md/
+Sistema-Gestion-de-Tutorias/ ├── src/ │ ├── controllers/ │ │ ├── auth/ │ ├── middlewares/ │ ├── models/ │ │ ├── AmazonRDS/ │ ├── routers/ │ │ ├── auth/ │ ├── schemas/ │ │ ├── users/ │ ├── utils/ │ ├── view/ │ │ ├── frontend/ │ │ │ ├── assets/ │ │ │ ├── js/ │ │ │ ├── styles/ ├── test/ ├── .gitignore ├── asesorias.sql ├── index.js ├── LICENSE ├── package-lock.json ├── package.json ├── README.md
+
 
 ## Requisitos
 Para ejecutar el sistema, necesitas tener instalado lo siguiente:
