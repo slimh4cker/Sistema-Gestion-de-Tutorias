@@ -5,14 +5,15 @@ import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
 export class AlumnoModel{
     // Metodo para obtener un alumno por su correo
     static async getAlumnoByMail(email) {
-        const correo_alumno = await modelo_cuenta_estudiante.findOne({
+        const alumno = await modelo_cuenta_estudiante.findOne({
             where: {
                 email: email, // Unicamente se necesita buscar por correo
                 estado: 'activo' // Y estado debe ser igual a activo
-            }
+            },
+            raw: true
         });
     
-        return correo_alumno ? JSON.stringify(correo_alumno, null, 1) : false;
+        return alumno || null;
     }    
 
     static async createAlumno(datos) {
