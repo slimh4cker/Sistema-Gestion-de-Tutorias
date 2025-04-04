@@ -3,8 +3,6 @@ Desarrollar un sistema de software que facilite la gestión y el seguimiento de 
 
 ## Estructura del proyecto
 
-## Estructura del proyecto
-
 - Sistema-Gestion-de-Tutorias/
   - src/
     - controllers/
