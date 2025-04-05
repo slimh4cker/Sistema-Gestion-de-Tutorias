@@ -94,7 +94,7 @@ describe('Controladores de Alumno', () => {
     it('debería actualizar los datos de un alumno correctamente', async () => {
       req = mockRequest(
         { nombre: 'Juan Actualizado' },
-        {  },
+        { },
         { },
         { email: 'juan@example.com' }
       );
@@ -102,6 +102,9 @@ describe('Controladores de Alumno', () => {
       await AlumnoControler.updateAlumno(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        email_de_origen: 'juan@example.com'
+      }));
     });
 
   });
