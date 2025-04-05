@@ -2,6 +2,7 @@
 // Import de los controlers
 //import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
 import { jest } from '@jest/globals';
+import { emailAtributo } from '../../src/schemas/users/commons.js';
 
 
 // Mock de req y res de Express
@@ -105,6 +106,26 @@ describe('Controladores de Alumno', () => {
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
         email_de_origen: 'juan@example.com'
       }));
+
+      req = mockRequest({}, {}, {}, {email: 'juan@example.com'})
+      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
+
+      // volver a buscar en la base de datos
+      await AlumnoControler.getAlumnoByMail(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        nombre: 'Juan Actualizado'
+      }));
+
+      // retornar a como estaba
+      req = mockRequest(
+        { nombre: 'Juan Perez' },
+        { },
+        { },
+        { email: 'juan@example.com' }
+      );
+
+      await AlumnoControler.updateAlumno(req, res);
     });
 
   });
