@@ -2,7 +2,7 @@ import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
 
 // Clase del alumno encargada de interactuar con la base de datos
 
-export class AlumnModel{
+export class AlumnoModel{
     // Metodo para obtener un alumno por su correo
     static async getAlumnoByMail(email) {
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
