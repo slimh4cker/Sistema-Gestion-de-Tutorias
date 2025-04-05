@@ -38,6 +38,7 @@ export class AlumnoControler {
       return
     }
 
+    let alumnoMail = false
     try {
       alumnoMail = AlumnoModel.getAlumnoByMail(alumno.email)
     } catch (error) {
@@ -46,7 +47,7 @@ export class AlumnoControler {
     }
     
     // comprobar que no exista ya en la base de datos el correo
-    if (alumnoMail) {
+    if (alumnoMail == null) {
       res.status(400).json({ error: "Ya existe un alumno con ese correo" })
       return
     }
@@ -84,14 +85,14 @@ export class AlumnoControler {
     
     // alterar datos
     try {
-      AlumnoModel.updateAlumno(datos, email)
+      await AlumnoModel.updateAlumno(datos, email)
     } catch (error) {
       res.status(500).json({error})
     }
     
    
     // enviar mensaje de que salio correctamente
-    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+    res.status(200).json({message: "Los datos han sido cambiados correctamente", datos: datos, email_de_origen: email})
   }
 
   static async deleteAlumno(req, res) {
