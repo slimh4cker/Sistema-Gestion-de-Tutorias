@@ -40,7 +40,7 @@ export class AlumnoControler {
 
     let alumnoMail = false
     try {
-      alumnoMail = AlumnoModel.getAlumnoByMail(alumno.email)
+      alumnoMail = await AlumnoModel.getAlumnoByMail(alumno.email)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el correo" })
       return  
