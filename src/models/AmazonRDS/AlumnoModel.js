@@ -22,7 +22,7 @@ export class AlumnoModel{
                 }
             })
             if(!alumno){
-                const crear_alumno = modelo_cuenta_estudiante.create({})
+                const crear_alumno = await modelo_cuenta_estudiante.create({})
                 console.log("Alumno creado correctamente")
                 return crear_alumno
             }
@@ -50,7 +50,7 @@ export class AlumnoModel{
     static async deleteAlumno(correo) {
         return await modelo_cuenta_estudiante.update({estado: 2},{
             where: {
-                email: correo.email
+                email: correo
             }
         })
     }
