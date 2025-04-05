@@ -48,5 +48,26 @@ describe('validar alumno', () => {
     })
   })
 
+  describe('crear alumno y borrar alumno', () => {
+    it('creando un alumno y borrandolo', async () => {
+      const alumno = {
+        nombre : "Juana de la curz",
+        email: "Juana@temporal.com",
+        password: "myPassword123",
+      }
+
+      await AlumnoModel.createAlumno(alumno)
+
+      // comprobar que exista
+      const resultado = await AlumnoModel.getAlumnoByMail(alumno.email)
+      expect(resultado).toEqual(expect.objectContaining({
+        email: alumno.email,
+        nombre: alumno.nombre
+      }))
+
+      // deshacer los cambios
+      await AlumnoModel.deleteAlumno(alumno.email)
+    })
+  })
 })
 
