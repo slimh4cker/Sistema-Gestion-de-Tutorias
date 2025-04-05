@@ -39,10 +39,10 @@ export class AlumnoModel{
         return await modelo_cuenta_estudiante.create(datos)
     }
 
-    static async updateAlumno(datos) {
+    static async updateAlumno(datos, emailOriginal) {
         return await modelo_cuenta_estudiante.update(datos, {
             where: {
-                email: datos.email
+                email: emailOriginal
             }
         })
     }
