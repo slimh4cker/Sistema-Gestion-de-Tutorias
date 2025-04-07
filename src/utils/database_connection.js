@@ -8,7 +8,7 @@ const { DB_NAME, USER, PASSWORD, HOST, PORT } = process.env;
 
 
 const sequelize = new Sequelize('asesorias', 'root', '1234',{
-    host: 'localhost',
+    host: 'localhost',  
     dialect: 'mysql',
     port: 3306,
 });

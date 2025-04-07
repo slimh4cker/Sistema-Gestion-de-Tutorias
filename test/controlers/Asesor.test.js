@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // pruebas de los metodos del asesor
 import { verify } from "jsonwebtoken";
 import { AsesorControler } from "../../src/controller/ControlerAsesor.js"
@@ -105,7 +104,6 @@ describe('Controladores de Asesor', () => {
   })
 
 })
-=======
 import { jest } from '@jest/globals';
 import { AsesorControler } from '../../src/controller/ControlerAsesor.js';
 import { validarAsesor, validarParcialAsesor } from '../../src/schemas/users/asesor.js';
@@ -269,4 +267,3 @@ describe('AsesorControler', () => {
     });
   });
 });
->>>>>>> ee8c2f1a409519fa3400e93ef79d79c5f14cdc9f
