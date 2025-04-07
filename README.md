@@ -39,4 +39,5 @@ Para ejecutar el sistema, necesitas tener instalado lo siguiente:
 - **Sequelize**: ORM para manejar las interacciones con la base de datos de manera sencilla. Se instala ejecutando `npm install sequelize`.
 - **Sequelize CLI**: Herramienta de línea de comandos para interactuar con Sequelize, como migraciones, modelos y más. Se instala ejecutando `npm install sequelize-cli`.
 - **MySQL2**: Driver para conectarse a bases de datos MySQL desde Node.js. Se instala ejecutando `npm install mysql2`.
+- **Bootstrap**: Framework de CSS para desarrollar interfaces de usuario responsivas y modernas. Se instala ejecutando `npm install bootstrap`.
 
