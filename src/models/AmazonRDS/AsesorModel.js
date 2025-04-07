@@ -18,10 +18,10 @@ export class AsesorModel{
         return await modelo_cuenta_asesor.create(datos)
     }
 
-    static async updateAsesor(datos) {
+    static async updateAsesor(datos, emailOriginal) {
         return await modelo_cuenta_asesor.update(datos, {
             where: {
-                email: datos.email
+                email: emailOriginal
             }
         })
     }
