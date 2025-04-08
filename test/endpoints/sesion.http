@@ -4,7 +4,7 @@
 
 ## Realizado cuando uno inicia sesion
 ### Alumno
-GET http://localhost:1234/sesion/alumno 
+GET http://localhost:1234/auth/alumno 
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### Asesor
-GET http://localhost:1234/sesion/asesor    
+GET http://localhost:1234/auth/asesor    
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Administrador
-GET http://localhost:1234/sesion/administrador
+GET http://localhost:1234/auth/administrador
 Content-Type: application/json
 
 {
@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 
 ### Asesor
-POST http://localhost:1234/sesion/asesor 
+POST http://localhost:1234/asesor 
 Content-Type: application/json
 
 {
@@ -54,7 +54,7 @@ Content-Type: application/json
 }
 
 ### Admin
-POST http://localhost:1234/sesion/administrador 
+POST http://localhost:1234/administrador 
 Content-Type: application/json
 
 {
