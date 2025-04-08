@@ -17,7 +17,12 @@ export class AlumnoModel{
                 email: email,// unicamente se necesita buscar por correo
                 estado: 'activo' // y estado se igual a activo
             }
-        })
+        }
+    )
+        if (correo_alumno == null) {
+            return null // Si no existe el correo retorna null
+        }
+
         return correo_alumno.dataValues // Retorna un JSON con los datos del alumno
     }
     /**

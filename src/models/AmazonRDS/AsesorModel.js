@@ -19,6 +19,11 @@ export class AsesorModel{
                 estado: 'activo' // y estado se igual a activo
             }
         })
+
+        if (correo_asesor == null) {
+            return null // Si no existe el correo retorna null
+        }
+        
         return correo_asesor.dataValues // Retorna un JSON con los datos del alumno
     }
 
