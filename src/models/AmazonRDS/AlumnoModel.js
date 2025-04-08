@@ -9,7 +9,7 @@ export class AlumnoModel{
      * @param {String} email 
      * @returns {JSON}
      * @example
-     * AlumnoModel.getAlumnoByMail({emai: "email@example.com"})
+     * AlumnoModel.getAlumnoByMail("email@example.com")
      */
     static async getAlumnoByMail(email) {
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
@@ -18,7 +18,7 @@ export class AlumnoModel{
                 estado: 'activo' // y estado se igual a activo
             }
         })
-        return correo_alumno // Retorna un JSON con los datos del alumno
+        return correo_alumno.dataValues // Retorna un JSON con los datos del alumno
     }
     /**
      * 
@@ -83,7 +83,8 @@ export class AlumnoModel{
                 email: correo
             }
         })
-        return deleteAlumno.length > 0 // Si se elimina retorna true, si no retorna false
+        
+        return deleteAlumno[0] > 0 // Si se elimina retorna true, si no retorna false
     }
     static async reactivarAlumno (datos) {
         console.log("Correo reactivado Correctamente")
