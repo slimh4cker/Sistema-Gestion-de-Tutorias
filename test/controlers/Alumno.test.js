@@ -42,17 +42,33 @@ describe('Controladores de Alumno', () => {
     res = mockResponse();
   });
 
-  describe('registrarEstudiante', () => {
+  describe('registrarEstudiante y eliminar', () => {
     it('debería registrar un nuevo estudiante correctamente', async () => {
       req = mockRequest({
-        nombre: 'Juan',
-        email: 'juan@example.com',
+        nombre: 'Melissa',
+        email: 'mel@correo.temporal',
         password: 'Password123!'
       });
 
+      // Crear el alumno
       await AlumnoControler.createAlumno(req, res);
-
       expect(res.status).toHaveBeenCalledWith(201);
+
+      // Verificar que el alumno fue creado correctamente
+      req = mockRequest({}, {}, {}, {email: 'juan@example.com'})
+      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
+
+      // volver a buscar en la base de datos
+      await AlumnoControler.getAlumnoByMail(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+
+      // eliminar este alumno
+      await AlumnoControler.deleteAlumno(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+
+      // Verificar que el alumno ya no existe
+      await AlumnoControler.getAlumnoByMail(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
     });
 
     it('debería manejar errores al registrar estudiante', async () => {
@@ -130,21 +146,4 @@ describe('Controladores de Alumno', () => {
 
   });
 
-  describe('deleteAlumno', () => {
-    it('debería eliminar un alumno correctamente', async () => {
-      req = mockRequest({}, {}, {}, { email: 'juan@example.com' });
-
-      // Eliminar alumno
-      await AlumnoControler.deleteAlumno(req, res);
-      expect(res.status).toHaveBeenCalledWith(200);
-  
-      // Verificar que el alumno ya no existe
-      req = mockRequest({}, {}, {}, { email: 'juan@example.com' });
-      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
-  
-      await AlumnoControler.getAlumnoByMail(req, res);
-      expect(res.status).toHaveBeenCalledWith(404);
-    });
-
-  });
 });
