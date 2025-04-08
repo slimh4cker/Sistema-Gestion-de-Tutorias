@@ -1,3 +1,12 @@
+/* EN ESTE COMENTARIO SE ESPECIFICA LAS MEDIDAS ESTANDAR DE LOS DISPOSITIVOS PARA DISEñOS RESPONSIVOS*/
+/* PEQUENAS (CELULARES)  300PX - 768PX
+   MEDIANAS (TABLETAS)  768PX - 991PX
+   GRANDES (ORDENADORES)  992PX - 2000PX    */
+
+   /*A PARTIR DE AQUI COMIENZA EL DISENO DE login.html*/
+
+/* A PARTIR DE AQUI COMIENZA EL DISENO DE login.html */
+
 .logo-left, .logo-right {
     width: 180px;  
     height: 100px; 
@@ -8,6 +17,7 @@
     width: 100%;
     height: 35px; /* Puedes ajustar la altura */
     background-color: blue;
+    margin: 50px;
 }
 
 /* Título central */
@@ -19,7 +29,6 @@
     text-transform: uppercase;
 }
 
-
 /* Logo ajustado - Tamaño igual para ambos */
 .logo {
     width: 60px;       
@@ -28,13 +37,13 @@
     margin: 0 10px;   
 }
 
-
 /* Contenedor principal */
 .container {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 /* Imagen con márgenes adecuados */
@@ -58,54 +67,12 @@
     align-items: center;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 992px) {
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .row {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .col-lg-5, .col-md-6 {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .col-lg-5 {
-        margin-bottom: 30px;
-    }
-    
-    .login-card {
-        min-height: auto;
-        max-width: 100%;
-    }
-    
-    .styled-image {
-        max-width: 480px;
-    }
-}
-
-@media (max-width: 768px) {
-    .styled-image {
-        max-width: 300px;
-    }
-}
-
 .custom-form-position {
     transform: translate(180px, -80px); /* Derecha: +50px, Arriba: -50px */
-    /* O alternativamente: */
-    /* position: relative;
-    top: -50px;  Negativo para arriba 
-    left: 50px;  Positivo para derecha */
 }
 
 .custom-image-position {
     transform: translate(25px, -130px); /* Izquierda: -30px, Arriba: -20px */
-    
-    /* Opcional: Aumentar tamaño si lo deseas */
     width: 110%; /* 10% más grande */
     max-width: 550px !important; 
 }
@@ -129,36 +96,14 @@
 }
 
 .button-group-adjustment {
-    transform: translate(50px, -100px); /* Mueve: 30px izquierda, 30px arriba 
-    Primer valor (X): positivo=derecha, negativo=izquierda 
-    Segundo valor (Y): positivo=abajo, negativo=arriba
-    */
+    transform: translate(50px, -100px); /* Mueve: 30px izquierda, 30px arriba */
 }
-
 
 #form-container {
     transition: opacity 0.3s ease;
+    opacity: 1;
+ 
 }
-
-.form-control {
-    height: 40px;
-}
-
-/* Contenedor principal fijo */
-.container {
-    overflow: hidden;
-}
-
-.form-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-content.extended {
-    padding-bottom: 20px; 
-}
-
 
 /* Contenido del formulario */
 .form-content {
@@ -173,20 +118,13 @@
     padding: 20px 0 0;
     background: transparent;
     position: relative; /* Cambia de sticky a relative */
-    bottom: auto;
     z-index: 1;
 }
+
 .extra-space {
     flex-grow: 1;
     min-height: 60px
 }
-
-/* Contenedor del formulario */
-#form-container {
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
 
 /* Imagen fija */
 .image-container {
@@ -194,7 +132,6 @@
     z-index: 1;
     margin-bottom: 0 !important;
 }
-
 
 /* Estilo para el enlace dentro del card */
 .login-card .register-link {
@@ -210,7 +147,6 @@
     flex-direction: column;
     overflow: visible; /* Elimina el scroll interno */
     position: relative;
-    /* Permite que el contenido defina la altura */
     height: auto !important;
     max-height: none !important;
 }
@@ -224,20 +160,24 @@
 
 /* Reemplaza todas las reglas existentes de .btn-outline-primary con esto: */
 .btn-role {
-    width: 140px !important; /* Ancho fijo */
+    width: 200px !important; /* Ancho fijo */
     height: 45px !important; /* Alto fijo */
-    padding: 0 !important; /* Elimina padding variable */
-    margin: 0 5px !important; /* Espacio entre botones */
-    font-size: 1rem !important;
-    font-weight: 500 !important;
+    padding: 20px !important; /* Elimina padding variable */
+    margin:  5px !important; /* Espacio entre botones */
+    font-size: 16px !important; /* TAMANO DE LA LETRA*/
+    font-weight: 500 !important; /*GROSOR DE LA LETRA*/
     border: 2px solid #1120ca !important;
     border-radius: 5px !important;
     background-color: white !important;
     color: #1120ca !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.5s ease !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+.btn-role:hover {
+    transform: scale(1.1); /* Incremento de 10% */
 }
 
 .btn-primary-action {
@@ -255,6 +195,7 @@
     color: #6c757d !important; /* Gris Bootstrap */
     font-size: 0.9rem !important;
 }
+
 .text-primary {
     color: #1120ca !important; /* Azul para el enlace */
     font-weight: 600 !important;
@@ -266,6 +207,7 @@
     color: #0d1ab0 !important;
     text-decoration: underline;
 }
+
 /* Estado activo */
 .btn-role.active {
     background-color: #1120ca !important;
@@ -276,6 +218,8 @@
 .btn-role:not(.active):hover {
     background-color: #f8f9fa !important;
 }
+
+
 
 /***************************************/
 /* ESTILOS PARA HOME_ALUMNO.HTML */
@@ -450,26 +394,6 @@
     color: #adb5bd; 
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-    .top-navbar {
-        height: 60px;
-        padding: 0.5rem 1rem;
-    }
-    
-    .welcome-text h4 {
-        font-size: 1.1rem;
-    }
-    
-    .welcome-text .small {
-        font-size: 0.7rem;
-    }
-    
-    .navbar-actions a.text-primary {
-        font-size: 0.85rem;
-        margin-right: 0.5rem;
-    }
-}
 
 .empty-state-message {
     display: flex;
@@ -519,3 +443,96 @@
 form {
     gap: 1.5rem; 
 }
+
+
+/* EN ESTE APARTADO COMIENZAN LOS MEDIA QUERIES PARA HACER DISENOS RESPONSIVOS */
+
+/* Ajustes responsivos */
+
+/* PANTALLAS CHICAS: Este bloque aplica a dispositivos con un ancho entre 300px y 768px */
+/*
+@media (min-width: 300px) and (max-width: 768px) {
+
+    .styled-image {
+        max-width: 300px;
+    }
+
+    .top-navbar {
+        height: 60px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .welcome-text h4 {
+        font-size: 1.1rem;
+    }
+    
+    .welcome-text .small {
+        font-size: 0.7rem;
+    }
+    
+    .navbar-actions a.text-primary {
+        font-size: 0.85rem;
+        margin-right: 0.5rem;
+    }
+}
+*/
+
+/* PANTALLAS MEDIANAS: Este bloque aplica a dispositivos con un ancho entre 769px y 992px */
+/*
+@media (min-width: 769px) and (max-width: 992px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .col-lg-5, .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .col-lg-5 {
+        margin-bottom: 30px;
+    }
+    
+    .login-card {
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .styled-image {
+        max-width: 480px;
+    }
+}
+*/
+
+/* PANTALLAS GRANDES: Este bloque aplica a dispositivos con un ancho mayor a 993px */
+/*
+@media (min-width: 993px)  {
+    .col-lg-5 {
+        margin-bottom: 30px;
+    }
+
+    #form-wrapper {
+        margin-top: 200px; /* Ajusta según la altura de la barra azul 
+        margin-left: 20px;
+        margin-right: 30px;
+    }
+
+    .btn-role {
+        width: 200px !important; /* Ancho fijo 
+        height: 45px !important; /* Alto fijo 
+        padding: 20px !important; /* Elimina padding variable 
+        margin:  5px !important; /* Espacio entre botones 
+        font-size: 16px !important; /* TAMANO DE LA LETRA
+        font-weight: 500 !important; /*GROSOR D ELA LETRA
+    }
+
+    .image-container{
+        margin-top: 200px; /* Ajusta según la altura de la barra azul 
+    }
+}
+*/
