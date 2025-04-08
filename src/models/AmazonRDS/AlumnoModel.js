@@ -4,6 +4,13 @@ import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
 
 export class AlumnoModel{
     // Metodo para obtener un alumno por su correo
+    /**
+     * 
+     * @param {String} email 
+     * @returns {JSON}
+     * @example
+     * AlumnoModel.getAlumnoByMail({emai: "email@example.com"})
+     */
     static async getAlumnoByMail(email) {
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
             where: {
@@ -13,7 +20,18 @@ export class AlumnoModel{
         })
         return correo_alumno // Retorna un JSON con los datos del alumno
     }
-
+    /**
+     * 
+     * @param {JSON} datosALumno 
+     * @returns {JSON}
+     * @description Crea el registro de un alumno
+     * @example
+     * AlumnoModel.createAlumno({
+     * nombre: "John Doe",
+     * email: "email@example.com",
+     * password: "contraseña1234",
+     * })
+     */
     static async createAlumno(datos) {
         try {
             const alumno = await modelo_cuenta_estudiante.findOne({
@@ -22,7 +40,7 @@ export class AlumnoModel{
                 }
             })
             if(!alumno){
-                const crear_alumno = await modelo_cuenta_estudiante.create({})
+                const crear_alumno = await modelo_cuenta_estudiante.create(datos)
                 console.log("Alumno creado correctamente")
                 return crear_alumno
             }
@@ -36,9 +54,14 @@ export class AlumnoModel{
         catch(error){
 
         }
-        return await modelo_cuenta_estudiante.create(datos)
+        return crear_alumno.dataValues
     }
-
+    /**
+     * 
+     * @param {*} datos datos que desean ser modificados
+     * @param {*} emailOriginal email de la cuanta a modificar
+     * @returns {Array} cantidad de filas modificadas
+     */
     static async updateAlumno(datos, emailOriginal) {
         return await modelo_cuenta_estudiante.update(datos, {
             where: {
@@ -47,12 +70,20 @@ export class AlumnoModel{
         })
     }
 
+    /**
+     * 
+     * @param {string } correo 
+     * @returns {Array} cantidad de filas modificadas
+     * @example
+     * AlumnoModel.deleteAlumno("email@example.com")
+     */
     static async deleteAlumno(correo) {
-        return await modelo_cuenta_estudiante.update({estado: 2},{
+        const deleteAlumno = await modelo_cuenta_estudiante.update({estado: 2},{
             where: {
                 email: correo
             }
         })
+        return deleteAlumno.length > 0 // Si se elimina retorna true, si no retorna false
     }
     static async reactivarAlumno (datos) {
         console.log("Correo reactivado Correctamente")
