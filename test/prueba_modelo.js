@@ -19,8 +19,8 @@ class PruebasAlumnos{
     }
 
     // Actualiza un alumno en la base de datos
-    static async actualizar_alumno(datos){
-        const alumno = await AlumnoModel.updateAlumno(datos)
+    static async actualizar_alumno(datos, correo){
+        const alumno = await AlumnoModel.updateAlumno(datos,correo)
         console.log(alumno)
         console.log("Cuenta actualizada correctamente")
     }
@@ -116,18 +116,18 @@ class PruebasAsesorias {
     "password": "brandon12345"}) */
 
 /*     PruebasAlumnos.actualizar_alumno({
-    "email": "al22760575@marialuisa.com",
+    "email": "diegosoto@gmail.org",
     "password": "0987654321"
-    }) */
+    },"diegosoto@ite.edu.mx") */
 
 /* PruebasAlumnos.borrar_alumno({
     "nombre": "Luis Rámirez",
     "email": "jorge.sanchez@example.com",
 }) */
 
-/* PruebasAsesores.obtener_asesor({
-  "email": "carlos.ramirez@example.com",
-}) */
+PruebasAsesores.obtener_asesor(
+  "elena.marquez@example.com"
+)
 
  /*  PruebasAsesores.agregar_asesor({
     "id": 5,
