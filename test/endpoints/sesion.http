@@ -32,12 +32,12 @@ Content-Type: application/json
 
 ## Para agregar una cuenta
 ### Alumno
-POST http://localhost:1234/sesion/alumno 
+POST http://localhost:1234/alumno 
 Content-Type: application/json
 
 {
     "nombre": "Juan Perez",
-    "email": "juanPerez@hotmail.com",
+    "email": "talsadfeas@temporal.com",
     "password": "myPassword33"
 }
 
