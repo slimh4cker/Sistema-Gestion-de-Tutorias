@@ -41,20 +41,20 @@ Para ejecutar el sistema, necesitas tener instalado lo siguiente:
 - **MySQL2**: Driver para conectarse a bases de datos MySQL desde Node.js. Se instala ejecutando `npm install mysql2`.
 - **Bootstrap**: Framework de CSS para desarrollar interfaces de usuario responsivas y modernas. Se instala ejecutando `npm install bootstrap`.
 
-## testing
+## Testing
 Para realizar pruebas en el servidor se pueden utilizar los scripts para pruebas como esta escrito en esa seccion de este documento.
 Ademas de esto, para probar las APIs se puede utilizar los documentos con la extencion .http con la extension CLIENT REST de visual studio para probar las APIs qu provee el servidor.
 
 ## Scripts
-# Iniciar el servidor
+### Iniciar el servidor
   npm run start
 este inicia el servidor completamente
 
-# Iniciar en modo desarollo
+### Iniciar en modo desarollo
   npm run dev
 Este inicia el servidor sin embargo utiliza nodemon para actualizar el servidor cada vez que se actualiza algun archivo
 
-# realizar pruebas
+### Realizar pruebas
  npm run test
 Este realiza todas las pruebas almacenadas bajo la carpeta test que terminen con.test.js
 
