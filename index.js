@@ -1,5 +1,6 @@
 import express from 'express';
 import { authRouter } from './src/routers/auth/authRouter.js';
+import { routerAlumno } from './src/routers/auth/RouterAlumno.js';
 
 export const createApp = () => {
   const app = express();
@@ -11,6 +12,7 @@ export const createApp = () => {
 
   // Enrutadores
   app.use('/auth', authRouter);
+  app.use('/alumno', routerAlumno);
 
   // Ruta de prueba básica
   app.get('/', (req, res) => {

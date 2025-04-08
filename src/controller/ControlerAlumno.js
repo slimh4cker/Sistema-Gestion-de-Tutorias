@@ -47,7 +47,8 @@ export class AlumnoControler {
     }
     
     // comprobar que no exista ya en la base de datos el correo
-    if (alumnoMail == null) {
+    console.log(alumnoMail)
+    if (alumnoMail != null) {
       res.status(400).json({ error: "Ya existe un alumno con ese correo" })
       return
     }
