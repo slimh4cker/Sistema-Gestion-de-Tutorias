@@ -11,17 +11,38 @@ export class AlumnoModel{
                 estado: 'activo' // y estado se igual a activo
             }
         })
-        return JSON.stringify(correo_alumno, null, 1) // Retorna un JSON con los datos del alumno
+        return correo_alumno // Retorna un JSON con los datos del alumno
     }
 
     static async createAlumno(datos) {
+        try {
+            const alumno = await modelo_cuenta_estudiante.findOne({
+                where: {
+                    email: datos.email
+                }
+            })
+            if(!alumno){
+                const crear_alumno = await modelo_cuenta_estudiante.create({})
+                console.log("Alumno creado correctamente")
+                return crear_alumno
+            }
+            else if (alumno.dataValues.estado === 'inactivo'){
+                return this.reactivarAlumno(datos)
+            }
+            else if(alumno.dataValues.estado === 'activo'){
+                return null
+            }
+        }
+        catch(error){
+
+        }
         return await modelo_cuenta_estudiante.create(datos)
     }
 
-    static async updateAlumno(datos) {
+    static async updateAlumno(datos, emailOriginal) {
         return await modelo_cuenta_estudiante.update(datos, {
             where: {
-                email: datos.email
+                email: emailOriginal
             }
         })
     }
@@ -29,7 +50,22 @@ export class AlumnoModel{
     static async deleteAlumno(correo) {
         return await modelo_cuenta_estudiante.update({estado: 2},{
             where: {
-                email: correo.email
+                email: correo
+            }
+        })
+    }
+    static async reactivarAlumno (datos) {
+        console.log("Correo reactivado Correctamente")
+        return await modelo_cuenta_estudiante.update({
+            nombre: datos.nombre,
+            password: datos.password,
+            estado: 1
+
+        },
+        {
+            where: {
+                email: datos.email
+
             }
         })
     }

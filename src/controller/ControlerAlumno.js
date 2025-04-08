@@ -1,5 +1,6 @@
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
+import { emailAtributo } from "../schemas/users/commons.js";
 import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
@@ -9,15 +10,16 @@ export class AlumnoControler {
     const correo = obtenerMailDeReq(req)
 
     // Buscar en la base de datos los datos de el alumno segun este correo
-    let datos = null
+    let datos
     try {
-      datos = AlumnoModel.getAlumnoByMail(correo)
+      datos = await AlumnoModel.getAlumnoByMail(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el alumno" })
       return
     }
     
-    if (!datos) {
+    
+    if (datos == null) {
       res.status(404).json({ error: "No se ha encontrado el alumno" })
       return
     }
@@ -32,19 +34,20 @@ export class AlumnoControler {
 
     // comprobar modelo con Zod
     if (!validarAlumno(alumno)) {
-      res.status(400).json({ error: JSON.parse(result.error.message) })
+      res.status(400).json({ error: "datos del alumno no validos" })
       return
     }
 
+    let alumnoMail = false
     try {
-      alumnoMail = AlumnoModel.getAlumnoByMail(alumno.email)
+      alumnoMail = await AlumnoModel.getAlumnoByMail(alumno.email)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el correo" })
       return  
     }
     
     // comprobar que no exista ya en la base de datos el correo
-    if (alumnoMail) {
+    if (alumnoMail == null) {
       res.status(400).json({ error: "Ya existe un alumno con ese correo" })
       return
     }
@@ -65,7 +68,7 @@ export class AlumnoControler {
   // Actualizar toda la tabla del alumno con los datos nuevos
   static async updateAlumno(req, res) {
     // obtener datos
-    datos = req.body
+    let datos = req.body
 
     // asegurarme que sus datos esten correctos
     if (! validarParcialAlumno(datos)) {
@@ -82,13 +85,14 @@ export class AlumnoControler {
     
     // alterar datos
     try {
-      AlumnoModel.updateAlumno(datos, email)
+      await AlumnoModel.updateAlumno(datos, email)
     } catch (error) {
       res.status(500).json({error})
     }
+    
    
     // enviar mensaje de que salio correctamente
-    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+    res.status(200).json({message: "Los datos han sido cambiados correctamente", datos: datos, email_de_origen: email})
   }
 
   static async deleteAlumno(req, res) {
@@ -96,6 +100,7 @@ export class AlumnoControler {
     const correo = obtenerMailDeReq(req)
 
     // asegurarse de que el alumno exista
+    let emailAlumno = false
     try {
       emailAlumno = AlumnoModel.getAlumnoByMail(correo)
     } catch (error) {
@@ -109,7 +114,7 @@ export class AlumnoControler {
 
     // borrar alumno
     try {
-      AlumnoModel.deleteAlumno(correo)
+      await AlumnoModel.deleteAlumno(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al borrar el alumno" })
       return

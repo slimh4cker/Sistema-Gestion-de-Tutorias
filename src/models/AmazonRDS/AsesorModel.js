@@ -4,23 +4,24 @@ import { modelo_cuenta_asesor} from "./Modelo_cuentas.js";
 
 export class AsesorModel{
     // Metodo para obtener un alumno por su correo
-    static async getAsesorByMail(datos) {
+    static async getAsesorByMail(email) {
         const correo_asesor = await modelo_cuenta_asesor.findOne({
             where: {
-                email: datos.email // unicamente se necesita buscar por correo
-            },
+                email: email,// unicamente se necesita buscar por correo
+                estado: 'activo' // y estado se igual a activo
+            }
         })
-        return JSON.stringify(correo_asesor, null,1) // Retorna un JSON con los datos del alumno
+        return correo_asesor // Retorna un JSON con los datos del alumno
     }
 
     static async createAsesor(datos) {
         return await modelo_cuenta_asesor.create(datos)
     }
 
-    static async updateAsesor(datos) {
+    static async updateAsesor(datos, emailOriginal) {
         return await modelo_cuenta_asesor.update(datos, {
             where: {
-                email: datos.email
+                email: emailOriginal
             }
         })
     }

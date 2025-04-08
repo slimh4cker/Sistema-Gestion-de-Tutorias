@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes - Alumno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="alumno-container">
+        <!-- Barra lateral -->
+        <div class="sidebar">
+            <div class="sidebar-header text-center py-4">
+                <h4 class="m-0">ESTUDIANTE</h4>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="home_alumno.html" class="d-block px-3 py-3">
+                            <i class="fas fa-user me-2"></i>Mi perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cursos.html" class="d-block px-3 py-3">
+                            <i class="fas fa-book me-2"></i>Mis cursos
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="mensajes.html" class="d-block px-3 py-3">
+                            <i class="fas fa-envelope me-2"></i>Mensajes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="calendario.html" class="d-block px-3 py-3">
+                            <i class="fas fa-calendar-alt me-2"></i>Calendario
+                        </a>
+                    </li>
+                    <li class="border-top border-light my-2"></li>
+                    <li class="logout">
+                        <a href="logout.html" class="d-block px-3 py-3">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <nav class="top-navbar navbar navbar-expand-lg">
+                <div class="container-fluid px-4">
+                    <!-- Texto de bienvenida (igual que en home_alumno) -->
+                    <div class="welcome-text">
+                        <h4 class="mb-0">Bienvenido</h4>
+                        <p class="text-muted mb-0 small">¿Listo para mejorar tus calificaciones?</p>
+                    </div>
+                    
+                    <!-- Contenedor de acciones (igual que en home_alumno) -->
+                    <div class="navbar-actions d-flex align-items-center">
+                        <a href="#" id="btn-solicitar-asesoria" class="text-decoration-none text-primary fw-bold me-3">
+                            Solicitar asesoría
+                        </a>
+                        <button class="btn btn-link text-dark p-1">
+                            <i class="fas fa-bell fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="main-content-container">
+                <div class="messages-container white-card rounded-4 shadow-sm">
+                    <!-- Lista de conversaciones -->
+                    <div class="conversation-list">
+                        <!-- Barra de búsqueda que abarca todo el ancho -->
+                        <div class="conversation-search p-3 border-bottom">
+                            <div class="input-group w-100">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0" placeholder="Buscar conversaciones...">
+                            </div>
+                        </div>
+                        
+                        <!-- Lista de contactos (sin checkboxes) -->
+                        <div class="conversation-items">
+                            <!-- Conversación 1 -->
+                            <div class="conversation-item unread p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
+                                        <span class="badge bg-primary rounded-pill">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Conversación 2 -->
+                            <div class="conversation-item read p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Ignacio Robles</h6>
+                                        <span class="text-muted small">Ayer</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Conversación 3 -->
+                            <div class="conversation-item unread p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Andres Barragan</h6>
+                                        <span class="badge bg-primary rounded-pill">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Área de mensajes -->
+                    <div class="message-area">
+                        <div class="message-header p-3 border-bottom">
+                            <h5 class="mb-0">Ignacio Robles</h5>
+                        </div>
+                        
+                        <div class="message-thread">
+                            <!-- Mensaje recibido -->
+                            <div class="message received p-3">
+                                <div class="message-sender fw-bold">Ignacio Robles</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">Hola, ¿cómo estás? He revisado tus preguntas sobre el protocolo TCP/IP y puedo ayudarte con eso. ¿Qué día te viene bien para una sesión?</p>
+                                </div>
+                                <div class="message-time text-muted small">10:45 AM - 20 Jun 2025</div>
+                            </div>
+                            
+                            <!-- Mensaje enviado -->
+                            <div class="message sent p-3 bg-light">
+                                <div class="message-sender fw-bold">Tú</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">¡Hola Ignacio! Gracias por responder. ¿Podría ser el viernes por la tarde? Tengo disponibilidad después de las 3pm.</p>
+                                </div>
+                                <div class="message-time text-muted small">11:20 AM - 20 Jun 2025</div>
+                            </div>
+                            
+                            <!-- Mensaje recibido -->
+                            <div class="message received p-3">
+                                <div class="message-sender fw-bold">Ignacio Robles</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">Perfecto, confirmado entonces nuestra sesión será el viernes a las 3pm en la sala de estudio de la biblioteca. Lleva tus apuntes sobre el tema.</p>
+                                </div>
+                                <div class="message-time text-muted small">11:45 AM - 20 Jun 2025</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Área de escritura -->
+                        <div class="message-compose p-3 border-top">
+                            <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-1"></i> Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/solicitud.js"></script>
+    <script src="js/mensajes.js"></script>
+</body>
+</html>
+</html>

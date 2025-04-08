@@ -1,7 +1,8 @@
 // pruebas de los metodos de alumno
 // Import de los controlers
-import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
+//import { AlumnoControler } from "../../src/controller/ControlerAlumno.js"
 import { jest } from '@jest/globals';
+import { emailAtributo } from '../../src/schemas/users/commons.js';
 
 
 // Mock de req y res de Express
@@ -24,6 +25,13 @@ const mockResponse = () => {
 jest.mock('jsonwebtoken', () => ({
   verify: jest.fn().mockReturnValue({ email: 'juan@example.com' })
 }));
+
+let AlumnoControler;
+
+beforeAll(async () => {
+  const { AlumnoControler: Controller } = await import("../../src/controller/ControlerAlumno.js");
+  AlumnoControler = Controller;
+});
 
 describe('Controladores de Alumno', () => {
   let req, res;
@@ -64,22 +72,30 @@ describe('Controladores de Alumno', () => {
 
   describe('getAlumnoByMail', () => {
     it('debería obtener un alumno por email correctamente', async () => {
-      req = mockRequest({}, {}, {}, {email: 'juan@example.com'} );
+      req = mockRequest({}, {}, {}, {email: 'laura@estudiante.com'} );
 
       await AlumnoControler.getAlumnoByMail(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-        email: 'juan@example.com'})
+        email: 'laura@estudiante.com'})
       );
     });
+
+    it('deveria retornar vacio', async () =>{
+      req = mockRequest({}, {}, {}, {email: 'no@existo.com'} );
+
+      await AlumnoControler.getAlumnoByMail(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+    });      
   });
 
   describe('updateAlumno', () => {
     it('debería actualizar los datos de un alumno correctamente', async () => {
       req = mockRequest(
         { nombre: 'Juan Actualizado' },
-        {  },
+        { },
         { },
         { email: 'juan@example.com' }
       );
@@ -87,6 +103,29 @@ describe('Controladores de Alumno', () => {
       await AlumnoControler.updateAlumno(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        email_de_origen: 'juan@example.com'
+      }));
+
+      req = mockRequest({}, {}, {}, {email: 'juan@example.com'})
+      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
+
+      // volver a buscar en la base de datos
+      await AlumnoControler.getAlumnoByMail(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        nombre: 'Juan Actualizado'
+      }));
+
+      // retornar a como estaba
+      req = mockRequest(
+        { nombre: 'Juan Perez' },
+        { },
+        { },
+        { email: 'juan@example.com' }
+      );
+
+      await AlumnoControler.updateAlumno(req, res);
     });
 
   });
@@ -95,9 +134,16 @@ describe('Controladores de Alumno', () => {
     it('debería eliminar un alumno correctamente', async () => {
       req = mockRequest({}, {}, {}, { email: 'juan@example.com' });
 
+      // Eliminar alumno
       await AlumnoControler.deleteAlumno(req, res);
-
       expect(res.status).toHaveBeenCalledWith(200);
+  
+      // Verificar que el alumno ya no existe
+      req = mockRequest({}, {}, {}, { email: 'juan@example.com' });
+      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
+  
+      await AlumnoControler.getAlumnoByMail(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
     });
 
   });

@@ -213,6 +213,6 @@ class PruebasAsesorias {
         require_sesiones: 1
     }) */
 
-    PruebasAsesorias.obtener_asesoria({
+/*     PruebasAsesorias.obtener_asesoria({
         email: 'luis@estudiante.com'
-    })
+    }) */
