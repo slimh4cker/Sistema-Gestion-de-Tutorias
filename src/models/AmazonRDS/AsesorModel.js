@@ -93,7 +93,7 @@ export class AsesorModel{
     /**
      * 
      * @param {String} email 
-     * @returns 
+     * @returns {boolean}
      */
     static async deleteAsesor(email){
         const deleteAsesor = await modelo_cuenta_asesor.update({estado: 2},{
