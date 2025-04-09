@@ -1,3 +1,6 @@
+
+/*DISENOS DE LA PAGINA DE LOGIN Y REGISTRO*/
+
 .logo-left, .logo-right {
     width: 180px;  
     height: 100px; 
@@ -37,7 +40,7 @@
     align-items: center;
 }
 
-/* Imagen con márgenes adecuados */
+/* Imagen del login con márgenes adecuados */
 .styled-image {
     max-width: 110%; 
     width: 100%;
@@ -94,6 +97,8 @@
     }
 }
 
+/* CLASE DE CONTENEDOR DEL 
+FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/ 
 .custom-form-position {
     transform: translate(180px, -80px); /* Derecha: +50px, Arriba: -50px */
     /* O alternativamente: */
@@ -102,6 +107,7 @@
     left: 50px;  Positivo para derecha */
 }
 
+/* ESTA CLASE ES PARA MODIFICAR EL DISENO O TAMANIO DE LA IMAGEN DEL LOGIN*/
 .custom-image-position {
     transform: translate(25px, -130px); /* Izquierda: -30px, Arriba: -20px */
     
@@ -109,7 +115,7 @@
     width: 110%; /* 10% más grande */
     max-width: 550px !important; 
 }
-
+/* ESTA CLASE TAMBIEN ES PARA LA IMAGEN DEL LOGIN*/
 .image-container + .d-flex {
     margin-top: 100px;  
     position: relative; 
@@ -135,11 +141,11 @@
     */
 }
 
-
+ /* ESTE APARTADO ES DEL ID DEL FORMULARIO DEL LOGIN.HTML */
 #form-container {
     transition: opacity 0.3s ease;
 }
-
+/*form-control pertenece a la pagina de mensajes.html*/
 .form-control {
     height: 40px;
 }
@@ -277,7 +283,7 @@
     background-color: #f8f9fa !important;
 }
 
-/***************************************/
+/*********************************************************/
 /* ESTILOS PARA HOME_ALUMNO.HTML */
 .alumno-container {
     display: flex;
@@ -485,7 +491,7 @@
     text-align: center;
 }
 
-/***************************************/
+/************************************************************************************************/
 /* ESTILOS PARA SOLICITAR ASESORIA */
 
 .white-card {
@@ -586,6 +592,8 @@
     margin-bottom: 1.5rem;
 }
 
+
+/********************************************************************************************/
 /* Estilos para la interfaz de mensajes */
 .messages-container {
     display: flex;
