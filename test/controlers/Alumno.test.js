@@ -144,7 +144,9 @@ describe('Controladores de Alumno', () => {
 
       // retornar a como estaba
       req = mockRequest(
-        { datosOriginales },
+        { 
+          nombre: 'Laura Fernández',
+          email: 'laura@estudiante.com' },
         { },
         { },
         { email: datosAactualizar.email}
