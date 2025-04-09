@@ -54,7 +54,7 @@ export class AlumnoControler {
     }
 
     try {
-      AlumnoModel.createAlumno(req.body)
+      await AlumnoModel.createAlumno(req.body)
     } catch (error) {
       res.status(500).json({ error: "Error interno al crear un alumno" })
       return
@@ -73,14 +73,14 @@ export class AlumnoControler {
 
     // asegurarme que sus datos esten correctos
     if (! validarParcialAlumno(datos)) {
-      res.status(400).json({ error: JSON.parse(result.error.message) })
+      res.status(400).json({ error: "Datos en la peticion incorrectos" })
       return
     }
 
     // obtener correo
     const email = obtenerMailDeReq(req)
     if (!email) {
-      res.status(400).json({ error: "No se ha encontrado el correo al momento de alterar el usuario" })
+      res.status(400).json({ error: "No se encontro el correo en el Web token de la peticnion" })
       return
     }
     
