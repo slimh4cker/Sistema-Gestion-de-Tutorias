@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize"; // Import the built-in data types
-import { sequelize } from "../../utils/database_connection.js"; // Import the connection object
+import { DataTypes } from "sequelize";
+import { sequelize } from "../../utils/database_connection.js"; 
 
 //Definicion del modelo de la tabla 'adminstradores'
 const modelo_cuenta_administrador = sequelize.define('modelo_cuenta_administrador',{
