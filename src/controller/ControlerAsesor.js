@@ -7,11 +7,15 @@ export class AsesorControler {
   static async getAsesorByMail(req, res) {
     // Recuperar correo
     const correo = obtenerMailDeReq(req)
+    if (!correo) {
+      res.status(400).json({ error: "No se cuenta con el correo en la request" })
+      return
+    }
 
     // Buscar en la base de datos los datos de el asesor segun este correo
     let datos = null
     try {
-      datos = AsesorModel.getAsesorByMail(correo)
+      datos = await AsesorModel.getAsesorByMail(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el asesor" })
     }
@@ -39,19 +43,19 @@ export class AsesorControler {
     // comprobar que no exista ya en la base de datos el correo
     let AsesorMail = null
     try {
-      AsesorMail = AsesorModel.getAsesorByMail(asesor.email)
+      AsesorMail = await AsesorModel.getAsesorByMail(asesor.email)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el correo" })
       return  
     }
 
-    if (AsesorMail) {
+    if (AsesorMail== null) {
       res.status(400).json({ error: "Ya existe un asesor con ese correo" })
       return
     }
 
     try{
-      AsesorModel.createAsesor(asesor)
+      await AsesorModel.createAsesor(asesor)
     } catch {
       res.status(500).json({ error: "Error interno al crear un asesor" })
       return
@@ -97,14 +101,14 @@ export class AsesorControler {
     const correo = obtenerMailDeReq(req)
 
     // asegurarse de que el asesor exista
-    if (!AsesorModel.getAsesorByMail(correo)) {
+    if (await AsesorModel.getAsesorByMail(correo) ==  null) {
       res.status(404).json({ error: "No se ha encontrado el usuario" })
       return
     }
 
     // borrar asesor
     try {
-      AsesorModel.deleteAsesor(correo) 
+      await AsesorModel.deleteAsesor(correo) 
     } catch (error) {
       res.status(500).json({ error: "Error interno al borrar el asesor" })
     }
