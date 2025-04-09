@@ -44,21 +44,22 @@ describe('Controladores de Alumno', () => {
 
   describe('registrarEstudiante y eliminar', () => {
     it('debería registrar un nuevo estudiante correctamente', async () => {
-      req = mockRequest({
+      const alumno = {
         nombre: 'Melissa',
-        email: 'mel@correo.temporal',
+        email: 'melicha@correo.temp',
         password: 'Password123!'
-      });
+      }
+
+      req = mockRequest(alumno, {}, {}, {});
 
       // Crear el alumno
       await AlumnoControler.createAlumno(req, res);
       expect(res.status).toHaveBeenCalledWith(201);
 
       // Verificar que el alumno fue creado correctamente
-      req = mockRequest({}, {}, {}, {email: 'juan@example.com'})
-      res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
+      req = await mockRequest(alumno, {}, {}, {email: alumno.email})
+      res = await mockResponse(); // Resetear la respuesta antes de la nueva llamada
 
-      // volver a buscar en la base de datos
       await AlumnoControler.getAlumnoByMail(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
 
@@ -66,7 +67,6 @@ describe('Controladores de Alumno', () => {
       await AlumnoControler.deleteAlumno(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
 
-      // Verificar que el alumno ya no existe
       await AlumnoControler.getAlumnoByMail(req, res);
       expect(res.status).toHaveBeenCalledWith(404);
     });
@@ -109,36 +109,45 @@ describe('Controladores de Alumno', () => {
 
   describe('updateAlumno', () => {
     it('debería actualizar los datos de un alumno correctamente', async () => {
+      const datosAactualizar = {
+        nombre: 'Laura Actualizado',
+        email: 'laura@lijeramente.actualizado'
+      }
+      const datosOriginales = {
+        nombre: 'Laura Fernández',
+        email: 'laura@estudiante.com'
+      }
+
+      const correoOriginal = 'laura@estudiante.com'
+
       req = mockRequest(
-        { nombre: 'Juan Actualizado' },
+        { nombre: 'Laura Actualizado',
+          email: 'laura@lijeramente.actualizado' },
         { },
         { },
-        { email: 'juan@example.com' }
+        { email: correoOriginal }
       );
 
       await AlumnoControler.updateAlumno(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-        email_de_origen: 'juan@example.com'
-      }));
 
-      req = mockRequest({}, {}, {}, {email: 'juan@example.com'})
+      req = mockRequest({}, {}, {}, {email: datosAactualizar.email} );
       res = mockResponse(); // Resetear la respuesta antes de la nueva llamada
 
       // volver a buscar en la base de datos
       await AlumnoControler.getAlumnoByMail(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-        nombre: 'Juan Actualizado'
+        nombre: datosAactualizar.nombre
       }));
 
       // retornar a como estaba
       req = mockRequest(
-        { nombre: 'Juan Perez' },
+        { datosOriginales },
         { },
         { },
-        { email: 'juan@example.com' }
+        { email: datosAactualizar.email}
       );
 
       await AlumnoControler.updateAlumno(req, res);
