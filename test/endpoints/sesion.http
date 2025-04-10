@@ -1,6 +1,8 @@
 ## APIs de prueba relacionadas con sesiones de usuario
 ## Utiliza extencion de VSC REST Client para probarlas
 
+#Comando para correr el servidor
+#npm run dev
 
 ## Realizado cuando uno inicia sesion
 ### Alumno
@@ -8,8 +10,8 @@ GET http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "juanPerez@hotmail.com",
-    "password": "myPassword33"
+    "email": "laura@estudiante.com",
+    "password": "estudiante456"
 }
 
 ### Asesor
@@ -17,7 +19,7 @@ GET http://localhost:1234/auth/asesor
 Content-Type: application/json
 
 {
-    "email": "EmilioSanshez@hotmail.com",
+    "email": "laura@estudiante.com",
     "password": "myPassword33"
 }
 
@@ -37,7 +39,7 @@ Content-Type: application/json
 
 {
     "nombre": "Juan Perez",
-    "email": "talsadfeas@temporal.com",
+    "email": "laura@estudiant.com",
     "password": "myPassword33"
 }
 

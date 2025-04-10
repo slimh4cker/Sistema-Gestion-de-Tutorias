@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export const registrarUsuario = async (modelo, datosUsuario, rol) => {
+export const registrarUsuario = async (modelo, datosUsuario) => {
   try {
     const usuarioExistente = await modelo.findOne({ 
       where: { email: datosUsuario.email } 
@@ -12,15 +12,16 @@ export const registrarUsuario = async (modelo, datosUsuario, rol) => {
     }
 
     // Hashear contraseña
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(datosUsuario.password, salt);
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(datosUsuario.password, salt);
     
     const nuevoUsuario = await modelo.create({
       ...datosUsuario,
       password: hashedPassword
     });
 
-    const token = generarToken(nuevoUsuario.id, rol);
+    // Generar token sin rol
+    const token = generarToken(nuevoUsuario.id);
 
     // Excluir campos sensibles
     const usuarioSafe = excluirCampos(nuevoUsuario.get(), ['password']);
@@ -35,8 +36,7 @@ export const registrarUsuario = async (modelo, datosUsuario, rol) => {
   }
 };
 
-
-export const iniciarSesion = async (modelo, email, password, rol) => {
+export const iniciarSesion = async (modelo, email, password) => {
   try {
     // Buscar usuario
     const usuario = await modelo.findOne({ where: { email } });
@@ -45,13 +45,13 @@ export const iniciarSesion = async (modelo, email, password, rol) => {
     }
 
     // Validar contraseña
-    const passwordValida = await bcrypt.compare(password, usuario.password);
+    const passwordValida = await bcryptjs.compare(password, usuario.password);
     if (!passwordValida) {
       throw { code: 401, message: 'Credenciales inválidas' };
     }
 
-    // Generar token
-    const token = generarToken(usuario.id, rol);
+    // Generar token sin rol
+    const token = generarToken(usuario.id);
 
     // Excluir campos sensibles
     const usuarioSafe = excluirCampos(usuario.get(), ['password']);
@@ -66,10 +66,10 @@ export const iniciarSesion = async (modelo, email, password, rol) => {
   }
 };
 
-// Función para generar tokens JWT
-const generarToken = (userId, role) => {
+// Función para generar tokens JWT sin rol
+const generarToken = (userId) => {
   return jwt.sign(
-    { id: userId, role },
+    { id: userId },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );

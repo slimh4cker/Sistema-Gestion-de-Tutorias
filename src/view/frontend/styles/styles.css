@@ -32,13 +32,7 @@
 }
 
 
-/* Contenedor principal */
-.container {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-}
+
 
 /* Imagen del login con márgenes adecuados */
 .styled-image {
@@ -150,10 +144,20 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     height: 40px;
 }
 
-/* Contenedor principal fijo */
+/* Contenedor principal */
 .container {
-    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Contenedor principal fijo */
+
+
 }
+/* Contenedor principal fijo */
+/* .container {
+    overflow: hidden;
+} */
 
 .form-content {
     flex: 1;
