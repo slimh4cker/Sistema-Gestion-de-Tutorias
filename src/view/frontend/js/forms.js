@@ -8,19 +8,19 @@ const formTemplates = {
             <form>
                 <div class="mb-3">
                     <label class="form-label">Nombre completo:</label>
-                    <input type="text" class="form-control" placeholder="Ej: Juan Pérez López">
+                    <input type="text" class="form-control" placeholder="Ej: Juan Pérez López" id = "txtNombre">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Correo institucional:</label>
-                    <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx">
+                    <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx" id= "txtCorreo">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control" placeholder="mínimo 12 caracteres">
+                    <input type="password" class="form-control" placeholder="mínimo 12 caracteres" id = "txtPassword">
                 </div>
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer text-center">
-                    <button class="btn-primary-action">REGISTRARSE</button>
+                    <button class="btn-primary-action" id="btnRegistrarse">REGISTRARSE</button>
                    <p class="text-muted small mt-3">¿Ya tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Inicia sesión aquí</a></p>
                 </div>
             </form>
@@ -104,15 +104,15 @@ const formTemplates = {
             <form>
                 <div class="mb-3">
                     <label class="form-label">Correo institucional:</label>
-                    <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx">
+                    <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx" id="txtCorreoLogin">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control" placeholder="Ingresa tu contraseña">
+                    <input type="password" class="form-control" placeholder="Ingresa tu contraseña" id = "txtContraLogin">
                 </div>
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer">
-                    <button class="btn-primary-action">INICIAR SESIÓN</button>
+                    <button class="btn-primary-action"  id ="btnIniciarSesion">INICIAR SESIÓN</button>
                     <p class="text-center mt-3 small">
                         ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
                     </p>
@@ -176,7 +176,7 @@ const formTemplates = {
 };
 
 let currentUserType = 'alumno';
-let isLoginForm = false;
+let isLoginForm = true;
 
 function switchForm(userType, login = false) {
     const formContainer = document.getElementById('form-container');
