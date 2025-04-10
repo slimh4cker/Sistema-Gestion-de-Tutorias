@@ -36,7 +36,7 @@ export class AsesorControler {
 
     // comprobar modelo con Zod
     if (!validarAsesor(asesor)) {
-      res.status(400).json({ error: JSON.parse(result.error.message) })
+      res.status(400).json({ error: "alguno o varios de los campos del asesor son incorrectos" })
       return
     }
 
@@ -49,10 +49,11 @@ export class AsesorControler {
       return  
     }
 
-    if (AsesorMail== null) {
+    if (AsesorMail != null) {
       res.status(400).json({ error: "Ya existe un asesor con ese correo" })
       return
     }
+    console.log(AsesorMail)
 
     try{
       await AsesorModel.createAsesor(asesor)
