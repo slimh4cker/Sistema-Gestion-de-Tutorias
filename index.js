@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { authRouter } from './src/routers/auth/authRouter.js';
 import { routerAlumno } from './src/routers/auth/RouterAlumno.js';
 import { routerAsesor } from './src/routers/auth/RouterAsesor.js';
@@ -10,6 +11,7 @@ export const createApp = () => {
 
   // Middlewares
   app.use(express.json());
+  app.use(cors());
 
   // Enrutadores
   app.use('/auth', authRouter);
