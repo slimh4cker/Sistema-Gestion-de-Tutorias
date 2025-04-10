@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-import { AlumnoModel } from "../../models/AmazonRDS/AdminModel.js";
-import { registrarUsuario, iniciarSesion } from "../../utils/authUtils.js";
-=======
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
->>>>>>> 196d0a7e21340e0724814577b98f75680c7f77e6
 
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
     
-<<<<<<< HEAD
-    const resultado = await registrarUsuario(
-      AlumnoModel,
-      { nombre, email, password, matricula },
-      'estudiante'
-    );
-=======
     // Usamos el método del modelo
     const nuevoAlumno = await AlumnoModel.createAlumno({
       nombre,
@@ -32,7 +20,6 @@ export const registrarEstudiante = async (req, res) => {
 
     // Generar token (aquí deberías incluir tu lógica de token)
     const token = generarToken(nuevoAlumno); 
->>>>>>> 196d0a7e21340e0724814577b98f75680c7f77e6
 
     res.status(201).json({
       success: true,
@@ -51,14 +38,6 @@ export const loginEstudiante = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-<<<<<<< HEAD
-    const resultado = await iniciarSesion(
-      AlumnoModel,
-      email,
-      password,
-      'estudiante'
-    );
-=======
     // Buscamos al alumno usando el modelo
     const alumno = await AlumnoModel.getAlumnoByMail(email);
     
@@ -79,7 +58,6 @@ export const loginEstudiante = async (req, res) => {
 
     // Generar token
     const token = generarToken(alumno);
->>>>>>> 196d0a7e21340e0724814577b98f75680c7f77e6
 
     res.json({
       success: true,
