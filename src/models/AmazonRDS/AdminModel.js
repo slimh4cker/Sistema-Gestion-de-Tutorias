@@ -1,4 +1,3 @@
-import { AlumnoModel } from "./AlumnoModel.js";
 import { modelo_cuenta_administrador } from "./Modelo_cuentas.js";
 
 // Clase del alumno encargada de interactuar con la base de datos
@@ -69,10 +68,8 @@ export class AdminModel{
             }
         }
         catch(error){
-
         }
     }
-
     /**
      * 
      * @param {JSON} datos datos que desean ser modificados

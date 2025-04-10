@@ -3,7 +3,7 @@ import { modelo_cuenta_asesor, modelo_cuenta_estudiante } from "./Modelo_cuentas
 import { modelo_solicitudes } from "./Modelo_datos.js";
 
 export class SolicitudModel{
-    static async buscarSolicitudByID(id){
+    static async buscarSolicitud(id){
         const buscar_solicitud = await modelo_solicitudes.findOne({
             attributes: ['id',
             [sequelize.col("modelo_cuenta_estudiante.nombre"),'estudiante_id'],

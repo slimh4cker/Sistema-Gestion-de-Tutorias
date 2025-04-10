@@ -7,7 +7,7 @@ export class ReportesModel {
                 id: id
             },
         })
-        return JSON.stringify(reporte, null,1)
+        return reporte
     }
 
     static async createReporte(datos){

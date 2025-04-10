@@ -1,4 +1,4 @@
-import { modelo_cuenta_estudiante } from "../../models/AmazonRDS/Modelo_cuentas.js";
+import { AlumnoModel } from "../../models/AmazonRDS/AdminModel.js";
 import { registrarUsuario, iniciarSesion } from "../../utils/authUtils.js";
 
 export const registrarEstudiante = async (req, res) => {
@@ -6,7 +6,7 @@ export const registrarEstudiante = async (req, res) => {
     const { nombre, email, password, matricula } = req.body;
     
     const resultado = await registrarUsuario(
-      modelo_cuenta_estudiante,
+      AlumnoModel,
       { nombre, email, password, matricula },
       'estudiante'
     );
@@ -29,7 +29,7 @@ export const loginEstudiante = async (req, res) => {
     const { email, password } = req.body;
     
     const resultado = await iniciarSesion(
-      modelo_cuenta_estudiante,
+      AlumnoModel,
       email,
       password,
       'estudiante'
