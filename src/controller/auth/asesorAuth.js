@@ -1,6 +1,6 @@
 import { AsesorModel } from "../../models/AmazonRDS/AsesorModel.js";
-import { generarUserToken } from '../utils/jwt/jwt.js';
-import { compararPassword, hashPassword } from '../utils/security.js';
+import { generarUserToken } from '../../utils/jwt/jwt.js';
+import { compararPassword, hashPassword } from '../../utils/security.js';
 
 export const registrarAsesor = async (req, res) => {
   try {

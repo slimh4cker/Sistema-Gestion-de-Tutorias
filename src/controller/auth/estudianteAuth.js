@@ -1,6 +1,6 @@
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
-import { generarUserToken } from '../utils/jwt/jwt.js';
-import { compararPassword, hashPassword } from '../utils/security.js';
+import { generarUserToken } from '../../utils/jwt/jwt.js';
+import { compararPassword, hashPassword } from '../../utils/security.js';
 
 export const registrarEstudiante = async (req, res) => {
   try {
