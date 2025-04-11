@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { AdminModel } from '../models/AmazonRDS/AdminModel.js';
-import { EstudianteModel } from '../models/AmazonRDS/AlumnoModel.js';
-import { AsesorModel } from '../models/AmazonRDS/AsesorModel.js';
+import { AdminModel } from '../../models/AmazonRDS/AdminModel.js';
+import { AlumnoModel } from '../../models/AmazonRDS/AlumnoModel.js';
+import { AsesorModel } from '../../models/AmazonRDS/AsesorModel.js';
 
 export const generarToken = (usuario, tipoModelo) => {
     if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET no está definido');
@@ -34,7 +34,7 @@ export const generarToken = (usuario, tipoModelo) => {
     let usuario;
     switch(decoded.modelo) {
       case 'estudiante':
-        usuario = await EstudianteModel.getAlumnoByMail(decoded.email);
+        usuario = await AlumnoModel.getAlumnoByMail(decoded.email);
         break;
       case 'asesor':
         usuario = await AsesorModel.getAsesorByMail(decoded.email);
