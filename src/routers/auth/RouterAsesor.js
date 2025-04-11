@@ -1,19 +1,26 @@
 import express from 'express';
-import { AsesorControler } from '../../../src/controller/ControlerAsesor.js';
-import { verificarToken, requiereRol } from '../../../src/middlewares/authMiddleware.js';
+import { registrarAsesor, loginAsesor } from '../controllers/asesorController.js';
+import { authMiddleware } from '../utils/jwt/jwt.js';
 
-export const routerAsesor = express.Router();
+const router = express.Router();
 
-// Obtener los datos del asesor por correo (requiere autenticación)
-routerAsesor.get('/', verificarToken, AsesorControler.getAsesorByMail);
+// Registrar asesor
+router.post('/registrar',
+  registrarAsesor
+);
 
-// Crear un nuevo asesor (requiere autenticación y rol de administrador)
-routerAsesor.post('/', AsesorControler.createAsesor);
+// Login público para asesores
+router.post('/login', loginAsesor);
 
-// Actualizar los datos del asesor (requiere autenticación)
-routerAsesor.put('/', verificarToken, AsesorControler.updateAsesor);
+// Ruta protegida para asesores
+router.get('/perfil',
+  authMiddleware(['asesor']),
+  (req, res) => {
+    res.json({
+      nombre: req.user.nombre,
+      especializacion: req.user.area_especializacion,
+    });
+  }
+);
 
-// Eliminar un asesor (requiere autenticación y rol de administrador)
-routerAsesor.delete('/', verificarToken, requiereRol('administrador'), AsesorControler.deleteAsesor);
-
-export default routerAsesor;
+export default router;
