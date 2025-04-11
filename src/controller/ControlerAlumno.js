@@ -1,6 +1,5 @@
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
-import { emailAtributo } from "../schemas/users/commons.js";
 import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.

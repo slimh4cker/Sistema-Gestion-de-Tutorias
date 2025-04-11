@@ -1,5 +1,6 @@
 import { AdminModel } from "../../models/AmazonRDS/AdminModel.js";
-import { generarToken } from "../src/utils/authUtils.js";
+
+// CORREGIR ESTE ARCHIVO
 
 export const registrarAdministrador = async (req, res) => {
   try {
