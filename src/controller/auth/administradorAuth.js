@@ -1,45 +1,72 @@
-import { modelo_cuenta_administrador } from "../models/Modelo_cuentas.js";
-import { registrarUsuario, iniciarSesion } from "../src/utils/authUtils.js";
+import { generarUserToken } from '../utils/jwt/jwt.js';
+import { AdminModel } from '../models/AmazonRDS/AdminModel.js';
+import { compararPassword } from '../utils/security.js';
 
-export const registrarAdministrador = async (req, res) => {
+// Registrar admin (solo accesible por otros admins)
+export const registrarAdmin = async (req, res) => {
   try {
     const { nombre, email, password } = req.body;
     
-    const resultado = await registrarUsuario(
-      modelo_cuenta_administrador,
-      { nombre, email, password },
-      'administrador'
-    );
+    // Validar que el solicitante es admin
+    if (!req.user || req.user.rol !== 'admin') {
+      return res.status(403).json({ error: 'No autorizado' });
+    }
+
+    const hashedPassword = await bcryptjs.hash(password, 10);
+    
+    const nuevoAdmin = await AdminModel.createAdmin({
+      nombre,
+      email,
+      password: hashedPassword,
+      estado: 1
+    });
+
+    if (!nuevoAdmin) {
+      return res.status(400).json({ error: "El admin ya existe" });
+    }
 
     res.status(201).json({
       success: true,
-      token: resultado.token,
-      administrador: resultado.usuario
+      admin: {
+        id: nuevoAdmin.id,
+        nombre: nuevoAdmin.nombre,
+        email: nuevoAdmin.email
+      }
     });
 
   } catch (error) {
-    res.status(error.code).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-export const loginAdministrador = async (req, res) => {
+export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const resultado = await iniciarSesion(
-      modelo_cuenta_administrador,
-      email,
-      password,
-      'administrador'
-    );
+    const admin = await AdminModel.getAdminByMail(email);
+    
+    if (!admin) {
+      return res.status(404).json({ error: "Admin no registrado" });
+    }
+
+    const passwordValidated = compararPassword(password, admin.password);
+    if (!passwordValidated) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
+    const token = generarUserToken(admin, 'admin');
 
     res.json({
       success: true,
-      token: resultado.token,
-      administrador: resultado.usuario
+      token,
+      admin: {
+        id: admin.id,
+        nombre: admin.nombre,
+        email: admin.email
+      }
     });
 
   } catch (error) {
-    res.status(error.code).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };

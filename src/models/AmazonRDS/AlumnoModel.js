@@ -74,7 +74,6 @@ export class AlumnoModel{
             }
         })
     }
-
     /**
      * 
      * @param {string } correo 

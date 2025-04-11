@@ -1,19 +1,27 @@
 import express from 'express';
-import { AdminControler } from '../../controller/ControlerAdministrador.js';
-import { verificarToken, requiereRol } from '../../middlewares/authMiddleware.js';
+import { registrarAdmin, loginAdmin } from '../controllers/adminController.js';
+import { authMiddleware } from '../utils/jwt/jwt.js';
 
 const router = express.Router();
 
-// Obtener los datos del administrador por correo (requiere autenticación)
-router.get('/admin', verificarToken, requiereRol('administrador'), AdminControler.getAdminByMail);
+// Registrar nuevo admin (solo por otros admins)
+router.post('/registrar', 
+  authMiddleware(['admin']),
+  registrarAdmin
+);
 
-// Crear un nuevo administrador (requiere autenticación y rol de administrador)
-router.post('/admin', verificarToken, requiereRol('administrador'), AdminControler.createAdmin);
+// Login público para admins
+router.post('/login', loginAdmin);
 
-// Actualizar datos de un administrador (requiere autenticación y rol de administrador)
-router.put('/admin', verificarToken, requiereRol('administrador'), AdminControler.updateAdmin);
-
-// Eliminar un administrador (requiere autenticación y rol de administrador)
-router.delete('/admin', verificarToken, requiereRol('administrador'), AdminControler.deleteAdmin);
+// Ruta protegida de ejemplo
+router.get('/dashboard',
+  authMiddleware(['admin']),
+  (req, res) => {
+    res.json({
+      message: `Bienvenido admin ${req.user.nombre}`,
+      sistema: 'Panel de control administrativo'
+    });
+  }
+);
 
 export default router;

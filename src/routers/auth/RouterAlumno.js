@@ -1,19 +1,25 @@
-import express from 'express';
-import { AlumnoControler } from '../../controller/ControlerAlumno.js';
-import { verificarToken, requiereRol } from '../../../src/middlewares/authMiddleware.js';
+import { Router } from 'express';
+import { registrarEstudiante, loginEstudiante } from '../controllers/estudianteController.js';
+import { authMiddleware } from '../utils/jwt/jwt.js';
 
-export const routerAlumno = express.Router();
+const router = Router();
 
-// Obtener los datos del alumno por correo (requiere autenticación)
-routerAlumno.get('/', verificarToken, AlumnoControler.getAlumnoByMail);
+// Registro público
+router.post('/registrar', registrarEstudiante);
 
-// Crear un nuevo alumno (requiere autenticación y rol de administrador)
-routerAlumno.post('/', AlumnoControler.createAlumno);
+// Login público
+router.post('/login', loginEstudiante);
 
-// Actualizar los datos del alumno (requiere autenticación)
-routerAlumno.put('/', verificarToken, AlumnoControler.updateAlumno);
+// Ruta protegida para estudiantes
+router.get('/perfil',
+  authMiddleware(['estudiante']),
+  (req, res) => {
+    res.json({
+      message: `Bienvenido ${req.user.nombre}`,
+      matricula: req.user.matricula,
+      cursos_inscritos: [] // Ejemplo de datos adicionales
+    });
+  }
+);
 
-// Eliminar un alumno (requiere autenticación y rol de administrador)
-routerAlumno.delete('/', verificarToken, requiereRol('administrador'), AlumnoControler.deleteAlumno);
-
-export default routerAlumno;
+export default router;
