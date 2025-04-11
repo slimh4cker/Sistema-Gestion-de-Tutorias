@@ -1,26 +1,9 @@
-import express from 'express';
-import { registrarAsesor, loginAsesor } from '../controllers/asesorController.js';
-import { authMiddleware } from '../utils/jwt/jwt.js';
+import { Router } from 'express';
+import { registrarAsesor } from '../../controller/auth/asesorAuth.js';
 
-const router = express.Router();
+const router = Router();
 
-// Registrar asesor
-router.post('/registrar',
-  registrarAsesor
-);
-
-// Login público para asesores
-router.post('/login', loginAsesor);
-
-// Ruta protegida para asesores
-router.get('/perfil',
-  authMiddleware(['asesor']),
-  (req, res) => {
-    res.json({
-      nombre: req.user.nombre,
-      especializacion: req.user.area_especializacion,
-    });
-  }
-);
+// Registro público de asesores
+router.post('/asesor', registrarAsesor);
 
 export default router;

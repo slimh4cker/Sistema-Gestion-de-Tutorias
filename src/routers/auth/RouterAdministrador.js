@@ -1,27 +1,13 @@
-import express from 'express';
-import { registrarAdmin, loginAdmin } from '../controllers/adminController.js';
+import { Router } from 'express';
 import { authMiddleware } from '../utils/jwt/jwt.js';
+import { registrarAdmin } from '../../controller/auth/administradorAuth.js';
 
-const router = express.Router();
+const router = Router();
 
-// Registrar nuevo admin (solo por otros admins)
-router.post('/registrar', 
-  authMiddleware(['admin']),
+// Registro protegido
+router.post('/administrador',
+  authMiddleware(['administrador']),
   registrarAdmin
-);
-
-// Login público para admins
-router.post('/login', loginAdmin);
-
-// Ruta protegida de ejemplo
-router.get('/dashboard',
-  authMiddleware(['admin']),
-  (req, res) => {
-    res.json({
-      message: `Bienvenido admin ${req.user.nombre}`,
-      sistema: 'Panel de control administrativo'
-    });
-  }
 );
 
 export default router;
