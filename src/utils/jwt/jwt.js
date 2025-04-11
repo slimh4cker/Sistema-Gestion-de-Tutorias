@@ -21,6 +21,10 @@ export const generarToken = (usuario, tipoModelo) => {
    * @param {String} token - Token a verificar
    * @returns {Object} Payload decodificado y validado
    */
+
+  export const generarUserToken = (usuario, rol) => {
+    return generarToken(usuario, rol);
+};
   
   export const verificarToken = async (token) => {
     if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET no está definido');
@@ -44,6 +48,7 @@ export const generarToken = (usuario, tipoModelo) => {
   
     if (!usuario) throw new Error('Usuario no encontrado en el sistema');
   }
+
 // Middleware para verificar token en rutas protegidas
 export const authMiddleware = (rolesPermitidos = []) => {
     return async (req, res, next) => {
