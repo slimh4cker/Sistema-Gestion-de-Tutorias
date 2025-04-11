@@ -1,6 +1,6 @@
 import { generarUserToken } from '../utils/jwt/jwt.js';
 import { AdminModel } from '../models/AmazonRDS/AdminModel.js';
-import bcryptjs from 'bcryptjs';
+import { compararPassword } from '../utils/security.js';
 
 // Registrar admin (solo accesible por otros admins)
 export const registrarAdmin = async (req, res) => {
@@ -49,8 +49,8 @@ export const loginAdmin = async (req, res) => {
       return res.status(404).json({ error: "Admin no registrado" });
     }
 
-    const valida = await bcryptjs.compare(password, admin.password);
-    if (!valida) {
+    const passwordValidated = compararPassword(password, admin.password);
+    if (!passwordValidated) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 

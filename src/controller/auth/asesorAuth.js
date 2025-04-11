@@ -1,28 +1,13 @@
-// Corrige las importaciones
 import { AsesorModel } from "../../models/AmazonRDS/AsesorModel.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-// Función para generar token (debes implementarla)
-const generarToken = (usuario) => {
-  return jwt.sign(
-    { id: usuario.id, rol: "asesor" },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
-};
-
-// Función para comparar contraseñas
-const compararPassword = async (password, hash) => {
-  return await bcrypt.compare(password, hash);
-};
+import { generarUserToken } from '../utils/jwt/jwt.js';
+import { compararPassword, hashPassword } from '../utils/security.js';
 
 export const registrarAsesor = async (req, res) => {
   try {
     const { nombre, email, password, area_especializacion } = req.body;
     
     // Hashear la contraseña antes de enviar al modelo
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = hashPassword(password)
     
     const nuevoAsesor = await AsesorModel.createAsesor({
       nombre,
@@ -40,8 +25,12 @@ export const registrarAsesor = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      token: generarToken(nuevoAsesor),
-      asesor: nuevoAsesor
+      asesor: {
+        id: nuevoAsesor.id,
+        nombre: nuevoAsesor.nombre,
+        email: nuevoAsesor.email,
+        area_especializacion: nuevoAsesor.area_especializacion
+      }
     });
 
   } catch (error) {
@@ -63,7 +52,7 @@ export const loginAsesor = async (req, res) => {
       });
     }
 
-    const passwordValida = await compararPassword(password, asesor.password);
+    const passwordValida = compararPassword(password, asesor.password);
     
     if (!passwordValida) {
       return res.status(401).json({
@@ -71,9 +60,11 @@ export const loginAsesor = async (req, res) => {
       });
     }
 
+    const token = generarUserToken(asesor, 'asesor')
+
     res.json({
       success: true,
-      token: generarToken(asesor),
+      token,
       asesor: {
         id: asesor.id,
         nombre: asesor.nombre,

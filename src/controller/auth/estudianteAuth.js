@@ -1,30 +1,35 @@
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
+import { generarUserToken } from '../utils/jwt/jwt.js';
+import { compararPassword, hashPassword } from '../utils/security.js';
 
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
+
+    const hashedPassword = hashPassword(password)
     
     // Usamos el método del modelo
-    const nuevoAlumno = await AlumnoModel.createAlumno({
+    const nuevoEstudiante = await AlumnoModel.createAlumno({
       nombre,
       email,
-      password,  // Asegúrate de que aquí ya venga hasheada
+      hashedPassword,
       matricula
     });
 
-    if (!nuevoAlumno) {
+    if (!nuevoEstudiante) {
       return res.status(400).json({
         error: "El correo ya está registrado"
       });
     }
 
-    // Generar token (aquí deberías incluir tu lógica de token)
-    const token = generarToken(nuevoAlumno); 
-
     res.status(201).json({
       success: true,
-      token: token,
-      estudiante: nuevoAlumno
+      alumno: {
+        id: nuevoEstudiante.id,
+        nombre: nuevoEstudiante.nombre,
+        email: nuevoEstudiante.email,
+        matricula: nuevoEstudiante.matricula
+      }
     });
 
   } catch (error) {
@@ -48,7 +53,7 @@ export const loginEstudiante = async (req, res) => {
     }
 
     // Verificar contraseña (debes comparar el hash)
-    const passwordValida = await compararPassword(password, alumno.password);
+    const passwordValida = compararPassword(password, alumno.password)
     
     if (!passwordValida) {
       return res.status(401).json({
@@ -57,12 +62,17 @@ export const loginEstudiante = async (req, res) => {
     }
 
     // Generar token
-    const token = generarToken(alumno);
+    const token = generarUserToken(alumno, 'alumno');
 
     res.json({
       success: true,
-      token: token,
-      estudiante: alumno
+      token,
+      estudiante: {
+        id: nuevoAlumno.id,
+        nombre: nuevoAlumno.nombre,
+        email: nuevoAlumno.email,
+        matricula: nuevoAlumno.matricula
+      }
     });
 
   } catch (error) {
