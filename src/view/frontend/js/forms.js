@@ -233,39 +233,6 @@ function switchForm(userType, login = true) {
 // Inicializar con formulario de alumno
 switchForm('alumno');
 
-/* //FUNCION QUE CAPTURA LO QUE INGRESO EL USUARIO ALUMNO 
-function loginAlumno() {
-    // Captura los valores de los campos de correo y contraseña
-    const email = document.getElementById('txtCorreoLogin').value;
-    const password = document.getElementById('txtContraLogin').value;
-
-    // Llama a la función para iniciar sesión
-    iniciarSesionAlumno(email, password);
-}
-
-
-//FUNCION PARA ENVIAR USUARIO Y CONTRASENIA DE LOGIN_ALUMNO
-function iniciarSesionAlumno(email, password) {
-    // Aquí puedes usar fetch para enviar las credenciales al servidor
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    fetch('http://localhost:1234/auth/alumno', {
-        method: 'POST', // Cambié a POST, ya que generalmente para enviar datos de inicio de sesión se usa este método
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    }).then(res => res.json())
-      .then(data => {
-          console.log("Respuesta de la API:", data);
-          // Aquí puedes manejar la respuesta, como redirigir al usuario o mostrar un mensaje de error
-      })
-      .catch(err => console.error("Error al iniciar sesión:", err));
-} */
 
       // FUNCION UNIFICADA PARA CAPTURAR LOS DATOS DE LOGIN Y ENVIARLOS AL SERVIDOR
 function loginAlumno() {
@@ -304,7 +271,6 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
 
 //*****FUNCION PARA REGISTRAR ALUMNO*****//
 
-     // FUNCION UNIFICADA PARA CAPTURAR LOS DATOS DE LOGIN Y ENVIARLOS AL SERVIDOR
      function registrarAlumno() {
         // Captura los valores de los campos de correo y contraseña
         const nombre = document.getElementById('txtNombre').value
@@ -316,7 +282,7 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
         console.log("Email:", email);
         console.log("Password:", password);
     
-        fetch('http://localhost:1234/alumno ', {
+        fetch('http://localhost:1234/alumno', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -333,6 +299,14 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
           })
           .catch(err => console.error("Error al registrar usuario:", err));
     }
+
+    //FUNCION DEL BOTON DE REGISTRAR//
+    document.getElementById('btnRegistrarse').addEventListener('click', (e) => {
+        e.preventDefault();
+        registrarAlumno(); // Llama la función de login
+    });
+
+
 
 
 
