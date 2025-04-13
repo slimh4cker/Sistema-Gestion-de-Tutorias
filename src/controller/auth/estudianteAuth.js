@@ -1,17 +1,17 @@
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
 import { generarUserToken } from '../../utils/jwt/jwt.js';
-import { compararPassword, hashPassword } from '../../utils/security.js';
+import { compararPassword } from '../../utils/security.js';
+import bcryptjs from "bcryptjs";
 
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
 
-    const hashedPassword = hashPassword(password)
     
     const nuevoEstudiante = await AlumnoModel.createAlumno({
       nombre,
       email,
-      hashedPassword,
+      password,
       matricula
     });
 
@@ -43,6 +43,10 @@ export const loginEstudiante = async (req, res) => {
     const { email, password } = req.body;
 
     const alumno = await AlumnoModel.getAlumnoByMail(email);
+    //console.log("Contraseña recibida:", password);
+    //console.log("Hash almacenado:", alumno?.password);
+    //const hash = await bcryptjs.hash(password, 10);
+    //console.log("Hash generado:", hash);
 
     if (!alumno) {
       return res.status(404).json({ error: "Usuario no encontrado" });

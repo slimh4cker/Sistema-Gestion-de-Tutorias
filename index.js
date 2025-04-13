@@ -18,6 +18,7 @@ export const createApp = () => {
   app.get('/', (req, res) => {
     res.send('¡API funcionando correctamente!');
   });
+  
 
   // Manejo de rutas no existentes (404)
   app.use((req, res) => {

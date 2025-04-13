@@ -1,4 +1,5 @@
 import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
+import { compararPassword, hashPassword } from '../../utils/security.js';
 
 // Clase del alumno encargada de interactuar con la base de datos
 
@@ -45,7 +46,11 @@ export class AlumnoModel{
                 }
             })
             if(!alumno){
-                const crear_alumno = await modelo_cuenta_estudiante.create(datos)
+                const hashedPassword = hashPassword(datos.password, 10);
+                const crear_alumno = await modelo_cuenta_estudiante.create({
+                    ...datos,
+                    password: hashedPassword,
+                });
                 console.log("Alumno creado correctamente")
                 return crear_alumno
             }
