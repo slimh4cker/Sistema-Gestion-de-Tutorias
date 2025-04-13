@@ -82,20 +82,20 @@ export class AlumnoModel{
      * AlumnoModel.deleteAlumno("email@example.com")
      */
     static async deleteAlumno(correo) {
-        const deleteAlumno = await modelo_cuenta_estudiante.update({estado: 2},{
+        const deleteAlumno = await modelo_cuenta_estudiante.update({estado: 'inactivo'},{
             where: {
                 email: correo
             }
         })
         
-        return deleteAlumno[0] > 0 // Si se elimina retorna true, si no retorna false
+        return deleteAlumno[0] > 0
     }
     static async reactivarAlumno (datos) {
         console.log("Correo reactivado Correctamente")
         return await modelo_cuenta_estudiante.update({
             nombre: datos.nombre,
             password: datos.password,
-            estado: 1
+            estado: 'activo'
 
         },
         {

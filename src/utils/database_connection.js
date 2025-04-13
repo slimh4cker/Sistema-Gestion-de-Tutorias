@@ -5,9 +5,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME || 'incidentes',
+  process.env.DB_NAME || 'asesorias',
   process.env.DB_USER || 'root',
-  (process.env.DB_PASS !== undefined ? process.env.DB_PASS : ''),
+  (process.env.DB_PASS !== undefined ? process.env.DB_PASS : 's7zlkswtsD'),
   {
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.DB_DIALECT || 'mysql',
@@ -20,6 +20,13 @@ const sequelize = new Sequelize(
   }
 );
 
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conexión a MariaDB exitosa.');
+  })
+  .catch((error) => {
+    console.error('Error de conexión a MariaDB:', error);
+  });
 
 
 export { sequelize };

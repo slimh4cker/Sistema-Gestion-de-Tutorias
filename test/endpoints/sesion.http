@@ -6,7 +6,7 @@
 
 ## Realizado cuando uno inicia sesion
 ### Alumno
-GET http://localhost:1234/auth/alumno 
+POST http://localhost:1234/api/auth/alumno 
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Asesor
-GET http://localhost:1234/auth/asesor    
+POST http://localhost:1234/auth/asesor    
 Content-Type: application/json
 
 {

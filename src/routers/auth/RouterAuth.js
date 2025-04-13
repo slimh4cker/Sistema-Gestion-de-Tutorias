@@ -5,8 +5,8 @@ import {loginAdmin} from '../../controller/auth/administradorAuth.js';
 
 const router = Router();
 
-router.get('/auth/alumno', loginEstudiante);
-router.get('/auth/asesor', loginAsesor);
-router.get('/auth/administrador', loginAdmin);
+router.post('/auth/alumno', loginEstudiante);
+router.post('/auth/asesor', loginAsesor);
+router.post('/auth/administrador', loginAdmin);
 
 export default router;
