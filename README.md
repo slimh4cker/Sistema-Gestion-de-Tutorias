@@ -42,6 +42,7 @@ Para ejecutar el sistema, necesitas tener instalado lo siguiente:
 - **Bootstrap**: Framework de CSS para desarrollar interfaces de usuario responsivas y modernas. Se instala ejecutando `npm install bootstrap`.
 - **CORS**: Middleware que permite habilitar solicitudes desde otros dominios. Se instala ejecutando `npm install cors`.
 - **ZOD**: Librería para la validación de datos a través de esquemas. Se instala ejecutando `npm install zod`.
+-  **dotenv**: Librería para cargar variables de entorno desde un archivo .env al process.env. Se instala ejecutando `npm install dotenv`.
 
 ## Testing
 Para realizar pruebas en el servidor se pueden utilizar los scripts para pruebas como esta escrito en esa seccion de este documento.
