@@ -1,13 +1,11 @@
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
 import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
-import bcryptjs from "bcryptjs";
 
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
 
-    
     const nuevoEstudiante = await AlumnoModel.createAlumno({
       nombre,
       email,

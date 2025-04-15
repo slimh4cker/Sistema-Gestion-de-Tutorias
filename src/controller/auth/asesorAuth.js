@@ -1,18 +1,15 @@
 import { AsesorModel } from "../../models/AmazonRDS/AsesorModel.js";
 import { generarUserToken } from '../../utils/jwt/jwt.js';
-import { compararPassword, hashPassword } from '../../utils/security.js';
+import { compararPassword } from '../../utils/security.js';
 
 export const registrarAsesor = async (req, res) => {
   try {
     const { nombre, email, password, area_especializacion } = req.body;
     
-    // Hashear la contraseña antes de enviar al modelo
-    const hashedPassword = hashPassword(password)
-    
     const nuevoAsesor = await AsesorModel.createAsesor({
       nombre,
       email,
-      password: hashedPassword,
+      password,
       area_especializacion,
       estado: 1 // Asegura el estado activo
     });

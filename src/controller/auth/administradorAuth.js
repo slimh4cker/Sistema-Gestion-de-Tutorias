@@ -1,6 +1,6 @@
 import { AdminModel } from '../../models/AmazonRDS/AdminModel.js';
 import { generarUserToken } from '../../utils/jwt/jwt.js';
-import { compararPassword, hashPassword } from '../../utils/security.js';
+import { compararPassword } from '../../utils/security.js';
 
 
 // Registrar admin (solo accesible por otros admins)
@@ -13,12 +13,10 @@ export const registrarAdmin = async (req, res) => {
       return res.status(403).json({ error: 'No autorizado' });
     }
 
-    const hashedPassword = hashPassword(password);
-    
     const nuevoAdmin = await AdminModel.createAdmin({
       nombre,
       email,
-      password: hashedPassword,
+      password,
       estado: 1
     });
 
