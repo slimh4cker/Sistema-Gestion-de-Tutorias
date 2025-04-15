@@ -6,7 +6,7 @@
 
 ## Realizado cuando uno inicia sesion
 ### Alumno
-POST http://localhost:1234/api/auth/alumno 
+POST http://localhost:1234/auth/alumno 
 Content-Type: application/json
 
 {
@@ -19,17 +19,17 @@ POST http://localhost:1234/auth/asesor
 Content-Type: application/json
 
 {
-    "email": "laura@estudiante.com",
-    "password": "myPassword33"
+    "email": "carlos@asesor.com",
+    "password": "asesor123"
 }
 
 ### Administrador
-GET http://localhost:1234/auth/administrador
+POST http://localhost:1234/auth/administrador
 Content-Type: application/json
 
 {
-    "email": "Maria@hotmail.com",
-    "password": "myPassword33"
+    "email": "juan@admin.com",
+    "password": "admin123"
 }
 
 ## Para agregar una cuenta
