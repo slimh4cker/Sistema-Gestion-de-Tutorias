@@ -1,5 +1,5 @@
 import { modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
-import { compararPassword, hashPassword } from '../../utils/security.js';
+import { hashPassword } from '../../utils/security.js';
 
 // Clase del alumno encargada de interactuar con la base de datos
 

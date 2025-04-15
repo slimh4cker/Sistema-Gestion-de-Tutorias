@@ -1,5 +1,6 @@
 import { ParseStatus } from "zod";
 import { modelo_cuenta_asesor} from "./Modelo_cuentas.js";
+import { hashPassword } from '../../utils/security.js';
 
 // Clase del alumno encargada de interactuar con la base de datos
 
@@ -49,7 +50,11 @@ export class AsesorModel{
                 }
             })
             if(!asesor){
-                const crear_asesor = await modelo_cuenta_asesor.create(datos)
+                const hashedPassword = hashPassword(datos.password, 10);
+                const crear_asesor = await modelo_cuenta_estudiante.create({
+                    ...datos,
+                    password: hashedPassword,
+                });
                 console.log("Asesor creado correctamente")
                 return crear_asesor.dataValues
             }

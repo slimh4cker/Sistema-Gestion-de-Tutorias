@@ -55,9 +55,13 @@ export class AdminModel{
             })
             console.log(admin)
             if(admin.length === 0){
-                const agregar_alumno = await modelo_cuenta_administrador.create(datos)
+                const hashedPassword = hashPassword(datos.password, 10);
+                const crear_admin = await modelo_cuenta_estudiante.create({
+                    ...datos,
+                    password: hashedPassword,
+                });
                 console.log("Admin agregado correctamente")
-                return agregar_alumno.dataValues
+                return crear_admin.dataValues
             }
             else if(admin.dataValues.estado === "inactivo"){
                 return this.reactivarAdmin(datos)
