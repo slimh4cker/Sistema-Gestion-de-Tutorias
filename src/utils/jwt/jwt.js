@@ -10,7 +10,6 @@ export const generarToken = (usuario, tipoModelo) => {
       id: usuario.id,
       email: usuario.email,
       rol: tipoModelo, // El rol se determina por el tipo de modelo
-      modelo: tipoModelo // Agregamos referencia al modelo origen
     };
   
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -46,7 +45,11 @@ export const generarToken = (usuario, tipoModelo) => {
         throw new Error('Tipo de usuario no válido');
     }
   
-    if (!usuario) throw new Error('Usuario no encontrado en el sistema');
+    if (!usuario || usuario.estado !== 'activo') { // Verifica estado del usuario
+      throw new Error('Usuario no encontrado o inactivo');
+    }
+  
+    return { decoded, usuario };
   }
 
 // Middleware para verificar token en rutas protegidas
@@ -59,21 +62,12 @@ export const authMiddleware = (rolesPermitidos = []) => {
           return res.status(401).json({ error: 'Token no proporcionado' });
         }
   
-        // Verificación completa con modelo
-        const decoded = await verificarToken(token);
-        
-        // Validación de roles
-        if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(decoded.rol)) {
-          return res.status(403).json({ 
-            error: `Rol requerido: ${rolesPermitidos.join(', ')}` 
-          });
-        }
+        const { decoded, usuario } = await verificarToken(token);
   
-        // Inyectar datos de usuario y modelo en la request
+        // Adjuntamos datos actualizados del usuario
         req.user = {
-          ...decoded.usuario.dataValues,
-          rol: decoded.rol,
-          modelo: decoded.modelo
+          ...usuario.dataValues,
+          rol: usuario.rol
         };
   
         next();
