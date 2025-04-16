@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { registrarEstudiante } from '../../controller/auth/estudianteAuth';
+import { getAlumnoByMail } from '../../controller/auth/estudianteAuth';
 
 const router = Router();
 
-// Registro público de alumnos
-router.post('/alumno', registrarEstudiante);
+router.get('/alumno/alumno', getAlumnoByMail);
 
 export default router;

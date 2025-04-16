@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import {loginEstudiante} from '../../controller/auth/estudianteAuth.js';
+import {loginEstudiante, registrarEstudiante} from '../../controller/auth/estudianteAuth.js';
 import {loginAsesor} from '../../controller/auth/asesorAuth.js';
 import {loginAdmin} from '../../controller/auth/administradorAuth.js';
-import { authMiddleware } from '../utils/jwt/jwt.js';
+import { authMiddleware } from '../../utils/jwt/jwt.js';
 import { registrarAdmin } from '../../controller/auth/administradorAuth.js';
-import { registrarEstudiante } from '../../controller/auth/estudianteAuth';
 import { registrarAsesor } from '../../controller/auth/asesorAuth.js';
 
 const router = Router();

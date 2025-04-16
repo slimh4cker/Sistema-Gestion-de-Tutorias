@@ -63,11 +63,21 @@ export const authMiddleware = (rolesPermitidos = []) => {
         }
   
         const { decoded, usuario } = await verificarToken(token);
+
+        // validación de roles
+        if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(usuario.rol)) {
+          return res.status(403).json({
+            error: `Acceso denegado. Rol requerido: ${rolesPermitidos.join(', ')}`
+          });
+        }
   
-        // Adjuntamos datos actualizados del usuario
+        // Se inyectan datos limpios al request
         req.user = {
-          ...usuario.dataValues,
-          rol: usuario.rol
+          id: usuario.id,
+          email: usuario.email,
+          rol: usuario.rol,
+          ...(usuario.nombre && { nombre: usuario.nombre }),
+          ...(usuario.matricula && { matricula: usuario.matricula })
         };
   
         next();
