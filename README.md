@@ -48,10 +48,52 @@ Para ejecutar el sistema, necesitas tener instalado lo siguiente:
 Para realizar pruebas en el servidor se pueden utilizar los scripts para pruebas como esta escrito en esa seccion de este documento.
 Ademas de esto, para probar las APIs se puede utilizar los documentos con la extencion .http con la extension CLIENT REST de visual studio para probar las APIs qu provee el servidor.
 
+## Instalacion
+Esta seccion se centrara en la instalacion de los componenetes requeridos para poder correr el servidor de forma local. Para la publicacion de la paguina y el hosting de el servidor y la paguina
+es preferible utilizar otras guias externas. Este proyecto utiliza npm y WAMP para su funcionamiento y se han de instalar, ademas se ha de configurar un archivo .env para la configuracion de puertos y de la base de
+datos. La parte del proyecto para el cliente esta en la carpeta src/view/ .
+
+### 1. Instalacion de proyecto
+El proyecto esta publicado en https://github.com/slimh4cker/Sistema-Gestion-de-Tutorias.git , para clonarlo utilize git. Para instalar git vaya a https://git-scm.com/downloads e instale la version correspondiente
+a su sistema operativo, en el instalador siga las instrucciones correspondientes para instalarlo, en caso de ser en windows agrege la variable de ambiente "git" correspondiente a donede este el ejecutable.
+
+Para corroborar que se instalo correctamente ejecute el comando git -v donde se mostrara la version de git instalada.
+
+Una vez instalado vaya a la carpeta donde desee instalar el proyecto y ejecute el siguiente comando:
+  gh repo clone slimh4cker/Sistema-Gestion-de-Tutorias
+Si le pide una cuenta de github acceda con esta, asegurese de que esta cuenta tenga acceso al repositorio teniendo permiso del propietario de este.
+
+### 2. Instalacion de node y npm
+Este proyecto utiliza Node y npm para las dependencias, para descargarlo dirigase a https://nodejs.org/ y descarge la version LTS. Una vez instalado ejecute el instalador y siga las instrucciones en pantalla, 
+asegurese de agregar Node.js al PATH del sistema. Para verificar la instalacion ejecute los siguientes comandos, los cuales indican la version del programa.
+  node -v
+
+  npm -v
+
+finalmente ejecute el comando   npm install   para instalar todas las dependencias del proyecto.
+
+### 3. Instalacion de MySQL.
+Para la realizacion de este proyecto se utilizo MySQL de WAMP, sin embargo solo con mysql funciona para los propositos de este programa.
+Instale MySQL de https://dev.mysql.com/downloads/installer/ y ejecute el instalador, preste atencion a el puerto, el nombre del usuario raiz y la contrasenia de este.
+
+Dentro de este cree la base de datos "asesorias" y de la forma que prefiera importe la base de datos desde el archivo asesorias.sql . Cabe notar que se puede cambiar el nombre de la base de datos si se altera de la forma apropiada el archivo .env
+
+### 4. Configurar archivo .env
+El programa por default cuenta con varios parametros establecidos por default en caso de no tener un archivo .env  sin embargo se tienen varias variables para poder ser configuradas personalmente:
+
+DB_NAME=      //nombre de la base de datos
+DB_USER=      //nombre del usuario raiz
+DB_PASS=      //contrasena del, usuario raiz
+DB_HOST=      //host de la base ded atos
+DB_PORT=      //puerto de la base de datos
+DB_DIALECT=   //si utiliza mysql u otra base ded atos
+DB_TIMEZONE=  //zona horaria
+
+
 ## Scripts
 ### Iniciar el servidor
   npm run start
-este inicia el servidor completamente
+Este inicia el servidor completamente
 
 ### Iniciar en modo desarollo
   npm run dev
