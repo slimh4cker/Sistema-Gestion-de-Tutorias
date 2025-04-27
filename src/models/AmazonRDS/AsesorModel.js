@@ -101,7 +101,7 @@ export class AsesorModel{
         })
     }
     /**
-     * 
+     * Desactiva la cuenta del asesor
      * @param {String} email 
      * @returns {boolean}
      */

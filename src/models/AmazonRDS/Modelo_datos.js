@@ -2,71 +2,8 @@ import {DataTypes, INTEGER, Sequelize} from 'sequelize'
 import {sequelize} from '../../utils/database_connection.js'
 import { modelo_cuenta_asesor, modelo_cuenta_estudiante, modelo_cuenta_administrador } from './Modelo_cuentas.js'
 
-
-const modelo_asesorias = sequelize.define('modelo_asesorias',{
-    id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        defaultValue: false,
-        autoIncrement: true
-    },
-    solicitud_id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        defaultValue: null
-    },
-    estado: {
-        type: DataTypes.ENUM('pendiente', 'asignada', 'en _proceso', 'terminada', 'aplazada'),
-        allowNull: true,
-        defaultValue: null
-    },
-    fecha_creacion: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null
-    },
-    fecha_atencion: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null
-    },
-    hora_inicial: {
-        type: DataTypes.TIME,
-        allowNull: true,
-        defaultValue: null
-    },
-    hora_final: {
-        type: DataTypes.TIME,
-        allowNull: true,
-        defaultValue: null
-    },
-    total_horas: {
-        type: DataTypes.DECIMAL(5,2),
-        allowNull: true,
-        defaultValue: null
-    },
-    porcentaje_cumplimiento: {
-        type: DataTypes.DECIMAL(5,2),
-        allowNull: true,
-        defaultValue: null
-    },
-    requiere_sesiones: {
-        type: DataTypes.TINYINT(1),
-        allowNull: true,
-        defaultValue: null
-    }
-
-},
-{
-    tableName: 'asesorias',
-    createdAt: false,
-    updatedAt: false
-}
-)
-
 // Definición de la tabla solicitudes
-const modelo_solicitudes = sequelize.define('modelo_solicitudes',{
+const modelo_solicitud = sequelize.define('modelo_solicitud',{
     id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
@@ -128,16 +65,83 @@ const modelo_solicitudes = sequelize.define('modelo_solicitudes',{
     createdAt: false,
     updatedAt: false
 })
-modelo_solicitudes.hasMany(modelo_asesorias, {foreignKey: 'solicitud_id'})
-modelo_asesorias.belongsTo(modelo_solicitudes, {foreignKey: 'solicitud_id'})
+
 
 // Asociación uno a muchos entre Solicitudes y Asesores
-modelo_cuenta_asesor.hasMany(modelo_solicitudes, {foreignKey: 'asesor_id'})
-modelo_solicitudes.belongsTo(modelo_cuenta_asesor, {foreignKey: 'asesor_id'})
+modelo_cuenta_asesor.hasMany(modelo_solicitud, {foreignKey: 'asesor_id'})
+modelo_solicitud.belongsTo(modelo_cuenta_asesor, {foreignKey: 'asesor_id'})
 
 // Asociación uno a muchos entre Solicitudes y Estudiantes
-modelo_cuenta_estudiante.hasMany(modelo_solicitudes, {foreignKey: 'estudiante_id'})
-modelo_solicitudes.belongsTo(modelo_cuenta_estudiante, {foreignKey: 'estudiante_id'})
+modelo_cuenta_estudiante.hasMany(modelo_solicitud, {foreignKey: 'estudiante_id'})
+modelo_solicitud.belongsTo(modelo_cuenta_estudiante, {foreignKey: 'estudiante_id'})
+
+const modelo_asesorias = sequelize.define('modelo_asesorias',{
+    id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        primaryKey: true,
+        defaultValue: false,
+        autoIncrement: true
+    },
+    solicitud_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: null,
+        references: {
+            model:modelo_solicitud,
+            key: 'id'
+        }
+    },
+    estado: {
+        type: DataTypes.ENUM('pendiente', 'asignada', 'en _proceso', 'terminada', 'aplazada'),
+        allowNull: true,
+        defaultValue: 'pendiente'
+    },
+    fecha_creacion: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    fecha_atencion: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    hora_inicial: {
+        type: DataTypes.TIME,
+        allowNull: true,
+        defaultValue: null
+    },
+    hora_final: {
+        type: DataTypes.TIME,
+        allowNull: true,
+        defaultValue: null
+    },
+    total_horas: {
+        type: DataTypes.DECIMAL(5,2),
+        allowNull: true,
+        defaultValue: null
+    },
+    porcentaje_cumplimiento: {
+        type: DataTypes.DECIMAL(5,2),
+        allowNull: true,
+        defaultValue: null
+    },
+    requiere_sesiones: {
+        type: DataTypes.TINYINT(1),
+        allowNull: true,
+        defaultValue: null
+    }
+
+},
+{
+    tableName: 'asesorias',
+    createdAt: false,
+    updatedAt: false
+}
+)
+modelo_solicitud.hasMany(modelo_asesorias, {foreignKey: 'solicitud_id'})
+modelo_asesorias.belongsTo(modelo_solicitud, {foreignKey: 'solicitud_id'})
 
 const modelo_mensajes = sequelize.define('modelo_mensajes',{
     id: {
@@ -152,7 +156,7 @@ const modelo_mensajes = sequelize.define('modelo_mensajes',{
         allowNull: true,
         defaultValue: null,
         references: {
-            model: modelo_solicitudes,
+            model: modelo_solicitud,
             key: 'id'
         },
     },
@@ -184,8 +188,8 @@ const modelo_mensajes = sequelize.define('modelo_mensajes',{
 })
 
 // Asosiación de la tabla mensajes con solicitudes
-modelo_solicitudes.hasMany(modelo_mensajes, {foreignKey: 'solicitud_id'})
-modelo_mensajes.belongsTo(modelo_solicitudes, {foreignKey: 'solicitud_id'})
+modelo_solicitud.hasMany(modelo_mensajes, {foreignKey: 'solicitud_id'})
+modelo_mensajes.belongsTo(modelo_solicitud, {foreignKey: 'solicitud_id'})
 
 // tabla de relaciones solicitudes - administradores
 
@@ -202,7 +206,7 @@ const modelo_solicitudes_administradores = sequelize.define('modelo_solicitudes_
         allowNull: false,
         defaultValue: null,
         references: {
-            model: modelo_solicitudes,
+            model: modelo_solicitud,
             key: 'id'
         }
     },
@@ -234,8 +238,8 @@ const modelo_solicitudes_administradores = sequelize.define('modelo_solicitudes_
 )
 
 // Definición muchos a muchos entre las tablas solicitudes y administradores
-modelo_solicitudes.belongsToMany(modelo_cuenta_administrador, {through: modelo_solicitudes_administradores, foreignKey: 'solicitud_id'})
-modelo_cuenta_administrador.belongsToMany(modelo_solicitudes, {through: modelo_solicitudes_administradores, foreignKey: 'administrador_id'})
+modelo_solicitud.belongsToMany(modelo_cuenta_administrador, {through: modelo_solicitudes_administradores, foreignKey: 'solicitud_id'})
+modelo_cuenta_administrador.belongsToMany(modelo_solicitud, {through: modelo_solicitudes_administradores, foreignKey: 'administrador_id'})
 
 
 // Definición del modelo de la tabla reportes
@@ -504,7 +508,7 @@ const modelo_calendario = sequelize.define('modelo_calendario', {
         allowNull: true,
         defaultValue: false,
         references: {
-            model: modelo_solicitudes,
+            model: modelo_solicitud,
             key: 'id'
         }
     },
@@ -541,8 +545,8 @@ const modelo_calendario = sequelize.define('modelo_calendario', {
 }
 )
 // Definición de uno a muchos de calendario a solicitud
-modelo_solicitudes.hasMany(modelo_calendario, {foreignKey: 'solicitud_id'})
-modelo_calendario.belongsTo(modelo_solicitudes, {foreignKey: 'solicitud_id'})
+modelo_solicitud.hasMany(modelo_calendario, {foreignKey: 'solicitud_id'})
+modelo_calendario.belongsTo(modelo_solicitud, {foreignKey: 'solicitud_id'})
 
 // Definición del modelo Notificaciones
 const modelo_notificaciones = sequelize.define('modelo_notificaciones',{
@@ -558,7 +562,7 @@ const modelo_notificaciones = sequelize.define('modelo_notificaciones',{
         allowNull: true,
         defaultValue: false,
         references: {
-            model: modelo_solicitudes,
+            model: modelo_solicitud,
             key: 'id'
         }
     },
@@ -590,8 +594,8 @@ const modelo_notificaciones = sequelize.define('modelo_notificaciones',{
 })
 
 // Definición de uno a muchos de notificaciones a solicitud
-modelo_solicitudes.hasMany(modelo_notificaciones, {foreignKey: 'solicitud_id'})
-modelo_notificaciones.belongsTo(modelo_solicitudes, {foreignKey: 'solicitud_id'})
+modelo_solicitud.hasMany(modelo_notificaciones, {foreignKey: 'solicitud_id'})
+modelo_notificaciones.belongsTo(modelo_solicitud, {foreignKey: 'solicitud_id'})
 
 export { modelo_asesorias }
 export { modelo_calendario }
@@ -602,5 +606,5 @@ export { modelo_notificaciones }
 export { modelo_preguntas_encuestas}
 export { modelo_reportes }
 export { modelo_asesorias_reportes }
-export { modelo_solicitudes}
+export { modelo_solicitud}
 export { modelo_solicitudes_administradores }
