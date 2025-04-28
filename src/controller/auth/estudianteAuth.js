@@ -40,32 +40,32 @@ export const loginEstudiante = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const alumno = await AlumnoModel.getAlumnoByMail(email);
+    const user = await AlumnoModel.getAlumnoByMail(email);
     //console.log("Contraseña recibida:", password);
     //console.log("Hash almacenado:", alumno?.password);
     //const hash = await bcryptjs.hash(password, 10);
     //console.log("Hash generado:", hash);
 
-    if (!alumno) {
+    if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    const passwordValida = await compararPassword(password, alumno.password); 
+    const passwordValida = await compararPassword(password, user.password); 
 
     if (!passwordValida) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-    const token = generarUserToken(alumno, 'alumno');
+    const token = generarUserToken(user, 'alumno');
 
     res.json({
       success: true,
       token,
-      estudiante: {
-        id: alumno.id,          
-        nombre: alumno.nombre,  
-        email: alumno.email,    
-        matricula: alumno.matricula
+      user: {
+        id: user.id,          
+        nombre: user.nombre,  
+        email: user.email,    
+        matricula: user.matricula
       }
     });
 

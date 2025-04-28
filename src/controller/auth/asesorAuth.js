@@ -41,15 +41,15 @@ export const loginAsesor = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const asesor = await AsesorModel.getAsesorByMail(email);
+    const user = await AsesorModel.getAsesorByMail(email);
     
-    if (!asesor) {
+    if (!user) {
       return res.status(404).json({
         error: "Asesor no encontrado"
       });
     }
 
-    const passwordValida = compararPassword(password, asesor.password);
+    const passwordValida = compararPassword(password, user.password);
     
     if (!passwordValida) {
       return res.status(401).json({
@@ -57,16 +57,16 @@ export const loginAsesor = async (req, res) => {
       });
     }
 
-    const token = generarUserToken(asesor, 'asesor')
+    const token = generarUserToken(user, 'asesor')
 
     res.json({
       success: true,
       token,
-      asesor: {
-        id: asesor.id,
-        nombre: asesor.nombre,
-        email: asesor.email,
-        area_especializacion: asesor.area_especializacion
+      user: {
+        id: user.id,
+        nombre: user.nombre,
+        email: user.email,
+        area_especializacion: user.area_especializacion
       }
     });
 

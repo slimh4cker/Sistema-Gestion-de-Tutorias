@@ -42,26 +42,26 @@ export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const admin = await AdminModel.getAdminByMail(email);
+    const user = await AdminModel.getAdminByMail(email);
     
-    if (!admin) {
+    if (!user) {
       return res.status(404).json({ error: "Admin no registrado" });
     }
 
-    const passwordValidated = compararPassword(password, admin.password);
+    const passwordValidated = compararPassword(password, user.password);
     if (!passwordValidated) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-    const token = generarUserToken(admin, 'admin');
+    const token = generarUserToken(user, 'admin');
 
     res.json({
       success: true,
       token,
-      admin: {
-        id: admin.id,
-        nombre: admin.nombre,
-        email: admin.email
+      user: {
+        id: user.id,
+        nombre: user.nombre,
+        email: user.email
       }
     });
 
