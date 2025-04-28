@@ -5,10 +5,10 @@
 GET http://localhost:1234/alumno/alumno
 
 ### Obtener solicitudes que esten aceptada
-GET http://localhost:1234/alumno/solicitud?estado=aceptada
+GET http://localhost:1234/alumno/solicitud?estado=asignada
 
 ### Obtener solicitudes que no hayan sido aceptadas
-GET http://localhost:1234/alumno/solicitud?estado=no_aceptado
+GET http://localhost:1234/alumno/solicitud?estado=pendiente
 
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
