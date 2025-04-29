@@ -33,27 +33,45 @@ export class SolicitudControler {
 
   // Crea una solicitud
   static async crearSolicitudDeAlumno(req, res) {
-    const correo = obtenerMailDeReq(req)
-
-    datos = req.body
-
-    // validar solicitud
-    if (!validarSolicitud(datos)) {
-      res.status(400).json({ error: "Solicitud no valida" })
-      return
-    }
-
-    // crear solicitud
     try {
-      const datos = SolicitudModel.crearSolicitudDeAlumno(correo, datos)
-    } catch (error) {
-      res.status(500).json({ error: "Error interno al crear solicitud" })
-      return
-    }
+        const correo = obtenerMailDeReq(req);
+        const dataBody = req.body;
 
-    // enviar mensaje de que funciono correctamente
-    res.status(201).json({ message: "Solicitud creada correctamente" })
-  }
+        if (!validarSolicitud(dataBody)) {
+            return res.status(400).json({ error: "Solicitud no válida" });
+        }
+
+        const alumno = await AlumnoModel.getAlumnoByMail(correo);
+        if (!alumno) {
+            return res.status(404).json({ error: "Alumno no encontrado" });
+        }
+
+        const datosSolicitud = {
+            estudiante_id: alumno.id, // <-- ID obtenido de la BD
+            asesor_id: dataBody.asesor_id,
+            tema: dataBody.tema,
+            observaciones: dataBody.observaciones,
+            fecha_limite: dataBody.fecha_limite,
+            modalidad: dataBody.modalidad,
+            nivel_urgencia: dataBody.nivel_urgencia,
+            estado: "pendiente"
+        };
+
+        const solicitudCreada = await SolicitudModel.agregarSolicitud(datosSolicitud);
+        if (!solicitudCreada) {
+            return res.status(500).json({ error: "Error al crear la solicitud" });
+        }
+
+        res.status(201).json({ 
+            message: "Solicitud creada correctamente",
+            solicitud: solicitudCreada 
+        });
+
+    } catch (error) {
+        console.error("Error en crearSolicitudDeAlumno:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
   
   static async asignarSolicitud(req, res) {
     // TODO entender como se asigan las solicitudes

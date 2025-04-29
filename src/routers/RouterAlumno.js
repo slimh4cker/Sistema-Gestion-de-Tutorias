@@ -6,7 +6,7 @@ import { authMiddleware } from '../utils/jwt/jwt.js';
 const router = Router();
 
 router.get('/alumno', authMiddleware(['alumno']), AlumnoControler.getAlumnoByMail);
-router.post('/alumno/solicitud', SolicitudControler.crearSolicitudDeAlumno)
+router.post('/solicitud', authMiddleware(['alumno']), SolicitudControler.crearSolicitudDeAlumno)
 router.post('/alumno')
 
 export default router;
