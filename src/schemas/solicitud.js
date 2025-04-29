@@ -12,7 +12,9 @@ const solicitudSchema = z.object({
     const fechaLimite = new Date(fecha);
     const ahora = new Date();
     return fechaLimite > ahora;
-  }),
+  },
+),
+ estudiante_id: z.int(),
  modalidad: z.enum(modalidades),
  nivel_urgencia: z.enum(niveles_urgencia),
  estado: z.enum(estados).optional(),

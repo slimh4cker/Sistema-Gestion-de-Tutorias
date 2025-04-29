@@ -114,19 +114,19 @@ export class SolicitudModel{
     nivel_urgencia: "media"
  * });
  */
-    static async agregarSolicitud(correo, datos){
+    static async agregarSolicitud(datos){
             const agregar_solicitud = await modelo_solicitud.create(datos)
             if(!agregar_solicitud){
-                console.error("No se encontro la ID de solicitud")
+                console.error("error al agregar solicitud")
                 return false
             }
             const agregar_asesoria = AsesoriaModel.agregarAsesoria(agregar_solicitud.dataValues.id)
             
             if(agregar_asesoria === false){
-                console.error("Error al agregar la asesoria")
+                console.error("Error al agregar la solicitud")
                 return false
             }
-            console.log("Asesoria agregada correctamente")
+            console.log("Solicitud agregada correctamente")
             return agregar_solicitud
         }
             
