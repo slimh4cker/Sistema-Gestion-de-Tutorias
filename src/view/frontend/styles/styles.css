@@ -32,8 +32,6 @@
 }
 
 
-
-
 /* Imagen del login con márgenes adecuados */
 .styled-image {
     max-width: 110%; 
@@ -230,6 +228,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     min-height: calc(100vh - 180px); /* Ajusta según tu header */
     display: flex;
     flex-direction: column;
+
 }
 
 /* Reemplaza todas las reglas existentes de .btn-outline-primary con esto: */
@@ -509,6 +508,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     flex-direction: column;
 }
 
+
 .empty-state-content {
     display: flex;
     flex-direction: column;
@@ -686,4 +686,44 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 .conversation-items::-webkit-scrollbar-thumb:hover,
 .message-thread::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+}
+
+/* Estilos específicos para la vista de cursos */
+.white-card {
+    background-color: white;
+    padding: 2rem;
+}
+
+.curso-item {
+    transition: all 0.3s ease;
+}
+
+.curso-item:hover {
+    background-color: #f8f9fa;
+}
+
+.curso-item h3 {
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+.curso-item .text-muted {
+    color: #7f8c8d !important;
+}
+
+.proxima-sesion {
+    background-color: #f1f8fe;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.proxima-sesion p:last-child {
+    color: #3498db;
+    font-weight: 500;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5em 0.7em;
+    margin-left: 1rem;
 }
