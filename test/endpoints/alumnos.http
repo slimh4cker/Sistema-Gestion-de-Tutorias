@@ -3,6 +3,7 @@
 
 ### Obtener datos de el alumno que es usuario actual
 GET http://localhost:1234/alumno/alumno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk1ODMxMiwiZXhwIjoxNzQ1OTYxOTEyfQ.9ykLO0PMnLnxdznbRGwnXerNnq7IkKcCFGu6Z5KN8SQ
 
 ### Obtener solicitudes que esten aceptada
 GET http://localhost:1234/alumno/solicitud?estado=asignada
@@ -13,7 +14,7 @@ GET http://localhost:1234/alumno/solicitud?estado=pendiente
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
-Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTg4MzMxMSwiZXhwIjoxNzQ1ODg2OTExfQ.iXB_5YCc-4Q7GEORntywcrQfbfbKzqiv7eUC2VfnU-M> 
+Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk1NDAxOSwiZXhwIjoxNzQ1OTU3NjE5fQ.u6exkXhCUDCpXJAbVlb39aGcsC0L9FDiofokZFHqPdU> 
 
 {
     "modalidad": "en_linea",

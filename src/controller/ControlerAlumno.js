@@ -4,28 +4,25 @@ import { obtenerMailDeReq } from "../utils/request.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
 export class AlumnoControler {
-  static async getAlumnoByMail(req, res) {
-    // Recuperar correo
-    const correo = obtenerMailDeReq(req)
-
-    // Buscar en la base de datos los datos de el alumno segun este correo
-    let datos
-    try {
-      datos = await AlumnoModel.getAlumnoByMail(correo)
-    } catch (error) {
-      res.status(500).json({ error: "Error interno al buscar el alumno" })
-      return
+    static async getAlumnoByMail(req, res) {
+        try {
+            const correo = obtenerMailDeReq(req);
+            const datos = await AlumnoModel.getAlumnoByMail(correo);
+            
+            if (!datos) {
+                return res.status(404).json({ error: "Alumno no encontrado" });
+            }
+            
+            res.status(200).json(datos);
+        } catch (error) {
+            if (error.message.includes("no autenticado")) {
+                res.status(401).json({ error: "Autenticación requerida" });
+            } else {
+                console.error("Error en getAlumnoByMail:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        }
     }
-    
-    
-    if (datos == null) {
-      res.status(404).json({ error: "No se ha encontrado el alumno" })
-      return
-    }
-
-    // Retornar datos
-    res.status(200).json(datos)
-  }
 
   static async createAlumno(req, res) {
     // Recuperar datos

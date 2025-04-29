@@ -13,18 +13,18 @@ export class AlumnoModel{
      * AlumnoModel.getAlumnoByMail("email@example.com")
      */
     static async getAlumnoByMail(email) {
+        console.log("[DEBUG] Buscando alumno con email:", email); // 👁️ Verifica el email recibido
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
-            where: {
-                email: email,// unicamente se necesita buscar por correo
-                estado: 'activo' // y estado se igual a activo
-            }
+            where: { email, estado: 'activo' }
+        });
+        
+        if (!correo_alumno) {
+            console.log("[DEBUG] No se encontró alumno activo con ese email");
+            return null;
         }
-    )
-        if (correo_alumno == null) {
-            return null // Si no existe el correo retorna null
-        }
-
-        return correo_alumno.dataValues // Retorna un JSON con los datos del alumno
+        
+        console.log("[DEBUG] Alumno encontrado:", correo_alumno.dataValues); // 👁️ Verifica los datos
+        return correo_alumno.dataValues;
     }
     /**
      * 

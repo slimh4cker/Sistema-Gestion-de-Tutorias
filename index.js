@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import RouterAuth from './src/routers/auth/RouterAuth.js'
+import RouterAlumno from './src/routers/RouterAlumno.js'
 
 export const createApp = () => {
   const app = express();
@@ -13,6 +14,7 @@ export const createApp = () => {
 
   // Enrutadores
   app.use('/', RouterAuth);
+  app.use('/alumno', RouterAlumno);
 
   // Ruta de prueba básica
   app.get('/', (req, res) => {

@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { getAlumnoByMail } from '../models/AmazonRDS/AlumnoModel';
-import { crearSolicitudDeAlumno } from '../controller/ControlerSolicitud'
+import { AlumnoControler } from '../controller/ControlerAlumno.js'
+import { SolicitudControler } from '../controller/ControlerSolicitud.js'
+import { authMiddleware } from '../utils/jwt/jwt.js';
 
 const router = Router();
 
-router.get('/alumno/alumno', getAlumnoByMail);
-router.post('/alumno/solicitud', crearSolicitudDeAlumno)
+router.get('/alumno', authMiddleware(['alumno']), AlumnoControler.getAlumnoByMail);
+router.post('/alumno/solicitud', SolicitudControler.crearSolicitudDeAlumno)
 router.post('/alumno')
 
 export default router;

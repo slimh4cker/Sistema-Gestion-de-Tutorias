@@ -1,8 +1,8 @@
 import z from "zod";
 
-modalidades = ['en_linea', 'presencial']
-estados = ['pendiente', 'asignada', 'en_proceso', 'terminada', 'aplazada']
-niveles_urgencia = ['baja', 'media', 'alta']
+const modalidades = ['en_linea', 'presencial']
+const estados = ['pendiente', 'asignada', 'en_proceso', 'terminada', 'aplazada']
+const niveles_urgencia = ['baja', 'media', 'alta']
 
 const solicitudSchema = z.object({
  tema: z.string().min(3).max(255),
@@ -14,7 +14,7 @@ const solicitudSchema = z.object({
     return fechaLimite > ahora;
   },
 ),
- estudiante_id: z.int(),
+estudiante_id: z.number().int(),
  modalidad: z.enum(modalidades),
  nivel_urgencia: z.enum(niveles_urgencia),
  estado: z.enum(estados).optional(),
