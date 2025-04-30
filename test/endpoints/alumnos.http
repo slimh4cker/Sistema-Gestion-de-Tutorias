@@ -14,15 +14,18 @@ GET http://localhost:1234/alumno/solicitud?estado=pendiente
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MDc4MiwiZXhwIjoxNzQ1OTg0MzgyfQ.gKM9OOtKgm3uXOhHy_wHLlF-jwNdJpeXJT_G8jYXiMA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MTU0MSwiZXhwIjoxNzQ1OTg1MTQxfQ.zf9f4iWADnUk9N1TmWvw22sfXNyCZyGfp1mHZhbD7oQ
 
 {
-    "asesor_id": 1,
+    "id": 4,
+    "estudiante_id": 2,
+    "asesor_id": 2,
     "tema": "Cálculo vectorial",
     "observaciones": "Necesito ayuda con integrales dobles",
     "fecha_limite": "2025-05-10",
     "modalidad": "presencial",
-    "nivel_urgencia": "alta"
+    "nivel_urgencia": "alta",
+    "estado": "pendiente"
 }
 
 ### Respuesta del alumno segun la encuesta TODO
