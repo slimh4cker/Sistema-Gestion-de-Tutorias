@@ -1,35 +1,53 @@
-// view/frontend/js/sidebar.js
 document.addEventListener('DOMContentLoaded', function() {
+    // Cargar la barra lateral
     fetch('side_bar.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error HTTP! estado: ${response.status}`);
-            }
-            return response.text();
-        })
+        .then(response => response.text())
         .then(data => {
-            // Insertar la barra lateral al inicio del contenedor
-            const container = document.querySelector('.alumno-container');
-            if (container) {
-                container.insertAdjacentHTML('afterbegin', data);
-                
-                // Marcar como activo el elemento correspondiente a la página actual
-                const currentPage = location.pathname.split('/').pop() || 'home_alumno.html';
-                const menuItems = document.querySelectorAll('.sidebar-menu li');
-                
-                menuItems.forEach(item => {
-                    item.classList.remove('active');
-                    const link = item.querySelector('a');
-                    if (link) {
-                        const linkPage = link.getAttribute('href');
-                        if (currentPage.includes(linkPage)) {
-                            item.classList.add('active');
-                        }
-                    }
+            // Insertar sidebar al inicio del contenedor
+            document.querySelector('.alumno-container').insertAdjacentHTML('afterbegin', data);
+            
+            // Elementos del DOM
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle-mobile');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            // Función para alternar el sidebar
+            const toggleSidebar = () => {
+                sidebar.classList.toggle('active');
+                if (sidebarToggle) sidebarToggle.classList.toggle('active');
+            };
+            
+            // Evento para el botón de hamburguesa
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleSidebar();
                 });
             }
+            
+            // Cerrar al hacer clic en el overlay
+            if (overlay) {
+                overlay.addEventListener('click', toggleSidebar);
+            }
+            
+            // Permitir clics en el sidebar sin cerrarlo
+            sidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Marcar elemento activo
+            const currentPage = window.location.pathname.split('/').pop() || 'home_alumno.html';
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+                const link = item.querySelector('a');
+                if (link && link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                }
+            });
         })
         .catch(error => {
-            console.error('Error cargando la barra lateral:', error);
+            console.error('Error loading sidebar:', error);
         });
 });
