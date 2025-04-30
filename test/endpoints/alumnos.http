@@ -6,15 +6,15 @@ GET http://localhost:1234/alumno/alumno
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk1ODMxMiwiZXhwIjoxNzQ1OTYxOTEyfQ.9ykLO0PMnLnxdznbRGwnXerNnq7IkKcCFGu6Z5KN8SQ
 
 ### Obtener solicitudes que esten aceptada
-GET http://localhost:1234/alumno/solicitud?estado=asignada
-
+GET http://localhost:1234/alumno/solicitud?estado=activo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MDU1NCwiZXhwIjoxNzQ1OTg0MTU0fQ.YzcEIZVz90FfjblpHO-7erz41NiBLhEAS3LRQs_bVyo
 ### Obtener solicitudes que no hayan sido aceptadas
 GET http://localhost:1234/alumno/solicitud?estado=pendiente
 
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
-Authorization: Bearer+ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk2ODMxNSwiZXhwIjoxNzQ1OTcxOTE1fQ.0kI_qetllrojF1RJmk_jdgP6ZwdZIlmRa2h7NjAbL5o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MDc4MiwiZXhwIjoxNzQ1OTg0MzgyfQ.gKM9OOtKgm3uXOhHy_wHLlF-jwNdJpeXJT_G8jYXiMA
 
 {
     "asesor_id": 1,

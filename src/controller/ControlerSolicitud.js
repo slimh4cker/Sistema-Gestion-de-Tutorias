@@ -1,7 +1,9 @@
 /// Controler del recurso de asesorias
 // Utilizar cuando se quiere alterar algo de una asesoria
 import { SolicitudModel } from "../models/AmazonRDS/SolicitudModel.js"
+import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js"
 import { validarSolicitud } from "../schemas/solicitud.js"
+import { obtenerMailDeReq } from "../utils/request.js"
 
 export class SolicitudControler {
   // Obtiene todas las solicitudes de un alumno en especifico
@@ -47,7 +49,7 @@ export class SolicitudControler {
         }
 
         const datosSolicitud = {
-            estudiante_id: alumno.id, // <-- ID obtenido de la BD
+            estudiante_id: alumno.id,
             asesor_id: dataBody.asesor_id,
             tema: dataBody.tema,
             observaciones: dataBody.observaciones,
@@ -76,4 +78,28 @@ export class SolicitudControler {
   static async asignarSolicitud(req, res) {
     // TODO entender como se asigan las solicitudes
   }
+
+  static async getSolicitudesFiltradas(req, res) {
+    try {
+        const correo = obtenerMailDeReq(req);
+        const estado = req.query.estado; // Obtiene el parámetro de query
+        
+        // Validar estado
+        if (!estado || !['asignada', 'pendiente', 'activo'].includes(estado)) {
+            return res.status(400).json({ error: "Parámetro 'estado' inválido. Valores permitidos: asignada, pendiente" });
+        }
+
+        // Obtener solicitudes
+        const solicitudes = await SolicitudModel.getSolicitudesPorEstado(correo, estado);
+        
+        if (!solicitudes || solicitudes.length === 0) {
+            return res.status(404).json({ error: "No se encontraron solicitudes" });
+        }
+
+        res.status(200).json(solicitudes);
+    } catch (error) {
+        console.error("Error en getSolicitudesFiltradas:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
 }

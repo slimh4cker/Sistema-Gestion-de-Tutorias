@@ -92,6 +92,43 @@ export class SolicitudModel{
         return JSON.stringify(buscar_solicitud, null, 1)
     }
 
+    static async getSolicitudesPorEstado(email, estado) {
+        try {
+            const solicitudes = await modelo_solicitud.findAll({
+                attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
+                include: [
+                    {
+                        model: modelo_cuenta_estudiante,
+                        attributes: ['nombre', 'email'],
+                        where: { email: email }
+                    },
+                    {
+                        model: modelo_cuenta_asesor,
+                        attributes: ['nombre', 'email', 'area_especializacion']
+                    }
+                ],
+                where: { estado: estado }
+            });
+
+            return solicitudes.map(s => ({
+                id: s.id,
+                tema: s.tema,
+                estado: s.estado,
+                estudiante: {
+                    nombre: s.modelo_cuenta_estudiante.nombre,
+                    email: s.modelo_cuenta_estudiante.email
+                },
+                asesor: s.modelo_cuenta_asesor ? {
+                    nombre: s.modelo_cuenta_asesor.nombre,
+                    especializacion: s.modelo_cuenta_asesor.area_especializacion
+                } : null
+            }));
+        } catch (error) {
+            console.error("Error en getSolicitudesPorEstado:", error);
+            return null;
+        }
+    }
+
     /**
  * Agrega una nueva solicitud y, en caso de éxito, también registra una asesoría asociada.
  *

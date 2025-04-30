@@ -6,7 +6,11 @@ import { authMiddleware } from '../utils/jwt/jwt.js';
 const router = Router();
 
 router.get('/alumno', authMiddleware(['alumno']), AlumnoControler.getAlumnoByMail);
-router.post('/solicitud', authMiddleware(['alumno']), SolicitudControler.crearSolicitudDeAlumno)
-router.post('/alumno')
+
+// Ruta: POST /alumno/solicitud 
+router.post('/solicitud', authMiddleware(['alumno']), SolicitudControler.crearSolicitudDeAlumno);
+
+// Ruta: GET /alumno/solicitud?estado=asignada (nueva funcionalidad)
+router.get('/solicitud', authMiddleware(['alumno']), SolicitudControler.getSolicitudesFiltradas);
 
 export default router;
