@@ -688,7 +688,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     background: #a8a8a8;
 }
 
-/* Estilos específicos para la vista de cursos */
+/* Estilos específicos para la VISTA DE CURSOS*/
 .white-card {
     background-color: white;
     padding: 2rem;
@@ -726,4 +726,303 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     font-size: 0.9rem;
     padding: 0.5em 0.7em;
     margin-left: 1rem;
+}
+
+/* Estilos para la página de cursos */
+.white-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.curso-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 4px solid #3498db;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.curso-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.curso-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.profesor-info {
+    color: #7f8c8d;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.sesion-info {
+    background-color: #f1f8fe;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+}
+
+.sesion-label {
+    font-weight: 600;
+    color: #2980b9;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.sesion-date {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .page-title {
+        font-size: 1.3rem;
+    }
+    
+    .page-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .curso-card {
+        padding: 1rem;
+    }
+    
+    .curso-title {
+        font-size: 1.1rem;
+    }
+    
+    .profesor-info {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .white-card {
+        border-radius: 8px;
+    }
+    
+    .curso-card {
+        border-left-width: 3px;
+        padding: 0.9rem;
+    }
+}
+
+
+/* Estilos para el SIDEBAR responsivo */
+.sidebar {
+    width: 250px;
+    background-color: #1120ca;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1040; /* Ajustado */
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+}
+
+.sidebar-toggle {
+    display: none;
+    position: absolute;
+    right: -50px;
+    top: 10px;
+    background: #1120ca;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.sidebar-content {
+    height: calc(100% - 70px);
+    overflow-y: auto;
+}
+
+/* Estilos para el SIDEBAR en móvil */
+@media (max-width: 991.98px) {
+    .sidebar {
+        width: 250px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .sidebar-toggle {
+        position: fixed;
+        left: 15px;
+        top: 15px;
+        z-index: 1050;
+        background: #1120ca;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    /* Overlay cuando el SIDEBAR está activo */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1035;
+        display: none;
+    }
+    
+    .sidebar.active ~ .sidebar-overlay {
+        display: block;
+    }
+}
+
+/* ESTILOS PARA EL NAVBAR RESPONSIVO */
+
+/* Ajustes para móviles */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        padding-top: 0;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .top-navbar {
+        left: 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Estilos para el navbar en móviles */
+@media (max-width: 991.98px) {
+    .top-navbar {
+        left: 0;
+        padding-left: 60px; /* Espacio para el botón del sidebar */
+    }
+    
+    .sidebar-toggle {
+        position: fixed;
+        left: 15px;
+        top: 15px;
+        z-index: 1050; /* Más alto que el navbar */
+        background: #1120ca;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .sidebar {
+        padding-top: 0;
+        z-index: 1040; /* Debajo del botón pero encima del navbar */
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Botón hamburguesa móvil */
+.sidebar-toggle-mobile {
+    display: none;
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 1050;
+    background: #1120ca;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mostrar solo en móviles */
+@media (max-width: 991.98px) {
+    .sidebar-toggle-mobile {
+        display: flex;
+    }
+    
+    /* Asegurar que el navbar no tape el botón */
+    .top-navbar {
+        padding-left: 60px;
+    }
+}
+
+/* Efectos para el botón */
+.sidebar-toggle-mobile:hover {
+    background: #3745e0;
+    transform: scale(1.05);
+}
+
+.sidebar-toggle-mobile.active {
+    background: #3498db;
+    transform: rotate(90deg);
+}
+
+
+/* Overlay para móviles */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1035; /* Debajo del sidebar pero encima del contenido */
+    display: none;
+}
+
+.sidebar.active ~ .sidebar-overlay {
+    display: block;
 }
