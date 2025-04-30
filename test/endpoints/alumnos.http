@@ -14,7 +14,7 @@ GET http://localhost:1234/alumno/solicitud?estado=pendiente
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MTU0MSwiZXhwIjoxNzQ1OTg1MTQxfQ.zf9f4iWADnUk9N1TmWvw22sfXNyCZyGfp1mHZhbD7oQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NTE5NiwiZXhwIjoxNzQ2MDU4Nzk2fQ.RH00-XnCAveZ_vh2xEQrZAgR_Bv0jFNRUwmC6A5fe0U
 
 {
     "id": 4,
@@ -25,14 +25,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
     "fecha_limite": "2025-05-10",
     "modalidad": "presencial",
     "nivel_urgencia": "alta",
-    "estado": "pendiente"
-}
-
-### Respuesta del alumno segun la encuesta TODO
-POST http://localhost:1234/alumno/encuesta
-Content-Type: application/json
-{
-  
+    "estado": "inactivo"
 }
 
 ### Editar atributos del alumno
@@ -46,4 +39,5 @@ Content-Type: application/json
     "password": "miPassword33"
 }
 
+### Eliminar alumno
 DELETE http://localhost:1234/alumno/alumno

@@ -56,7 +56,7 @@ export class SolicitudControler {
             fecha_limite: dataBody.fecha_limite,
             modalidad: dataBody.modalidad,
             nivel_urgencia: dataBody.nivel_urgencia,
-            estado: "pendiente"
+            estado: "inactivo"
         };
 
         const solicitudCreada = await SolicitudModel.agregarSolicitud(datosSolicitud);
