@@ -15,4 +15,6 @@ router.get('/solicitud', authMiddleware(['alumno']), SolicitudControler.getSolic
 
 router.put('/alumno', authMiddleware(['alumno']), AlumnoControler.updateAlumno);
 
+router.delete('/alumno', authMiddleware(['alumno']), AlumnoControler.deleteAlumno);
+
 export default router;
