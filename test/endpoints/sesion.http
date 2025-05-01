@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
     "email": "laura@estudiante.com",
-    "password": "estudiante456"
+    "password": "miPassword33"
 }
 
 ### Asesor
@@ -39,8 +39,8 @@ Content-Type: application/json
 
 {
     "nombre": "Juan Perez",
-    "email": "laura@estudiant.com",
-    "password": "myPassword33"
+    "email": "juan@estudiant.com",
+    "password": "myyPassword33"
 }
 
 ### Asesor

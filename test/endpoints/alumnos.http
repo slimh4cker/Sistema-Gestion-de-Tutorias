@@ -31,12 +31,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 ### Editar atributos del alumno
 PUT http://localhost:1234/alumno/alumno
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NjI5NSwiZXhwIjoxNzQ2MDU5ODk1fQ._bTGKp5Ze_j3uW1E429RH_5jCxZw_EU3KTFHG_AM0yk
+
 {
-    "nombre": "Juan Perez",
+    "nombre": "Laura Gonsalez",
     "curso": "Ingenieria de Software",
     "telefono": "1234567890",
     "matricula": "01234567",
-    "password": "miPassword33"
+    "password": "miPassword34"
 }
 
 ### Eliminar alumno

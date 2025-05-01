@@ -73,11 +73,23 @@ export class AlumnoModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAlumno(datos, emailOriginal) {
-        return await modelo_cuenta_estudiante.update(datos, {
-            where: {
-                email: emailOriginal
+        try {
+            const alumno = await modelo_cuenta_estudiante.findOne({
+                where: { email: emailOriginal }
+            });
+    
+            if (!alumno) {
+                return null;
             }
-        })
+    
+            await alumno.update(datos); 
+            const { password, ...datosSeguros } = alumno.dataValues;
+            return datosSeguros;
+    
+        } catch (error) {
+            console.error("Error en updateAlumno:", error);
+            return null;
+        }
     }
     /**
      * 
