@@ -1,6 +1,7 @@
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js";
 import { validarAlumno, validarParcialAlumno } from "../schemas/users/alumno.js";
 import { obtenerMailDeReq } from "../utils/request.js";
+import { hashPassword } from "../utils/security.js";
 
 // Estos son los metodos utilizados cuando se realiza algo que interactue con los alumnos.
 export class AlumnoControler {
@@ -64,33 +65,40 @@ export class AlumnoControler {
 
   // Actualizar toda la tabla del alumno con los datos nuevos
   static async updateAlumno(req, res) {
-    // obtener datos
-    let datos = req.body
-
-    // asegurarme que sus datos esten correctos
-    if (! validarParcialAlumno(datos)) {
-      res.status(400).json({ error: "Datos en la peticion incorrectos" })
-      return
-    }
-
-    // obtener correo
-    const email = obtenerMailDeReq(req)
-    if (!email) {
-      res.status(400).json({ error: "No se encontro el correo en el Web token de la peticnion" })
-      return
-    }
-    
-    // alterar datos
     try {
-      await AlumnoModel.updateAlumno(datos, email)
+        const datos = req.body;
+        if (!validarParcialAlumno(datos)) {
+            return res.status(400).json({ error: "Datos en la petición incorrectos" });
+        }
+
+        const email = obtenerMailDeReq(req);
+        if (!email) {
+            return res.status(400).json({ error: "Correo no encontrado en el token" });
+        }
+
+        if (datos.password) {
+            datos.password = await hashPassword(datos.password);
+        }
+
+        const resultado = await AlumnoModel.updateAlumno(email, datos);
+        
+        if (!resultado) {
+            return res.status(404).json({ error: "Alumno no encontrado" });
+        }
+        delete resultado.password;
+        res.status(200).json({
+            message: "Datos actualizados correctamente",
+            datos: resultado
+        });
+
     } catch (error) {
-      res.status(500).json({error})
+        console.error("Error en updateAlumno:", error);
+        res.status(500).json({ 
+            error: "Error interno del servidor",
+            detalles: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
-    
-   
-    // enviar mensaje de que salio correctamente
-    res.status(200).json({message: "Los datos han sido cambiados correctamente", datos: datos, email_de_origen: email})
-  }
+}
 
   static async deleteAlumno(req, res) {
     // obtener correo
