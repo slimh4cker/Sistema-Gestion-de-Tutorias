@@ -20,21 +20,18 @@
             <div id="navbar-placeholder"></div>
             
             <div class="main-content-container">
-                <div class="white-card rounded-4 shadow-sm p-3 p-md-4">
+                <div class="white-card">
                     <!-- Título de página -->
-                    <div class="mb-3 mb-md-4">
-                        <h2 class="page-title"><i class="fas fa-book-open me-2"></i>Mis Cursos</h2>
-                        <p class="page-subtitle">Revisa tus cursos y próximas sesiones de asesoría</p>
-                    </div>
+                    <h2 class="page-title"><i class="fas fa-book-open me-2"></i>Mis Cursos</h2>
                     
-                    <!-- Lista de cursos -->
-                    <div class="row g-3">
+                    <!-- Contenedor grid con scroll si es necesario -->
+                    <div class="cursos-grid-container" style="max-height: calc(100vh - 200px); overflow-y: auto;">
                         <!-- Curso 1 -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="curso-card h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h3 class="curso-title">Bases De Datos</h3>
-                                    <span class="badge bg-primary">T</span>
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Bases De Datos y Fundamentos de Programación Avanzada</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
                                 </div>
                                 <p class="profesor-info">
                                     <i class="fas fa-chalkboard-teacher me-2"></i>Luis Armando Cardenas Florido
@@ -47,11 +44,11 @@
                         </div>
                         
                         <!-- Curso 2 -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="curso-card h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h3 class="curso-title">Telecomunicaciones</h3>
-                                    <span class="badge bg-primary">T</span>
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Telecomunicaciones y Redes Avanzadas</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
                                 </div>
                                 <p class="profesor-info">
                                     <i class="fas fa-chalkboard-teacher me-2"></i>Ignacio Robles
@@ -64,11 +61,11 @@
                         </div>
                         
                         <!-- Curso 3 -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="curso-card h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h3 class="curso-title">Taller de Investigación</h3>
-                                    <span class="badge bg-primary">T</span>
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Taller de Investigación en Ciencias Computacionales</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
                                 </div>
                                 <p class="profesor-info">
                                     <i class="fas fa-chalkboard-teacher me-2"></i>Andres Barragan
@@ -81,11 +78,11 @@
                         </div>
                         
                         <!-- Curso 4 -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="curso-card h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h3 class="curso-title">Automatas 1</h3>
-                                    <span class="badge bg-success">A</span>
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Automatas y Lenguajes Formales</h3>
+                                    <span class="badge bg-success curso-badge">A</span>
                                 </div>
                                 <p class="profesor-info">
                                     <i class="fas fa-chalkboard-teacher me-2"></i>Alfonso Soto Lopez
