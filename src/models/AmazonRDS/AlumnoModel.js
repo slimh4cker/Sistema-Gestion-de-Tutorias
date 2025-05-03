@@ -39,15 +39,17 @@ export class AlumnoModel{
      * })
      */
     static async createAlumno(datos) {
+        let crear_alumno
         try {
             const alumno = await modelo_cuenta_estudiante.findOne({
                 where: {
                     email: datos.email
                 }
             })
-            if(!alumno){
-                const hashedPassword = hashPassword(datos.password, 10);
-                const crear_alumno = await modelo_cuenta_estudiante.create({
+            if(alumno === null){
+                const hashedPassword = await hashPassword(datos.password, 10);
+                console.log(hashedPassword)
+                crear_alumno = await modelo_cuenta_estudiante.create({
                     ...datos,
                     password: hashedPassword,
                 });
