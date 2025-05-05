@@ -227,5 +227,23 @@ export class SolicitudModel{
             console.error("Error crítico en agregarSolicitud:", error.message);
             return false;
         }
-    }       
+    }
+    
+    static async actualizarEstadoSolicitud(id, nuevoEstado) {
+        try {
+            const solicitud = await modelo_solicitud.findByPk(id);
+    
+            if (!solicitud) {
+                return null;
+            }
+    
+            solicitud.estado = nuevoEstado;
+            await solicitud.save();
+    
+            return solicitud;
+        } catch (error) {
+            console.error("Error en actualizarEstadoSolicitud:", error);
+            return false;
+        }
+    }           
 }
