@@ -68,7 +68,7 @@ export class AdminControler {
     //verificar que si hay un correo se corrobore que no sea uno que ya exista
     if (datos.email){
       try {
-        const adminMail = AdminModel.getAdminByMail(datos.email)
+        const adminMail = await AdminModel.getAdminByMail(datos.email)
         if (!adminMail){
           res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
         }
