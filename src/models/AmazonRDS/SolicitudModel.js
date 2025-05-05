@@ -129,6 +129,49 @@ export class SolicitudModel{
         }
     }
 
+    static async getTodasSolicitudes() {
+        try {
+            const solicitudes = await modelo_solicitud.findAll({
+                attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
+                include: [
+                    {
+                        model: modelo_cuenta_estudiante,
+                        attributes: ['id', 'nombre', 'email']
+                    },
+                    {
+                        model: modelo_cuenta_asesor,
+                        attributes: ['id', 'nombre', 'email', 'area_especializacion']
+                    }
+                ]
+            });
+    
+            return solicitudes.map(s => ({
+                id: s.id,
+                tema: s.tema,
+                observaciones: s.observaciones,
+                fecha_limite: s.fecha_limite,
+                modalidad: s.modalidad,
+                nivel_urgencia: s.nivel_urgencia,
+                estado: s.estado,
+                estudiante: s.modelo_cuenta_estudiante ? {
+                    id: s.modelo_cuenta_estudiante.id,
+                    nombre: s.modelo_cuenta_estudiante.nombre,
+                    email: s.modelo_cuenta_estudiante.email
+                } : null,
+                asesor: s.modelo_cuenta_asesor ? {
+                    id: s.modelo_cuenta_asesor.id,
+                    nombre: s.modelo_cuenta_asesor.nombre,
+                    email: s.modelo_cuenta_asesor.email,
+                    area_especializacion: s.modelo_cuenta_asesor.area_especializacion
+                } : null
+            }));
+        } catch (error) {
+            console.error("Error en getTodasSolicitudes:", error);
+            return null;
+        }
+    }
+    
+
     /**
  * Agrega una nueva solicitud y, en caso de éxito, también registra una asesoría asociada.
  *

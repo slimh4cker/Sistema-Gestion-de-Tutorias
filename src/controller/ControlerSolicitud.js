@@ -21,6 +21,22 @@ export class SolicitudControler {
     res.status(200).json(datos)
   }
 
+  static async getTodasLasSolicitudes(req, res) {
+    try {
+        const solicitudes = await SolicitudModel.getTodasSolicitudes();
+
+        if (!solicitudes || solicitudes.length === 0) {
+            return res.status(404).json({ error: "No hay solicitudes registradas" });
+        }
+
+        res.status(200).json(solicitudes);
+    } catch (error) {
+        console.error("Error en getTodasLasSolicitudes:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
+
+
   // Obtiene las solicitudes que no han sido asignadas a ningun asesor
   static async getSolicitudesSinAsignar(req, res) {
     try {
