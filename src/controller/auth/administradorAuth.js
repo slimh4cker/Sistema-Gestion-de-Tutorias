@@ -53,7 +53,7 @@ export const loginAdmin = async (req, res) => {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-    const token = generarUserToken(user, 'admin');
+    const token = generarUserToken(user, 'administrador');
 
     res.json({
       success: true,
