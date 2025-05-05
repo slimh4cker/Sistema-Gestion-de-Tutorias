@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ### Administrador
-POST http://localhost:1234/auth/administrador
+POST http://localhost:1234/auth/admin
 Content-Type: application/json
 
 {
@@ -64,7 +64,7 @@ Content-Type: application/json
 }
 
 ### Admin
-POST http://localhost:1234/administrador 
+POST http://localhost:1234/admin 
 Content-Type: application/json
 
 {
