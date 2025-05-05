@@ -1,14 +1,14 @@
 ### Metodos utilizados por los usuarios administradores
 ## utiliza la extension de vscode rest API para probar estas apis.
 
-### obtener datos del asesor actual
+### obtener datos del admin actual
 GET http://localhost:1234/admin/admin
 
 ### obtener todas las solicitudes
-GET http://localhost:1234/solicitud
+GET http://localhost:1234/admin/solicitud
 
 #### alterar estado de una solicitud en especifico
-PATCH http://localhost:1234/solicitud/?id=5
+PATCH http://localhost:1234/admin/solicitud/?id=5
 
 
 ### alterar datos del administrador

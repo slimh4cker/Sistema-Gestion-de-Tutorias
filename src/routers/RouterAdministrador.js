@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { AdminControler } from '../controller/ControlerAdministrador.js'
 import { authMiddleware } from '../utils/jwt/jwt.js';
 import { registrarAdmin } from '../../controller/auth/administradorAuth.js';
 
@@ -9,5 +10,14 @@ router.post('/administrador',
   authMiddleware(['administrador']),
   registrarAdmin
 );
+
+router.get('/admin', authMiddleware(['administrador']), AdminControler.getAdminByMail);
+
+// router.get('/solicitud', authMiddleware(['administrador']), SolicitudControler.crearSolicitudDeAlumno);
+
+router.patch('/admin', authMiddleware(['administrador']), AdminControler.updateAdmin);
+
+router.delete('/admin', authMiddleware(['administrador']), AdminControler.deleteAdmin);
+
 
 export default router;
