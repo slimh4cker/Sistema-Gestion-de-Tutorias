@@ -80,7 +80,7 @@ export class AdminControler {
     
     //alterar datos
     try {
-      AdminModel.updateAdmin(datos, email)
+      await AdminModel.updateAdmin(datos, email)
     } catch(error){
       res.status(500).json({error})
     }
