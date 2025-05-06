@@ -249,10 +249,10 @@ async function loginUser() {
             // Redireccionar según el tipo de usuario
             switch(currentUserType) {
                 case 'alumno':
-                    window.location.href = 'home_alumno.html';
+                    window.location.href = '../html-alumno/home_alumno.html';
                     break;
                 case 'asesor':
-                    window.location.href = 'home_asesor.html';
+                    window.location.href = '../html-asesor/home_asesor.html';
                     break;
                 case 'admin':
                     window.location.href = 'home_alumno.html';
