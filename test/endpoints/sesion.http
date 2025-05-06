@@ -10,8 +10,8 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "laura@estudiante.com",
-    "password": "miPassword33"
+    "email": "juan@estudiante.com",
+    "password": "contrasenia123"
 }
 
 ### Asesor
@@ -38,9 +38,9 @@ POST http://localhost:1234/alumno
 Content-Type: application/json
 
 {
-    "nombre": "Juan Perez",
-    "email": "juan@estudiant.com",
-    "password": "myyPassword33"
+    "nombre": "Juan Lopez",
+    "email": "juan@estudiante.com",
+    "password": "contrasenia123"
 }
 
 ### Asesor
