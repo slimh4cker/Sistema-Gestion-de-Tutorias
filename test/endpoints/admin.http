@@ -1,14 +1,23 @@
 ### Metodos utilizados por los usuarios administradores
 ## utiliza la extension de vscode rest API para probar estas apis.
 
-### obtener datos del asesor actual
+### obtener datos del admin actual
 GET http://localhost:1234/admin/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY0ODk4NTIsImV4cCI6MTc0NjQ5MzQ1Mn0.Konwy_ictf499-PL_01OS5t7EMOIFfpkBW_zgDM4Rsw
 
 ### obtener todas las solicitudes
-GET http://localhost:1234/solicitud
+GET http://localhost:1234/admin/solicitud
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY0ODk4NTIsImV4cCI6MTc0NjQ5MzQ1Mn0.Konwy_ictf499-PL_01OS5t7EMOIFfpkBW_zgDM4Rsw
+
 
 #### alterar estado de una solicitud en especifico
-PATCH http://localhost:1234/solicitud/?id=5
+PATCH http://localhost:1234/admin/solicitud/?id=3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY0ODUxMDIsImV4cCI6MTc0NjQ4ODcwMn0._lNZsAtb2yN2E-oxbt_-iFjaF433Hm10wXtNU1r6k1E
+Content-Type: application/json
+
+{
+    "estado": "inactivo"
+}
 
 
 ### alterar datos del administrador

@@ -15,13 +15,6 @@ Content-Type: application/json
     "comentario": "Comentario de prueba"
 }
 
-### Agregar solicitud
-POST http://localhost:1234/asesores/solicitud
-Content-Type: application/json
-{
-   
-}
-
 ### editar datos del asesor
 PUT http://localhost:1234/asesores/asesores
 Content-Type: application/json
@@ -33,11 +26,18 @@ Content-Type: application/json
     //"disponibilidad": "", !! por determinar su inclusion
 }
 
-PUT http://localhost:1234/asesores/solicitud
+PATCH http://localhost:1234/asesores/asesorias
 Content-Type: application/json
 {
-   
+  "estado": "asignada",
+  "fecha_atencion": "2025-05-05",
+  "hora_inicial": "09:00:00",
+  "hora_final": "12:30:00",
+  "total_horas": 3.50,
+  "porcentaje_cumplimiento": 85.75,
+  "requiere_sesiones": 1
 }
+
 
 ### borrar cuenta del asesor
 DELETE http://localhost:1234/asesores/asesor
