@@ -21,6 +21,50 @@ export class SolicitudControler {
     res.status(200).json(datos)
   }
 
+  static async getTodasLasSolicitudes(req, res) {
+    try {
+        const solicitudes = await SolicitudModel.getTodasSolicitudes();
+
+        if (!solicitudes || solicitudes.length === 0) {
+            return res.status(404).json({ error: "No hay solicitudes registradas" });
+        }
+
+        res.status(200).json(solicitudes);
+    } catch (error) {
+        console.error("Error en getTodasLasSolicitudes:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
+
+  static async cambiarEstadoSolicitud(req, res) {
+    const id = req.query.id;
+    const { estado } = req.body;
+
+    if (!id || isNaN(id)) {
+        return res.status(400).json({ error: "ID de solicitud inválido o no proporcionado" });
+    }
+
+    if (!estado || !['pendiente', 'asignada', 'activo', 'inactivo', 'finalizada'].includes(estado)) {
+        return res.status(400).json({ error: "Estado inválido o no proporcionado" });
+    }
+
+    try {
+        const solicitudActualizada = await SolicitudModel.actualizarEstadoSolicitud(id, estado);
+
+        if (!solicitudActualizada) {
+            return res.status(404).json({ error: "Solicitud no encontrada" });
+        }
+
+        res.status(200).json({
+            message: "Estado actualizado correctamente",
+            solicitud: solicitudActualizada
+        });
+    } catch (error) {
+        console.error("Error en cambiarEstadoSolicitud:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }
+
   // Obtiene las solicitudes que no han sido asignadas a ningun asesor
   static async getSolicitudesSinAsignar(req, res) {
     try {
