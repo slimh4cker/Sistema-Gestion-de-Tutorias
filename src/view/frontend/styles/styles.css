@@ -1022,7 +1022,6 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 
 
 /* ESTILOS PARA MI PERFIL */
-/* Estilos específicos para la página de perfil */
 .profile-container {
     width: 100%;
     min-height: calc(100vh - 200px);
@@ -1140,5 +1139,189 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     .save-btn {
         width: 100%;
         padding: 0.75rem;
+    }
+}
+
+/* ESTILOS PARA EL DETALLE DEL CURSO */
+.curso-detalle-container {
+    padding: 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+.btn-back {
+    color: #3498db;
+    border: 1px solid #3498db;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.curso-header-detalle {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.curso-titulo-wrapper {
+    flex: 1;
+    min-width: 250px;
+}
+.curso-titulo-detalle {
+    font-size: 2rem;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.profesor-detalle {
+    font-size: 1.3rem;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.curso-contenido {
+    line-height: 1.6;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 1.5rem 0 1rem;
+    font-weight: 600;
+}
+
+.contacto-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.divider {
+    margin: 1.5rem 0;
+    border-color: #eee;
+}
+
+.recurso-item {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.recurso-item:hover {
+    background-color: #f8f9fa;
+}
+
+.proxima-sesion-box {
+    background-color: #f1f8fe;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.proxima-sesion-header {
+    background-color: #f1f8fe;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 250px;
+    text-align: center;
+}
+
+.sesion-opciones {
+    margin-left: 1.8rem;
+    margin-top: 0.5rem;
+}
+
+.sesion-item {
+    margin-bottom: 0.5rem;
+}
+
+.sesion-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #2980b9;
+    font-weight: 600;
+}
+
+.sesion-icono i {
+    font-size: 1.2rem;
+}
+
+.sesion-fecha {
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.btn-google-calendar {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-google-calendar:hover {
+    background-color: #3367d6;
+    color: white;
+}
+
+.btn-google-calendar i {
+    font-size: 1rem;
+}
+
+.recurso-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: #2c3e50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .curso-detalle-container {
+        padding: 1.5rem;
+    }
+    
+    .curso-titulo-detalle {
+        font-size: 1.6rem;
+    }
+    
+    .profesor-detalle {
+        font-size: 1.1rem;
+    }
+
+    .curso-header-detalle {
+        flex-direction: column;
+    }
+    
+    .proxima-sesion-header {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .curso-detalle-container {
+        padding: 1rem;
+    }
+    
+    .curso-titulo-detalle {
+        font-size: 1.4rem;
     }
 }
