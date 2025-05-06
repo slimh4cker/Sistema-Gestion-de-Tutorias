@@ -40,7 +40,7 @@ export const generarToken = (usuario, tipoModelo) => {
       case 'asesor':
         usuario = await AsesorModel.getAsesorByMail(decoded.email);
         break;
-      case 'admin':
+      case 'administrador':
         usuario = await AdminModel.getAdminByMail(decoded.email);
         break;
       default:

@@ -10,7 +10,7 @@ export class AdminControler {
 
     let datos = null
     try {
-      datos = AdminModel.getAdminByMail(correo)
+      datos = await AdminModel.getAdminByMail(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el admin" })
     }
@@ -19,7 +19,7 @@ export class AdminControler {
       res.status(404).json({ error:"No se encontro datos del asesor"})
     }
 
-    res.status(200).json(datos)
+    return res.status(200).json(datos)
   }
 
   static async createAdmin(req,res) {
@@ -62,30 +62,30 @@ export class AdminControler {
 
     //verificar que este correcto
     if (!validarParcialAdmin(email)){
-      res.status(400).json({error:"datos incorredctos del administrador"})
+      return res.status(400).json({error:"datos incorredctos del administrador"})
     }
 
     //verificar que si hay un correo se corrobore que no sea uno que ya exista
     if (datos.email){
       try {
-        const adminMail = AdminModel.getAdminByMail(datos.email)
-        if (!adminMail){
-          res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
+        const adminMail = await AdminModel.getAdminByMail(datos.email)
+        if (adminMail){
+          return res.status(400).json({error: "el nuevo correo peticionado ya esta en uso"})
         }
       } catch (error) {
-        res.status(500).json({error: "error interno al buscar el correo"})
+        return res.status(500).json({error: "error interno al buscar el correo"})
       }
 
     }
     
     //alterar datos
     try {
-      AdminModel.updateAdmin(datos, email)
+      await AdminModel.updateAdmin(datos, email)
     } catch(error){
-      res.status(500).json({error})
+      return res.status(500).json({error})
     }
 
-    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+    return res.status(200).json({message: "Los datos han sido cambiados correctamente"})
   }
 
   static async deleteAdmin(req,res) {

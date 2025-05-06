@@ -34,12 +34,13 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NjI5NSwiZXhwIjoxNzQ2MDU5ODk1fQ._bTGKp5Ze_j3uW1E429RH_5jCxZw_EU3KTFHG_AM0yk
 
 {
-    "nombre": "Laura Gonsalez",
+    "nombre": "Laura Fernandez Gonzales",
     "curso": "Ingenieria de Software",
     "telefono": "1234567890",
     "matricula": "01234567",
-    "password": "miPassword34"
+    "password": "miPassword33"
 }
 
 ### Eliminar alumno
 DELETE http://localhost:1234/alumno/alumno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA2NTA1OCwiZXhwIjoxNzQ2MDY4NjU4fQ.c5fps3oGrko-UzgmZRUIvQpLEv68aE4-H8uQbAy4cac

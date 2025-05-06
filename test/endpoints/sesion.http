@@ -13,6 +13,14 @@ Content-Type: application/json
     "email": "laura@estudiante.com",
     "password": "miPassword33"
 }
+###
+POST http://localhost:1234/auth/alumno 
+Content-Type: application/json
+
+{
+    "email": "luis@estudiante.com",
+    "password": "estudiante123"
+}
 
 ### Asesor
 POST http://localhost:1234/auth/asesor    
@@ -24,7 +32,7 @@ Content-Type: application/json
 }
 
 ### Administrador
-POST http://localhost:1234/auth/administrador
+POST http://localhost:1234/auth/admin
 Content-Type: application/json
 
 {
@@ -56,7 +64,7 @@ Content-Type: application/json
 }
 
 ### Admin
-POST http://localhost:1234/administrador 
+POST http://localhost:1234/admin 
 Content-Type: application/json
 
 {

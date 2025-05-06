@@ -11,10 +11,10 @@ const router = Router();
 // Login routes
 router.post('/auth/alumno', loginEstudiante);
 router.post('/auth/asesor', loginAsesor);
-router.post('/auth/administrador', loginAdmin);
+router.post('/auth/admin', loginAdmin);
 
 // Register routes
-router.post('/administrador',
+router.post('/admin',
   authMiddleware(['administrador']),
   registrarAdmin
 );
