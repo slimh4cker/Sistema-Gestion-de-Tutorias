@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes - Asesor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="alumno-container">
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <button class="sidebar-toggle-mobile d-lg-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-placeholder"></div>
+
+            <div class="main-content-container">
+                <div class="messages-container white-card rounded-4 shadow-sm">
+                    <!-- Lista de conversaciones -->
+                    <div class="conversation-list">
+                        <!-- Barra de búsqueda que abarca todo el ancho -->
+                        <div class="conversation-search p-3 border-bottom">
+                            <div class="input-group w-100">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0" placeholder="Buscar conversaciones...">
+                            </div>
+                        </div>
+                        
+                        <!-- Lista de contactos (sin checkboxes) -->
+                        <div class="conversation-items">
+                            <!-- Conversación 1 -->
+                            <div class="conversation-item unread p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
+                                        <span class="badge bg-primary rounded-pill">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Conversación 2 -->
+                            <div class="conversation-item read p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Ignacio Robles</h6>
+                                        <span class="text-muted small">Ayer</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Conversación 3 -->
+                            <div class="conversation-item unread p-3 border-bottom">
+                                <div class="conversation-content">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Andres Barragan</h6>
+                                        <span class="badge bg-primary rounded-pill">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Área de mensajes -->
+                    <div class="message-area">
+                        <div class="message-header p-3 border-bottom">
+                            <h5 class="mb-0">Ignacio Robles</h5>
+                        </div>
+                        
+                        <div class="message-thread">
+                            <!-- Mensaje recibido -->
+                            <div class="message received p-3">
+                                <div class="message-sender fw-bold">Ignacio Robles</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">Hola, ¿cómo estás? He revisado tus preguntas sobre el protocolo TCP/IP y puedo ayudarte con eso. ¿Qué día te viene bien para una sesión?</p>
+                                </div>
+                                <div class="message-time text-muted small">10:45 AM - 20 Jun 2025</div>
+                            </div>
+                            
+                            <!-- Mensaje enviado -->
+                            <div class="message sent p-3 bg-light">
+                                <div class="message-sender fw-bold">Tú</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">¡Hola Ignacio! Gracias por responder. ¿Podría ser el viernes por la tarde? Tengo disponibilidad después de las 3pm.</p>
+                                </div>
+                                <div class="message-time text-muted small">11:20 AM - 20 Jun 2025</div>
+                            </div>
+                            
+                            <!-- Mensaje recibido -->
+                            <div class="message received p-3">
+                                <div class="message-sender fw-bold">Ignacio Robles</div>
+                                <div class="message-content my-2">
+                                    <p class="mb-0">Perfecto, confirmado entonces nuestra sesión será el viernes a las 3pm en la sala de estudio de la biblioteca. Lleva tus apuntes sobre el tema.</p>
+                                </div>
+                                <div class="message-time text-muted small">11:45 AM - 20 Jun 2025</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Área de escritura -->
+                        <div class="message-compose p-3 border-top">
+                            <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-1"></i> Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/navbar_asesor.js"></script>
+    <script src="js/sidebar_asesor.js"></script>
+    <script src="js/solicitud.js"></script>
+</body>
+</html>
+</html>

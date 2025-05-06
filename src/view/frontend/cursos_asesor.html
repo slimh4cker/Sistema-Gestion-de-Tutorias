@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Cursos - Asesor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="alumno-container">
+        <!-- Barra lateral se insertará aquí -->
+        
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <button class="sidebar-toggle-mobile d-lg-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-placeholder"></div>
+            
+            <div class="main-content-container">
+                <div class="white-card">
+                    <!-- Título de página -->
+                    <h2 class="page-title"><i class="fas fa-book-open me-2"></i>Mis Cursos</h2>
+                    
+                    <!-- Contenedor grid con scroll si es necesario -->
+                    <div class="cursos-grid-container" style="max-height: calc(100vh - 200px); overflow-y: auto;">
+                        <!-- Curso 1 -->
+                        <div class="curso-card" onclick="window.location.href='curso-detalle.html?curso=bd'">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Bases De Datos y Fundamentos de Programación Avanzada</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
+                                </div>
+                                <p class="profesor-info">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i>Luis Armando Cardenas Florido
+                                </p>
+                                <div class="sesion-info">
+                                    <p class="sesion-label">Próxima sesión</p>
+                                    <p class="sesion-date">12/04/2025 - 08:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 2 -->
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Telecomunicaciones y Redes Avanzadas</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
+                                </div>
+                                <p class="profesor-info">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i>Luis Armando Cardenas Florido
+                                </p>
+                                <div class="sesion-info">
+                                    <p class="sesion-label">Próxima sesión</p>
+                                    <p class="sesion-date">15/03/2025 - 08:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 3 -->
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Taller de Investigación en Ciencias Computacionales</h3>
+                                    <span class="badge bg-primary curso-badge">T</span>
+                                </div>
+                                <p class="profesor-info">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i>Luis Armando Cardenas Florido
+                                </p>
+                                <div class="sesion-info">
+                                    <p class="sesion-label">Próxima sesión</p>
+                                    <p class="sesion-date">10/04/2025 - 08:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 4 -->
+                        <div class="curso-card">
+                            <div class="curso-card-content">
+                                <div class="curso-header">
+                                    <h3 class="curso-title">Automatas y Lenguajes Formales</h3>
+                                    <span class="badge bg-success curso-badge">A</span>
+                                </div>
+                                <p class="profesor-info">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i>Luis Armando Cardenas Florido 
+                                </p>
+                                <div class="sesion-info">
+                                    <p class="sesion-label">Próxima sesión</p>
+                                    <p class="sesion-date">10/05/2025 - 08:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/navbar_asesor.js"></script>
+    <script src="js/sidebar_asesor.js"></script>
+</body>
+</html>
