@@ -108,7 +108,9 @@ de manera aislada.
             return false
         }
         const asesoria = await modelo_asesorias.create({
-            solicitud_id: solicitud_id
+            solicitud_id: solicitud_id,
+            fecha_creacion: new Date(),
+            estado: 'pendiente'
         })
         if(!asesoria){
             console.error("Error al crear la asesoria")
