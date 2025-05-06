@@ -7,12 +7,22 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(data => {
                 navbarPlaceholder.innerHTML = data;
-                // Inicializar el evento después de cargar el navbar
+                // Inicializar notificaciones (con 0 notificaciones)
+                inicializarNotificaciones();
+                // Inicializar el evento de solicitud de asesoría
                 inicializarSolicitarAsesoria();
             })
             .catch(error => console.error('Error cargando el navbar:', error));
     }
 });
+
+function inicializarNotificaciones() {
+    const notificacionesBadge = document.querySelector('.notification-dropdown .badge');
+    if (notificacionesBadge) {
+        notificacionesBadge.textContent = '0';
+        notificacionesBadge.style.display = 'inline-block'; // Asegura que sea visible
+    }
+}
 
 function inicializarSolicitarAsesoria() {
     const btnSolicitar = document.getElementById('btn-solicitar-asesoria');
@@ -109,3 +119,23 @@ function inicializarSolicitarAsesoria() {
         });
     }
 }
+
+// Función para actualizar el contador de notificaciones
+function actualizarContadorNotificaciones(count) {
+    const badge = document.querySelector('.navbar-actions .badge');
+    if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'block' : 'none';
+    }
+}
+
+// Ejemplo de cómo cargar notificaciones reales
+/*
+function cargarNotificacionesReales() {
+    return fetch('/api/notificaciones')
+        .then(response => response.json())
+        .then(data => {
+            return data.count;
+        });
+}
+*/

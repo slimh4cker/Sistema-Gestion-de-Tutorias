@@ -1,4 +1,4 @@
-<!-- components/navbar.html -->
+<!-- navbar_asesor.html -->
 <nav class="top-navbar navbar navbar-expand bg-white shadow-sm py-2">
     <div class="container-fluid px-3">
         <!-- Botón para mostrar/ocultar sidebar en móviles -->
@@ -9,24 +9,17 @@
         <!-- Texto de bienvenida -->
         <div class="welcome-text me-auto">
             <h4 class="mb-0">Bienvenido</h4>
-            <p class="text-muted mb-0 small d-none d-md-block">¿Listo para mejorar tus calificaciones?</p>
         </div>
         
         <!-- Acciones del navbar -->
         <div class="navbar-actions d-flex align-items-center">
-            <!-- Botón Solicitar Asesoría -->
-            <a href="#" id="btn-solicitar-asesoria" class="btn btn-primary btn-sm me-2 me-md-3">
-                <i class="fas fa-plus me-1"></i>
-                <span>Solicitar asesoría</span>
-            </a>
-            
-            <!-- Notificaciones con badge (inicialmente 0) -->
-            <div class="dropdown notification-dropdown">
-                <button class="btn btn-link text-dark p-1 position-relative" type="button" id="dropdownNotificaciones" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Notificaciones -->
+            <div class="dropdown">
+                <button class="btn btn-link text-dark p-1" type="button" id="dropdownNotificaciones" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-bell"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         0
-                    </span>                    
+                    </span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownNotificaciones">
                     <li><h6 class="dropdown-header">Notificaciones</h6></li>
