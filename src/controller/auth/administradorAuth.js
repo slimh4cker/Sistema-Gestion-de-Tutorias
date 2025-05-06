@@ -7,9 +7,9 @@ import { compararPassword } from '../../utils/security.js';
 export const registrarAdmin = async (req, res) => {
   try {
     const { nombre, email, password } = req.body;
-    
+
     // Validar que el solicitante es admin
-    if (!req.user || req.user.rol !== 'admin') {
+    if (!req.user || req.user.rol !== 'administrador') {
       return res.status(403).json({ error: 'No autorizado' });
     }
 
@@ -21,10 +21,10 @@ export const registrarAdmin = async (req, res) => {
     });
 
     if (!nuevoAdmin) {
-      return res.status(400).json({ error: "El admin ya existe" });
+      return res.status(409).json({ error: "Ya existe un administrador activo con ese correo." });
     }
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       admin: {
         id: nuevoAdmin.id,
@@ -34,7 +34,8 @@ export const registrarAdmin = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error al registrar admin:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
