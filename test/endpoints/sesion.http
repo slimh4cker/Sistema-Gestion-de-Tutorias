@@ -18,8 +18,8 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "luis@estudiante.com",
-    "password": "estudiante123"
+    "email": "brandon@gmail.com",
+    "password": "Brandon123"
 }
 
 ### Asesor
@@ -46,9 +46,9 @@ POST http://localhost:1234/alumno
 Content-Type: application/json
 
 {
-    "nombre": "Juan Lopez",
-    "email": "juan@estudiante.com",
-    "password": "contrasenia123"
+    "nombre": "Brandon",
+    "email": "brandon@gmail.com",
+    "password": "Brandon123"
 }
 
 ### Asesor
@@ -56,7 +56,7 @@ POST http://localhost:1234/asesor
 Content-Type: application/json
 
 {
-    "nombre": "Emilio Sanshez",
+    "nombre": "Emilio Prueba",
     "area_especializacion": "Ingenieria de Software",
     "email": "EmilioSanshez@hotmail.com",
     "password": "myPassword33"
@@ -68,7 +68,7 @@ POST http://localhost:1234/admin
 Content-Type: application/json
 
 {
-    "nombre": "Maria Tomez",
+    "nombre": "Maria Prueba",
     "email": "Maria@hotmail.com",
-    "password": "myPassword33"
+    "password": "mhola123"
 }
