@@ -57,10 +57,9 @@ Content-Type: application/json
 
 {
     "nombre": "Emilio Prueba",
-    "area_especializacion": "Ingenieria de Software",
     "email": "EmilioSanshez@hotmail.com",
-    "password": "myPassword33"
-    //"disponibilidad": "", !! por determinar su inclusion
+    "password": "myPassword33",
+    "area_especializacion": "Ingenieria de Software"
 }
 
 ### Admin
