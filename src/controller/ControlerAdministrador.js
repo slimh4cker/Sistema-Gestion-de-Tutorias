@@ -10,7 +10,7 @@ export class AdminControler {
 
     let datos = null
     try {
-      datos = AdminModel.getAdminByMail(correo)
+      datos = await AdminModel.getAdminByMail(correo)
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar el admin" })
     }
@@ -19,7 +19,7 @@ export class AdminControler {
       res.status(404).json({ error:"No se encontro datos del asesor"})
     }
 
-    res.status(200).json(datos)
+    return res.status(200).json(datos)
   }
 
   static async createAdmin(req,res) {
