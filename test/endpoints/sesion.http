@@ -63,11 +63,12 @@ Content-Type: application/json
 }
 
 ### Admin
-POST http://localhost:1234/admin 
+POST http://localhost:1234/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY1MTAxMTIsImV4cCI6MTc0NjUxMzcxMn0.xE2I2A3Rwv5GzyqwtTfn_BrVkhPzgCjwVU_OSkNSuL0 
 Content-Type: application/json
 
 {
-    "nombre": "Maria Prueba",
-    "email": "Maria@hotmail.com",
-    "password": "mhola123"
+    "nombre": "Maria Prueba 4",
+    "email": "Maria4@hotmail.com",
+    "password": "mhol2131a12343"
 }

@@ -1,4 +1,5 @@
 import { modelo_cuenta_administrador } from "./Modelo_cuentas.js";
+import { hashPassword } from '../../utils/security.js';
 
 // Clase del alumno encargada de interactuar con la base de datos
 
@@ -47,39 +48,46 @@ export class AdminModel{
      * })
      */
     static async createAdmin(datos) {
-        try{
+        try {
             const admin = await modelo_cuenta_administrador.findOne({
-                where: {
-                    email: datos.email
-                }
-            })
-            console.log(admin)
-            if(admin.length === 0){
-                const hashedPassword = hashPassword(datos.password, 10);
-                const crear_admin = await modelo_cuenta_estudiante.create({
+                where: { email: datos.email }
+            });
+    
+            if (!admin) {
+                const hashedPassword = await hashPassword(datos.password, 10);
+                const crear_admin = await modelo_cuenta_administrador.create({
                     ...datos,
                     password: hashedPassword,
                 });
-                console.log("Admin agregado correctamente")
-                return crear_admin.dataValues
+                console.log("Admin agregado correctamente");
+                return crear_admin.dataValues;
             }
-            else if(admin.dataValues.estado === "inactivo"){
-                return this.reactivarAdmin(datos)
+    
+            if (admin.dataValues.estado === "inactivo") {
+                await modelo_cuenta_administrador.update({
+                    nombre: datos.nombre,
+                    password: hashPassword(datos.password, 10),
+                    estado: "activo"
+                }, {
+                    where: { email: datos.email }
+                });
+    
+                const actualizado = await modelo_cuenta_administrador.findOne({ where: { email: datos.email } });
+                return actualizado.dataValues;
             }
-            else if(admin.dataValues.estado === "activo"){
-                console.log("Ya existe un Administrador registrado con ese correo electronico");
-                return false
+    
+            if (admin.dataValues.estado === "activo") {
+                console.log("Ya existe un Administrador registrado con ese correo electrónico");
+                return null;
             }
-        }
-        catch(error){
+    
+        } catch (error) {
+            console.error("Error al crear admin:", error);
+            throw error;
         }
     }
-    /**
-     * 
-     * @param {JSON} datos datos que desean ser modificados
-     * @param {String} emailOriginal email de la cuanta a modificar
-     * @returns {Array} cantidad de filas modificadas
-     */
+    
+    
     static async updateAdmin(datos, emailOriginal) {
         try {
             const adminExistente = await modelo_cuenta_administrador.findOne({
