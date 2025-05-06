@@ -69,33 +69,38 @@ export class AsesorControler {
 
   // Actualizar toda la tabla del asesor con los datos nuevos
   static async updateAsesor(req, res) {
-    // obtener datos
-    datos = req.body
-
-    // asegurarme que sus datos esten correctos
-    if (! validarParcialAsesor(datos)) {
-      res.status(400).json({ error: JSON.parse(result.error.message) })
-      return
+    const email = obtenerMailDeReq(req);
+    const datos = req.body;
+  
+    // Validar los datos
+    if (!validarParcialAsesor(datos)) {
+      return res.status(400).json({ error: "Datos incorrectos del asesor" });
     }
-
-    // obtener correo
-    const email = obtenerMaildeReq(req)
-    if (!email) {
-      res.status(400).json({ error: "No se ha encontrado el correo al momento de alterar el usuario" })
-      return
+  
+    // Verificar si el nuevo correo ya está en uso
+    if (datos.email) {
+      try {
+        const asesorExistente = await AsesorModel.getAsesorByMail(datos.email);
+        if (asesorExistente) {
+          return res.status(400).json({ error: "El nuevo correo proporcionado ya está en uso" });
+        }
+      } catch (error) {
+        console.error("Error buscando correo del asesor:", error);
+        return res.status(500).json({ error: "Error interno al buscar el correo del asesor" });
+      }
     }
-    
-    // alterar datos
+  
+    // Actualizar datos del asesor
     try {
-      AsesorModel.updateAsesor(datos, email)
+      await AsesorModel.updateAsesor(datos, email);
     } catch (error) {
-      res.status(500).json({error})
-      return
+      console.error("Error al actualizar asesor:", error);
+      return res.status(500).json({ error: "Error al actualizar los datos del asesor" });
     }
-   
-    // enviar mensaje de que salio correctamente
-    res.status(200).json({message: "Los datos han sido cambiados correctamente"})
+    return res.status(200).json({ message: "Los datos han sido cambiados correctamente" });
   }
+  
+  
 
   static async deleteAsesor(req, res) {
     // obtener correo

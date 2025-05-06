@@ -3,12 +3,13 @@
 
 ### Obtener datos de la cuenta del asesor
 GET http://localhost:1234/asesores/asesores
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjYXJsb3NAYXNlc29yLmNvbSIsInJvbCI6ImFzZXNvciIsImlhdCI6MTc0NjQ5NzQ4MSwiZXhwIjoxNzQ2NTAxMDgxfQ.0hDBujg1dk-3rqoCkdZYQa4_CTwji3Vv9salETuBXkE
 
 ### Agregar mensaje 
 ## TODO
 
 ### Agregar comentario respecto a una asesoria
-POST http://localhost:1234/solicitud
+POST http://localhost:1234/asesoria
 Content-Type: application/json
 {
     "id_solicitud": 1,
@@ -16,18 +17,21 @@ Content-Type: application/json
 }
 
 ### editar datos del asesor
-PUT http://localhost:1234/asesores/asesores
+PATCH http://localhost:1234/asesores/asesores
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjYXJsb3NAYXNlc29yLmNvbSIsInJvbCI6ImFzZXNvciIsImlhdCI6MTc0NjQ5ODMzMiwiZXhwIjoxNzQ2NTAxOTMyfQ.uvP1tR21Z3SfjU7LiXXbTVqB51AZMAkB0f4xdmRV82c
 Content-Type: application/json
+
 {
-    "nombre": "Emilio Sanshez",
-    "area_especializacion": "Ingenieria de Software",
-    "email": "EmilioSanshez@hotmail.com",
-    "password": "myPassword33"
-    //"disponibilidad": "", !! por determinar su inclusion
+  "nombre": "Carlos Torres Fernandez",
+  "area_especializacion": "Ingenieria de Software",
+  "disponibilidad": "Lunes-Jueves"
 }
 
-PATCH http://localhost:1234/asesores/asesorias
+###
+PATCH http://localhost:1234/asesores/asesorias/?id=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjYXJsb3NAYXNlc29yLmNvbSIsInJvbCI6ImFzZXNvciIsImlhdCI6MTc0NjQ5ODMzMiwiZXhwIjoxNzQ2NTAxOTMyfQ.uvP1tR21Z3SfjU7LiXXbTVqB51AZMAkB0f4xdmRV82c
 Content-Type: application/json
+
 {
   "estado": "asignada",
   "fecha_atencion": "2025-05-05",
