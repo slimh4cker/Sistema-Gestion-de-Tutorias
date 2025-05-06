@@ -255,7 +255,7 @@ async function loginUser() {
                     window.location.href = 'home_asesor.html';
                     break;
                 case 'admin':
-                    window.location.href = 'home_admin.html';
+                    window.location.href = 'home_alumno.html';
                     break;
             }
         } else {
