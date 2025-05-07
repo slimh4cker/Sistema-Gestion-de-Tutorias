@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-
+import fs from 'fs';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -23,8 +23,7 @@ export async function sendMail(destinatario, plantilla, datos ) {
     // asignar el cuerpo y asunto segun la plantilla escrita
     switch (plantilla) {
       case "asesoriaAsignadaAlumno":
-        html = fs.readFileSync('./plantillas/asesoriaAsignadaAlumno.html', 'utf8');
-    
+        html = fs.readFileSync('./src/utils/mail/plantillas/asesoriaAsignadaAlumno.html', 'utf8');
         if (datos.nombre_asesoria) html = html.replace('{{nombre_asesoria}}', datos.nombre_asesoria);
         if (datos.nombre_asesor) html = html.replace('{{nombre_asesor}}', datos.nombre_asesor);
         if (datos.fecha) html = html.replace('{{fecha}}', datos.fecha);
@@ -35,7 +34,7 @@ export async function sendMail(destinatario, plantilla, datos ) {
         break;
     
       case "asesoriaAsignadaAsesor":
-        html = fs.readFileSync('./plantillas/asesoriaAsignadaAsesor.html', 'utf8');
+        html = fs.readFileSync('./src/utils/mail/plantillas/asesoriaAsignadaAsesor.html', 'utf8');
     
         if (datos.nombre_asesoria) html = html.replace('{{nombre_asesoria}}', datos.nombre_asesoria);
         if (datos.nombre_asesor) html = html.replace('{{nombre_asesor}}', datos.nombre_asesor);
@@ -47,16 +46,16 @@ export async function sendMail(destinatario, plantilla, datos ) {
         asunto = "Se le ha asignado una asesoría";
         break;
       default:
-        console.log("No se ha encontrado la plantilla de correo");
+        console.error(`No se ha encontrado la plantilla de correo ${plantilla}`);
         return;
     }
     
 
-    const mail_configs = {
+    let mail_configs = {
       from: process.env.EMAIL_USER,
       to: destinatario,
       subject: asunto,
-      text: "prueba lol",
+      html: cuerpo,
     };
 
     transporter.sendMail(mail_configs, (error, info) => {
@@ -70,6 +69,3 @@ export async function sendMail(destinatario, plantilla, datos ) {
     })
   })
 }
-
-console.log("FUNCION DE CORREO NO IMPLEMENTADA")
-await sendMail("mailOptions")
