@@ -46,6 +46,9 @@ export async function sendMail(destinatario, plantilla, datos ) {
         cuerpo = html;
         asunto = "Se le ha asignado una asesoría";
         break;
+      default:
+        console.log("No se ha encontrado la plantilla de correo");
+        return;
     }
     
 
