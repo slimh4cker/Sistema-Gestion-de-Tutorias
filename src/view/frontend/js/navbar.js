@@ -66,8 +66,9 @@ function inicializarSolicitarAsesoria() {
                         <div class="mb-4">
                             <label for="urgencia" class="form-label fw-semibold">Nivel de urgencia:</label>
                             <select id="urgencia" class="form-select" required>
-                                <option value="Urgente">Urgente</option>
-                                <option value="Normal">Normal</option>
+                                <option value="baja">Baja</option>
+                                <option value="media">Media</option>
+                                <option value="alta">Alta</option>
                             </select>
                         </div>
                         <div class="d-flex justify-content-end gap-3">
@@ -105,6 +106,8 @@ function inicializarSolicitarAsesoria() {
 }
 
 async function solicitarAsesoria() {
+    console.log("soy Navbar")
+    console.log(localStorage.getItem('token'))
     const curso = document.getElementById('curso').value;
     const requisitos = document.getElementById('requisitos').value;
     const fecha = document.getElementById('fecha').value;

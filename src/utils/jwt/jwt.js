@@ -11,7 +11,8 @@ export const generarToken = (usuario, tipoModelo) => {
       email: usuario.email,
       rol: tipoModelo, // El rol se determina por el tipo de modelo
     };
-  
+    
+    console.log("JWT Utilizado")
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
   
