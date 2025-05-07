@@ -10,8 +10,8 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "juan@estudiante.com",
-    "password": "contrasenia123"
+    "email": "brandon@gmail.com",
+    "password": "Brandon123"
 }
 ###
 POST http://localhost:1234/auth/alumno 
