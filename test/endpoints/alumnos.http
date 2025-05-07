@@ -3,40 +3,44 @@
 
 ### Obtener datos de el alumno que es usuario actual
 GET http://localhost:1234/alumno/alumno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk1ODMxMiwiZXhwIjoxNzQ1OTYxOTEyfQ.9ykLO0PMnLnxdznbRGwnXerNnq7IkKcCFGu6Z5KN8SQ
 
 ### Obtener solicitudes que esten aceptada
-GET http://localhost:1234/alumno/solicitud?estado=asignada
-
+GET http://localhost:1234/alumno/solicitud?estado=activo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NTk4MDU1NCwiZXhwIjoxNzQ1OTg0MTU0fQ.YzcEIZVz90FfjblpHO-7erz41NiBLhEAS3LRQs_bVyo
 ### Obtener solicitudes que no hayan sido aceptadas
 GET http://localhost:1234/alumno/solicitud?estado=pendiente
 
 ### Agregar solicitud
 POST http://localhost:1234/alumno/solicitud
 content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NTE5NiwiZXhwIjoxNzQ2MDU4Nzk2fQ.RH00-XnCAveZ_vh2xEQrZAgR_Bv0jFNRUwmC6A5fe0U
 
 {
-    "modalidad": "en_linea",
-    "tema": "calculo integral",
-    "fecha_limite": "13-4-2025",
-    "observaciones": "ninguna",
-}
-
-### Respuesta del alumno segun la encuesta TODO
-POST http://localhost:1234/alumno/encuesta
-Content-Type: application/json
-{
-  
+    "id": 4,
+    "estudiante_id": 2,
+    "asesor_id": 2,
+    "tema": "Cálculo vectorial",
+    "observaciones": "Necesito ayuda con integrales dobles",
+    "fecha_limite": "2025-05-10",
+    "modalidad": "presencial",
+    "nivel_urgencia": "alta",
+    "estado": "inactivo"
 }
 
 ### Editar atributos del alumno
 PUT http://localhost:1234/alumno/alumno
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NjI5NSwiZXhwIjoxNzQ2MDU5ODk1fQ._bTGKp5Ze_j3uW1E429RH_5jCxZw_EU3KTFHG_AM0yk
+
 {
-    "nombre": "Juan Perez",
+    "nombre": "Laura Fernandez Gonzales",
     "curso": "Ingenieria de Software",
     "telefono": "1234567890",
     "matricula": "01234567",
     "password": "miPassword33"
 }
 
+### Eliminar alumno
 DELETE http://localhost:1234/alumno/alumno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA2NTA1OCwiZXhwIjoxNzQ2MDY4NjU4fQ.c5fps3oGrko-UzgmZRUIvQpLEv68aE4-H8uQbAy4cac

@@ -50,8 +50,8 @@ export class AsesorModel{
                 }
             })
             if(!asesor){
-                const hashedPassword = hashPassword(datos.password, 10);
-                const crear_asesor = await modelo_cuenta_estudiante.create({
+                const hashedPassword = await hashPassword(datos.password, 10);
+                const crear_asesor = await modelo_cuenta_asesor.create({
                     ...datos,
                     password: hashedPassword,
                 });

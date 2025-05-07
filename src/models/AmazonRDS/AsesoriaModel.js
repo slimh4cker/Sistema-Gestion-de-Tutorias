@@ -108,12 +108,43 @@ de manera aislada.
             return false
         }
         const asesoria = await modelo_asesorias.create({
-            solicitud_id: solicitud_id
+            solicitud_id: solicitud_id,
+            fecha_creacion: new Date(),
+            estado: 'pendiente'
         })
         if(!asesoria){
             console.error("Error al crear la asesoria")
             return false
         }
         return true
+    }
+
+    static async actualizarAsesoria(id, nuevosDatos) {
+        try {
+            // 1. Actualizar la asesoría
+            const [filasActualizadas] = await modelo_asesorias.update(nuevosDatos, {
+                where: { id }
+            });
+    
+            // 2. Si no se actualizó nada, retornar null
+            if (filasActualizadas === 0) return null;
+    
+            // 3. Obtener la asesoría actualizada con sus relaciones
+            const asesoriaActualizada = await modelo_asesorias.findByPk(id, {
+                include: [{
+                    model: modelo_solicitud,
+                    include: [
+                        { model: modelo_cuenta_estudiante },
+                        { model: modelo_cuenta_asesor }
+                    ]
+                }]
+            });
+    
+            return asesoriaActualizada;
+    
+        } catch (error) {
+            console.error("Error en actualizarAsesoria:", error);
+            return null;
+        }
     }
 }

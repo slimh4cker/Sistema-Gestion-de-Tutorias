@@ -28,17 +28,19 @@ export const generarToken = (usuario, tipoModelo) => {
   export const verificarToken = async (token) => {
     if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET no está definido');
     
+    console.log("[DEBUG] Token recibido:", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("[DEBUG] Rol decodificado:", decoded.rol);
     
     let usuario;
-    switch(decoded.modelo) {
-      case 'estudiante':
+    switch(decoded.rol) {
+      case 'alumno':
         usuario = await AlumnoModel.getAlumnoByMail(decoded.email);
         break;
       case 'asesor':
         usuario = await AsesorModel.getAsesorByMail(decoded.email);
         break;
-      case 'admin':
+      case 'administrador':
         usuario = await AdminModel.getAdminByMail(decoded.email);
         break;
       default:
@@ -65,21 +67,21 @@ export const authMiddleware = (rolesPermitidos = []) => {
         const { decoded, usuario } = await verificarToken(token);
 
         // validación de roles
-        if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(usuario.rol)) {
+        if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(decoded.rol)) {
           return res.status(403).json({
-            error: `Acceso denegado. Rol requerido: ${rolesPermitidos.join(', ')}`
+              error: `Acceso denegado. Rol requerido: ${rolesPermitidos.join(', ')}`
           });
-        }
+      }
   
         // Se inyectan datos limpios al request
         req.user = {
           id: usuario.id,
           email: usuario.email,
-          rol: usuario.rol,
+          rol: decoded.rol,
           ...(usuario.nombre && { nombre: usuario.nombre }),
           ...(usuario.matricula && { matricula: usuario.matricula })
         };
-  
+        console.log("[DEBUG] req.user inyectado:", req.user);
         next();
       } catch (error) {
         let status = 401;

@@ -10,8 +10,16 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "laura@estudiante.com",
-    "password": "estudiante456"
+    "email": "juan@estudiante.com",
+    "password": "contrasenia123"
+}
+###
+POST http://localhost:1234/auth/alumno 
+Content-Type: application/json
+
+{
+    "email": "brandon@gmail.com",
+    "password": "Brandon123"
 }
 
 ### Asesor
@@ -24,7 +32,7 @@ Content-Type: application/json
 }
 
 ### Administrador
-POST http://localhost:1234/auth/administrador
+POST http://localhost:1234/auth/admin
 Content-Type: application/json
 
 {
@@ -38,9 +46,9 @@ POST http://localhost:1234/alumno
 Content-Type: application/json
 
 {
-    "nombre": "Juan Perez",
-    "email": "laura@estudiant.com",
-    "password": "myPassword33"
+    "nombre": "Brandon",
+    "email": "brandon@gmail.com",
+    "password": "Brandon123"
 }
 
 ### Asesor
@@ -48,19 +56,19 @@ POST http://localhost:1234/asesor
 Content-Type: application/json
 
 {
-    "nombre": "Emilio Sanshez",
-    "area_especializacion": "Ingenieria de Software",
+    "nombre": "Emilio Prueba",
     "email": "EmilioSanshez@hotmail.com",
-    "password": "myPassword33"
-    //"disponibilidad": "", !! por determinar su inclusion
+    "password": "myPassword33",
+    "area_especializacion": "Ingenieria de Software"
 }
 
 ### Admin
-POST http://localhost:1234/administrador 
+POST http://localhost:1234/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY1MTAxMTIsImV4cCI6MTc0NjUxMzcxMn0.xE2I2A3Rwv5GzyqwtTfn_BrVkhPzgCjwVU_OSkNSuL0 
 Content-Type: application/json
 
 {
-    "nombre": "Maria Tomez",
-    "email": "Maria@hotmail.com",
-    "password": "myPassword33"
+    "nombre": "Maria Prueba 4",
+    "email": "Maria4@hotmail.com",
+    "password": "mhol2131a12343"
 }

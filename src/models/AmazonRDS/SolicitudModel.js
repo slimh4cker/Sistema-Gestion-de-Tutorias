@@ -92,6 +92,86 @@ export class SolicitudModel{
         return JSON.stringify(buscar_solicitud, null, 1)
     }
 
+    static async getSolicitudesPorEstado(email, estado) {
+        try {
+            const solicitudes = await modelo_solicitud.findAll({
+                attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
+                include: [
+                    {
+                        model: modelo_cuenta_estudiante,
+                        attributes: ['nombre', 'email'],
+                        where: { email: email }
+                    },
+                    {
+                        model: modelo_cuenta_asesor,
+                        attributes: ['nombre', 'email', 'area_especializacion']
+                    }
+                ],
+                where: { estado: estado }
+            });
+
+            return solicitudes.map(s => ({
+                id: s.id,
+                tema: s.tema,
+                estado: s.estado,
+                estudiante: {
+                    nombre: s.modelo_cuenta_estudiante.nombre,
+                    email: s.modelo_cuenta_estudiante.email
+                },
+                asesor: s.modelo_cuenta_asesor ? {
+                    nombre: s.modelo_cuenta_asesor.nombre,
+                    especializacion: s.modelo_cuenta_asesor.area_especializacion
+                } : null
+            }));
+        } catch (error) {
+            console.error("Error en getSolicitudesPorEstado:", error);
+            return null;
+        }
+    }
+
+    static async getTodasSolicitudes() {
+        try {
+            const solicitudes = await modelo_solicitud.findAll({
+                attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
+                include: [
+                    {
+                        model: modelo_cuenta_estudiante,
+                        attributes: ['id', 'nombre', 'email']
+                    },
+                    {
+                        model: modelo_cuenta_asesor,
+                        attributes: ['id', 'nombre', 'email', 'area_especializacion']
+                    }
+                ]
+            });
+    
+            return solicitudes.map(s => ({
+                id: s.id,
+                tema: s.tema,
+                observaciones: s.observaciones,
+                fecha_limite: s.fecha_limite,
+                modalidad: s.modalidad,
+                nivel_urgencia: s.nivel_urgencia,
+                estado: s.estado,
+                estudiante: s.modelo_cuenta_estudiante ? {
+                    id: s.modelo_cuenta_estudiante.id,
+                    nombre: s.modelo_cuenta_estudiante.nombre,
+                    email: s.modelo_cuenta_estudiante.email
+                } : null,
+                asesor: s.modelo_cuenta_asesor ? {
+                    id: s.modelo_cuenta_asesor.id,
+                    nombre: s.modelo_cuenta_asesor.nombre,
+                    email: s.modelo_cuenta_asesor.email,
+                    area_especializacion: s.modelo_cuenta_asesor.area_especializacion
+                } : null
+            }));
+        } catch (error) {
+            console.error("Error en getTodasSolicitudes:", error);
+            return null;
+        }
+    }
+    
+
     /**
  * Agrega una nueva solicitud y, en caso de éxito, también registra una asesoría asociada.
  *
@@ -114,20 +194,56 @@ export class SolicitudModel{
     nivel_urgencia: "media"
  * });
  */
-    static async agregarSolicitud(datos){
-            const agregar_solicitud = await modelo_solicitud.create(datos)
-            if(!agregar_solicitud){
-                console.error("error al agregar solicitud")
-                return false
+    static async agregarSolicitud(datos) {
+        try {
+            // 1. Eliminar el campo 'id' si existe (para evitar inserción manual)
+            const { id, ...data } = datos;
+            if (!data.estado) {
+                data.estado = 'pendiente';
             }
-            const agregar_asesoria = AsesoriaModel.agregarAsesoria(agregar_solicitud.dataValues.id)
-            
-            if(agregar_asesoria === false){
-                console.error("Error al agregar la solicitud")
-                return false
+    
+            // 2. Crear la solicitud en la base de datos
+            const solicitudCreada = await modelo_solicitud.create(data);
+    
+            if (!solicitudCreada) {
+                console.error("Error: No se pudo crear la solicitud");
+                return false;
             }
-            console.log("Solicitud agregada correctamente")
-            return agregar_solicitud
+    
+            // 3. Crear la asesoría asociada (con await para manejar errores)
+            const asesoriaCreada = await AsesoriaModel.agregarAsesoria(solicitudCreada.id);
+    
+            if (!asesoriaCreada) {
+                console.error("Error: No se pudo crear la asesoría asociada");
+                // Opcional: Revertir la creación de la solicitud si falla la asesoría
+                await solicitudCreada.destroy();
+                return false;
+            }
+    
+            console.log("Solicitud y asesoría creadas correctamente");
+            return solicitudCreada;
+    
+        } catch (error) {
+            console.error("Error crítico en agregarSolicitud:", error.message);
+            return false;
         }
-            
+    }
+    
+    static async actualizarEstadoSolicitud(id, nuevoEstado) {
+        try {
+            const solicitud = await modelo_solicitud.findByPk(id);
+    
+            if (!solicitud) {
+                return null;
+            }
+    
+            solicitud.estado = nuevoEstado;
+            await solicitud.save();
+    
+            return solicitud;
+        } catch (error) {
+            console.error("Error en actualizarEstadoSolicitud:", error);
+            return false;
+        }
+    }           
 }

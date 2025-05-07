@@ -5,69 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes - Alumno</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="alumno-container">
-        <!-- Barra lateral -->
-        <div class="sidebar">
-            <div class="sidebar-header text-center py-4">
-                <h4 class="m-0">ESTUDIANTE</h4>
-            </div>
-            <div class="sidebar-content">
-                <ul class="sidebar-menu">
-                    <li>
-                        <a href="home_alumno.html" class="d-block px-3 py-3">
-                            <i class="fas fa-user me-2"></i>Mi perfil
-                        </a>
-                    </li>
-                    <li>
-                        <a href="cursos.html" class="d-block px-3 py-3">
-                            <i class="fas fa-book me-2"></i>Mis cursos
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="mensajes.html" class="d-block px-3 py-3">
-                            <i class="fas fa-envelope me-2"></i>Mensajes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="calendario.html" class="d-block px-3 py-3">
-                            <i class="fas fa-calendar-alt me-2"></i>Calendario
-                        </a>
-                    </li>
-                    <li class="border-top border-light my-2"></li>
-                    <li class="logout">
-                        <a href="logout.html" class="d-block px-3 py-3">
-                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
         <!-- Contenido principal -->
         <div class="main-content">
-            <nav class="top-navbar navbar navbar-expand-lg">
-                <div class="container-fluid px-4">
-                    <!-- Texto de bienvenida (igual que en home_alumno) -->
-                    <div class="welcome-text">
-                        <h4 class="mb-0">Bienvenido</h4>
-                        <p class="text-muted mb-0 small">¿Listo para mejorar tus calificaciones?</p>
-                    </div>
-                    
-                    <!-- Contenedor de acciones (igual que en home_alumno) -->
-                    <div class="navbar-actions d-flex align-items-center">
-                        <a href="#" id="btn-solicitar-asesoria" class="text-decoration-none text-primary fw-bold me-3">
-                            Solicitar asesoría
-                        </a>
-                        <button class="btn btn-link text-dark p-1">
-                            <i class="fas fa-bell fa-lg"></i>
-                        </button>
-                    </div>
-                </div>
-            </nav>
+            <button class="sidebar-toggle-mobile d-lg-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-placeholder"></div>
 
             <div class="main-content-container">
                 <div class="messages-container white-card rounded-4 shadow-sm">
@@ -166,9 +115,9 @@
             </div>
         </div>
     </div>
-
-    <script src="js/solicitud.js"></script>
-    <script src="js/mensajes.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/solicitud.js"></script>
 </body>
 </html>
 </html>

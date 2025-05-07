@@ -13,18 +13,18 @@ export class AlumnoModel{
      * AlumnoModel.getAlumnoByMail("email@example.com")
      */
     static async getAlumnoByMail(email) {
+        console.log("[DEBUG] Buscando alumno con email:", email); // 👁️ Verifica el email recibido
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
-            where: {
-                email: email,// unicamente se necesita buscar por correo
-                estado: 'activo' // y estado se igual a activo
-            }
+            where: { email, estado: 'activo' }
+        });
+        
+        if (!correo_alumno) {
+            console.log("[DEBUG] No se encontró alumno activo con ese email");
+            return null;
         }
-    )
-        if (correo_alumno == null) {
-            return null // Si no existe el correo retorna null
-        }
-
-        return correo_alumno.dataValues // Retorna un JSON con los datos del alumno
+        
+        console.log("[DEBUG] Alumno encontrado:", correo_alumno.dataValues); // 👁️ Verifica los datos
+        return correo_alumno.dataValues;
     }
     /**
      * 
@@ -39,15 +39,17 @@ export class AlumnoModel{
      * })
      */
     static async createAlumno(datos) {
+        let crear_alumno
         try {
             const alumno = await modelo_cuenta_estudiante.findOne({
                 where: {
                     email: datos.email
                 }
             })
-            if(!alumno){
-                const hashedPassword = hashPassword(datos.password, 10);
-                const crear_alumno = await modelo_cuenta_estudiante.create({
+            if(alumno === null){
+                const hashedPassword = await hashPassword(datos.password, 10);
+                console.log(hashedPassword)
+                crear_alumno = await modelo_cuenta_estudiante.create({
                     ...datos,
                     password: hashedPassword,
                 });
@@ -73,11 +75,23 @@ export class AlumnoModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAlumno(datos, emailOriginal) {
-        return await modelo_cuenta_estudiante.update(datos, {
-            where: {
-                email: emailOriginal
+        try {
+            const alumno = await modelo_cuenta_estudiante.findOne({
+                where: { email: emailOriginal }
+            });
+    
+            if (!alumno) {
+                return null;
             }
-        })
+    
+            await alumno.update(datos); 
+            const { password, ...datosSeguros } = alumno.dataValues;
+            return datosSeguros;
+    
+        } catch (error) {
+            console.error("Error en updateAlumno:", error);
+            return null;
+        }
     }
     /**
      * 
