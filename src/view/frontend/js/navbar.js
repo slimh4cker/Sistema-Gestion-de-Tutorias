@@ -88,9 +88,10 @@ function inicializarSolicitarAsesoria() {
             `;
 
             // Insertar el formulario
-            asesoriaContainer.innerHTML = formHTML;
+            asesoriaContainer.innerHTML = formHTML;  //ESTA LINEA LE DA VIDA AL FORMULARIO, ES DECIR LO MANDA A LLAMAR PARA QUE SE MUESTRE
             
-            // Agregar evento para el botón cancelar
+
+            // Agregar evento para el botón cancelar; //ME QUEDA DUDA AQUI PORQUE NO ENCONTRE BOTON DE CANCELAR
             const btnCancelar = document.querySelector('.btn-cancelar');
             if (btnCancelar) {
                 btnCancelar.addEventListener('click', function() {
