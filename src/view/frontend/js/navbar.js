@@ -120,6 +120,72 @@ function inicializarSolicitarAsesoria() {
     }
 }
 
+async function solicitarAsesoria() {
+    // Obtener los valores del formulario
+    const curso = document.getElementById('curso').value;
+    const requisitos = document.getElementById('requisitos').value;
+    const fecha = document.getElementById('fecha').value;
+    const modalidad = document.getElementById('modalidad').value.toLowerCase();
+    const urgencia = document.getElementById('urgencia').value.toLowerCase();
+
+    // Construir el objeto de solicitud (solo datos que ingresa el usuario)
+    const solicitudData = {
+        tema: curso,
+        observaciones: requisitos,
+        fecha_limite: fecha,
+        modalidad: modalidad,
+        nivel_urgencia: urgencia
+    };
+
+    try {
+        const response = await fetch('http://localhost:1234/alumno/solicitud', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token') // JWT almacenado
+            },
+            body: JSON.stringify(solicitudData)
+        });
+
+        if (response.ok) {
+            alert('Solicitud enviada correctamente');
+            // Opcional: resetear el formulario o actualizar la interfaz
+            document.getElementById('form-solicitud-asesoria').reset();
+            const asesoriaContainer = document.getElementById('asesoria-container') ||
+                                      document.querySelector('.main-content-container');
+            asesoriaContainer.innerHTML = `
+                <div class="white-card rounded-4 shadow-sm">
+                    <div class="empty-state-content">
+                        <p class="empty-state-text fw-bold text-secondary">
+                            No tienes ninguna asesoría por el momento
+                        </p>
+                        <i class="fas fa-calendar-times empty-state-icon text-secondary"></i>
+                    </div>
+                </div>
+            `;
+        } else {
+            const errorData = await response.json();
+            console.error('Error al enviar solicitud:', errorData);
+            alert('Error al enviar solicitud. Revisa la consola para más detalles.');
+        }
+    } catch (error) {
+        console.error('Error de red o del servidor:', error);
+        alert('Error de red o del servidor.');
+    }
+}
+
+// Vincular la función al envío del formulario
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form-solicitud-asesoria');
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await solicitarAsesoria();
+        });
+    }
+});
+
+
 // Función para actualizar el contador de notificaciones
 function actualizarContadorNotificaciones(count) {
     const badge = document.querySelector('.navbar-actions .badge');
