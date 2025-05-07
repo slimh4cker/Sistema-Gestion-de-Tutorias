@@ -10,32 +10,29 @@
 </head>
 <body>
     <div class="admin-container">
-        <!-- Botón hamburguesa móvil -->
+        <!-- Sidebar se insertará aquí -->
         <button class="sidebar-toggle-mobile d-lg-none">
             <i class="fas fa-bars"></i>
         </button>
         
-        <!-- Contenido principal -->
         <div class="main-content">
             <div id="navbar-placeholder"></div>
-
-            <div id="asesoria-container" class="main-content-container">
-                <div class="white-card rounded-4 shadow-sm">
-                    <div class="empty-state-content">
-                        <p class="empty-state-text fw-bold text-secondary">
-                            Panel de administración
-                        </p>
-                        <i class="fas fa-user-shield empty-state-icon text-secondary"></i>
+            
+            <!-- Contenedor principal modificado -->
+            <div id="admin-main-container" class="main-content-container">
+                <div class="admin-full-panel">
+                    <div class="admin-content-center">
+                        <i class="fas fa-user-shield admin-main-icon"></i>
+                        <h1 class="admin-main-title">Bienvenido Administrador</h1>
+                        <p class="admin-main-subtitle">Panel de administración</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Overlay para móviles -->
         <div class="sidebar-overlay"></div>
     </div>
     
-    <!-- Scripts -->
     <script src="js/navbar_admin.js"></script>
     <script src="js/sidebar_admin.js"></script>
 </body>
