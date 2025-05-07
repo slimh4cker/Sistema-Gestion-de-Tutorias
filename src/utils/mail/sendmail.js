@@ -13,12 +13,46 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function sendMail(mailOptions) {
+export async function sendMail(destinatario, plantilla, datos ) {
   return new Promise((resolve, reject) => {
+
+    let cuerpo = "";
+    let asunto = "Asunto";
+    let html = "";
+
+    // asignar el cuerpo y asunto segun la plantilla escrita
+    switch (plantilla) {
+      case "asesoriaAsignadaAlumno":
+        html = fs.readFileSync('./plantillas/asesoriaAsignadaAlumno.html', 'utf8');
+    
+        if (datos.nombre_asesoria) html = html.replace('{{nombre_asesoria}}', datos.nombre_asesoria);
+        if (datos.nombre_asesor) html = html.replace('{{nombre_asesor}}', datos.nombre_asesor);
+        if (datos.fecha) html = html.replace('{{fecha}}', datos.fecha);
+        if (datos.hora) html = html.replace('{{hora}}', datos.hora);
+    
+        cuerpo = html;
+        asunto = "Su asesoría ha sido asignada correctamente";
+        break;
+    
+      case "asesoriaAsignadaAsesor":
+        html = fs.readFileSync('./plantillas/asesoriaAsignadaAsesor.html', 'utf8');
+    
+        if (datos.nombre_asesoria) html = html.replace('{{nombre_asesoria}}', datos.nombre_asesoria);
+        if (datos.nombre_asesor) html = html.replace('{{nombre_asesor}}', datos.nombre_asesor);
+        if (datos.nombre_alumno) html = html.replace('{{nombre_alumno}}', datos.nombre_alumno);
+        if (datos.fecha) html = html.replace('{{fecha}}', datos.fecha);
+        if (datos.hora) html = html.replace('{{hora}}', datos.hora);
+    
+        cuerpo = html;
+        asunto = "Se le ha asignado una asesoría";
+        break;
+    }
+    
+
     const mail_configs = {
       from: process.env.EMAIL_USER,
-      to: 'al22760549@ite.edu.mx',
-      subject: 'Asunto del correo',
+      to: destinatario,
+      subject: asunto,
       text: "prueba lol",
     };
 
