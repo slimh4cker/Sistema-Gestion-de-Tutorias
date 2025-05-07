@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Asignación de Asesoría</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #006644;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px 6px 0 0;
+    }
+    .content {
+      padding: 20px;
+      color: #333333;
+    }
+    .info {
+      background-color: #e8f5e9;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Asignación de Nueva Asesoría</h2>
+    </div>
+    <div class="content">
+      <p>Estimado/a {{nombre_asesor}},</p>
+      <p>Se le ha asignado una nueva asesoría con el siguiente alumno:</p>
+
+      <div class="info">
+        <p><strong>Alumno:</strong> {{nombre_alumno}}</p>
+        <p><strong>Nombre de la asesoría:</strong> {{nombre_asesoria}}</p>
+        <p><strong>Fecha:</strong> {{fecha}}</p>
+        <p><strong>Hora:</strong> {{hora}}</p>
+      </div>
+
+      <p>Por favor, confirme su disponibilidad o comuníquese si necesita reprogramar.</p>
+    </div>
+    <div class="footer">
+      Este es un mensaje automático del sistema de asignación de asesorías.
+    </div>
+  </div>
+</body>
+</html>

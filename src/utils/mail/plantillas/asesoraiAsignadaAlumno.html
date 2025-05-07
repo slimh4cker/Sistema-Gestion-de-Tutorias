@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Asignación de Asesoría</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #004aad;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px 6px 0 0;
+    }
+    .content {
+      padding: 20px;
+      color: #333333;
+    }
+    .info {
+      background-color: #f0f4ff;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Confirmación de Asesoría Asignada</h2>
+    </div>
+    <div class="content">
+      <p>Hola,</p>
+      <p>Te informamos que se te ha asignado una asesoría con los siguientes datos:</p>
+
+      <div class="info">
+        <p><strong>Nombre de la asesoría:</strong> {{nombre_asesoria}}</p>
+        <p><strong>Asesor:</strong> {{nombre_asesor}}</p>
+        <p><strong>Fecha:</strong> {{fecha}}</p>
+        <p><strong>Hora:</strong> {{hora}}</p>
+      </div>
+
+      <p>Por favor, asegúrate de estar disponible en el horario indicado.</p>
+    </div>
+    <div class="footer">
+      Este es un mensaje automático, por favor no respondas.
+    </div>
+  </div>
+</body>
+</html>
