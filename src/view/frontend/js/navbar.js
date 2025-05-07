@@ -107,7 +107,7 @@ function inicializarSolicitarAsesoria() {
 
 async function solicitarAsesoria() {
     console.log("soy Navbar")
-    console.log(localStorage.getItem('token'))
+    console.log(localStorage.getItem('authToken'))
     const curso = document.getElementById('curso').value;
     const requisitos = document.getElementById('requisitos').value;
     const fecha = document.getElementById('fecha').value;
