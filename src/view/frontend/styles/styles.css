@@ -1325,3 +1325,82 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
         font-size: 1.4rem;
     }
 }
+
+/* =================================== */
+/* PANEL DE ADMINISTRACIÓN COMPLETO */
+/* =================================== */
+
+#admin-main-container {
+    padding: 0;
+    flex: 1;
+    display: flex;
+    min-height: calc(100vh - 60px); /* Resta la altura del navbar */
+    margin-top: 60px; 
+}
+
+.admin-full-panel {
+    background: white;
+    width: 100%;
+    min-height: 100%; /* Cambia height por min-height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin: 0; /* Elimina cualquier margen */
+}
+
+.admin-content-center {
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    width: 90%; /* Cambia a porcentaje para mejor adaptación */
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+.admin-main-icon {
+    font-size: 4rem;
+    color: #4a6baf;
+    margin-bottom: 1.5rem;
+}
+
+.admin-main-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.admin-main-subtitle {
+    font-size: 1.5rem;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .admin-content-center {
+        padding: 1.5rem;
+    }
+    .admin-main-icon {
+        font-size: 3.5rem;
+    }
+    .admin-main-title {
+        font-size: 2rem;
+    }
+    .admin-main-subtitle {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-content-center {
+        padding: 1rem;
+    }
+    .admin-main-icon {
+        font-size: 3rem;
+    }
+    .admin-main-title {
+        font-size: 1.8rem;
+    }
+    .admin-main-subtitle {
+        font-size: 1.1rem;
+    }
+}

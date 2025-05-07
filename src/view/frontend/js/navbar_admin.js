@@ -57,7 +57,7 @@ function actualizarContadorNotificaciones(count) {
     const badge = document.querySelector('.navbar-actions .badge');
     if (badge) {
         badge.textContent = count;
-        badge.style.display = count > 0 ? 'block' : 'none';
+        badge.style.display = count > 0 ? 'block' : 'block';
         
         // Actualizar también el título del botón
         const botonNotificaciones = document.getElementById('dropdownNotificaciones');

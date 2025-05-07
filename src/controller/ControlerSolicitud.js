@@ -1,6 +1,6 @@
 /// Controler del recurso de asesorias
 // Utilizar cuando se quiere alterar algo de una asesoria
-import { SolicitudModel } from "../models/AmazonRDSs/AmazonRDS/SolicitudModel.js"
+import { SolicitudModel } from "../models/AmazonRDS/SolicitudModel.js"
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js"
 import { validarSolicitud } from "../schemas/solicitud.js"
 import { obtenerMailDeReq } from "../utils/request.js"
