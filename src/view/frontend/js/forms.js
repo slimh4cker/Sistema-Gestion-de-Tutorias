@@ -246,7 +246,11 @@ async function loginUser() {
         }
 
         if (data.success) {
-            // Redireccionar según el tipo de usuario
+            // Store the token
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('userType', currentUserType);
+
+            // Redirection logic
             switch(currentUserType) {
                 case 'alumno':
                     window.location.href = './html-alumno/home_alumno.html';
