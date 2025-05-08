@@ -109,3 +109,14 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
   npm run test:schemas
 
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
+
+## Integrantes del equipo
+
+A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
+
+- **Barragan Muñoz Andres Salvador**
+- **Bermejo Venegas Brandon Vincenzo**
+- **Laguna Bernal Salvador**
+- **Montelongo Ramirez Alexia Ismeray**
+- **Soto Flores Diego Francisco**
+
