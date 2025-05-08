@@ -22,7 +22,7 @@ const modelo_solicitud = sequelize.define('modelo_solicitud',{
     },
     asesor_id: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
+        allowNull: true,
         defaultValue: null,
         references: {
             model: modelo_cuenta_asesor,

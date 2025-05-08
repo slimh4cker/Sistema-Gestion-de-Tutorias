@@ -59,8 +59,8 @@ function inicializarSolicitarAsesoria() {
                         <div class="mb-3">
                             <label for="modalidad" class="form-label fw-semibold">Modalidad:</label>
                             <select id="modalidad" class="form-select" required>
-                                <option value="Presencial">Presencial</option>
-                                <option value="Virtual">Virtual</option>
+                                <option value="presencial">Presencial</option>
+                                <option value="en_linea">Virtual</option>
                             </select>
                         </div>
                         <div class="mb-4">
@@ -113,6 +113,7 @@ async function solicitarAsesoria() {
     const fecha = document.getElementById('fecha').value;
     const modalidad = document.getElementById('modalidad').value.toLowerCase();
     const urgencia = document.getElementById('urgencia').value.toLowerCase();
+    console.log(curso, requisitos, fecha, modalidad, urgencia)
 
     const solicitudData = {
         tema: curso,
@@ -127,7 +128,7 @@ async function solicitarAsesoria() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             },
             body: JSON.stringify(solicitudData)
         });
