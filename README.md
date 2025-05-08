@@ -1,9 +1,12 @@
 # Sistema-Gestion-de-Tutorias
-Desarrollar un sistema de software que facilite la gestión y el seguimiento de las solicitudes de asesoría académica, optimizando la asignación de maestros asesores y mejorando la comunicación entre estudiantes, asesores y la administración.
+Este proyecto tiene el fin de facilitar la asignacion de tutorias dentro del instituto tecnologico de ensenada, con este se pretende facilitar, digitalizar y automatizar este proceso.
+En nuestro proecto se tienen 3 roles, los alumnos los cuales realizan peticiones de asesorias, los asesores los cuales imparten las asesorias, y los administradoers que asignan peticiones a asesores. Estos procesos se realizan en una paguina web y cuando se asignan asesorias se envia una notificacion mediante email a el alumno y asesor relacionados a esa peticion.
 
+Para el funcionamiento de este se tiene el servidor y se tiene la parte de la paguina web, la paguina pide datos del servidor mediante multiples APIs y se mantiene la seguridad de este mediante JSON Web Tokens 
 
 ## Estructura del proyecto
-
+### Archivos
+La estructura de los archivos es la siguiente:
 - Sistema-Gestion-de-Tutorias/
   - src/
     - controllers/
@@ -29,6 +32,9 @@ Desarrollar un sistema de software que facilite la gestión y el seguimiento de 
   - package-lock.json
   - package.json
   - README.md
+
+### Arquitectura
+Se siguio una arquitectura MVC, donde las APIs funcionan como la vista. Ademas de esto en las rutas pertintentes se tienen de middlewares verificadores de web tokens y multples routers para simplificar el proyecto. 
 
 ## Requisitos
 
@@ -122,28 +128,18 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
 
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
 
-## Integrantes del equipo
-
-A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
-
-- **Barragan Muñoz Andres Salvador**
-- **Bermejo Venegas Brandon Vincenzo**
-- **Laguna Bernal Salvador**
-- **Montelongo Ramirez Alexia Ismeray**
-- **Soto Flores Diego Francisco**
-
-
-## Integrantes del equipo
-
-A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
-
-- **Barragan Muñoz Andres Salvador**
-- **Bermejo Venegas Brandon Vincenzo**
-- **Laguna Bernal Salvador**
-- **Montelongo Ramirez Alexia Ismeray**
-- **Soto Flores Diego Francisco**
-
-
 ## Manuales
 Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=sharing
 Manual Tecnico: https://docs.google.com/document/d/1Un6ONxT1LbLohSMlB8PGMq2-evtZOCSjo4u6yS-ZurU/edit?usp=sharing
+
+## Integrantes del equipo
+
+A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
+
+- **Barragan Muñoz Andres Salvador**
+- **Bermejo Venegas Brandon Vincenzo**
+- **Laguna Bernal Salvador**
+- **Montelongo Ramirez Alexia Ismeray**
+- **Soto Flores Diego Francisco**
+
+
