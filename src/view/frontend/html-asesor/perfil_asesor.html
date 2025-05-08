@@ -64,17 +64,17 @@
                         <form class="profile-form">
                             <div class="profile-field">
                                 <label for="nombre"><strong>Nombre:</strong></label>
-                                <input type="text" id="nombre" class="form-control" value="Axel Laguna Bernal">
+                                <input type="text" id="nombre" class="form-control" >
                             </div>
                             
                             <div class="profile-field">
                                 <label><strong>Correo institucional:</strong></label>
-                                <div class="readonly-field">al22760549@ite.edu.mx</div>
+                                <div id="email" class="readonly-field"></div>
                             </div>
                             
                             <div class="profile-field">
                                 <label for="password"><strong>Contraseña:</strong></label>
-                                <input type="password" id="password" class="form-control" value="********">
+                                <input type="password" id="password" class="form-control" value="">
                             </div>
                             
                             <!-- Sección de Temas a enseñar -->
@@ -128,6 +128,7 @@
     <!-- Scripts -->
     <script src="../js/navbar_asesor.js"></script>
     <script src="../js/sidebar_asesor.js"></script>
+    <script src="../js/perfil.js"></script>
     <script>
         // Funciones para manejar los temas a enseñar
         function addTopic() {

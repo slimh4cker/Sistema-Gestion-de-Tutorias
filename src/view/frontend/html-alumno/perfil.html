@@ -31,7 +31,7 @@
                             <div class="profile-field">
                                 <label for="nombre"><strong>Nombre:</strong></label>
                                 <div class="input-group">
-                                    <input type="text" id="nombre" class="form-control" value="Axel Laguna Bernal">
+                                    <input type="text" id="nombre" class="form-control" value="">
                                     <button type="button" class="btn btn-outline-secondary edit-btn">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
@@ -40,13 +40,13 @@
                             
                             <div class="profile-field">
                                 <label><strong>Correo institucional:</strong></label>
-                                <div class="readonly-field">al22760549@ite.edu.mx</div>
+                                <div id="email" class="readonly-field"></div>
                             </div>
                             
                             <div class="profile-field">
                                 <label for="password"><strong>Contraseña:</strong></label>
                                 <div class="input-group">
-                                    <input type="password" id="password" class="form-control" value="********" readonly>
+                                    <input type="password" id="password" class="form-control" value="" readonly>
                                     <button type="button" class="btn btn-outline-secondary edit-btn" id="change-password-btn">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
@@ -76,6 +76,7 @@
     <!-- Scripts -->
     <script src="../js/navbar.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/perfil.js"></script>
     <script>
         // Script para manejar la edición de contraseña
         document.getElementById('change-password-btn').addEventListener('click', function() {

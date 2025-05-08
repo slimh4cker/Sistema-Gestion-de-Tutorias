@@ -106,14 +106,11 @@ function inicializarSolicitarAsesoria() {
 }
 
 async function solicitarAsesoria() {
-    console.log("soy Navbar")
-    console.log(localStorage.getItem('authToken'))
     const curso = document.getElementById('curso').value;
     const requisitos = document.getElementById('requisitos').value;
     const fecha = document.getElementById('fecha').value;
     const modalidad = document.getElementById('modalidad').value.toLowerCase();
     const urgencia = document.getElementById('urgencia').value.toLowerCase();
-    console.log(curso, requisitos, fecha, modalidad, urgencia)
 
     const solicitudData = {
         tema: curso,
