@@ -1,6 +1,15 @@
 # Sistema-Gestion-de-Tutorias
 Desarrollar un sistema de software que facilite la gestión y el seguimiento de las solicitudes de asesoría académica, optimizando la asignación de maestros asesores y mejorando la comunicación entre estudiantes, asesores y la administración.
 
+
+
+## Colaboradores
+- Laguna Bernal Salvador
+- Bermejo Venegas Brandon Vincenzo
+- Andres Salvador Barragan Muñoz
+- Soto Flores Diego Francisco
+- Montelongo Ramirez Alexia Ismeray
+
 ## Estructura del proyecto
 
 - Sistema-Gestion-de-Tutorias/
@@ -78,17 +87,28 @@ Instale MySQL de https://dev.mysql.com/downloads/installer/ y ejecute el instala
 
 Dentro de este cree la base de datos "asesorias" y de la forma que prefiera importe la base de datos desde el archivo asesorias.sql . Cabe notar que se puede cambiar el nombre de la base de datos si se altera de la forma apropiada el archivo .env
 
-### 4. Configurar archivo .env
+### 4. Configuracion de correo
+Este proyecto utiliza gmail para enviar coreos para enviar notificaciones.
+Para que esta parte del proyecto funcione se ha de tener una cuenta de gmail, dentro de esta cuenta se ha de generar una contraseña de aplicacion como es indicado en esta paguina: https://support.google.com/mail/answer/185833?hl=es-419
+Esta clave se ha de configurar en el .env como se describe despues en este README, asegurese de que su correo pueda generar contraseñas de aplicacion.
+
+### 5. Configurar archivo .env
 El programa por default cuenta con varios parametros establecidos por default en caso de no tener un archivo .env  sin embargo se tienen varias variables para poder ser configuradas personalmente:
 
-DB_NAME=      //nombre de la base de datos
-DB_USER=      //nombre del usuario raiz
-DB_PASS=      //contrasena del, usuario raiz
-DB_HOST=      //host de la base ded atos
-DB_PORT=      //puerto de la base de datos
-DB_DIALECT=   //si utiliza mysql u otra base ded atos
-DB_TIMEZONE=  //zona horaria
+DB_NAME=      #nombre de la base de datos
+DB_USER=      #nombre del usuario raiz
+DB_PASS=      #contrasena del, usuario raiz
+DB_HOST=      #host de la base ded atos
+DB_PORT=      #puerto de la base de datos
+DB_DIALECT=   #si utiliza mysql u otra base ded atos
+DB_TIMEZONE=  #zona horaria
 
+#para correo
+EMAIL_HOST=  # correo desde el cual se notificara
+EMAIL_PASS=  # contraseña del correo, si se utiliza google se ocupa utilizar una contraseña de aplicacion
+
+#para tokens
+JWT_SECRET= #clave con la que generar tokens
 
 ## Scripts
 ### Iniciar el servidor
@@ -109,3 +129,7 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
   npm run test:schemas
 
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
+
+## Manuales
+Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=sharing
+Manual Tecnico: https://docs.google.com/document/d/1Un6ONxT1LbLohSMlB8PGMq2-evtZOCSjo4u6yS-ZurU/edit?usp=sharing
