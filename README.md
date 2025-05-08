@@ -2,14 +2,6 @@
 Desarrollar un sistema de software que facilite la gestión y el seguimiento de las solicitudes de asesoría académica, optimizando la asignación de maestros asesores y mejorando la comunicación entre estudiantes, asesores y la administración.
 
 
-
-## Colaboradores
-- Laguna Bernal Salvador
-- Bermejo Venegas Brandon Vincenzo
-- Andres Salvador Barragan Muñoz
-- Soto Flores Diego Francisco
-- Montelongo Ramirez Alexia Ismeray
-
 ## Estructura del proyecto
 
 - Sistema-Gestion-de-Tutorias/
@@ -129,6 +121,28 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
   npm run test:schemas
 
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
+
+## Integrantes del equipo
+
+A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
+
+- **Barragan Muñoz Andres Salvador**
+- **Bermejo Venegas Brandon Vincenzo**
+- **Laguna Bernal Salvador**
+- **Montelongo Ramirez Alexia Ismeray**
+- **Soto Flores Diego Francisco**
+
+
+## Integrantes del equipo
+
+A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
+
+- **Barragan Muñoz Andres Salvador**
+- **Bermejo Venegas Brandon Vincenzo**
+- **Laguna Bernal Salvador**
+- **Montelongo Ramirez Alexia Ismeray**
+- **Soto Flores Diego Francisco**
+
 
 ## Manuales
 Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=sharing

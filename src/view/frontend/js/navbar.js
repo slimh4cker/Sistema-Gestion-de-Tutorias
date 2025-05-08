@@ -59,15 +59,16 @@ function inicializarSolicitarAsesoria() {
                         <div class="mb-3">
                             <label for="modalidad" class="form-label fw-semibold">Modalidad:</label>
                             <select id="modalidad" class="form-select" required>
-                                <option value="Presencial">Presencial</option>
-                                <option value="Virtual">Virtual</option>
+                                <option value="presencial">Presencial</option>
+                                <option value="en_linea">Virtual</option>
                             </select>
                         </div>
                         <div class="mb-4">
                             <label for="urgencia" class="form-label fw-semibold">Nivel de urgencia:</label>
                             <select id="urgencia" class="form-select" required>
-                                <option value="Urgente">Urgente</option>
-                                <option value="Normal">Normal</option>
+                                <option value="baja">Baja</option>
+                                <option value="media">Media</option>
+                                <option value="alta">Alta</option>
                             </select>
                         </div>
                         <div class="d-flex justify-content-end gap-3">
@@ -124,7 +125,7 @@ async function solicitarAsesoria() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             },
             body: JSON.stringify(solicitudData)
         });
