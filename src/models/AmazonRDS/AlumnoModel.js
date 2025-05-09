@@ -74,7 +74,7 @@ export class AlumnoModel{
      * @param {*} emailOriginal email de la cuanta a modificar
      * @returns {Array} cantidad de filas modificadas
      */
-    static async updateAlumno(datos, emailOriginal) {
+    static async updateAlumno(emailOriginal, datos) {
         try {
             const alumno = await modelo_cuenta_estudiante.findOne({
                 where: { 

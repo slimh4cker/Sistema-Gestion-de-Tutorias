@@ -1,5 +1,5 @@
 // Actualizar perfil
-async function updatePerfil(nombre, nuevaContraseña) {
+async function updatePerfil(nombre, nuevaContrasenia) {
   try {
     let endpoint;
     switch (localStorage.getItem('userType')) {
@@ -19,7 +19,7 @@ async function updatePerfil(nombre, nuevaContraseña) {
 
     const datosActualizados = {};
     if (nombre) datosActualizados.nombre = nombre;
-    if (nuevaContraseña) datosActualizados.password = nuevaContraseña;
+    if (nuevaContrasenia) datosActualizados.password = nuevaContrasenia;
     if (Object.keys(datosActualizados).length === 0) {
       alert('No se han realizado cambios.');
       return;
@@ -35,6 +35,7 @@ async function updatePerfil(nombre, nuevaContraseña) {
     });
 
     const resultado = await response.json();
+    console.log(resultado);
 
     if (response.ok) {
       alert('Perfil actualizado correctamente.');

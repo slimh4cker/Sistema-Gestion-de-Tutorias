@@ -61,7 +61,7 @@
                     <!-- Contenedor responsivo del perfil -->
                     <div class="profile-responsive-wrapper">
                         <!-- Formulario de perfil -->
-                        <form class="profile-form">
+                        <form class="profile-form" id="actualizar-perfil">
                             <div class="profile-field">
                                 <label for="nombre"><strong>Nombre:</strong></label>
                                 <input type="text" id="nombre" class="form-control" >
@@ -74,7 +74,22 @@
                             
                             <div class="profile-field">
                                 <label for="password"><strong>Contraseña:</strong></label>
-                                <input type="password" id="password" class="form-control" value="">
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control" value="" readonly>
+                                    <button type="button" class="btn btn-outline-secondary edit-btn" id="change-password-btn">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                </div>
+                                <div class="password-fields" id="password-fields" style="display: none;">
+                                    <div class="mb-2">
+                                        <label for="new-password">Nueva contraseña:</label>
+                                        <input type="password" id="new-password" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="confirm-password">Confirmar contraseña:</label>
+                                        <input type="password" id="confirm-password" class="form-control">
+                                    </div>
+                                </div>
                             </div>
                             
                             <!-- Sección de Temas a enseñar -->
@@ -160,6 +175,20 @@
         function removeTopic(element) {
             element.closest('.topic-item').remove();
         }
+    </script>
+    <script>
+        // Script para manejar la edición de contraseña
+        document.getElementById('change-password-btn').addEventListener('click', function() {
+            const passwordFields = document.getElementById('password-fields');
+            const passwordInput = document.getElementById('password');
+            
+            if (passwordFields.style.display === 'none') {
+                passwordFields.style.display = 'block';
+
+            } else {
+                passwordFields.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
