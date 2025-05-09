@@ -798,9 +798,6 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 }
 
 /* Estilos específicos para la VISTA DE CURSOS*/
-/* Reemplaza todo el CSS existente con esto: */
-
-/* Estructura principal */
 .main-content-container {
     padding: 1rem;
     min-height: calc(100vh - 120px);
@@ -1434,82 +1431,165 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
         font-size: 1.4rem;
     }
 }
-
 /* =================================== */
-/* PANEL DE ADMINISTRACIÓN COMPLETO */
+/* VISTA HOME_ADMIN */
 /* =================================== */
 
-#admin-main-container {
+/* Reset básico */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
     padding: 0;
+}
+
+/* Contenedor principal ajustado */
+.admin-container {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Contenido principal */
+.main-content {
     flex: 1;
     display: flex;
-    min-height: calc(100vh - 60px); /* Resta la altura del navbar */
-    margin-top: 60px; 
+    flex-direction: column;
+    width: calc(100% - 250px); /* Ajusta según ancho de tu sidebar */
+    margin-left: 250px; /* Igual que el ancho de la sidebar */
 }
 
+/* Tarjeta blanca perfectamente ajustada */
 .admin-full-panel {
     background: white;
-    width: 100%;
-    min-height: 100%; /* Cambia height por min-height */
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px;
+    padding: 40px;
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    margin: 0; /* Elimina cualquier margen */
+    flex-direction: column;
+    min-height: 0;
+    width: calc(100% - 40px); /* Resta los márgenes izquierdo y derecho */
+    box-sizing: border-box;
+    position: relative; /* Para bordes perfectos */
 }
 
+/* Contenido centrado seguro */
 .admin-content-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
     text-align: center;
-    padding: 2rem;
-    max-width: 800px;
-    width: 90%; /* Cambia a porcentaje para mejor adaptación */
-    margin: 0 auto; /* Centrado horizontal */
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-.admin-main-icon {
-    font-size: 4rem;
-    color: #4a6baf;
-    margin-bottom: 1.5rem;
+/* Ajustes responsivos */
+@media (max-width: 1200px) {
+    .main-content {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
 }
 
-.admin-main-title {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 1rem;
+@media (max-width: 992px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .admin-full-panel {
+        margin: 15px;
+        padding: 30px;
+        width: calc(100% - 30px);
+    }
 }
 
-.admin-main-subtitle {
-    font-size: 1.5rem;
-    color: #7f8c8d;
-}
-
-/* Responsividad */
 @media (max-width: 768px) {
-    .admin-content-center {
-        padding: 1.5rem;
-    }
-    .admin-main-icon {
-        font-size: 3.5rem;
-    }
-    .admin-main-title {
-        font-size: 2rem;
-    }
-    .admin-main-subtitle {
-        font-size: 1.3rem;
+    .admin-full-panel {
+        margin: 10px;
+        padding: 25px;
+        border-radius: 12px;
+        width: calc(100% - 20px);
     }
 }
 
 @media (max-width: 576px) {
+    .admin-full-panel {
+        margin: 8px;
+        padding: 20px;
+        border-radius: 10px;
+        width: calc(100% - 16px);
+    }
+    
     .admin-content-center {
-        padding: 1rem;
+        padding: 0 10px;
     }
-    .admin-main-icon {
-        font-size: 3rem;
-    }
-    .admin-main-title {
-        font-size: 1.8rem;
-    }
-    .admin-main-subtitle {
-        font-size: 1.1rem;
-    }
+}
+
+/* =================================== */
+/*       SOLICITUDES EN ADMIN */
+/* =================================== */
+
+.solicitudes-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 20px;
+}
+.solicitud-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: transform 0.3s;
+}
+.solicitud-card:hover {
+    transform: translateY(-5px);
+}
+.solicitud-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.solicitud-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+.badge-urgente {
+    background-color: #dc3545;
+    color: white;
+}
+.badge-normal {
+    background-color: #28a745;
+    color: white;
+}
+.solicitud-details {
+    margin-bottom: 15px;
+}
+.detail-item {
+    margin-bottom: 8px;
+}
+.detail-label {
+    font-weight: bold;
+    color: #555;
+}
+.btn-asignar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-asignar:hover {
+    background-color: #0069d9;
 }

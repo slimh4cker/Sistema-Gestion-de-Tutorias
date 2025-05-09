@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Asesores - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .asesores-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .asesor-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .asesor-card:hover {
+            transform: translateY(-5px);
+        }
+        .asesor-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .asesor-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0;
+        }
+        .temas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tema-badge {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .temas-section {
+            flex-grow: 1;
+        }
+        .acciones-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .btn-accion {
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .btn-editar {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-eliminar {
+            background-color: #dc3545;
+            color: white;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar se insertará aquí -->
+        <button class="sidebar-toggle-mobile d-lg-none">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="main-content">
+            <div id="navbar-placeholder"></div>
+            
+            <!-- Contenedor principal modificado -->
+            <div id="admin-main-container" class="main-content-container">
+                <div class="admin-full-panel">
+                    <div class="asesores-container">
+                        <h2 class="mb-4">Gestión de Asesores</h2>
+                        
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Buscar asesor...">
+                        </div>
+                        
+                        <!-- Tarjeta de asesor 1 -->
+                        <div class="asesor-card">
+                            <div class="asesor-header">
+                                <h3 class="asesor-title">Brandon Robles</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="temas-section">
+                                    <h5>Temas que domina:</h5>
+                                    <div class="temas-container">
+                                        <span class="tema-badge">Matemáticas</span>
+                                        <span class="tema-badge">Cálculo diferencial</span>
+                                        <span class="tema-badge">Álgebra lineal</span>
+                                    </div>
+                                </div>
+                                <div class="acciones-container">
+                                    <button class="btn-accion btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-accion btn-eliminar">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tarjeta de asesor 2 -->
+                        <div class="asesor-card">
+                            <div class="asesor-header">
+                                <h3 class="asesor-title">Hector Barragan</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="temas-section">
+                                    <h5>Temas que domina:</h5>
+                                    <div class="temas-container">
+                                        <span class="tema-badge">Programación orientada a objetos</span>
+                                        <span class="tema-badge">Bases de datos</span>
+                                        <span class="tema-badge">Redes de computadoras</span>
+                                    </div>
+                                </div>
+                                <div class="acciones-container">
+                                    <button class="btn-accion btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-accion btn-eliminar">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tarjeta de asesor 3 -->
+                        <div class="asesor-card">
+                            <div class="asesor-header">
+                                <h3 class="asesor-title">Alex Lucio</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="temas-section">
+                                    <h5>Temas que domina:</h5>
+                                    <div class="temas-container">
+                                        <span class="tema-badge">Sistemas operativos</span>
+                                        <span class="tema-badge">Circuitos eléctricos</span>
+                                        <span class="tema-badge">Electrónica digital</span>
+                                    </div>
+                                </div>
+                                <div class="acciones-container">
+                                    <button class="btn-accion btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-accion btn-eliminar">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tarjeta de asesor 4 -->
+                        <div class="asesor-card">
+                            <div class="asesor-header">
+                                <h3 class="asesor-title">Alexia Montelongo</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="temas-section">
+                                    <h5>Temas que domina:</h5>
+                                    <div class="temas-container">
+                                        <span class="tema-badge">Química orgánica</span>
+                                        <span class="tema-badge">Química inorgánica</span>
+                                        <span class="tema-badge">Ecología</span>
+                                    </div>
+                                </div>
+                                <div class="acciones-container">
+                                    <button class="btn-accion btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-accion btn-eliminar">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-overlay"></div>
+    </div>
+    
+    <script src="js/navbar_admin.js"></script>
+    <script src="js/sidebar_admin.js"></script>
+</body>
+</html>

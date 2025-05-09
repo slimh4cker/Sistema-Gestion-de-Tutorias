@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar se insertará aquí -->
+        <button class="sidebar-toggle-mobile d-lg-none">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="main-content">
+            <div id="navbar-placeholder"></div>
+            
+            <!-- Contenedor principal modificado -->
+            <div id="admin-main-container" class="main-content-container">
+                <div class="admin-full-panel">
+                    <div class="solicitudes-container">
+                        <h2 class="mb-4">Solicitudes Pendientes</h2>
+                        
+                        <!-- Tarjeta de solicitud 1 -->
+                        <div class="solicitud-card">
+                            <div class="solicitud-header">
+                                <h3 class="solicitud-title">Solicitud de: Axel Laguna</h3>
+                                <span class="badge badge-urgente">Urgente</span>
+                            </div>
+                            <div class="solicitud-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Curso:</span> Matemáticas
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Fecha límite:</span> 03/09/2025
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Modalidad:</span> Presencial
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Requisitos:</span> Ayuda con GeoGebra, preferible después de las 6 p.m.
+                                </div>
+                            </div>
+                            <button class="btn-asignar">Asignar</button>
+                        </div>
+                        
+                        <!-- Tarjeta de solicitud 2 -->
+                        <div class="solicitud-card">
+                            <div class="solicitud-header">
+                                <h3 class="solicitud-title">Solicitud de: María Eugenia</h3>
+                                <span class="badge badge-urgente">Urgente</span>
+                            </div>
+                            <div class="solicitud-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Curso:</span> Administración
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Fecha límite:</span> 03/05/2025
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Modalidad:</span> Presencial
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Requisitos:</span> Preparación para examen la próxima semana
+                                </div>
+                            </div>
+                            <button class="btn-asignar">Asignar</button>
+                        </div>
+                        
+                        <!-- Tarjetas adicionales de ejemplo -->
+                        <div class="solicitud-card">
+                            <div class="solicitud-header">
+                                <h3 class="solicitud-title">Solicitud de: Juan Pérez</h3>
+                                <span class="badge badge-normal">Normal</span>
+                            </div>
+                            <div class="solicitud-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Curso:</span> Física
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Fecha límite:</span> 10/09/2025
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Modalidad:</span> Virtual
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Requisitos:</span> Ayuda con problemas de cinemática
+                                </div>
+                            </div>
+                            <button class="btn-asignar">Asignar</button>
+                        </div>
+                        
+                        <div class="solicitud-card">
+                            <div class="solicitud-header">
+                                <h3 class="solicitud-title">Solicitud de: Ana García</h3>
+                                <span class="badge badge-urgente">Urgente</span>
+                            </div>
+                            <div class="solicitud-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Curso:</span> Química
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Fecha límite:</span> 05/09/2025
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Modalidad:</span> Presencial
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Requisitos:</span> Preparación para examen parcial
+                                </div>
+                            </div>
+                            <button class="btn-asignar">Asignar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-overlay"></div>
+    </div>
+    
+    <script src="js/navbar_admin.js"></script>
+    <script src="js/sidebar_admin.js"></script>
+</body>
+</html>

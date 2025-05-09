@@ -95,7 +95,7 @@ const formTemplates = {
         </div>
     `,
     login_alumno: `
-        <div class="form-content">
+        <div class="form-content" >
             <h4 class="fw-bold">Inicio de sesión (Alumno)</h4>
             <p class="text-muted small mb-4">
                 Ingresa tus credenciales para acceder al sistema.
