@@ -122,4 +122,23 @@ export class AsesorControler {
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El asesor ha sido borrado correctamente"})
   }
+
+  static async getAllAsesores(req, res) {
+      try {
+          const asesores = await AsesorModel.getAllAsesores();
+          
+          if (!asesores || asesores.length === 0) {
+              return res.status(404).json({ error: "No hay asesores registrados" });
+          }
+
+          const respuesta = asesores.map(asesor => ({
+              nombre: asesor.nombre,
+              temas: asesor.area_especialización
+          }));
+
+          res.status(200).json(respuesta);
+      } catch (error) {
+          res.status(500).json({ error: "Error interno al obtener los asesores" });
+      }
+  }
 }

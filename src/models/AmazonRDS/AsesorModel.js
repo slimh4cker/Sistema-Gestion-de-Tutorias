@@ -130,4 +130,24 @@ export class AsesorModel{
         });
         return deleteAsesor.length > 0; // Si se elimino retorna true, si no retorna false
     }
+
+    static async getAllAsesores() {
+        try {
+            const asesores = await modelo_cuenta_asesor.findAll({
+                where: { estado: 'activo' },
+                attributes: ['nombre', 'email', 'area_especialización']
+            });
+            return asesores.map(asesor => {
+                // Convertir el string de áreas en un array
+                const areas = asesor.dataValues.area_especialización?.split(', ') || [];
+                return {
+                    ...asesor.dataValues,
+                    area_especialización: areas
+                };
+            });
+        } catch (error) {
+            console.error("Error al obtener asesores:", error);
+            throw error;
+        }
+    }
 }

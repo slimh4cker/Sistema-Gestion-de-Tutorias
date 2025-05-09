@@ -9,6 +9,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 GET http://localhost:1234/admin/solicitud
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY0ODk4NTIsImV4cCI6MTc0NjQ5MzQ1Mn0.Konwy_ictf499-PL_01OS5t7EMOIFfpkBW_zgDM4Rsw
 
+### Obtener a los asesores
+GET http://localhost:1234/admin/asesores
+Authorization: Bearer
 
 #### alterar estado de una solicitud en especifico
 PATCH http://localhost:1234/admin/solicitud/?id=3
