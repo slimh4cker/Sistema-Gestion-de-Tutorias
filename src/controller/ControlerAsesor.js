@@ -1,4 +1,4 @@
-import { AsesorModel } from "../models/AmazonRDS/AsesorModel.js";
+ import { AsesorModel } from "../models/AmazonRDS/AsesorModel.js";
 import { validarAsesor, validarParcialAsesor } from "../schemas/users/asesor.js";
 import { obtenerMailDeReq } from "../utils/request.js";
 
@@ -92,12 +92,12 @@ export class AsesorControler {
   
     // Actualizar datos del asesor
     try {
-      await AsesorModel.updateAsesor(datos, email);
+     await AsesorModel.updateAsesor(datos, email);
     } catch (error) {
       console.error("Error al actualizar asesor:", error);
       return res.status(500).json({ error: "Error al actualizar los datos del asesor" });
     }
-    return res.status(200).json({ message: "Los datos han sido cambiados correctamente" });
+    return res.status(200).json({ message: "Los datos han sido cambiados correctamente"});
   }
   
   

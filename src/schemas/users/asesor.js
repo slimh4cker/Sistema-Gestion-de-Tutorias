@@ -18,6 +18,6 @@ export function validarAsesor(asesor) {
 // funcion para validar alumno si NO NOS IMPORTA que cuente con todos los datos
 // retorna true o false
 export function validarParcialAsesor(asesor){
-  const resultado = asesorSchema.partial().safeParse(asesor) 
+  const resultado = asesorSchema.partial().safeParse(asesor)
   return resultado.success;
 }

@@ -94,11 +94,28 @@ export class AsesorModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAsesor(datos, emailOriginal) {
-        return await modelo_cuenta_asesor.update(datos, {
-            where: {
-                email: emailOriginal
+        try{
+            const asesor = await modelo_cuenta_asesor.findOne({
+                where: { 
+                    email: emailOriginal }
+            });
+    
+            if (!asesor) {
+                return null;
             }
-        })
+            const hashedPassword = await hashPassword(datos.password, 10);
+            console.log(hashPassword)
+            await asesor.update({
+                ...datos,
+                password: hashedPassword,
+            }); 
+            const { password, ...datosSeguros } = asesor.dataValues;
+            return datosSeguros;        
+        }
+        catch (error) {
+            console.error("Error en updateAsesor:", error);
+            return null;
+        }
     }
     /**
      * Desactiva la cuenta del asesor

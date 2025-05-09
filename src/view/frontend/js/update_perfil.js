@@ -2,6 +2,7 @@
 async function updatePerfil(nombre, nuevaContrasenia) {
   try {
     let endpoint;
+    // Selecciona el tipo de usuario y asigna endpoint correspondiente
     switch (localStorage.getItem('userType')) {
       case 'alumno':
         endpoint = 'http://localhost:1234/alumno/alumno';
@@ -17,6 +18,7 @@ async function updatePerfil(nombre, nuevaContrasenia) {
         return;
     }
 
+    // verifica y asigna datos a un objeto
     const datosActualizados = {};
     if (nombre) datosActualizados.nombre = nombre;
     if (nuevaContrasenia) datosActualizados.password = nuevaContrasenia;
@@ -25,6 +27,7 @@ async function updatePerfil(nombre, nuevaContrasenia) {
       return;
     }
 
+    // Realiza la solicitud PATCH al endpoint correspondiente
     const response = await fetch(endpoint, {
       method: 'PATCH',
       headers: {
@@ -55,11 +58,12 @@ const form = document.getElementById('actualizar-perfil');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  // Obtiene los valores de los campos del formulario
   const nombreInput = document.getElementById('nombre');
   const newPasswordInput = document.getElementById('new-password');
   const confirmPasswordInput = document.getElementById('confirm-password');
 
-  const nombre = nombreInput.value.trim();
+  const nombre = nombreInput.value.trim(); // Elimina espacios en blanco
   const newPassword = newPasswordInput.value;
   const confirmPassword = confirmPasswordInput.value;
 
@@ -70,7 +74,6 @@ form.addEventListener('submit', async (e) => {
       return;
     }
   }
-  console.log(nombre, newPassword)
   // Llamar a la actualización
   updatePerfil(nombre, newPassword);
 });

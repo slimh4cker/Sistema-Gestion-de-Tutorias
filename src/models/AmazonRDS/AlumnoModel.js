@@ -84,7 +84,12 @@ export class AlumnoModel{
             if (!alumno) {
                 return null;
             }
-            await alumno.update(datos); 
+            const hashedPassword = await hashPassword(datos.password, 10);
+            console.log(hashPassword)
+            await alumno.update({
+                ...datos,
+                password: hashedPassword,
+            }); 
             const { password, ...datosSeguros } = alumno.dataValues;
             return datosSeguros;
     
