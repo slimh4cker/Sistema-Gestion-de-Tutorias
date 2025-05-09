@@ -27,7 +27,7 @@
                     <!-- Contenedor responsivo del perfil -->
                     <div class="profile-responsive-wrapper">
                         <!-- Formulario de perfil -->
-                        <form class="profile-form">
+                        <form class="profile-form" id="actualizar-perfil">
                             <div class="profile-field">
                                 <label for="nombre"><strong>Nombre:</strong></label>
                                 <div class="input-group">
@@ -77,6 +77,7 @@
     <script src="../js/navbar.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/perfil.js"></script>
+    <script type="module" src="../js/update_perfil.js"></script>
     <script>
         // Script para manejar la edición de contraseña
         document.getElementById('change-password-btn').addEventListener('click', function() {
@@ -91,7 +92,7 @@
             } else {
                 passwordFields.style.display = 'none';
                 passwordInput.readOnly = true;
-                passwordInput.value = '********';
+                passwordInput.value = localStorage.getItem('password')
             }
         });
     </script>

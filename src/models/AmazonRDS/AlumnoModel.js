@@ -77,13 +77,13 @@ export class AlumnoModel{
     static async updateAlumno(datos, emailOriginal) {
         try {
             const alumno = await modelo_cuenta_estudiante.findOne({
-                where: { email: emailOriginal }
+                where: { 
+                    email: emailOriginal }
             });
     
             if (!alumno) {
                 return null;
             }
-    
             await alumno.update(datos); 
             const { password, ...datosSeguros } = alumno.dataValues;
             return datosSeguros;

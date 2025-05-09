@@ -13,7 +13,7 @@ router.post('/solicitud', authMiddleware(['alumno']), SolicitudControler.crearSo
 // Ruta: GET /alumno/solicitud?estado=asignada (nueva funcionalidad)
 router.get('/solicitud', authMiddleware(['alumno']), SolicitudControler.getSolicitudesFiltradas);
 
-router.put('/alumno', authMiddleware(['alumno']), AlumnoControler.updateAlumno);
+router.patch('/alumno', authMiddleware(['alumno']), AlumnoControler.updateAlumno);
 
 router.delete('/alumno', authMiddleware(['alumno']), AlumnoControler.deleteAlumno);
 

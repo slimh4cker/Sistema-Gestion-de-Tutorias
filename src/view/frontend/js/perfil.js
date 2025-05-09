@@ -31,6 +31,7 @@ async function obtenerDatos() {
             throw new Error('Error en la solicitud: ' + response.statusText);
         }
         const data = await response.json();
+        localStorage.setItem('password', data.password)
         return data;
     }
     catch(error){

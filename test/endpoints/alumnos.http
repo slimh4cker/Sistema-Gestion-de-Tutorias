@@ -29,16 +29,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 }
 
 ### Editar atributos del alumno
-PUT http://localhost:1234/alumno/alumno
+PATCH http://localhost:1234/alumno/alumno
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJsYXVyYUBlc3R1ZGlhbnRlLmNvbSIsInJvbCI6ImFsdW1ubyIsImlhdCI6MTc0NjA1NjI5NSwiZXhwIjoxNzQ2MDU5ODk1fQ._bTGKp5Ze_j3uW1E429RH_5jCxZw_EU3KTFHG_AM0yk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJhbDIyNzYwNTc1QGl0ZS5lZHUubXgiLCJyb2wiOiJhbHVtbm8iLCJpYXQiOjE3NDY3NDY0NjUsImV4cCI6MTc0Njc1MDA2NX0.dXyZMR4CmdfEBFhnnYqSdUD6LhEF3bvH3D9BHmcLp_Q
 
 {
-    "nombre": "Laura Fernandez Gonzales",
-    "curso": "Ingenieria de Software",
-    "telefono": "1234567890",
-    "matricula": "01234567",
-    "password": "miPassword33"
+    "nombre": "Diego Soto Flores",
+    "password": "1234"
 }
 
 ### Eliminar alumno
