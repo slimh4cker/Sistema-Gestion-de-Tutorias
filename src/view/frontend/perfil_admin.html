@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar se insertará aquí -->
+        <button class="sidebar-toggle-mobile d-lg-none">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="main-content">
+            <div id="navbar-placeholder"></div>
+
+            <div id="admin-main-container" class="main-content-container">
+                <div class="white-card profile-container">
+                    <h2 class="page-title">Mi perfil de administrador</h2>
+
+                    <div class="profile-responsive-wrapper">
+                        <form class="profile-form" id="actualizar-perfil-admin">
+                            <div class="profile-field">
+                                <label for="nombre"><strong>Nombre:</strong></label>
+                                <div class="input-group">
+                                    <input type="text" id="nombre" class="form-control" value="">
+                                    <button type="button" class="btn btn-outline-secondary edit-btn">
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="profile-field">
+                                <label><strong>Correo institucional:</strong></label>
+                                <input type="email" class="form-control" value="admin@instituto.edu.mx" readonly>
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="password"><strong>Contraseña:</strong></label>
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control" value="" readonly>
+                                    <button type="button" class="btn btn-outline-secondary edit-btn" id="change-password-btn">
+                                       
+                                    </button>
+                                </div>
+                                <div class="password-fields" id="password-fields" style="display: none;">
+                                    <div class="mb-2">
+                                        <label for="new-password">Nueva contraseña:</label>
+                                        <input type="password" id="new-password" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="confirm-password">Confirmar contraseña:</label>
+                                        <input type="password" id="confirm-password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-actions">
+                                <button type="submit" class="btn btn-primary save-btn">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-overlay"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/navbar_admin.js"></script>
+    <script src="js/sidebar_admin.js"></script>
+    <script src="js/perfil_admin.js"></script>
+    <script type="module" src="js/update_perfil_admin.js"></script>
+    <script>
+        document.getElementById('change-password-btn').addEventListener('click', function() {
+            const passwordFields = document.getElementById('password-fields');
+            const passwordInput = document.getElementById('password');
+
+            if (passwordFields.style.display === 'none') {
+                passwordFields.style.display = 'block';
+                passwordInput.readOnly = false;
+                passwordInput.value = '';
+                passwordInput.focus();
+            } else {
+                passwordFields.style.display = 'none';
+                passwordInput.readOnly = true;
+                passwordInput.value = localStorage.getItem('password');
+            }
+        });
+    </script>
+</body>
+</html>
+
