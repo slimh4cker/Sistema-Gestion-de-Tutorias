@@ -43,6 +43,8 @@ Este proyecto esta pensado para ser desplegado dentro de un servidor. No se opto
 Para la planeacion de este proyecto se considera que en la misma maquina se distribuya la API y la paguina web, sin embargo estos pueden ser manejados separadamente ajustando la direccion de las APIs.
 
 Se cuenta con el servidor, la paguina web, los controladores y la base de datos, los 3 incluidos en el mismo sistema. La parte del backend no se conecta directamente con la paguina web, sino que el cliente recibe la paguina web y de esto realiza peticiones al servidor.
+![Esquema de diagrama de arquitectura](https://github.com/user-attachments/assets/f0b3ba07-4f6c-418b-a41e-f67ffb7b592f)
+Figura 2. Diagrama de despliegue del sistema
 
 ## Requisitos
 
