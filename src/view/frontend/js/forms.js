@@ -241,7 +241,12 @@ async function loginUser() {
 
         const data = await response.json();
         
-        if (!response.ok) {
+
+        if(response.status === 404) {
+            throw new Error('No se encontro un usuario con estas credenciales');
+        } else if (response.status === 400) {
+            throw new Error('Error en la solicitud, por favor verifique los datos');
+        } else if (!response.ok) {
             throw new Error(data.message || 'Error en la autenticación');
         }
 
