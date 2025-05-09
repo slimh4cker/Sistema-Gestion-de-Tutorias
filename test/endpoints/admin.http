@@ -34,3 +34,7 @@ Content-Type: application/json
 
 ### eliminar la cuenta del admin actual
 DELETE http://localhost:1234/admin/admin
+
+### Eliminar un asesor
+DELETE http://localhost:1234/admin/asesores
+Authorization: Bearer 
