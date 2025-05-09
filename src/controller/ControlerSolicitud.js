@@ -69,13 +69,14 @@ export class SolicitudControler {
   // Obtiene las solicitudes que no han sido asignadas a ningun asesor
   static async getSolicitudesSinAsignar(req, res) {
     try {
-      const datos = SolicitudModel.getSolicitudesSinAsignar()
+      const datos = await SolicitudModel.getSolicitudesSinAsignar()
+      res.status(400).json({error: "NO IMPLEMENTADO"})
+
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar solicitudes sin asignar" })
       return
     }
     
-    res.status(200).json(datos)
   }
 
   /*
