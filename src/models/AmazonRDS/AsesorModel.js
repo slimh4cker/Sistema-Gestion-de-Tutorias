@@ -38,7 +38,7 @@ export class AsesorModel{
      * nombre: "John Doe",
      * email: "email@example.com",
      * password: "contraseña1234",
-     * area_especialización: "Redes de computadoras",
+     * area_especializacion: "Redes de computadoras",
      * disponibilidad: "Lunes, Martes y Viernes"
      * })
      */
@@ -135,14 +135,14 @@ export class AsesorModel{
         try {
             const asesores = await modelo_cuenta_asesor.findAll({
                 where: { estado: 'activo' },
-                attributes: ['nombre', 'email', 'area_especialización']
+                attributes: ['nombre', 'email', 'area_especializacion']
             });
             return asesores.map(asesor => {
                 // Convertir el string de áreas en un array
-                const areas = asesor.dataValues.area_especialización?.split(', ') || [];
+                const areas = asesor.dataValues.area_especializacion?.split(', ') || [];
                 return {
                     ...asesor.dataValues,
-                    area_especialización: areas
+                    area_especializacion: areas
                 };
             });
         } catch (error) {

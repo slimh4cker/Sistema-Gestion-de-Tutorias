@@ -53,7 +53,6 @@ export class AsesorControler {
       res.status(400).json({ error: "Ya existe un asesor con ese correo" })
       return
     }
-    console.log(AsesorMail)
 
     try{
       await AsesorModel.createAsesor(asesor)
@@ -104,7 +103,7 @@ export class AsesorControler {
 
   static async deleteAsesor(req, res) {
     // obtener correo
-    const correo = obtenerMailDeReq(req)
+    const correo = req.query.email
 
     // asegurarse de que el asesor exista
     if (await AsesorModel.getAsesorByMail(correo) ==  null) {
@@ -133,7 +132,8 @@ export class AsesorControler {
 
           const respuesta = asesores.map(asesor => ({
               nombre: asesor.nombre,
-              temas: asesor.area_especialización
+              temas: asesor.area_especializacion,
+              email: asesor.email
           }));
 
           res.status(200).json(respuesta);

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Cargando sidebar_admin.js'); // Debug
     
     // 1. Verificar que el contenedor existe
     const adminContainer = document.querySelector('.admin-container');

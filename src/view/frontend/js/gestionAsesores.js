@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cargarAsesores = async () => {
         try {
-            const response = await fetch('/admin/asesores', {
+            const response = await fetch('http://localhost:1234/admin/asesores', {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const eliminarAsesor = async (email) => {
         try {
-            const response = await fetch(`/admin/asesores/${email}`, {
-                method: 'DELETE',
+            const response = await fetch(`http://localhost:1234/admin/asesores?email=${email}`, {
+                method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
             return response.ok;

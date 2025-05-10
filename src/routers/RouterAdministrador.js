@@ -21,7 +21,7 @@ router.patch('/admin', authMiddleware(['administrador']), AdminControler.updateA
 router.patch('/solicitud', authMiddleware(['administrador']), SolicitudControler.cambiarEstadoSolicitud);
 
 router.delete('/admin', authMiddleware(['administrador']), AdminControler.deleteAdmin);
-router.delete('/asesores', authMiddleware(['administrador']), AsesorControler.deleteAsesor);
+router.patch('/asesores', authMiddleware(['administrador']), AsesorControler.deleteAsesor);
 
 
 export default router;
