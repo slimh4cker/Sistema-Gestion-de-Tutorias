@@ -10,7 +10,6 @@ export const registrarEstudiante = async (req, res) => {
     
     // realizar validaciones
     const validacion = validarAlumnoZod(req.body);
-    console.log("Validación de alumno:", validacion);
     if (!validacion.success) {
       return res.status(400).json({
         error: "Datos del alumno no válidos",
