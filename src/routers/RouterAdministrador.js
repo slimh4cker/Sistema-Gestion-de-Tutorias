@@ -15,7 +15,7 @@ router.post('/admin',
 
 router.get('/admin', authMiddleware(['administrador']), AdminControler.getAdminByMail);
 router.get('/asesores', authMiddleware(['administrador']), AsesorControler.getAllAsesores);
-router.get('/solicitud', authMiddleware(['administrador']), SolicitudControler.getTodasLasSolicitudes);
+router.get('/solicitud', authMiddleware(['administrador']), SolicitudControler.getSolicitudesSinAsignar);
 
 router.patch('/admin', authMiddleware(['administrador']), AdminControler.updateAdmin);
 router.patch('/solicitud', authMiddleware(['administrador']), SolicitudControler.cambiarEstadoSolicitud);
