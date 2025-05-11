@@ -21,3 +21,7 @@ export function validarParcialAsesor(asesor){
   const resultado = asesorSchema.partial().safeParse(asesor)
   return resultado.success;
 }
+
+export function validarAsesorZod(asesor){
+  return asesorSchema.safeParse(asesor)
+}
