@@ -20,3 +20,8 @@ export function validarParcialAlumno(alumno){
   const resultado = alumnoSchema.partial().safeParse(alumno)
   return resultado.success; 
 }
+
+// retorna el objeto zod tras validar
+export function validarAlumnoZod(alumno){
+  return alumnoSchema.safeParse(alumno)
+}
