@@ -92,6 +92,30 @@ export class SolicitudModel{
         return JSON.stringify(buscar_solicitud, null, 1)
     }
 
+    /**
+     * Obtiene una lista de solicitudes filtradas por estado y, opcionalmente, por el email del estudiante.
+     *
+     * @param {string} estado - El estado de las solicitudes que se desean obtener (por ejemplo: "pendiente", "aprobado", etc.).
+     * @param {string|null} [email=null] - (Opcional) El email del estudiante para filtrar las solicitudes. 
+     *                                     Si no se proporciona, se incluyen solicitudes de todos los estudiantes.
+     * @returns {Promise<Array<Object>|null>} Una promesa que resuelve a un arreglo de objetos con la información de cada solicitud,
+     *                                        o `null` si ocurre un error.
+     *
+     * Cada objeto de solicitud tiene la siguiente estructura:
+     * {
+     *   id: number,
+     *   tema: string,
+     *   estado: string,
+     *   estudiante: {
+     *     nombre: string,
+     *     email: string
+     *   } | null,
+     *   asesor: {
+     *     nombre: string,
+     *     especializacion: string
+     *   } | null
+     * }
+     */
     static async getSolicitudesPorEstado(estado, email = null) {
     try {
         const includeOptions = [
