@@ -1,7 +1,7 @@
 import { AdminModel } from '../../models/AmazonRDS/AdminModel.js';
 import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
-
+import { validarAdminZod } from '../../schemas/users/admin.js';
 
 // Registrar admin (solo accesible por otros admins)
 export const registrarAdmin = async (req, res) => {
@@ -11,6 +11,15 @@ export const registrarAdmin = async (req, res) => {
     // Validar que el solicitante es admin
     if (!req.user || req.user.rol !== 'administrador') {
       return res.status(403).json({ error: 'No autorizado' });
+    }
+
+    // Validar datos del administrador
+    const validacion = validarAdminZod(req.body);
+    if (!validacion.success) {
+      return res.status(400).json({
+        error: "Datos del administrador no válidos",
+        detalles: validacion.error.format()
+      });
     }
 
     const nuevoAdmin = await AdminModel.createAdmin({
