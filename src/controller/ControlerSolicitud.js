@@ -148,7 +148,7 @@ export class SolicitudControler {
         }
 
         // Obtener solicitudes
-        const solicitudes = await SolicitudModel.getSolicitudesPorEstado(correo, estado);
+        const solicitudes = await SolicitudModel.getSolicitudesPorEstado(estado, correo);
         
         if (!solicitudes || solicitudes.length === 0) {
             return res.status(404).json({ error: "No se encontraron solicitudes" });
