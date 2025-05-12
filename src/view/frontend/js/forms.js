@@ -334,7 +334,7 @@ async function registerUser() {
         const data = await response.json();
         
         if (!response.ok) {
-            throw new Error(data.message || 'Error en el registro');
+            throw new Error(`${data.message}, ${data.error}` || 'Error en el registro');
         }
 
         alert('Registro exitoso! Por favor inicie sesión');
