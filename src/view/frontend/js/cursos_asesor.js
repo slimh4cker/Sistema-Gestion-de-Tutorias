@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cursosContainer = document.getElementById("cursos-container");
   const authToken = localStorage.getItem("authToken");
 
-  if (!authToken) {
-    window.location.href = "/login.html";
-    return;
-  }
-
   // Función para cargar las asesorías del asesor
   const cargarAsesorias = async () => {
     try {
