@@ -10,6 +10,8 @@ router.get('/asesores', authMiddleware(['asesor']), AsesorControler.getAsesorByM
 
 router.patch('/asesorias', authMiddleware(['asesor']), AsesoriaControler.actualizarAsesoria);
 
+router.get('/asesorias', authMiddleware(['asesor']), AsesoriaControler.obtenerAsesoriasPorAsesor);
+
 router.patch('/asesores', authMiddleware(['asesor']), AsesorControler.updateAsesor);
 
 router.delete('/asesor', authMiddleware(['asesor']), AsesorControler.deleteAsesor);

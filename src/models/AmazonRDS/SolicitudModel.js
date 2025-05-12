@@ -271,5 +271,19 @@ export class SolicitudModel{
             console.error("Error en actualizarEstadoSolicitud:", error);
             return false;
         }
-    }           
+    }
+    static async actualizarSolicitud(id, nuevosDatos){
+        try {
+            const [filasActualizadas] = await modelo_solicitud.update(nuevosDatos, {
+                where: { id }
+            });
+    
+            if (filasActualizadas === 0) return null;
+            return filasActualizadas;
+    
+        } catch (error) {
+            console.error("Error en actualizarSolicitud:", error);
+            return null;
+        }
+    }
 }

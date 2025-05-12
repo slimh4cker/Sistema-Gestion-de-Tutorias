@@ -35,22 +35,25 @@ export class AsesoriaModel{
  * o false si no hay resultados.
  * @throws {Error} Si falla la consulta.
  */
-    static async obtenerSolicitudesPendientes(){
+    static async obtenerSolicitudesPendientesByAsesor(email_asesor){
         const pendientes = await modelo_asesorias.findAll({
             attributes: ['id', 'solicitud_id', 'estado', 'fecha_creacion'],
             include: [{
                 model: modelo_solicitud,
+                requrided: true,
                 attributes: ['id', 'estudiante_id', 'asesor_id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
                 include: [{
                     model: modelo_cuenta_estudiante,
+                    requrided: true,
                         attributes: ['id', 'nombre', 'email'],
-                        where: {
-                            estado: 'activo'
-                            },
                     },
                     {
                         model: modelo_cuenta_asesor,
-                        attributes: ['id', 'nombre', 'email','area_especializacion','disponibilidad']
+                        requrided: true,
+                        attributes: ['id', 'nombre', 'email','area_especializacion','disponibilidad'],
+                        where: {
+                            email: email_asesor
+                        }
                 }]
             }],
             where: {
@@ -67,7 +70,7 @@ export class AsesoriaModel{
             estado: pendiente.estado,
             fecha_creacion: pendiente.fecha_creacion,
             solicitud: {
-                id: pendiente.modelo_solicitud.id,
+                id_solicitud: pendiente.modelo_solicitud.id,
                 tema: pendiente.modelo_solicitud.tema,
                 observaciones: pendiente.modelo_solicitud.observaciones, 
                 fecha_limite: pendiente.modelo_solicitud.fecha_limite,
@@ -75,13 +78,13 @@ export class AsesoriaModel{
                 nivel_urgencia: pendiente.modelo_solicitud.nivel_urgencia,
                 estado: pendiente.modelo_solicitud.estado,
                 estudiante: {
-                    id: pendiente.modelo_solicitud.modelo_cuenta_estudiante.id,
+                    id_estudiante: pendiente.modelo_solicitud.modelo_cuenta_estudiante.id,
                     nombre: pendiente.modelo_solicitud.modelo_cuenta_estudiante.nombre,
                     email: pendiente.modelo_solicitud.modelo_cuenta_estudiante.email,
 
                 },
                 asesor: {
-                    id: pendiente.modelo_solicitud.modelo_cuenta_asesor.id,
+                    id_asesor: pendiente.modelo_solicitud.modelo_cuenta_asesor.id,
                     nombre: pendiente.modelo_solicitud.modelo_cuenta_asesor.nombre,
                     email: pendiente.modelo_solicitud.modelo_cuenta_asesor.email,
                     area_especializacion: pendiente.modelo_solicitud.modelo_cuenta_asesor.area_especializacion,
