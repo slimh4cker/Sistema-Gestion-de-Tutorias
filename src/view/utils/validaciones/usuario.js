@@ -1,4 +1,9 @@
-function validarCamposRegistro(nombre, email, password, especialidad = null) {
+export function validarCamposRegistro(usuarioActual, datos) {
+    const nombre = datos.nombre.trim();
+    const email = datos.email.trim();
+    const password = datos.password.trim();
+    const especialidad = datos.especialidad?.trim()
+
     if (!nombre || !email || !password) {
         return 'Por favor complete todos los campos';
     }
@@ -24,7 +29,7 @@ function validarCamposRegistro(nombre, email, password, especialidad = null) {
         return 'La contraseña debe contener al menos un número';
     }
 
-    if (currentUserType === 'asesor' && (!especialidad || especialidad.trim() === '')) {
+    if (usuarioActual === 'asesor' && (!especialidad || especialidad.trim() === '')) {
         return 'Por favor seleccione una especialidad';
     }
 
