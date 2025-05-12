@@ -76,7 +76,18 @@ export class SolicitudControler {
       res.status(500).json({ error: "Error interno al buscar solicitudes sin asignar" })
       return
     }
-    
+  }
+
+  static async getSolicitudesAsignadas(req, res) {
+    try {
+      const correo = obtenerMailDeReq(req)
+      const datos = await SolicitudModel.getSolicitudesPorEstado(correo)
+      res.status(200).json(datos)
+
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar solicitudes asignadas" })
+      return
+    }
   }
 
   /*
