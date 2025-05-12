@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cargarAsesores = async () => {
         try {
-            const response = await fetch('http://localhost:1234/admin/asesores', {
+           const response = await fetch('http://localhost:1234/admin/asesores', {   
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 `).join('')}
                             </div>
                         </div>
+                        
                         <div class="acciones-container">
                             <button class="btn-accion btn-eliminar">
                                 <i class="fas fa-trash"></i> Eliminar
@@ -81,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const eliminarAsesor = async (email) => {
         try {
-            const response = await fetch(`http://localhost:1234/admin/asesores?email=${email}`, {
-                method: 'PATCH',
+            const response = await fetch(`/admin/asesores/${email}`, {
+                method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
             return response.ok;

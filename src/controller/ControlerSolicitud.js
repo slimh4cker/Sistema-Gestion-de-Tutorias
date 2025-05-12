@@ -145,8 +145,45 @@ export class SolicitudControler {
 }
   
   static async asignarSolicitud(req, res) {
-    // TODO entender como se asigan las solicitudes
-  }
+          try {
+              const { solicitudId } = req.params;
+              
+              if (!solicitudId || isNaN(solicitudId)) {
+                  return res.status(400).json({ 
+                      error: "ID de solicitud inválido o no proporcionado" 
+                  });
+              }
+
+              // Ejecutar algoritmo de asignación automática
+              const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudId);
+
+              if (resultado.error) {
+                  return res.status(404).json({
+                      error: resultado.error,
+                      detalles: `No se pudo asignar asesor a la solicitud ${solicitudId}`
+                  });
+              }
+
+              res.status(200).json({
+                  message: 'Asesor asignado exitosamente',
+                  detalles: {
+                      id_solicitud: resultado.solicitudId,
+                      id_asesor: resultado.asesorId,
+                      estado: resultado.nuevoEstado,
+                      especializacion: resultado.especializacion,
+                      fecha_asignacion: new Date().toISOString()
+                  }
+              });
+
+          } catch (error) {
+              console.error("Error en asignarSolicitud:", error);
+              res.status(500).json({
+                  error: 'Error interno en asignación automática',
+                  detalle: error.message
+              });
+          }
+      }
+
 
   static async getSolicitudesFiltradas(req, res) {
     try {

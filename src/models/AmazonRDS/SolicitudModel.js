@@ -92,6 +92,102 @@ export class SolicitudModel{
         return JSON.stringify(buscar_solicitud, null, 1)
     }
 
+    static async asignarAsesorAutomatico(solicitudId) {
+        const transaction = await sequelize.transaction();
+        try {
+            const solicitud = await modelo_solicitud.findByPk(solicitudId, {
+                include: [modelo_cuenta_estudiante],
+                transaction
+            });
+
+            if (!solicitud || solicitud.estado !== 'pendiente') {
+                throw new Error('Solicitud no válida para asignación');
+            }
+
+            const fechaLimite = new Date(solicitud.fecha_limite);
+            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const diaRequerido = diasSemana[fechaLimite.getDay()];
+
+            const asesoresCompatibles = await modelo_cuenta_asesor.findAll({
+                where: {
+                    estado: 'activo',
+                    [sequelize.Op.or]: [
+                        { disponibilidad: { [sequelize.Op.like]: `%${diaRequerido}%` } },
+                        { disponibilidad: null }
+                    ]
+                },
+                order: [
+                    [sequelize.literal(`CASE 
+                        WHEN disponibilidad LIKE '%${diaRequerido}%' 
+                        AND area_especializacion LIKE '%${solicitud.tema}%' THEN 1 
+                        ELSE 2 
+                    END`), 'ASC'],
+                    
+                    [sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
+                ],
+                transaction
+            });
+
+            let asesorAsignado = asesoresCompatibles[0];
+            
+            // Fallback: Buscar cualquier asesor activo
+            if (!asesorAsignado) {
+                asesorAsignado = await modelo_cuenta_asesor.findOne({
+                    where: { estado: 'activo' },
+                    order: [
+                        [sequelize.literal(`LENGTH(area_especializacion)`), 'ASC'],
+                        ['area_especializacion', 'ASC']
+                    ],
+                    transaction
+                });
+            }
+
+            if (!asesorAsignado) {
+                await transaction.rollback();
+                return { error: 'No hay asesores disponibles' };
+            }
+
+            await modelo_solicitud.update({
+                asesor_id: asesorAsignado.id,
+                estado: 'asignada'
+            }, {
+                where: { id: solicitudId },
+                transaction
+            });
+
+            const asignacionesActivas = await modelo_solicitud.count({
+                where: {
+                    asesor_id: asesorAsignado.id,
+                    estado: 'asignada'
+                },
+                transaction
+            });
+
+            if (asignacionesActivas >= 5) {
+                await modelo_cuenta_asesor.update({
+                    disponibilidad: null,
+                    estado: 'inactivo'
+                }, {
+                    where: { id: asesorAsignado.id },
+                    transaction
+                });
+            }
+
+            await transaction.commit();
+            
+            return {
+                solicitudId,
+                asesorId: asesorAsignado.id,
+                nuevoEstado: 'asignada',
+                especializacion: asesorAsignado.area_especializacion
+            };
+
+        } catch (error) {
+            await transaction.rollback();
+            console.error('Error en asignación automática:', error);
+            throw error;
+        }
+    }
     /**
      * Obtiene una lista de solicitudes filtradas por estado y, opcionalmente, por el email del estudiante.
      *
