@@ -176,7 +176,7 @@ export class SolicitudControler {
                 fecha,
             })
         } catch (error) {
-            
+            console.error("No se pudo enviar un correo:", error)
         }
     } catch (error) {
         console.error("Error en crearSolicitudDeAlumno:", error);
@@ -214,6 +214,13 @@ export class SolicitudControler {
                       fecha_asignacion: new Date().toISOString()
                   }
               });
+
+              // enviar email a asesor y alumno
+              try {
+                
+              } catch (error) {
+                
+              }
 
           } catch (error) {
               console.error("Error en asignarSolicitud:", error);
