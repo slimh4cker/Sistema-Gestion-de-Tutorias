@@ -1248,7 +1248,111 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     }
 }
 
-/* ESTILOS PARA EL DETALLE DEL CURSO */
+
+/* =================================== */
+/* VISTA HOME_ADMIN */
+/* =================================== */
+
+/* Reset básico */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal ajustado */
+.admin-container {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Contenido principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 250px); /* Ajusta según ancho de tu sidebar */
+    margin-left: 250px; /* Igual que el ancho de la sidebar */
+}
+
+/* Tarjeta blanca perfectamente ajustada */
+.admin-full-panel {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px;
+    padding: 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: calc(100% - 40px); /* Resta los márgenes izquierdo y derecho */
+    box-sizing: border-box;
+    position: relative; /* Para bordes perfectos */
+}
+
+/* Contenido centrado seguro */
+.admin-content-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 1200px) {
+    .main-content {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .admin-full-panel {
+        margin: 15px;
+        padding: 30px;
+        width: calc(100% - 30px);
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-full-panel {
+        margin: 10px;
+        padding: 25px;
+        border-radius: 12px;
+        width: calc(100% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-full-panel {
+        margin: 8px;
+        padding: 20px;
+        border-radius: 10px;
+        width: calc(100% - 16px);
+    }
+    
+    .admin-content-center {
+        padding: 0 10px;
+    }
+}
+
+        /* ESTILOS PARA EL DETALLE DEL CURSO */
 .curso-detalle-container {
     padding: 2rem;
     min-height: calc(100vh - 200px);
@@ -1267,14 +1371,10 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 }
 
 .curso-header-detalle {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: none; 
 }
 
 .curso-titulo-wrapper {
@@ -1311,8 +1411,8 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 }
 
 .divider {
-    margin: 1.5rem 0;
-    border-color: #eee;
+     width: 100%;
+    border-top: 1px solid #eee;
 }
 
 .recurso-item {
@@ -1431,106 +1531,145 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
         font-size: 1.4rem;
     }
 }
-/* =================================== */
-/* VISTA HOME_ADMIN */
-/* =================================== */
 
-/* Reset básico */
-html, body {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+/* Estilos para la gestión de materias */
+.temas-container {
+    padding: 20px;
 }
 
-/* Contenedor principal ajustado */
-.admin-container {
-    width: 100vw;
-    max-width: 100%;
-    display: flex;
-    min-height: 100vh;
+.temas-list-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
-/* Contenido principal */
-.main-content {
-    flex: 1;
+.temas-header {
     display: flex;
-    flex-direction: column;
-    width: calc(100% - 250px); /* Ajusta según ancho de tu sidebar */
-    margin-left: 250px; /* Igual que el ancho de la sidebar */
-}
-
-/* Tarjeta blanca perfectamente ajustada */
-.admin-full-panel {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin: 20px;
-    padding: 40px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    width: calc(100% - 40px); /* Resta los márgenes izquierdo y derecho */
-    box-sizing: border-box;
-    position: relative; /* Para bordes perfectos */
-}
-
-/* Contenido centrado seguro */
-.admin-content-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex: 1;
-    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.temas-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.temas-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.tema-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tema-item:last-child {
+    border-bottom: none;
+}
+
+.tema-nombre {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.btn-agregar-tema {
+    background-color: #146918;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+    margin-left: auto; 
+}
+
+.btn-agregar-tema:hover {
+    background-color: #0e4e12;
+}
+
+.btn-eliminar-tema {
+    background-color: #f5f5f5;
+    color: #d32f2f;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.btn-eliminar-tema:hover {
+    background-color: #ffebee;
+}
+
+/* Estilos del modal */
+.modal-tema {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
-    max-width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Ajustes responsivos */
-@media (max-width: 1200px) {
-    .main-content {
-        width: calc(100% - 200px);
-        margin-left: 200px;
-    }
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-@media (max-width: 992px) {
-    .main-content {
-        width: 100%;
-        margin-left: 0;
-    }
-    
-    .admin-full-panel {
-        margin: 15px;
-        padding: 30px;
-        width: calc(100% - 30px);
-    }
+.form-group {
+    margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-    .admin-full-panel {
-        margin: 10px;
-        padding: 25px;
-        border-radius: 12px;
-        width: calc(100% - 20px);
-    }
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
 }
 
-@media (max-width: 576px) {
-    .admin-full-panel {
-        margin: 8px;
-        padding: 20px;
-        border-radius: 10px;
-        width: calc(100% - 16px);
-    }
-    
-    .admin-content-center {
-        padding: 0 10px;
-    }
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
 }
 
+.btn-cancelar {
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-guardar {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
