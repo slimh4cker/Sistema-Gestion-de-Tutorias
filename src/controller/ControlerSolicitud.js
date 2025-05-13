@@ -139,11 +139,44 @@ export class SolicitudControler {
         });
 
         // Asignar automaticamente solicitud
+        let resultado = null
         try {
-            const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudCreada.id);
+            cresultado = await SolicitudModel.asignarAsesorAutomatico(solicitudCreada.id);
             
         } catch (errores) {
             console.error("No se pudo asignar automaticamente una solicitud")
+        }
+
+        // Asignar Correos
+        try {
+            // enviar correo a alumno y asesor
+            const mail_asesor = resultado.aseosr.mail
+            const mail_alumno = correo
+
+            const nombre_asesoria = resultado.solicitud.tema
+            const nombre_asesor = resultado.asesor.nombre
+            const fecha = resultado.solicitud.fecha_limite
+            // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
+            const nombre_alumno = alumno.nombre
+
+            // destinatario, plantilla, datos
+            await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
+                {
+                    nombre_asesoria,
+                    nombre_asesor,
+                    fecha,
+                    hora,
+                }
+             )
+
+            await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
+                nombre_asesoria,
+                nombre_asesor,
+                nombre_alumno,
+                fecha,
+            })
+        } catch (error) {
+            
         }
     } catch (error) {
         console.error("Error en crearSolicitudDeAlumno:", error);
