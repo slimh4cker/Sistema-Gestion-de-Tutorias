@@ -1562,14 +1562,36 @@ html, body {
     background: white;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-height: 60vh; 
+    overflow-y: auto; 
+    padding: 10px;
 }
 
+/* Estilo del scroll */
+.temas-card::-webkit-scrollbar {
+    width: 8px;
+}
+
+.temas-card::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.temas-card::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.temas-card::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
 .tema-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 12px 15px;
     border-bottom: 1px solid #f0f0f0;
+    margin: 5px 0;
 }
 
 .tema-item:last-child {
@@ -1595,6 +1617,11 @@ html, body {
 
 .btn-agregar-tema:hover {
     background-color: #0e4e12;
+}
+
+.btn-agregar-tema:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .btn-eliminar-tema {
@@ -1635,6 +1662,19 @@ html, body {
     width: 90%;
     max-width: 450px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Opcional: Si el problema persiste, añade esto */
+.navbar:focus-within {
+    box-shadow: none !important;
+}
+
+/* Elimina el resaltado en todos los botones de la interfaz */
+.btn-eliminar-tema:focus, 
+.btn-cancelar:focus, 
+.btn-guardar:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .form-group {

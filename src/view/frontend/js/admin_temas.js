@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formTema = document.getElementById('formTema');
     const temasContainer = document.querySelector('.temas-card');
     
-    // Lista de materias (simulada - en producción vendría de una base de datos)
+    // Lista de materias (simulada - vendría de base de datos)
     let materias = [
         { id: 1, nombre: 'Matemáticas' },
         { id: 2, nombre: 'Física' },
@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 4, nombre: 'Programación' }
     ];
     
-    // Función para renderizar las materias
+    // Función para renderizar materias
     function renderMaterias() {
         temasContainer.innerHTML = '';
+        
         materias.forEach(materia => {
             const temaItem = document.createElement('div');
             temaItem.className = 'tema-item';
@@ -54,10 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Evento para abrir modal
-    btnAgregar.addEventListener('click', function() {
+    // Evento para abrir modal (versión mejorada)
+    btnAgregar.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         modal.style.display = 'block';
         document.getElementById('nombreTema').focus();
+        
+        // Remueve el foco del navbar
+        this.blur();
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
     });
     
     // Evento para cerrar modal
