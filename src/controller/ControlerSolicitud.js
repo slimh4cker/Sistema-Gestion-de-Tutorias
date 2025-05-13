@@ -138,6 +138,13 @@ export class SolicitudControler {
             solicitud: solicitudCreada 
         });
 
+        // Asignar automaticamente solicitud
+        try {
+            const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudCreada.id);
+            
+        } catch (errores) {
+            console.error("No se pudo asignar automaticamente una solicitud")
+        }
     } catch (error) {
         console.error("Error en crearSolicitudDeAlumno:", error);
         res.status(500).json({ error: "Error interno del servidor" });

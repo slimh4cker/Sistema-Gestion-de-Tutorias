@@ -95,7 +95,7 @@ export class SolicitudModel{
     static async asignarAsesorAutomatico(solicitudId) {
         const transaction = await sequelize.transaction();
         try {
-            const solicitud = await modelo_solicitud.findByPk(solicitudId, {
+            solicitud = await modelo_solicitud.findByPk(solicitudId, {
                 include: [modelo_cuenta_estudiante],
                 transaction
             });
@@ -176,10 +176,9 @@ export class SolicitudModel{
             await transaction.commit();
             
             return {
-                solicitudId,
-                asesorId: asesorAsignado.id,
+                solicitud: solicitud,
+                asesor: asesorAsignado,
                 nuevoEstado: 'asignada',
-                especializacion: asesorAsignado.area_especializacion
             };
 
         } catch (error) {
