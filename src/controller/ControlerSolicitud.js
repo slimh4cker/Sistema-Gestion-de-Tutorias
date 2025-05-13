@@ -150,7 +150,7 @@ export class SolicitudControler {
         // Asignar Correos
         try {
             // enviar correo a alumno y asesor
-            const mail_asesor = resultado.aseosr.mail
+            const mail_asesor = resultado.asesor.mail
             const mail_alumno = correo
 
             const nombre_asesoria = resultado.solicitud.tema
