@@ -115,7 +115,7 @@ export class AdminModel{
 
     return datosSeguros;
   } catch (error) {
-    console.error("Error en updateAsesor:", error);
+    console.error("Error en updateAdmin:", error);
     return null;
   }
 }

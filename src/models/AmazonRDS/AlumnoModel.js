@@ -75,28 +75,52 @@ export class AlumnoModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAlumno(emailOriginal, datos) {
-        try {
-            const alumno = await modelo_cuenta_estudiante.findOne({
-                where: { 
-                    email: emailOriginal }
-            });
-    
-            if (!alumno) {
-                return null;
+  try {
+    console.log("Datos a actualizar:", datos); // 👁️ Verifica los datos recibidos
+    console.log("Email original:", emailOriginal); // 👁️ Verifica el email original
+    // Buscar alumno por email
+    const alumno = await modelo_cuenta_estudiante.findOne({
+      where: { email: emailOriginal }
+    });
+
+
+    if (!alumno) {
+      return null;
+    }
+
+    // Extraer password y el resto de datos
+    const { password, ...otrosDatos } = datos;
+
+    // Si se envió un nuevo password, se hashea
+    if (password) {
+      otrosDatos.password = await hashPassword(password, 10);
+    }
+
+    // Actualizar asesor con los datos restantes (incluyendo password si se actualizó)
+    await alumno.update(otrosDatos);
+
+    // Eliminar password antes de retornar los datos actualizados
+    const { password: _, ...datosSeguros } = alumno.dataValues;
+
+    return datosSeguros;
+  } catch (error) {
+    console.error("Error en updateAlumno:", error);
+    return null;
+  }
+}
+
+    /**
+     * Desactiva la cuenta del asesor
+     * @param {String} email 
+     * @returns {boolean}
+     */
+    static async deleteAsesor(email){
+        const deleteAsesor = await modelo_cuenta_asesor.update({estado: 2},{
+            where: {
+                email: email
             }
-            const hashedPassword = await hashPassword(datos.password, 10);
-            console.log(hashPassword)
-            await alumno.update({
-                ...datos,
-                password: hashedPassword,
-            }); 
-            const { password, ...datosSeguros } = alumno.dataValues;
-            return datosSeguros;
-    
-        } catch (error) {
-            console.error("Error en updateAlumno:", error);
-            return null;
-        }
+        });
+        return deleteAsesor.length > 0; // Si se elimino retorna true, si no retorna false
     }
     /**
      * 
