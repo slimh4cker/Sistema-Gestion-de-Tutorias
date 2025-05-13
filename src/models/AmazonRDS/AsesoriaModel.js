@@ -11,19 +11,36 @@ export class AsesoriaModel{
  * @returns {Promise<Object>} Objeto con los datos de la asesoría o null si no existe.
  * @throws {Error} Si ocurre un error en la consulta.
  */
-    static async getAseoriaByAlumnoEmail(email){
-        const asesoria_alumno_email = await modelo_asesorias.findOne({
-            include: [{ // Include es un INNER JOIN 
-                model: modelo_solicitud,
+    static async getAseoriaByAlumnoEmail(email) {
+        try {
+            const asesorias = await modelo_asesorias.findAll({
                 include: [{
-                    model: modelo_cuenta_estudiante,
-                    where: {
-                        email: email
-                    }
+                    model: modelo_solicitud,
+                    required: true,
+                    include: [{
+                        model: modelo_cuenta_estudiante,
+                        where: { email: email }
+                    }, {
+                        model: modelo_cuenta_asesor,
+                        attributes: ['nombre', 'email', 'area_especializacion']
+                    }]
                 }],
-            }],
-        })
-        return asesoria_alumno_email.dataValues
+                where: {
+                    estado: 'asignada'
+                }
+            });
+            
+            return asesorias.map(a => ({
+                id: a.id,
+                tema: a.modelo_solicitud.tema,
+                profesor: a.modelo_solicitud.modelo_cuenta_asesor.nombre,
+                fecha_limite: a.modelo_solicitud.fecha_limite,
+                tipo: a.modelo_solicitud.modalidad === 'teorica' ? 'T' : 'A'
+            }));
+        } catch (error) {
+            console.error("Error en getAseoriaByAlumnoEmail:", error);
+            return [];
+        }
     }
 
     /**
