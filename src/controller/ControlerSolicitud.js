@@ -103,160 +103,122 @@ export class SolicitudControler {
    y el id es el obtenido en el token
   */
 
-  static async crearSolicitudDeAlumno(req, res) {
-    try {
-        const correo = obtenerMailDeReq(req);
-        const dataBody = req.body;
-
-        if (!validarSolicitud(dataBody)) {
-            return res.status(400).json({ error: "Solicitud no válida" });
-        }
-
-        const alumno = await AlumnoModel.getAlumnoByMail(correo);
-        if (!alumno) {
-            return res.status(404).json({ error: "Alumno no encontrado" });
-        }
-
-        const datosSolicitud = {
-            estudiante_id: alumno.id,
-            asesor_id: dataBody.asesor_id,
-            tema: dataBody.tema,
-            observaciones: dataBody.observaciones,
-            fecha_limite: dataBody.fecha_limite,
-            modalidad: dataBody.modalidad,
-            nivel_urgencia: dataBody.nivel_urgencia,
-            estado: "inactivo"
-        };
-
-        const solicitudCreada = await SolicitudModel.agregarSolicitud(datosSolicitud);
-        if (!solicitudCreada) {
-            return res.status(500).json({ error: "Error al crear la solicitud" });
-        }
-
-        res.status(201).json({ 
-            message: "Solicitud creada correctamente",
-            solicitud: solicitudCreada 
-        });
-
-        // Asignar automaticamente solicitud
-        let resultado = null
+    static async crearSolicitudDeAlumno(req, res) {
         try {
-            cresultado = await SolicitudModel.asignarAsesorAutomatico(solicitudCreada.id);
-            
-        } catch (errores) {
-            console.error("No se pudo asignar automaticamente una solicitud")
-        }
+            const correo = obtenerMailDeReq(req);
+            const dataBody = req.body;
 
-        // Asignar Correos
-        try {
-            // enviar correo a alumno y asesor
-            const mail_asesor = resultado.asesor.mail
-            const mail_alumno = correo
+            if (!validarSolicitud(dataBody)) {
+                return res.status(400).json({ error: "Solicitud no válida" });
+            }
 
-            const nombre_asesoria = resultado.solicitud.tema
-            const nombre_asesor = resultado.asesor.nombre
-            const fecha = resultado.solicitud.fecha_limite
-            // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
-            const nombre_alumno = alumno.nombre
+            const alumno = await AlumnoModel.getAlumnoByMail(correo);
+            if (!alumno) {
+                return res.status(404).json({ error: "Alumno no encontrado" });
+            }
 
-            // destinatario, plantilla, datos
-            await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
-                {
-                    nombre_asesoria,
-                    nombre_asesor,
-                    fecha,
-                    hora,
-                }
-             )
+            const datosSolicitud = {
+                estudiante_id: alumno.id,
+                asesor_id: dataBody.asesor_id,
+                tema: dataBody.tema,
+                observaciones: dataBody.observaciones,
+                fecha_limite: dataBody.fecha_limite,
+                modalidad: dataBody.modalidad,
+                nivel_urgencia: dataBody.nivel_urgencia,
+                estado: "inactivo"
+            };
 
-            await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
-                nombre_asesoria,
-                nombre_asesor,
-                nombre_alumno,
-                fecha,
-            })
+            const solicitudCreada = await SolicitudModel.agregarSolicitud(datosSolicitud);
+            if (!solicitudCreada) {
+                return res.status(500).json({ error: "Error al crear la solicitud" });
+            }
+
+            // Llamar a la asignación automática
+            const resultadoAsignacion = await this.asignarSolicitudAutomatica({
+                params: { solicitudId: solicitudCreada.id }
+            }, res);
+
+            if (!resultadoAsignacion) {
+                return res.status(500).json({ 
+                    error: "Solicitud creada pero falló la asignación automática" 
+                });
+            }
+
+            // Si todo sale bien
+            res.status(201).json({ 
+                message: "Solicitud creada y asignada correctamente",
+                solicitud: solicitudCreada,
+                asignacion: resultadoAsignacion
+            });
+
         } catch (error) {
-            console.error("No se pudo enviar un correo:", error)
+            console.error("Error en crearSolicitudDeAlumno:", error);
+            res.status(500).json({ error: "Error interno del servidor" });
         }
-    } catch (error) {
-        console.error("Error en crearSolicitudDeAlumno:", error);
-        res.status(500).json({ error: "Error interno del servidor" });
     }
-}
-  
-  static async asignarSolicitud(req, res) {
-          try {
-              const { solicitudId } = req.params;
-              
-              if (!solicitudId || isNaN(solicitudId)) {
-                  return res.status(400).json({ 
-                      error: "ID de solicitud inválido o no proporcionado" 
-                  });
-              }
 
-              // Ejecutar algoritmo de asignación automática
-              const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudId);
+    // Modificamos el método de asignación para hacerlo reutilizable
+    static async asignarSolicitudAutomatica(req, res) {
+        try {
+            const { solicitudId } = req.params;
+            
+            if (!solicitudId || isNaN(solicitudId)) {
+                if (res) return res.status(400).json({ error: "ID inválido" });
+                throw new Error("ID inválido");
+            }
 
-              if (resultado.error) {
-                  return res.status(404).json({
-                      error: resultado.error,
-                      detalles: `No se pudo asignar asesor a la solicitud ${solicitudId}`
-                  });
-              }
+            const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudId);
 
-              res.status(200).json({
-                  message: 'Asesor asignado exitosamente',
-                  detalles: {
-                      id_solicitud: resultado.solicitudId,
-                      id_asesor: resultado.asesorId,
-                      estado: resultado.nuevoEstado,
-                      especializacion: resultado.especializacion,
-                      fecha_asignacion: new Date().toISOString()
-                  }
-              });
+            if (resultado.error) {
+                if (res) return res.status(404).json({ error: resultado.error });
+                throw new Error(resultado.error);
+            }
 
-              // enviar email a asesor y alumno
-              try {
-                    // obtener datos del alumno
-                    const alumno = await AlumnoModel.getAlumnoByMail(resultado.solicitud.estudiante_id)
-                    // enviar correo a alumno y asesor
-                    const mail_asesor = resultado.asesor.mail
-                    const mail_alumno = alumno.correo
+            // Enviar emails solo si es una llamada directa
+            if (res) {
+                try {
+                    const alumno = await AlumnoModel.getAlumnoByMail(resultado.solicitud.estudiante_id);
+                    const mail_asesor = resultado.asesor.email;
+                    const mail_alumno = alumno.email;
 
-                    const nombre_asesoria = resultado.solicitud.tema
-                    const nombre_asesor = resultado.asesor.nombre
-                    const fecha = resultado.solicitud.fecha_limite
-                    // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
-                    const nombre_alumno = alumno.nombre
-
-                    // destinatario, plantilla, datos
-                    await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
-                        {
-                            nombre_asesoria,
-                            nombre_asesor,
-                            fecha,
-                            hora,
-                        }
-                    )
+                    await sendMail(mail_alumno, 'asesoriaAsignadaAlumno', {
+                        nombre_asesoria: resultado.solicitud.tema,
+                        nombre_asesor: resultado.asesor.nombre,
+                        fecha: resultado.solicitud.fecha_limite
+                    });
 
                     await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
-                        nombre_asesoria,
-                        nombre_asesor,
-                        nombre_alumno,
-                        fecha,
-                    })
-              } catch (error) {
-                  console.error("No se pudo enviar un correo:", error)
-              }
+                        nombre_asesoria: resultado.solicitud.tema,
+                        nombre_alumno: alumno.nombre,
+                        fecha: resultado.solicitud.fecha_limite
+                    });
+                } catch (emailError) {
+                    console.error("Error enviando emails:", emailError);
+                }
+            }
 
-          } catch (error) {
-              console.error("Error en asignarSolicitud:", error);
-              res.status(500).json({
-                  error: 'Error interno en asignación automática',
-                  detalle: error.message
-              });
-          }
-      }
+            const respuesta = {
+                id_solicitud: resultado.solicitud.id,
+                id_asesor: resultado.asesor.id,
+                estado: resultado.nuevoEstado,
+                fecha_asignacion: new Date().toISOString()
+            };
+
+            if (res) {
+                res.status(200).json(respuesta);
+            } else {
+                return respuesta;
+            }
+
+        } catch (error) {
+            console.error("Error en asignación automática:", error);
+            if (res) {
+                res.status(500).json({ error: error.message });
+            } else {
+                throw error;
+            }
+        }
+    }
 
 
   static async getSolicitudesFiltradas(req, res) {
