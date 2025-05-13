@@ -153,3 +153,4 @@ export class AdminModel{
         })
     }
 }
+/* AdminModel.updateAdmin({password:"brandon123"}, "maria@admin.com") */
