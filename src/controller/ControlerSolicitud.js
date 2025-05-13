@@ -217,9 +217,36 @@ export class SolicitudControler {
 
               // enviar email a asesor y alumno
               try {
-                
+                    // obtener datos del alumno
+                    const alumno = await AlumnoModel.getAlumnoByMail(resultado.solicitud.estudiante_id)
+                    // enviar correo a alumno y asesor
+                    const mail_asesor = resultado.asesor.mail
+                    const mail_alumno = alumno.correo
+
+                    const nombre_asesoria = resultado.solicitud.tema
+                    const nombre_asesor = resultado.asesor.nombre
+                    const fecha = resultado.solicitud.fecha_limite
+                    // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
+                    const nombre_alumno = alumno.nombre
+
+                    // destinatario, plantilla, datos
+                    await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
+                        {
+                            nombre_asesoria,
+                            nombre_asesor,
+                            fecha,
+                            hora,
+                        }
+                    )
+
+                    await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
+                        nombre_asesoria,
+                        nombre_asesor,
+                        nombre_alumno,
+                        fecha,
+                    })
               } catch (error) {
-                
+                  console.error("No se pudo enviar un correo:", error)
               }
 
           } catch (error) {
