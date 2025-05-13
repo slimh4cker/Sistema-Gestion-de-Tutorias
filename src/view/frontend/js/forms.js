@@ -1,5 +1,7 @@
 const formTemplates = {
     alumno: `
+            <div class="alumno"> 
+
         <div class="form-content">
             <h4 class="fw-bold">Registro de Alumno</h4>
             <p class="text-muted small mb-4">
@@ -24,10 +26,14 @@ const formTemplates = {
                    <p class="text-muted small mt-3">¿Ya tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Inicia sesión aquí</a></p>
                 </div>
             </form>
+                    </div>
+
         </div>
-    `,
+    `, 
     
     asesor: `
+        <div class="asesor"> 
+
     <div class="form-content" data-type="asesor">
         <h4 class="fw-bold">Registro de Asesor</h4>
         <p class="text-muted small mb-4">
@@ -65,9 +71,14 @@ const formTemplates = {
             </div>
         </form>
     </div>
+    </div>
 `,
     
+
+    /*
     admin: `
+            <div class="administrador"> 
+
         <div class="form-content">
             <h4 class="fw-bold">Registro de Administrador</h4>
             <p class="text-muted small mb-4">
@@ -93,34 +104,49 @@ const formTemplates = {
                 </div>
             </form>
         </div>
-    `,
-    login_alumno: `
+        </div>*/
+
+    admin: `
         <div class="form-content" >
-            <h4 class="fw-bold">Inicio de sesión (Alumno)</h4>
-            <p class="text-muted small mb-4">
-                Ingresa tus credenciales para acceder al sistema.
-            </p>
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Correo institucional:</label>
-                    <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx" id="txtCorreoLogin">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control" placeholder="Ingresa tu contraseña" id="txtContraLogin">
-                </div>
-                <div class="extra-space" style="height: 60px;"></div>
-                <div class="form-footer">
-                    <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
-                    <p class="text-center mt-3 small">
-                        ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
-                    </p>
-                </div>
-            </form>
+            <h4 class="fw-bold">Ups...</h4> 
+            <br>
+            <h5> Solo un administrador puede agregar a otro administrador</h5>
+        </div>    
+
+
+    `,
+    
+    login_alumno: `
+        <div class="alumno"> 
+            <div class="form-content" >
+                <h4 class="fw-bold">Inicio de sesión (Alumno)</h4>
+                <p class="text-muted small mb-4">
+                    Ingresa tus credenciales para acceder al sistema.
+                </p>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Correo institucional:</label>
+                        <input type="email" class="form-control" placeholder="ejemplo@ite.edu.mx" id="txtCorreoLogin">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña:</label>
+                        <input type="password" class="form-control" placeholder="Ingresa tu contraseña" id="txtContraLogin">
+                    </div>
+                    <div class="extra-space" style="height: 60px;"></div>
+                    <div class="form-footer">
+                        <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
+                        <p class="text-center mt-3 small">
+                            ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     `,
     
     login_asesor: `
+    <div class="asesor"> 
+
     <div class="form-content">
         <h4 class="fw-bold">Inicio de sesión (Asesor)</h4>
         <p class="text-muted small mb-4">
@@ -144,9 +170,12 @@ const formTemplates = {
             </div>
         </form>
     </div>
+        </div>
 `,
     
     login_admin: `
+        <div class="administrador"> 
+
         <div class="form-content">
             <h4 class="fw-bold">Inicio de sesión (Admin)</h4>
             <p class="text-muted small mb-4">
@@ -164,11 +193,12 @@ const formTemplates = {
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer">
                     <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
-                    <p class="text-center mt-3 small">
+                    <!--<p class="text-center mt-3 small">
                         ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
-                    </p>
+                    </p> -->
                 </div>
             </form>
+        </div>
         </div>
     `,
 };
@@ -177,6 +207,12 @@ let currentUserType = 'alumno';
 let isLoginForm = false;
 
 function switchForm(userType, login = false) {
+    // Scroll suave al formulario en móviles
+    if (window.innerWidth < 768) {
+        const formWrapper = document.getElementById('form-wrapper');
+        formWrapper.scrollIntoView({ behavior: 'smooth' });
+    }
+
     const formContainer = document.getElementById('form-container');
     currentUserType = userType;
     isLoginForm = login;
@@ -188,8 +224,10 @@ function switchForm(userType, login = false) {
         formContainer.innerHTML = formTemplates[formKey];
 
         formContainer.style.opacity = '1';
-        
-        // Actualizar estado de botones 
+
+        /*LO COMENTE SOLO PORQUE  VOY A DARLE COLORES ESTATICOS A LOS BOTONES
+        NO LO BORRE PORQUE ES POSIBLE QUE SE PUEDA RESUSAR*/
+      /*   // Actualizar estado de botones 
         document.querySelectorAll('.btn-role').forEach(btn => {
             btn.classList.remove('active');
             btn.style.backgroundColor = 'white';
@@ -201,7 +239,7 @@ function switchForm(userType, login = false) {
             activeBtn.classList.add('active');
             activeBtn.style.backgroundColor = '#1120ca';
             activeBtn.style.color = 'white';
-        }
+        } */
     }, 10);
 }
 
@@ -267,8 +305,19 @@ async function loginUser() {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message || 'Error al conectar con el servidor');
+        showAlertModal(error.message || 'Error al conectar con el servidor');
     }
+}
+
+function showAlertModal(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert-message';
+    alertDiv.textContent = message;
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
 }
 
 async function registerUser() {

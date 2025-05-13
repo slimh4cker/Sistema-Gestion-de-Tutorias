@@ -1,3 +1,4 @@
+
 /*ESTE ARCHIVO SOLO SERA PARA EL LOGIN.HTML*/
 /* ESTILOS GENERALES */
 
@@ -7,6 +8,8 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    overflow-x: hidden;
+
 }
 
 /* BARRA SUPERIOR */
@@ -23,9 +26,9 @@ body {
 }
 
 .blue-bar {
-    margin-bottom: 50px;
+    margin-bottom: 6vh;
     width: 100%;
-    height: 35px;
+    height: 5vh;
     background-color: #1120ca;
 }
 
@@ -53,11 +56,16 @@ body {
     gap: 30px;
 }
 
-/* SECCIÓN DE IMAGEN */
+.contenedorimgyb{
+    background-color: #ffffff;
+    margin-bottom: 150px;
+}
+
+/* SECCIÃ“N DE IMAGEN */
 .image-container {
-    position: relative;
     max-width: 500px;
-    margin: 0 auto;
+    margin-right: 2vh;
+    margin-bottom: 50vh;
 }
 
 .styled-image {
@@ -65,16 +73,70 @@ body {
     border-radius: 15px;
     height: auto;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2vh;
+    margin-top: 1vh;
 }
 
 /* BOTONES DE ROL */
 .button-group-adjustment {
     margin-top: 25px;
-    display: flex;
     gap: 15px;
-    justify-content: center;
+    margin-right: 6vh;
 }
 
+/*AQUI VAMOS A HACER EL DISEñO DE LOS
+BOTONES DE LOS ROLES*/
+
+#btn-alumno {
+    width: 140px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid #1120ca;
+    border-radius: 5px;
+    background-color: #1120ca;
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#btn-asesor {
+    width: 140px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid orange;
+    border-radius: 5px;
+    background-color: orange;
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+ #btn-admin{
+    width: 140px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid green;
+    border-radius: 5px;
+    background-color: green;
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+/*AQUI TERMINA EL DISEñO DE LOS BOTONES DE
+LOS ROLES USANDO EL ID*/
+
+
+/*LO VOY A COMENTAR PORQUE NO QUIERO QUE AFECTE 
+EL DISEñO, PERO LO NECESITO PARA EL FORMULARIO 
+DINAMICO, POR ESO NO HAY QUE BORRARLO*/
 .btn-role {
     width: 140px;
     height: 45px;
@@ -90,33 +152,63 @@ body {
     cursor: pointer;
 }
 
-.btn-role.active {
-    background-color: #1120ca;
-    color: white;
+.btn-role:hover{
+    transform: scale(1.1); /* se agranda un poco */
+
 }
 
-.btn-role:not(.active):hover {
-    background-color: #f8f9fa;
+.btn-role:active {
+  /*   background-color: #1120ca;
+    color: white; */
+    transform: scale(0.9); /* se agranda un poco */
+
 }
+
+
 
 /* FORMULARIO */
 .login-card {
     background: white;
     border-radius: 12px;
-    padding: 30px;
+    padding: 0px;
+    padding-top: 0;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 450px;
     transition: all 0.3s ease;
-}
-#form-container2{
-    margin-top: 2px;
+    margin-bottom: 10vh;
 }
 
+
+
+
+.alumno{
+    border-top:20px solid blue;
+    border-radius: 15px;
+    width: 100%;
+    padding-top: 0;
+}
+.asesor{
+    border-top:20px solid orange;
+    border-radius: 15px;
+    width: 100%;
+    padding-top: 0;
+}
+.administrador{
+    border-top:20px solid green;
+    border-radius: 15px;
+    width: 100%;
+    padding-top: 0;
+}
+
+.form-content {
+    padding-top: 20px;
+    margin: 30px;
+}
 
 .form-content h4 {
     color: #1120ca;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     font-size: 1.5rem;
 }
 
@@ -143,7 +235,7 @@ body {
     box-shadow: 0 0 0 3px rgba(17, 32, 202, 0.1);
 }
 
-/* BOTÓN PRINCIPAL */
+/* BOTÃ“N PRINCIPAL (INICIAR SESION) */
 .btn-primary-action {
     width: 100%;
     height: 45px;
@@ -178,7 +270,7 @@ body {
     color: #6c757d;
 }
 
-/* POSICIONAMIENTO ESPECÍFICO */
+/* POSICIONAMIENTO ESPECÃFICO */
 .custom-image-position {
     margin-bottom: 30px;
 }
@@ -189,9 +281,13 @@ body {
 }
 
 /* RESPONSIVE */
-@media (max-width: 992px) {
+@media (max-width: 993px) {
     .top-bar h1 {
         font-size: 1.2rem;
+    }
+    .top-bar{
+        padding: 20px;
+
     }
     
     .logo-left, .logo-right {
@@ -206,18 +302,26 @@ body {
     .button-group-adjustment {
         margin-bottom: 30px;
     }
+
+    .styled-image{
+        display: none;
+    }
+
+    .logo-left{
+        display: none;
+    }
+    .logo-right{
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
     .top-bar {
         flex-direction: column;
-        padding: 15px;
+        padding: 25px;
     }
     
-    .top-bar h1 {
-        font-size: 1rem;
-        margin: 10px 0;
-    }
+    
     
     .logo-left, .logo-right {
         width: 100px;
@@ -231,6 +335,7 @@ body {
     }
     
     .login-card {
+        
         padding: 20px;
     }
 }
