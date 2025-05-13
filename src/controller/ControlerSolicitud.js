@@ -134,7 +134,7 @@ export class SolicitudControler {
             }
 
             // Llamar a la asignación automática
-            const resultadoAsignacion = await this.asignarSolicitudAutomatica({
+            const resultadoAsignacion = await SolicitudControler.asignarSolicitudAutomatica({
                 params: { solicitudId: solicitudCreada.id }
             }, res);
 
