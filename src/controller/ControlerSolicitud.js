@@ -69,13 +69,25 @@ export class SolicitudControler {
   // Obtiene las solicitudes que no han sido asignadas a ningun asesor
   static async getSolicitudesSinAsignar(req, res) {
     try {
-      const datos = SolicitudModel.getSolicitudesSinAsignar()
+      const datos = await SolicitudModel.getSolicitudesPorEstado('inactivo')
+      res.status(200).json(datos)
+
     } catch (error) {
       res.status(500).json({ error: "Error interno al buscar solicitudes sin asignar" })
       return
     }
-    
-    res.status(200).json(datos)
+  }
+
+  static async getSolicitudesAsignadas(req, res) {
+    try {
+      const correo = obtenerMailDeReq(req)
+      const datos = await SolicitudModel.getSolicitudesPorEstado(correo)
+      res.status(200).json(datos)
+
+    } catch (error) {
+      res.status(500).json({ error: "Error interno al buscar solicitudes asignadas" })
+      return
+    }
   }
 
   /*
@@ -126,6 +138,46 @@ export class SolicitudControler {
             solicitud: solicitudCreada 
         });
 
+        // Asignar automaticamente solicitud
+        let resultado = null
+        try {
+            cresultado = await SolicitudModel.asignarAsesorAutomatico(solicitudCreada.id);
+            
+        } catch (errores) {
+            console.error("No se pudo asignar automaticamente una solicitud")
+        }
+
+        // Asignar Correos
+        try {
+            // enviar correo a alumno y asesor
+            const mail_asesor = resultado.asesor.mail
+            const mail_alumno = correo
+
+            const nombre_asesoria = resultado.solicitud.tema
+            const nombre_asesor = resultado.asesor.nombre
+            const fecha = resultado.solicitud.fecha_limite
+            // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
+            const nombre_alumno = alumno.nombre
+
+            // destinatario, plantilla, datos
+            await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
+                {
+                    nombre_asesoria,
+                    nombre_asesor,
+                    fecha,
+                    hora,
+                }
+             )
+
+            await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
+                nombre_asesoria,
+                nombre_asesor,
+                nombre_alumno,
+                fecha,
+            })
+        } catch (error) {
+            console.error("No se pudo enviar un correo:", error)
+        }
     } catch (error) {
         console.error("Error en crearSolicitudDeAlumno:", error);
         res.status(500).json({ error: "Error interno del servidor" });
@@ -133,8 +185,79 @@ export class SolicitudControler {
 }
   
   static async asignarSolicitud(req, res) {
-    // TODO entender como se asigan las solicitudes
-  }
+          try {
+              const { solicitudId } = req.params;
+              
+              if (!solicitudId || isNaN(solicitudId)) {
+                  return res.status(400).json({ 
+                      error: "ID de solicitud inválido o no proporcionado" 
+                  });
+              }
+
+              // Ejecutar algoritmo de asignación automática
+              const resultado = await SolicitudModel.asignarAsesorAutomatico(solicitudId);
+
+              if (resultado.error) {
+                  return res.status(404).json({
+                      error: resultado.error,
+                      detalles: `No se pudo asignar asesor a la solicitud ${solicitudId}`
+                  });
+              }
+
+              res.status(200).json({
+                  message: 'Asesor asignado exitosamente',
+                  detalles: {
+                      id_solicitud: resultado.solicitudId,
+                      id_asesor: resultado.asesorId,
+                      estado: resultado.nuevoEstado,
+                      especializacion: resultado.especializacion,
+                      fecha_asignacion: new Date().toISOString()
+                  }
+              });
+
+              // enviar email a asesor y alumno
+              try {
+                    // obtener datos del alumno
+                    const alumno = await AlumnoModel.getAlumnoByMail(resultado.solicitud.estudiante_id)
+                    // enviar correo a alumno y asesor
+                    const mail_asesor = resultado.asesor.mail
+                    const mail_alumno = alumno.correo
+
+                    const nombre_asesoria = resultado.solicitud.tema
+                    const nombre_asesor = resultado.asesor.nombre
+                    const fecha = resultado.solicitud.fecha_limite
+                    // const hora = resultado.solicitud.fecha_limite //no se encuentra en la base de datos
+                    const nombre_alumno = alumno.nombre
+
+                    // destinatario, plantilla, datos
+                    await sendMail(mail_alumno, 'asesoriaAsignadaAlumno',
+                        {
+                            nombre_asesoria,
+                            nombre_asesor,
+                            fecha,
+                            hora,
+                        }
+                    )
+
+                    await sendMail(mail_asesor, 'asesoriaAsignadaAsesor', {
+                        nombre_asesoria,
+                        nombre_asesor,
+                        nombre_alumno,
+                        fecha,
+                    })
+              } catch (error) {
+                  console.error("No se pudo enviar un correo:", error)
+              }
+
+          } catch (error) {
+              console.error("Error en asignarSolicitud:", error);
+              res.status(500).json({
+                  error: 'Error interno en asignación automática',
+                  detalle: error.message
+              });
+          }
+      }
+
 
   static async getSolicitudesFiltradas(req, res) {
     try {
@@ -147,7 +270,7 @@ export class SolicitudControler {
         }
 
         // Obtener solicitudes
-        const solicitudes = await SolicitudModel.getSolicitudesPorEstado(correo, estado);
+        const solicitudes = await SolicitudModel.getSolicitudesPorEstado(estado, correo);
         
         if (!solicitudes || solicitudes.length === 0) {
             return res.status(404).json({ error: "No se encontraron solicitudes" });

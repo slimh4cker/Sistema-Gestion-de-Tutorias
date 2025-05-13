@@ -1,3 +1,5 @@
+import  {validarCamposRegistro}  from '../../utils/validaciones/usuario.js';
+
 const formTemplates = {
     alumno: `
             <div class="alumno"> 
@@ -206,6 +208,8 @@ const formTemplates = {
 let currentUserType = 'alumno';
 let isLoginForm = false;
 
+
+
 function switchForm(userType, login = false) {
     // Scroll suave al formulario en móviles
     if (window.innerWidth < 768) {
@@ -279,7 +283,12 @@ async function loginUser() {
 
         const data = await response.json();
         
-        if (!response.ok) {
+
+        if(response.status === 404) {
+            throw new Error('No se encontro un usuario con estas credenciales');
+        } else if (response.status === 400) {
+            throw new Error('Error en la solicitud, por favor verifique los datos');
+        } else if (!response.ok) {
             throw new Error(data.message || 'Error en la autenticación');
         }
 
@@ -324,16 +333,20 @@ async function registerUser() {
     let body = {};
     let endpoint = '';
     
+    
     // Campos comunes a todos los usuarios
     const nombre = document.getElementById('txtNombre')?.value;
     const email = document.getElementById('txtCorreo')?.value || document.getElementById('txtCorreo')?.value;
     const password = document.getElementById('txtPassword')?.value;
+    const especialidad = document.getElementById('txtEspecialidad')?.value;
 
-    if (!nombre || !email || !password) {
-        alert('Por favor complete todos los campos');
+    const errorMsg = validarCamposRegistro(currentUserType, { nombre, email, password, especialidad });
+    if (errorMsg) {
+        alert(errorMsg);
         return;
     }
 
+    console.log('Tipo de usuario:', currentUserType);
     // Configurar según el tipo de usuario
     switch(currentUserType) {
         case 'alumno':
@@ -341,7 +354,7 @@ async function registerUser() {
             body = { nombre, email, password };
             break;
         case 'asesor':
-            const especialidad = document.getElementById('txtEspecialidad')?.value;
+            
             if (!especialidad) {
                 alert('Por favor seleccione una especialidad');
                 return;
@@ -370,7 +383,7 @@ async function registerUser() {
         const data = await response.json();
         
         if (!response.ok) {
-            throw new Error(data.message || 'Error en el registro');
+            throw new Error(`${data.message}, ${data.error}` || 'Error en el registro');
         }
 
         alert('Registro exitoso! Por favor inicie sesión');

@@ -1,4 +1,5 @@
 import { AsesoriaModel } from '../models/AmazonRDS/AsesoriaModel.js';
+import { obtenerMailDeReq } from "../utils/request.js"
 
 export class AsesoriaControler {
   static async actualizarAsesoria(req, res) {
@@ -45,4 +46,22 @@ export class AsesoriaControler {
       });
     }
   }
+  static async obtenerAsesoriasPorAsesor(req, res) {
+    try {
+      const correo = obtenerMailDeReq(req);
+      const asesorias = await AsesoriaModel.obtenerSolicitudesPendientesByAsesor(correo);
+
+      if (!asesorias || asesorias.length === 0) {
+        return res.status(404).json({ error: "No hay asesorías registradas para este asesor" });
+      }
+
+      res.status(200).json(asesorias);
+    } catch (error) {
+      console.error("Error en obtenerAsesoriasPorAsesor:", error);
+      res.status(500).json({ 
+        error: "Error interno del servidor",
+      });
+    }
+  }
+
 }

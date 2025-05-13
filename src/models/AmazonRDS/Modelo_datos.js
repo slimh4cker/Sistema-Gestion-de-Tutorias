@@ -52,7 +52,7 @@ const modelo_solicitud = sequelize.define('modelo_solicitud',{
     nivel_urgencia: {
         type: DataTypes.ENUM('baja', 'media', 'alta'),
         allowNull: true,
-        defaultValue: null
+        defaultValue: ('media')
     }, 
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),

@@ -8,6 +8,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 ### Agregar mensaje 
 ## TODO
 
+### Obtener todas las asesorias del asesor
+GET http://localhost:1234/asesores/asesorias
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJjYXJsb3MucmFtaXJlekBleGFtcGxlLmNvbSIsInJvbCI6ImFzZXNvciIsImlhdCI6MTc0NzAwNjk5NywiZXhwIjoxNzQ3MDEwNTk3fQ.5yB-MWhGkcwd95TbIaNWzNSTgvEwceLExZAsZGDyUQs
+
 ### Agregar comentario respecto a una asesoria
 POST http://localhost:1234/asesoria
 Content-Type: application/json

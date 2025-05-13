@@ -92,42 +92,163 @@ export class SolicitudModel{
         return JSON.stringify(buscar_solicitud, null, 1)
     }
 
-    static async getSolicitudesPorEstado(email, estado) {
+    static async asignarAsesorAutomatico(solicitudId) {
+        const transaction = await sequelize.transaction();
         try {
-            const solicitudes = await modelo_solicitud.findAll({
-                attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
-                include: [
-                    {
-                        model: modelo_cuenta_estudiante,
-                        attributes: ['nombre', 'email'],
-                        where: { email: email }
-                    },
-                    {
-                        model: modelo_cuenta_asesor,
-                        attributes: ['nombre', 'email', 'area_especializacion']
-                    }
-                ],
-                where: { estado: estado }
+            solicitud = await modelo_solicitud.findByPk(solicitudId, {
+                include: [modelo_cuenta_estudiante],
+                transaction
             });
 
-            return solicitudes.map(s => ({
-                id: s.id,
-                tema: s.tema,
-                estado: s.estado,
-                estudiante: {
-                    nombre: s.modelo_cuenta_estudiante.nombre,
-                    email: s.modelo_cuenta_estudiante.email
+            if (!solicitud || solicitud.estado !== 'pendiente') {
+                throw new Error('Solicitud no válida para asignación');
+            }
+
+            const fechaLimite = new Date(solicitud.fecha_limite);
+            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const diaRequerido = diasSemana[fechaLimite.getDay()];
+
+            const asesoresCompatibles = await modelo_cuenta_asesor.findAll({
+                where: {
+                    estado: 'activo',
+                    [sequelize.Op.or]: [
+                        { disponibilidad: { [sequelize.Op.like]: `%${diaRequerido}%` } },
+                        { disponibilidad: null }
+                    ]
                 },
-                asesor: s.modelo_cuenta_asesor ? {
-                    nombre: s.modelo_cuenta_asesor.nombre,
-                    especializacion: s.modelo_cuenta_asesor.area_especializacion
-                } : null
-            }));
+                order: [
+                    [sequelize.literal(`CASE 
+                        WHEN disponibilidad LIKE '%${diaRequerido}%' 
+                        AND area_especializacion LIKE '%${solicitud.tema}%' THEN 1 
+                        ELSE 2 
+                    END`), 'ASC'],
+                    
+                    [sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
+                ],
+                transaction
+            });
+
+            let asesorAsignado = asesoresCompatibles[0];
+            
+            // Fallback: Buscar cualquier asesor activo
+            if (!asesorAsignado) {
+                asesorAsignado = await modelo_cuenta_asesor.findOne({
+                    where: { estado: 'activo' },
+                    order: [
+                        [sequelize.literal(`LENGTH(area_especializacion)`), 'ASC'],
+                        ['area_especializacion', 'ASC']
+                    ],
+                    transaction
+                });
+            }
+
+            if (!asesorAsignado) {
+                await transaction.rollback();
+                return { error: 'No hay asesores disponibles' };
+            }
+
+            await modelo_solicitud.update({
+                asesor_id: asesorAsignado.id,
+                estado: 'asignada'
+            }, {
+                where: { id: solicitudId },
+                transaction
+            });
+
+            const asignacionesActivas = await modelo_solicitud.count({
+                where: {
+                    asesor_id: asesorAsignado.id,
+                    estado: 'asignada'
+                },
+                transaction
+            });
+
+            if (asignacionesActivas >= 5) {
+                await modelo_cuenta_asesor.update({
+                    disponibilidad: null,
+                    estado: 'inactivo'
+                }, {
+                    where: { id: asesorAsignado.id },
+                    transaction
+                });
+            }
+
+            await transaction.commit();
+            
+            return {
+                solicitud: solicitud,
+                asesor: asesorAsignado,
+                nuevoEstado: 'asignada',
+            };
+
         } catch (error) {
-            console.error("Error en getSolicitudesPorEstado:", error);
-            return null;
+            await transaction.rollback();
+            console.error('Error en asignación automática:', error);
+            throw error;
         }
     }
+    /**
+     * Obtiene una lista de solicitudes filtradas por estado y, opcionalmente, por el email del estudiante.
+     *
+     * @param {string} estado - El estado de las solicitudes que se desean obtener (por ejemplo: "pendiente", "aprobado", etc.).
+     * @param {string|null} [email=null] - (Opcional) El email del estudiante para filtrar las solicitudes. 
+     *                                     Si no se proporciona, se incluyen solicitudes de todos los estudiantes.
+     * @returns {Promise<Array<Object>|null>} Una promesa que resuelve a un arreglo de objetos con la información de cada solicitud,
+     *                                        o `null` si ocurre un error.
+     *
+     * Cada objeto de solicitud tiene la siguiente estructura:
+     * {
+     *   id: number,
+     *   tema: string,
+     *   estado: string,
+     *   estudiante: {
+     *     nombre: string,
+     *     email: string
+     *   } | null,
+     *   asesor: {
+     *     nombre: string,
+     *     especializacion: string
+     *   } | null
+     * }
+     */
+    static async getSolicitudesPorEstado(estado, email = null) {
+    try {
+        const includeOptions = [
+            {
+                model: modelo_cuenta_estudiante,
+                attributes: ['nombre', 'email'],
+                ...(email && { where: { email: email } })  // Agrega la condición solo si se proporciona email
+            },
+            {
+                model: modelo_cuenta_asesor,
+                attributes: ['nombre', 'email', 'area_especializacion']
+            }
+        ];
+
+        const solicitudes = await modelo_solicitud.findAll({
+            attributes: ['id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
+            include: includeOptions,
+            where: { estado: estado }
+        });
+
+        return solicitudes.map(s => ({
+            id: s.id,
+            tema: s.tema,
+            estado: s.estado,
+            estudiante: s.modelo_cuenta_estudiante ? {
+                nombre: s.modelo_cuenta_estudiante.nombre,
+                email: s.modelo_cuenta_estudiante.email
+            } : null,
+            asesor: s.modelo_cuenta_asesor ? {
+                nombre: s.modelo_cuenta_asesor.nombre,
+                especializacion: s.modelo_cuenta_asesor.area_especializacion
+            } : null
+        }));
+    } catch (error) {
+        throw new Error("Error en getSolicitudesPorEstado:", error);
+    }
+}
+
 
     static async getTodasSolicitudes() {
         try {
@@ -245,5 +366,19 @@ export class SolicitudModel{
             console.error("Error en actualizarEstadoSolicitud:", error);
             return false;
         }
-    }           
+    }
+    static async actualizarSolicitud(id, nuevosDatos){
+        try {
+            const [filasActualizadas] = await modelo_solicitud.update(nuevosDatos, {
+                where: { id }
+            });
+    
+            if (filasActualizadas === 0) return null;
+            return filasActualizadas;
+    
+        } catch (error) {
+            console.error("Error en actualizarSolicitud:", error);
+            return null;
+        }
+    }
 }

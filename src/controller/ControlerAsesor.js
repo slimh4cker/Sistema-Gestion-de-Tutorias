@@ -53,7 +53,6 @@ export class AsesorControler {
       res.status(400).json({ error: "Ya existe un asesor con ese correo" })
       return
     }
-    console.log(AsesorMail)
 
     try{
       await AsesorModel.createAsesor(asesor)
@@ -104,7 +103,7 @@ export class AsesorControler {
 
   static async deleteAsesor(req, res) {
     // obtener correo
-    const correo = obtenerMailDeReq(req)
+    const correo = req.query.email
 
     // asegurarse de que el asesor exista
     if (await AsesorModel.getAsesorByMail(correo) ==  null) {
@@ -121,5 +120,25 @@ export class AsesorControler {
 
     // enviar mensaje de que salio correctamente
     res.status(200).json({message: "El asesor ha sido borrado correctamente"})
+  }
+
+  static async getAllAsesores(req, res) {
+      try {
+          const asesores = await AsesorModel.getAllAsesores();
+          
+          if (!asesores || asesores.length === 0) {
+              return res.status(404).json({ error: "No hay asesores registrados" });
+          }
+
+          const respuesta = asesores.map(asesor => ({
+              nombre: asesor.nombre,
+              temas: asesor.area_especializacion,
+              email: asesor.email
+          }));
+
+          res.status(200).json(respuesta);
+      } catch (error) {
+          res.status(500).json({ error: "Error interno al obtener los asesores" });
+      }
   }
 }

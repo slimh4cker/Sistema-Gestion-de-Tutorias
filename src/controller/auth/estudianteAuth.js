@@ -1,11 +1,22 @@
 import { AlumnoModel } from "../../models/AmazonRDS/AlumnoModel.js";
 import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
+import { validarAlumnoZod } from "../../schemas/users/alumno.js";
 import bcryptjs from "bcryptjs";
 
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
+    
+    // realizar validaciones
+    const validacion = validarAlumnoZod(req.body);
+    if (!validacion.success) {
+      return res.status(400).json({
+        error: "Datos del alumno no válidos",
+        detalles: validacion.error.format()
+      });
+    }
+
 
     const nuevoEstudiante = await AlumnoModel.createAlumno({
       nombre,

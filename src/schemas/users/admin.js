@@ -20,3 +20,7 @@ export function validarParcialAdmin(admin){
   const resultado = adminSchema.partial().safeParse(admin)
   return resultado.success;
 }
+
+export function validarAdminZod(admin) {
+  return adminSchema.safeParse(admin)
+}

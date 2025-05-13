@@ -1,10 +1,20 @@
 import { AsesorModel } from "../../models/AmazonRDS/AsesorModel.js";
 import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
+import { validarAsesorZod } from "../../schemas/users/asesor.js";
 
 export const registrarAsesor = async (req, res) => {
   try {
     const { nombre, email, password, area_especializacion } = req.body;
+
+    // realizar validacion
+    const validacion = validarAsesorZod(req.body);
+    if (!validacion.success) {
+      return res.status(400).json({
+        error: "Datos del asesor no válidos",
+        detalles: validacion.error.format()
+      });
+    }
     
     const nuevoAsesor = await AsesorModel.createAsesor({
       nombre,
