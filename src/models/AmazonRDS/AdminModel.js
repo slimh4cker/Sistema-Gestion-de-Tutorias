@@ -89,34 +89,36 @@ export class AdminModel{
     
     
     static async updateAdmin(datos, emailOriginal) {
-        try {
-            const adminExistente = await modelo_cuenta_administrador.findOne({
-                where: {
-                    email: datos.email
-                }
-            });
-    
-            // Si el correo ya existe, pero es del mismo admin que se está editando, se permite
-            if (adminExistente && adminExistente.email !== emailOriginal) {
-                console.log("Ya existe un correo asociado a otro administrador");
-                return false;
-            }
-    
-            // Si no existe o es el mismo admin, actualizamos
-            const admin_update = await modelo_cuenta_administrador.update(datos, {
-                where: {
-                    email: emailOriginal
-                }
-            });
-            console.log(admin_update)
-    
-            return admin_update[0] > 0 ;
-    
-        } catch (error) {
-            console.error("Error al actualizar administrador:", error);
-            throw error;
-        }
+  try {
+    // Buscar admin por email
+    const admin = await modelo_cuenta_administrador.findOne({
+      where: { email: emailOriginal }
+    });
+
+    if (!admin) {
+      return null;
     }
+
+    // Extraer password y el resto de datos
+    const { password, ...otrosDatos } = datos;
+
+    // Si se envió un nuevo password, se hashea
+    if (password) {
+      otrosDatos.password = await hashPassword(password, 10);
+    }
+
+    // Actualizar admin con los datos restantes (incluyendo password si se actualizó)
+    await admin.update(otrosDatos);
+
+    // Eliminar password antes de retornar los datos actualizados
+    const { password: _, ...datosSeguros } = admin.dataValues;
+
+    return datosSeguros;
+  } catch (error) {
+    console.error("Error en updateAsesor:", error);
+    return null;
+  }
+}
     
 
     /**

@@ -62,7 +62,10 @@ export const loginEstudiante = async (req, res) => {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    const passwordValida = await compararPassword(password, user.password); 
+    const passwordValida = await compararPassword(password, user.password);
+    console.log(password)
+    console.log(user.password)
+    console.log(passwordValida)
 
     if (!passwordValida) {
       return res.status(401).json({ error: "Contraseña incorrecta" });

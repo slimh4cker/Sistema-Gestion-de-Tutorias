@@ -94,29 +94,37 @@ export class AsesorModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAsesor(datos, emailOriginal) {
-        try{
-            const asesor = await modelo_cuenta_asesor.findOne({
-                where: { 
-                    email: emailOriginal }
-            });
-    
-            if (!asesor) {
-                return null;
-            }
-            const hashedPassword = await hashPassword(datos.password, 10);
-            console.log(hashPassword)
-            await asesor.update({
-                ...datos,
-                password: hashedPassword,
-            }); 
-            const { password, ...datosSeguros } = asesor.dataValues;
-            return datosSeguros;        
-        }
-        catch (error) {
-            console.error("Error en updateAsesor:", error);
-            return null;
-        }
+  try {
+    // Buscar asesor por email
+    const asesor = await modelo_cuenta_asesor.findOne({
+      where: { email: emailOriginal }
+    });
+
+    if (!asesor) {
+      return null;
     }
+
+    // Extraer password y el resto de datos
+    const { password, ...otrosDatos } = datos;
+
+    // Si se envió un nuevo password, se hashea
+    if (password) {
+      otrosDatos.password = await hashPassword(password, 10);
+    }
+
+    // Actualizar asesor con los datos restantes (incluyendo password si se actualizó)
+    await asesor.update(otrosDatos);
+
+    // Eliminar password antes de retornar los datos actualizados
+    const { password: _, ...datosSeguros } = asesor.dataValues;
+
+    return datosSeguros;
+  } catch (error) {
+    console.error("Error en updateAsesor:", error);
+    return null;
+  }
+}
+
     /**
      * Desactiva la cuenta del asesor
      * @param {String} email 

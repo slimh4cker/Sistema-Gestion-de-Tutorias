@@ -10,8 +10,8 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "brandon@gmail.com",
-    "password": "Brandon123"
+    "email": "al22760575@ite.edu.mx",
+    "password": "ENSENADA2004"
 }
 ###
 POST http://localhost:1234/auth/alumno 
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 {
     "email": "juan@admin.com",
-    "password": "admin123"
+    "password": "a"
 }
 
 ## Para agregar una cuenta

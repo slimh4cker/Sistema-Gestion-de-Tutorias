@@ -38,7 +38,6 @@ async function updatePerfil(nombre, nuevaContrasenia) {
     });
 
     const resultado = await response.json();
-    console.log(resultado);
 
     if (response.ok) {
       alert('Perfil actualizado correctamente.');
@@ -74,6 +73,8 @@ form.addEventListener('submit', async (e) => {
       return;
     }
   }
+  console.log('Nombre:', nombre);
+  console.log('Nueva contraseña:', newPassword);
   // Llamar a la actualización
   updatePerfil(nombre, newPassword);
 });

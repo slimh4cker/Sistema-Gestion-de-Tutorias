@@ -58,7 +58,7 @@ export const loginAdmin = async (req, res) => {
       return res.status(404).json({ error: "Admin no registrado" });
     }
 
-    const passwordValidated = compararPassword(password, user.password);
+    const passwordValidated = await compararPassword(password, user.password);
     if (!passwordValidated) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }

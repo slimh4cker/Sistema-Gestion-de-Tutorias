@@ -59,8 +59,8 @@ export const loginAsesor = async (req, res) => {
       });
     }
 
-    const passwordValida = compararPassword(password, user.password);
-    
+    const passwordValida = await compararPassword(password, user.password);
+       
     if (!passwordValida) {
       return res.status(401).json({
         error: "Contraseña incorrecta"

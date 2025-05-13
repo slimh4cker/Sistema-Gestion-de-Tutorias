@@ -22,5 +22,6 @@ export function validarParcialAdmin(admin){
 }
 
 export function validarAdminZod(admin) {
+  console.log(admin)
   return adminSchema.safeParse(admin)
 }
