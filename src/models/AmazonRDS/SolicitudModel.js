@@ -95,7 +95,7 @@ export class SolicitudModel{
     static async asignarAsesorAutomatico(solicitudId) {
         const transaction = await sequelize.transaction();
         try {
-            solicitud = await modelo_solicitud.findByPk(solicitudId, {
+            const solicitud = await modelo_solicitud.findByPk(solicitudId, {
                 include: [modelo_cuenta_estudiante],
                 transaction
             });
@@ -108,25 +108,12 @@ export class SolicitudModel{
             const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const diaRequerido = diasSemana[fechaLimite.getDay()];
 
-            const asesoresCompatibles = await modelo_cuenta_asesor.findAll({
-                where: {
-                    estado: 'activo',
-                    [sequelize.Op.or]: [
-                        { disponibilidad: { [sequelize.Op.like]: `%${diaRequerido}%` } },
-                        { disponibilidad: null }
-                    ]
-                },
-                order: [
-                    [sequelize.literal(`CASE 
-                        WHEN disponibilidad LIKE '%${diaRequerido}%' 
-                        AND area_especializacion LIKE '%${solicitud.tema}%' THEN 1 
-                        ELSE 2 
-                    END`), 'ASC'],
-                    
-                    [sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
-                ],
-                transaction
-            });
+            const asesoresCompatibles = await AsesorModel.getAsesoresDisponibles(diaRequerido, )
+
+            if (asesoresCompatibles.length === 0) {
+                await transaction.rollback();
+                return null;
+            }
 
             let asesorAsignado = asesoresCompatibles[0];
             
@@ -348,6 +335,27 @@ export class SolicitudModel{
             console.error("Error crítico en agregarSolicitud:", error.message);
             return false;
         }
+    }
+
+    static async asignarAsesor(solicitudId, asesorId) {
+        try {
+            const solicitud = await modelo_solicitud.findByPk(solicitudId);
+            if (!solicitud) {
+                throw new Error('Solicitud no encontrado', solicitudId);
+            }
+            const asesor = await modelo_cuenta_asesor.findByPk(asesorId);
+            if (!asesor) {
+                throw new Error('Asesor no encontrado', asesorId);
+            }
+            solicitud.asesor_id = asesorId;
+            solicitud.estado = 'activo';
+            await solicitud.save();
+            return solicitud;
+        } catch (error) {  
+            console.error("Error en asignarAsesor:", error);
+            throw new Error("Error al asignar asesor", error);
+        }
+
     }
     
     static async actualizarEstadoSolicitud(id, nuevoEstado) {
