@@ -1,4 +1,5 @@
 import { ParseStatus } from "zod";
+import { Sequelize } from 'sequelize';
 import { modelo_cuenta_asesor} from "./Modelo_cuentas.js";
 import { hashPassword } from '../../utils/security.js';
 
@@ -155,6 +156,33 @@ export class AsesorModel{
             });
         } catch (error) {
             console.error("Error al obtener asesores:", error);
+            throw error;
+        }
+    }
+
+    static async getAsesoresDisponibles(diaRequerido, especializacion ) {
+        try {
+            const asesores = await modelo_cuenta_asesor.findAll({
+                where: {
+                    estado: 'activo',
+                    [Sequelize.Op.or]: [
+                        { disponibilidad: { [Sequelize.Op.like]: `%${diaRequerido}%` } },
+                        { disponibilidad: null }
+                    ]
+                },
+                order: [
+                    [Sequelize.literal(`CASE 
+                        WHEN disponibilidad LIKE '%${diaRequerido}%' 
+                        AND area_especializacion LIKE '%${especializacion}%' THEN 1 
+                        ELSE 2 
+                    END`), 'ASC'],
+                    
+                    [Sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
+                ],
+            });
+            return asesores
+        } catch (error) {
+            console.error("Error al obtener asesores activos:", error);
             throw error;
         }
     }
