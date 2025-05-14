@@ -164,7 +164,7 @@ de manera aislada.
     
         } catch (error) {
             console.error("Error en actualizarAsesoria:", error);
-            return null;
+            throw new Error("Error al actualizar la asesoría", error);
         }
     }
 }
