@@ -5,7 +5,7 @@ import { enviarMailAsignarSolicitud } from '../mail/enviarMailAsignarSolicitud.j
 const diaSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
 export async function asignacionAutomatica(solicitudId){
-  const resultado = await algoritmoEjecucion(solicitudId);
+  const resultado = await algoritmoAsignacion(solicitudId);
 
   // Si no se logro
   if (resultado === null) {
