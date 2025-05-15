@@ -135,7 +135,12 @@ export class SolicitudControler {
             }
 
             // Llamar a la asignación automática
-            const resultadoAsignacion = await asignacionAutomatica(solicitudCreada.id);
+            try {
+                const resultadoAsignacion = await asignacionAutomatica(solicitudCreada.id);
+            } catch (error) {
+                console.error("Error en la asignación automática:", error);
+            }
+            
 
             // Si todo sale bien
             res.status(201).json({ 
