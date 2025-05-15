@@ -29,6 +29,21 @@ export class AsesorModel{
         return correo_asesor.dataValues // Retorna un JSON con los datos del alumno
     }
 
+    static async getAsesorById(id) {
+        const asesor = await modelo_cuenta_asesor.findOne({
+            where: {
+                id,
+                estado: 'activo' // y estado se igual a activo
+            }
+        })
+
+        if (asesor == null) {
+            return null // Si no existe el correo retorna null
+        }
+        
+        return asesor.dataValues // Retorna un JSON con los datos del alumno
+    }
+
     /**
      * 
      * @param {JSON} datosAsesor

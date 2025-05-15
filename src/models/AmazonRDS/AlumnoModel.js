@@ -26,6 +26,19 @@ export class AlumnoModel{
         console.log("[DEBUG] Alumno encontrado:", correo_alumno.dataValues); // 👁️ Verifica los datos
         return correo_alumno.dataValues;
     }
+
+    static async getAlumnoById(id) {
+        const alumno = await modelo_cuenta_estudiante.findOne({
+            where: { id, estado: 'activo' }
+        });
+        
+        if (!alumno) {
+            console.log("[DEBUG] No se encontró alumno activo con id", id);
+            return null;
+        }
+        
+        console.log("[DEBUG] Alumno encontrado:", alumno.dataValues); // 👁️ Verifica los datos
+    }
     /**
      * 
      * @param {JSON} datosALumno 
