@@ -9,6 +9,10 @@ import { AlumnoModel } from '../../models/AmazonRDS/AlumnoModel.js';
 export async function enviarMailAsignarSolicitud(solicitudId) {
   // Obtener todas lass variables que ocupo de el modelo
   const solicitud = await SolicitudModel.buscarSolicitud(solicitudId);
+  if (solicitud === null) {
+    console.error("Al intentar enviar un correo no se encontró la solicitud con ID:", solicitudId);
+    return null;
+  }
   const alumno = await AlumnoModel.getAlumnoById(solicitud.estudiante_id);
   const asesor = await AsesorModel.getAsesorById(solicitud.asesor_id);
 
