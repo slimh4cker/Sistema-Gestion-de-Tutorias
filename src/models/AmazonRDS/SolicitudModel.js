@@ -66,32 +66,41 @@ export class SolicitudModel{
         }
     }
 
-    static async buscarSolicitud(id){
-        const buscar_solicitud = await modelo_solicitud.findOne({
-            attributes: ['id',
-            [sequelize.col("modelo_cuenta_estudiante.nombre"),'estudiante_id'],
-            [sequelize.col("modelo_cuenta_asesor.nombre"),'asesor_id'],
+    static async buscarSolicitud(id) {
+    const buscar_solicitud = await modelo_solicitud.findOne({
+        attributes: [
+            'id',
+            [sequelize.col("modelo_cuenta_estudiante.nombre"), 'estudiante_id'],
+            [sequelize.col("modelo_cuenta_asesor.nombre"), 'asesor_id'],
             'tema',
             'observaciones', 
             'fecha_limite', 
             'modalidad', 
             'nivel_urgencia', 
-            'estado'],
-            include:{
+            'estado'
+        ],
+        include: [
+            {
                 model: modelo_cuenta_estudiante,
                 attributes: []
             },
-            include: {
+            {
                 model: modelo_cuenta_asesor,
                 attributes: []
-            },
-            where: {
-                id: id
-            },
-        })
-        return JSON.stringify(buscar_solicitud, null, 1)
+            }
+        ],
+        where: {
+            id: id
+        },
+        raw: true
+    });
+
+    if (!buscar_solicitud) {
+        return null;
     }
 
+    return JSON.stringify(buscar_solicitud, null, 1);
+}
     static async asignarAsesorAutomatico(solicitudId) {
         const transaction = await sequelize.transaction();
         try {
