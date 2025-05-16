@@ -8,29 +8,30 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             }
         });
+        console.log(response.status)
+        const gridContainer = document.querySelector('.cursos-grid-container');
+        gridContainer.innerHTML = ''; // Limpiar contenido estático
 
         if (!response.ok) {
             if (response.status === 401) {
                 window.location.href = '/login.html';
                 return;
             }
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const cursos = await response.json();
-        
-        const gridContainer = document.querySelector('.cursos-grid-container');
-        gridContainer.innerHTML = ''; // Limpiar contenido estático
-        
-        if (cursos.length === 0) {
-            gridContainer.innerHTML = `
+            else if(response.status === 404){
+                gridContainer.innerHTML = `
                 <div class="alert alert-info">
                     No tienes cursos asignados actualmente
                 </div>
             `;
             return;
+
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        const cursos = await response.json();
+        
+        
         cursos.forEach(curso => {
             const cursoCard = document.createElement('div');
             cursoCard.className = 'curso-card';
