@@ -99,7 +99,7 @@ export class SolicitudModel{
         return null;
     }
 
-    return JSON.stringify(buscar_solicitud, null, 1);
+    return buscar_solicitud;
 }
     static async asignarAsesorAutomatico(solicitudId) {
         const transaction = await sequelize.transaction();
