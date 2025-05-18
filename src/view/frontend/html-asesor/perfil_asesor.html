@@ -114,15 +114,6 @@
                                 <div class="input-group">
                                     <select class="form-select topics-select" id="topics-select">
                                         <option value="" selected disabled>Selecciona un tema para agregar</option>
-                                        <option value="Matemáticas discretas">Matemáticas discretas</option>
-                                        <option value="Bases de datos">Bases de datos</option>
-                                        <option value="Programación">Programación</option>
-                                        <option value="Álgebra lineal">Álgebra lineal</option>
-                                        <option value="Cálculo diferencial">Cálculo diferencial</option>
-                                        <option value="Estructuras de datos">Estructuras de datos</option>
-                                        <option value="Redes de computadoras">Redes de computadoras</option>
-                                        <option value="Inteligencia artificial">Inteligencia artificial</option>
-                                        <option value="Ingeniería de software">Ingeniería de software</option>
                                     </select>
                                     <button type="button" class="btn btn-primary add-topic-btn" onclick="addTopic()">
                                         <i class="fas fa-plus me-1"></i> Agregar
@@ -145,51 +136,7 @@
     <script src="../js/sidebar_asesor.js"></script>
     <script src="../js/perfil.js"></script>
     <script src="../js/update_perfil.js"></script>
-    <script>
-        // Funciones para manejar los temas a enseñar
-        function addTopic() {
-            const select = document.getElementById('topics-select');
-            const selectedTopic = select.value;
-            const selectedTopicsContainer = document.getElementById('selected-topics');
-            
-            if (!selectedTopic) return;
-            
-            // Verificar si el tema ya está seleccionado
-            const existingTopics = Array.from(selectedTopicsContainer.children).map(item => item.textContent.trim().replace('×', '').trim());
-            if (existingTopics.includes(selectedTopic)) {
-                alert('Este tema ya ha sido agregado');
-                return;
-            }
-            
-            // Crear nuevo elemento de tema
-            const topicItem = document.createElement('div');
-            topicItem.className = 'topic-item';
-            topicItem.innerHTML = `
-                ${selectedTopic}
-                <span class="remove-topic" onclick="removeTopic(this)"><i class="fas fa-times"></i></span>
-            `;
-            
-            selectedTopicsContainer.appendChild(topicItem);
-            select.value = '';
-        }
-        
-        function removeTopic(element) {
-            element.closest('.topic-item').remove();
-        }
-    </script>
-    <script>
-        // Script para manejar la edición de contraseña
-        document.getElementById('change-password-btn').addEventListener('click', function() {
-            const passwordFields = document.getElementById('password-fields');
-            const passwordInput = document.getElementById('password');
-            
-            if (passwordFields.style.display === 'none') {
-                passwordFields.style.display = 'block';
-
-            } else {
-                passwordFields.style.display = 'none';
-            }
-        });
-    </script>
+    <script src="../js/admin_temas.js"></script>
+    <script src="../js/asesor_temas.js"></script>
 </body>
 </html>
