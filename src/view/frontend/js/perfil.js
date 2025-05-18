@@ -42,7 +42,6 @@ async function obtenerDatos() {
 
 window.onload = () => {
     obtenerDatos().then(usuario =>{
-        console.log(usuario);
         // Se mandan a llamar los elementos del DOM 
         const input_nombre = document.getElementById('nombre');
         const input_password = document.getElementById('password');

@@ -25,11 +25,15 @@ export async function asignacionAutomatica(solicitudId){
 
 async function algoritmoAsignacion(solicitudId) {
   // Obtener todas lass variables que ocupo de el modelo
-  const solicitud = await SolicitudModel.getSolicitudById(solicitudId);
+  const solicitud = await SolicitudModel.buscarSolicitud(solicitudId);
+  if (solicitud === null) {
+    console.error("Al intentar asignar una solicitud no se encontró la solicitud con ID:", solicitudId);
+    return null;
+  }
+
   const fechaLimite = new Date(solicitud.fecha_limite);
   const diaRequerido = diaSemana[fechaLimite.getDay()];
-  const especializacion = solicitud.especializacion;
-
+  const especializacion = solicitud.tema;
   let asesoresDisponibles = [];
   try {
     asesoresDisponibles = await AsesorModel.getAsesoresDisponibles(diaRequerido, especializacion);

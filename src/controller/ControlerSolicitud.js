@@ -4,6 +4,7 @@ import { SolicitudModel } from "../models/AmazonRDS/SolicitudModel.js"
 import { AlumnoModel } from "../models/AmazonRDS/AlumnoModel.js"
 import { validarSolicitud } from "../schemas/solicitud.js"
 import { obtenerMailDeReq } from "../utils/request.js"
+import { asignacionAutomatica } from "../utils/solicitudes/asignacion.js"
 
 export class SolicitudControler {
   // Obtiene todas las solicitudes de un alumno en especifico
@@ -134,15 +135,12 @@ export class SolicitudControler {
             }
 
             // Llamar a la asignación automática
-            const resultadoAsignacion = await SolicitudControler.asignarSolicitudAutomatica({
-                params: { solicitudId: solicitudCreada.id }
-            }, res);
-
-            if (!resultadoAsignacion) {
-                return res.status(500).json({ 
-                    error: "Solicitud creada pero falló la asignación automática" 
-                });
+            try {
+                const resultadoAsignacion = await asignacionAutomatica(solicitudCreada.id);
+            } catch (error) {
+                console.error("Error en la asignación automática:", error);
             }
+            
 
             // Si todo sale bien
             res.status(201).json({ 
