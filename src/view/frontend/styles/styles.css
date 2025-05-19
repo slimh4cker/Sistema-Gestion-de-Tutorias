@@ -288,7 +288,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 
 /*********************************************************/
 /* ESTILOS PARA LAS SOLICITUDES */
-/* Listado de solicitudes - Versión integrada */
+/* Listado de solicitudes */
 .solicitudes-list {
     animation: fadeIn 0.5s ease-in;
     background: transparent;
@@ -705,98 +705,6 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     margin-bottom: 1.5rem;
 }
 
-
-/********************************************************************************************/
-/* Estilos para la interfaz de mensajes */
-.messages-container {
-    display: flex;
-    height: calc(100vh - 180px);
-    overflow: hidden;
-}
-
-.conversation-list {
-    width: 300px;
-    border-right: 1px solid #e9ecef;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.conversation-items {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.conversation-item {
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.conversation-item:hover {
-    background-color: #f8f9fa;
-}
-
-.conversation-item.unread {
-    background-color: #f0f7ff;
-}
-
-.message-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.message-thread {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    background-color: #f8fafb;
-}
-
-.message {
-    margin-bottom: 15px;
-}
-
-.message-sender {
-    font-size: 0.9rem;
-}
-
-.message-content {
-    font-size: 0.95rem;
-}
-
-.message-time {
-    font-size: 0.8rem;
-    text-align: right;
-}
-
-.message-compose {
-    background-color: #fff;
-}
-
-/* Scroll personalizado */
-.conversation-items::-webkit-scrollbar,
-.message-thread::-webkit-scrollbar {
-    width: 6px;
-}
-
-.conversation-items::-webkit-scrollbar-track,
-.message-thread::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.conversation-items::-webkit-scrollbar-thumb,
-.message-thread::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.conversation-items::-webkit-scrollbar-thumb:hover,
-.message-thread::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
 /* Estilos específicos para la VISTA DE CURSOS*/
 .main-content-container {
     padding: 1rem;
@@ -823,7 +731,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     width: 100%;
 }
 
-/* Tarjetas de curso - CAMBIOS IMPORTANTES AQUÍ */
+/* Tarjetas de curso */
 .curso-card {
     background-color: white;
     border-radius: 8px;
@@ -1713,3 +1621,6 @@ html, body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+

@@ -9,6 +9,99 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+<style>
+    /********************************************************************************************/
+/* Estilos para la interfaz de mensajes */
+.messages-container {
+    display: flex;
+    height: calc(100vh - 180px);
+    overflow: hidden;
+}
+
+.conversation-list {
+    width: 300px;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.conversation-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.conversation-item {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.conversation-item:hover {
+    background-color: #f8f9fa;
+}
+
+.conversation-item.unread {
+    background-color: #f0f7ff;
+}
+
+.message-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.message-thread {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8fafb;
+}
+
+.message {
+    margin-bottom: 15px;
+}
+
+.message-sender {
+    font-size: 0.9rem;
+}
+
+.message-content {
+    font-size: 0.95rem;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.message-compose {
+    background-color: #fff;
+}
+
+/* Scroll personalizado */
+.conversation-items::-webkit-scrollbar,
+.message-thread::-webkit-scrollbar {
+    width: 6px;
+}
+
+.conversation-items::-webkit-scrollbar-track,
+.message-thread::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.conversation-items::-webkit-scrollbar-thumb,
+.message-thread::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.conversation-items::-webkit-scrollbar-thumb:hover,
+.message-thread::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+</style>
     <div class="alumno-container">
 
         <!-- Contenido principal -->
@@ -22,49 +115,41 @@
                 <div class="messages-container white-card rounded-4 shadow-sm">
                     <!-- Lista de conversaciones -->
                     <div class="conversation-list">
-                        <!-- Barra de búsqueda que abarca todo el ancho -->
-                        <div class="conversation-search p-3 border-bottom">
-                            <div class="input-group w-100">
-                                <span class="input-group-text bg-white border-end-0">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <input type="text" class="form-control border-start-0" placeholder="Buscar conversaciones...">
-                            </div>
-                        </div>
-                        
-                        <!-- Lista de contactos (sin checkboxes) -->
-                        <div class="conversation-items">
-                            <!-- Conversación 1 -->
-                            <div class="conversation-item unread p-3 border-bottom">
-                                <div class="conversation-content">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
-                                        <span class="badge bg-primary rounded-pill">2</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Conversación 2 -->
-                            <div class="conversation-item read p-3 border-bottom">
-                                <div class="conversation-content">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h6 class="mb-0">Ignacio Robles</h6>
-                                        <span class="text-muted small">Ayer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Conversación 3 -->
-                            <div class="conversation-item unread p-3 border-bottom">
-                                <div class="conversation-content">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h6 class="mb-0">Andres Barragan</h6>
-                                        <span class="badge bg-primary rounded-pill">1</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Encabezado "Buscar conversaciones..." -->
+    <div class="conversation-header p-3 border-bottom">
+        <h6 class="mb-0 fw-bold">Buscar conversaciones...</h6>
+    </div>
+    
+    <!-- Lista de contactos -->
+    <div class="conversation-items">
+        <!-- Conversación 1 -->
+        <div class="conversation-item unread p-3 border-bottom">
+            <div class="conversation-content">
+                <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
+            </div>
+        </div>
+        
+        <!-- Conversación 2 -->
+        <div class="conversation-item read p-3 border-bottom">
+            <div class="conversation-content">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Ignacio Robles</h6>
+                    <span class="text-muted small">Ayer</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conversación 3 -->
+        <div class="conversation-item unread p-3 border-bottom">
+            <div class="conversation-content">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Andres Barragan</h6>
+                    <span class="badge bg-primary rounded-pill">1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                     
                     <!-- Área de mensajes -->
                     <div class="message-area">
@@ -103,7 +188,7 @@
                         
                         <!-- Área de escritura -->
                         <div class="message-compose p-3 border-top">
-                            <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aquí..." style="resize: none; min-height: 80px;"></textarea>
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-paper-plane me-1"></i> Enviar

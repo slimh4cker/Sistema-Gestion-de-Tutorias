@@ -50,7 +50,7 @@ function inicializarSolicitarAsesoria() {
                         </div>
                         <div class="mb-3">
                             <label for="requisitos" class="form-label fw-semibold">Requisitos particulares:</label>
-                            <textarea id="requisitos" class="form-control" rows="3" required></textarea>
+                            <textarea id="requisitos" class="form-control" rows="3" style="resize: none; height: 120px; width: 100%;"  required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="fecha" class="form-label fw-semibold">Fecha límite:</label>
@@ -89,7 +89,7 @@ function inicializarSolicitarAsesoria() {
                 <div class="white-card rounded-4 shadow-sm">
                     <div class="empty-state-content">
                         <p class="empty-state-text fw-bold text-secondary">
-                            No tienes ninguna asesoría por el momento
+                            No ninguna asesoría por el momento
                         </p>
                         <i class="fas fa-calendar-times empty-state-icon text-secondary"></i>
                     </div>
