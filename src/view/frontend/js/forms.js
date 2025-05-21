@@ -52,15 +52,33 @@ const formTemplates = {
             </div>
             <div class="mb-3">
                 <label class="form-label">Especialidad:</label>
-                <select class="form-select" id="txtEspecialidad" required>
-                    <option value="" disabled selected>Selecciona una especialidad</option>
-                    <option value="matematicas">Matemáticas</option>
-                    <option value="fisica">Física</option>
-                    <option value="programacion">Programación</option>
-                    <option value="quimica">Química</option>
-                    <option value="ingles">Inglés</option>
-                    <option value="electronica">Electrónica</option>
-                </select>
+                    <select class="form-select" id="txtEspecialidad" required>
+                        <option value="" disabled selected>Selecciona una materia</option>
+                        <option value="Administración de Bases de Datos">Administración de Bases de Datos</option>
+                        <option value="Álgebra">Álgebra</option>
+                        <option value="Álgebra lineal">Álgebra lineal</option>
+                        <option value="Álgebra/Precálculo">Álgebra/Precálculo</option>
+                        <option value="Cálculo Diferencial">Cálculo Diferencial</option>
+                        <option value="Cálculo Integral">Cálculo Integral</option>
+                        <option value="Cálculo Vectorial">Cálculo Vectorial</option>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Dibujo Asistido">Dibujo Asistido</option>
+                        <option value="Dibujo en SolidWorks">Dibujo en SolidWorks</option>
+                        <option value="Dinámica">Dinámica</option>
+                        <option value="Electromagnetismo">Electromagnetismo</option>
+                        <option value="Electrónica Básica">Electrónica Básica</option>
+                        <option value="Estadística">Estadística</option>
+                        <option value="Estática">Estática</option>
+                        <option value="Física">Física</option>
+                        <option value="Fundamentos de Bases de Datos">Fundamentos de Bases de Datos</option>
+                        <option value="Fundamentos de Investigación">Fundamentos de Investigación</option>
+                        <option value="Programación Básica">Programación Básica</option>
+                        <option value="Química">Química</option>
+                        <option value="Taller de Bases de Datos">Taller de Bases de Datos</option>
+                        <option value="Taller de Investigación 1">Taller de Investigación 1</option>
+                        <option value="Taller de Investigación 2">Taller de Investigación 2</option>
+                        <option value="Vibraciones mecánicas">Vibraciones mecánicas</option>
+                    </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Contraseña:</label>
@@ -77,7 +95,7 @@ const formTemplates = {
 `,
     
 
-    /*
+    
     admin: `
             <div class="administrador"> 
 
@@ -106,7 +124,9 @@ const formTemplates = {
                 </div>
             </form>
         </div>
-        </div>*/
+        </div>
+   `,
+    /*
 
     admin: `
         <div class="form-content" >
@@ -115,8 +135,8 @@ const formTemplates = {
             <h5> Solo un administrador puede agregar a otro administrador</h5>
         </div>    
 
-
-    `,
+    */
+ 
     
     login_alumno: `
         <div class="alumno"> 
@@ -195,9 +215,9 @@ const formTemplates = {
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer">
                     <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
-                    <!--<p class="text-center mt-3 small">
+                    <p class="text-center mt-3 small">
                         ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
-                    </p> -->
+                    </p>
                 </div>
             </form>
         </div>
