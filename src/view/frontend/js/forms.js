@@ -52,7 +52,7 @@ const formTemplates = {
             </div>
             <div class="mb-3">
                 <label class="form-label">Especialidad:</label>
-                    <select class="form-select" id="txtEspecialidad" required>
+                <select class="form-select" id="txtEspecialidad" required>
                         <option value="" disabled selected>Selecciona una materia</option>
                         <option value="Administración de Bases de Datos">Administración de Bases de Datos</option>
                         <option value="Álgebra">Álgebra</option>
@@ -95,7 +95,7 @@ const formTemplates = {
 `,
     
 
-    
+    /*
     admin: `
             <div class="administrador"> 
 
@@ -124,9 +124,7 @@ const formTemplates = {
                 </div>
             </form>
         </div>
-        </div>
-   `,
-    /*
+        </div>*/
 
     admin: `
         <div class="form-content" >
@@ -135,8 +133,8 @@ const formTemplates = {
             <h5> Solo un administrador puede agregar a otro administrador</h5>
         </div>    
 
-    */
- 
+
+    `,
     
     login_alumno: `
         <div class="alumno"> 
@@ -215,9 +213,9 @@ const formTemplates = {
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer">
                     <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
-                    <p class="text-center mt-3 small">
+                    <!--<p class="text-center mt-3 small">
                         ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
-                    </p>
+                    </p> -->
                 </div>
             </form>
         </div>
