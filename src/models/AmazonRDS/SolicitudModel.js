@@ -230,6 +230,10 @@ export class SolicitudModel{
         return solicitudes.map(s => ({
             id: s.id,
             tema: s.tema,
+            observaciones: s.observaciones,
+            fecha_limite: s.fecha_limite,
+            modalidad: s.modalidad,
+            nivel_urgencia: s.nivel_urgencia,
             estado: s.estado,
             estudiante: s.modelo_cuenta_estudiante ? {
                 nombre: s.modelo_cuenta_estudiante.nombre,
