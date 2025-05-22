@@ -70,8 +70,8 @@ export class SolicitudModel{
     const buscar_solicitud = await modelo_solicitud.findOne({
         attributes: [
             'id',
-            [sequelize.col("modelo_cuenta_estudiante.nombre"), 'estudiante_id'],
-            [sequelize.col("modelo_cuenta_asesor.nombre"), 'asesor_id'],
+            'estudiante_id',
+            'asesor_id',
             'tema',
             'observaciones', 
             'fecha_limite', 

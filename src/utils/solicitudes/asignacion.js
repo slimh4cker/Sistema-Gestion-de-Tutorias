@@ -49,7 +49,9 @@ async function algoritmoAsignacion(solicitudId) {
     return null;
   }
   const fechaLimite = new Date(solicitud.fecha_limite);
+  console.log("La fecha limite es: ", fechaLimite)
   const diaRequerido = diaSemana[fechaLimite.getDay()];
+  console.log("El dia requerido es: ", diaRequerido)
   const especializacion = solicitud.tema;
   let asesoresDisponibles = [];
   try {

@@ -177,6 +177,7 @@ export class AsesorModel{
 
     static async getAsesoresDisponibles(diaRequerido, especializacion ) {
         try {
+            console.log(diaRequerido)
             const asesores = await modelo_cuenta_asesor.findAll({
                 where: {
                     estado: 'activo',
@@ -195,6 +196,7 @@ export class AsesorModel{
                     [Sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
                 ],
             });
+            console.log(asesores)
             return asesores
         } catch (error) {
             console.error("Error al obtener asesores activos:", error);
