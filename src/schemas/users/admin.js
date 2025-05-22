@@ -21,6 +21,8 @@ export function validarParcialAdmin(admin){
   return resultado.success;
 }
 
+// Realiza la validacion utilizando del objeto ZOD
+// retorna el objeto ZOD correspondiente a el objeto
 export function validarAdminZod(admin) {
   console.log(admin)
   return adminSchema.safeParse(admin)

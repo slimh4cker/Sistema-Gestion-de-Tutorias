@@ -17,6 +17,7 @@ const asesoriaSchema = z.object({
 })
 
 // TODO probar que el formato de fechas sea correcto y que la fecha de atencion sea mayor a la fecha de creacion y otras validaciones de fechas
+// Decrepado
 export async function validarAsesoria(asesoria) {
   const resultado = asesoriaSchema.safeParse(asesoria);
   return resultado.success; 

@@ -21,7 +21,8 @@ export function validarParcialAlumno(alumno){
   return resultado.success; 
 }
 
-// retorna el objeto zod tras validar
+// Realiza la validacion utilizando del objeto ZOD
+// retorna el objeto ZOD correspondiente a el objeto
 export function validarAlumnoZod(alumno){
   return alumnoSchema.safeParse(alumno)
 }

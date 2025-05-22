@@ -22,6 +22,8 @@ export function validarParcialAsesor(asesor){
   return resultado.success;
 }
 
+// Realiza la validacion utilizando del objeto ZOD
+// retorna el objeto ZOD correspondiente a el objeto
 export function validarAsesorZod(asesor){
   return asesorSchema.safeParse(asesor)
 }
