@@ -4,8 +4,12 @@ import { AsesorModel } from '../../models/AmazonRDS/AsesorModel.js';
 import { AlumnoModel } from '../../models/AmazonRDS/AlumnoModel.js';
 
 
-// Metodo que envia al asesor y al alumno el correo de la asignacion
-
+/**
+ * Envía un correo electrónico al asesor y al alumno recuperados de una solicitud.
+ * @param {string} solicitudId - ID de la solicitud.
+ * @returns {Promise<void>} - Promesa que se resuelve cuando se envían los correos.
+ * @throws {Error} - Si no se encuentra la solicitud, si no cuenta con los campos correctos o si ocurre un error al enviar el correo.
+ */
 export async function enviarMailAsignarSolicitud(solicitudId) {
   // Obtener todas lass variables que ocupo de el modelo
   const solicitud = await SolicitudModel.buscarSolicitud(solicitudId);
