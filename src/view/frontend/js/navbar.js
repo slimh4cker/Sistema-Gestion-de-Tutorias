@@ -42,11 +42,32 @@ function inicializarSolicitarAsesoria() {
                         <div class="mb-3">
                             <label for="curso" class="form-label fw-semibold">Curso:</label>
                             <select id="curso" class="form-select" required>
-                                <option value="" selected disabled>Selecciona un curso</option>
-                                <option value="Matemáticas Avanzadas">Matemáticas Avanzadas</option>
-                                <option value="Física Cuántica">Física Cuántica</option>
-                                <option value="Programación Web">Programación Web</option>
-                            </select>
+                            <option value="" disabled selected>Selecciona una materia</option>
+                            <option value="Administración de Bases de Datos">Administración de Bases de Datos</option>
+                            <option value="Álgebra">Álgebra</option>
+                            <option value="Álgebra lineal">Álgebra lineal</option>
+                            <option value="Álgebra/Precálculo">Álgebra/Precálculo</option>
+                            <option value="Cálculo Diferencial">Cálculo Diferencial</option>
+                            <option value="Cálculo Integral">Cálculo Integral</option>
+                            <option value="Cálculo Vectorial">Cálculo Vectorial</option>
+                            <option value="Contabilidad">Contabilidad</option>
+                            <option value="Dibujo Asistido">Dibujo Asistido</option>
+                            <option value="Dibujo en SolidWorks">Dibujo en SolidWorks</option>
+                            <option value="Dinámica">Dinámica</option>
+                            <option value="Electromagnetismo">Electromagnetismo</option>
+                            <option value="Electrónica Básica">Electrónica Básica</option>
+                            <option value="Estadística">Estadística</option>
+                            <option value="Estática">Estática</option>
+                            <option value="Física">Física</option>
+                            <option value="Fundamentos de Bases de Datos">Fundamentos de Bases de Datos</option>
+                            <option value="Fundamentos de Investigación">Fundamentos de Investigación</option>
+                            <option value="Programación Básica">Programación Básica</option>
+                            <option value="Química">Química</option>
+                            <option value="Taller de Bases de Datos">Taller de Bases de Datos</option>
+                            <option value="Taller de Investigación 1">Taller de Investigación 1</option>
+                            <option value="Taller de Investigación 2">Taller de Investigación 2</option>
+                            <option value="Vibraciones mecánicas">Vibraciones mecánicas</option>
+                        </select>
                         </div>
                         <div class="mb-3">
                             <label for="requisitos" class="form-label fw-semibold">Requisitos particulares:</label>
