@@ -133,10 +133,10 @@ export class SolicitudControler {
             if (!solicitudCreada) {
                 return res.status(500).json({ error: "Error al crear la solicitud" });
             }
-
+            let resultadoAsignacion = null
             // Llamar a la asignación automática
             try {
-                const resultadoAsignacion = await asignacionAutomatica(solicitudCreada.id);
+                resultadoAsignacion = await asignacionAutomatica(solicitudCreada.id);
             } catch (error) {
                 console.error("Error en la asignación automática:", error);
             }
