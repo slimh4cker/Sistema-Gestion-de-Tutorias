@@ -38,6 +38,7 @@ export class AlumnoModel{
         }
         
         console.log("[DEBUG] Alumno encontrado:", alumno.dataValues); // 👁️ Verifica los datos
+        return alumno.dataValues
     }
     /**
      * 
