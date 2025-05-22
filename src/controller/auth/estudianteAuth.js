@@ -4,6 +4,18 @@ import { compararPassword } from '../../utils/security.js';
 import { validarAlumnoZod } from "../../schemas/users/alumno.js";
 import bcryptjs from "bcryptjs";
 
+/**
+ * 
+ * Controlador para registrar un nuevo estudiante en el sistema.
+ * Realiza validación de datos y crea un nuevo registro de alumno.
+ * 
+ * @function registrarEstudiante
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express. Debe incluir `nombre`, `email`, `password` y `matricula` en el body.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con los datos del alumno registrado o un mensaje de error.
+ */
+
 export const registrarEstudiante = async (req, res) => {
   try {
     const { nombre, email, password, matricula } = req.body;
@@ -48,6 +60,17 @@ export const registrarEstudiante = async (req, res) => {
   }
 };
 
+/**
+ * 
+ * Controlador para el inicio de sesión de un estudiante.
+ * Verifica las credenciales y genera un token JWT si son correctas.
+ * 
+ * @function loginEstudiante
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express. Debe incluir `email` y `password` en el body.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con el token de autenticación y los datos del alumno, o un mensaje de error.
+ */
 export const loginEstudiante = async (req, res) => {
   try {
     const { email, password } = req.body;
