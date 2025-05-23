@@ -74,7 +74,7 @@ export class AsesoriaModel{
                 }]
             }],
             where: {
-                estado: 'pendiente'
+                estado: 'asignada'
             }
         })
         console.log("Los pendientes son los siguientes: ",pendientes)
