@@ -177,7 +177,6 @@ export class AsesorModel{
 
     static async getAsesoresDisponibles(diaRequerido, especializacion ) {
         try {
-            console.log(diaRequerido)
             const asesores = await modelo_cuenta_asesor.findAll({
                 where: {
                     estado: 'activo',

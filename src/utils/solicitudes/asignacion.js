@@ -32,6 +32,10 @@ export async function asignacionAutomatica(solicitudId){
 
 }
 
+asignacionAutomatica(3)
+asignacionAutomatica(4)
+asignacionAutomatica(5)
+
 /**
  * Algoritmo que busca un asesor disponible y asigna la solicitud al primero que cumpla con los criterios.
  * Si no hay asesores disponibles o hay errores en el proceso, retorna `null`.
@@ -49,9 +53,7 @@ async function algoritmoAsignacion(solicitudId) {
     return null;
   }
   const fechaLimite = new Date(solicitud.fecha_limite);
-  console.log("La fecha limite es: ", fechaLimite)
   const diaRequerido = diaSemana[fechaLimite.getDay()];
-  console.log("El dia requerido es: ", diaRequerido)
   const especializacion = solicitud.tema;
   let asesoresDisponibles = [];
   try {
@@ -63,6 +65,7 @@ async function algoritmoAsignacion(solicitudId) {
 
   // Ver si hay asesores disponibles
   if (asesoresDisponibles.length === 0) {
+    console.error("No hay asesores disponibles para la solicitud con ID:", solicitudId);
     return null // no se le encontro asignacion valida
   }
 
