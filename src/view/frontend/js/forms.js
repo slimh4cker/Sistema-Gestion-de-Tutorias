@@ -271,7 +271,12 @@ async function loginUser() {
     const password = document.getElementById('txtContraLogin')?.value;
 
     if (!email || !password) {
-        alert('Por favor complete todos los campos');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos requeridos',
+            text: 'Por favor complete todos los campos',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
 
@@ -331,7 +336,13 @@ async function loginUser() {
                     break;
             }
         } else {
-            alert(data.message || 'Credenciales incorrectas');
+            Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Credenciales incorrectas',
+            confirmButtonColor: '#d33'
+});
+
         }
     } catch (error) {
         console.error('Error:', error);
@@ -340,14 +351,12 @@ async function loginUser() {
 }
 
 function showAlertModal(message) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'alert-message';
-    alertDiv.textContent = message;
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000);
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message,
+        confirmButtonColor: '#d33'
+    });
 }
 
 async function registerUser() {
@@ -363,9 +372,14 @@ async function registerUser() {
 
     const errorMsg = validarCamposRegistro(currentUserType, { nombre, email, password, especialidad });
     if (errorMsg) {
-        alert(errorMsg);
-        return;
-    }
+    Swal.fire({
+        icon: 'warning',
+        title: 'Campos inválidos',
+        text: errorMsg,
+        confirmButtonColor: '#3085d6'
+    });
+    return;
+}
 
     console.log('Tipo de usuario:', currentUserType);
     // Configurar según el tipo de usuario
@@ -377,9 +391,14 @@ async function registerUser() {
         case 'asesor':
             
             if (!especialidad) {
-                alert('Por favor seleccione una especialidad');
-                return;
-            }
+            Swal.fire({
+                icon: 'warning',
+                title: 'Falta especialidad',
+                text: 'Por favor seleccione una especialidad',
+                confirmButtonColor: '#3085d6'
+            });
+            return;
+}
             endpoint = 'http://localhost:1234/asesor';
             body = { nombre, email, password, area_especializacion: especialidad };
             break;
@@ -407,11 +426,23 @@ async function registerUser() {
             throw new Error(`${data.message}, ${data.error}` || 'Error en el registro');
         }
 
-        alert('Registro exitoso! Por favor inicie sesión');
+        Swal.fire({
+        icon: 'success',
+        title: '¡Registro exitoso!',
+        text: 'Por favor inicie sesión',
+        confirmButtonColor: '#3085d6'
+        });
+
         switchForm(currentUserType, true); // Cambiar a formulario de login
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message || 'Error al registrar el usuario');
+        Swal.fire({
+        icon: 'error',
+        title: 'Error en el registro',
+        text: error.message || 'Error al registrar el usuario',
+        confirmButtonColor: '#d33'
+});
+
     }
 }
 

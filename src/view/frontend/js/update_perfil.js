@@ -62,7 +62,14 @@ async function updatePerfil(nombre, nuevaContrasenia) {
 
   } catch (error) {
     console.error('Error al actualizar perfil:', error);
-    alert('Ocurrió un error al actualizar perfil.');
+    Swal.fire({
+  icon: 'error',
+  title: 'Error inesperado',
+  text: 'Ocurrió un error al actualizar el perfil.',
+  timer: 3000,
+  showConfirmButton: false
+});
+
   }
 }
 
