@@ -23,7 +23,12 @@ async function updatePerfil(nombre, nuevaContrasenia) {
     if (nombre) datosActualizados.nombre = nombre;
     if (nuevaContrasenia) datosActualizados.password = nuevaContrasenia;
     if (Object.keys(datosActualizados).length === 0) {
-      alert('No se han realizado cambios.');
+      Swal.fire({
+      icon: 'info',
+      title: 'Sin cambios',
+      text: 'No se han realizado cambios para actualizar.',
+      confirmButtonColor: '#3085d6'
+});
       return;
     }
 
@@ -40,10 +45,20 @@ async function updatePerfil(nombre, nuevaContrasenia) {
     const resultado = await response.json();
 
     if (response.ok) {
-      alert('Perfil actualizado correctamente.');
-    } else {
-      alert('Error al actualizar: ' + resultado.mensaje);
-    }
+    Swal.fire({
+      icon: 'success',
+      title: '¡Éxito!',
+      text: 'Perfil actualizado correctamente',
+      confirmButtonColor: '#3085d6'
+    });
+}   else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: resultado.mensaje || 'No se pudo actualizar el perfil',
+      confirmButtonColor: '#d33'
+    });
+}
 
   } catch (error) {
     console.error('Error al actualizar perfil:', error);
@@ -69,7 +84,13 @@ form.addEventListener('submit', async (e) => {
   // Validación de contraseña nueva
   if (newPassword || confirmPassword) {
     if (newPassword !== confirmPassword) {
-      alert('Las contraseñas no coinciden.');
+      Swal.fire({
+      icon: 'warning',
+      title: 'Contraseña inválida',
+      text: 'Las contraseñas no coinciden.',
+      confirmButtonColor: '#f0ad4e'
+});
+
       return;
     }
   }
