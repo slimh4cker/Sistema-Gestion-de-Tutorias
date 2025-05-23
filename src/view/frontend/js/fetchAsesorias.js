@@ -1,5 +1,6 @@
-// public/js/fetchAsesorias.js
-
+document.addEventListener('DOMContentLoaded', () => {
+    cargarAsesoriasAsignadas();
+});
 async function cargarAsesoriasAsignadas() {
   try {
     const response = await fetch('http://localhost:1234/admin/asesorias-asignadas', {
@@ -17,20 +18,19 @@ async function cargarAsesoriasAsignadas() {
     const asesorias = await response.json();
     const contenedor = document.getElementById('contenedor-asesorias');
     contenedor.innerHTML = '';
-
+    console.log('Asesorías recibidas:', asesorias);
     asesorias.forEach(asesoria => {
-      const solicitud = asesoria.modelo_solicitud;
       const card = document.createElement('div');
       card.className = 'asesoria-card';
 
-      card.innerHTML = `
-        <h3>Asesoría para: ${solicitud.estudiante?.nombre ?? 'Desconocido'}</h3>
-        <p><strong>Tema:</strong> ${solicitud.tema}</p>
-        <p><strong>Modalidad:</strong> ${solicitud.modalidad}</p>
-        <p><strong>Fecha límite:</strong> ${solicitud.fecha_limite}</p>
-        <p><strong>Asesor asignado:</strong> ${solicitud.asesor_asignado}</p>
-        <p><strong>Fecha de asignación:</strong> ${asesoria.fecha_creacion}</p>
-      `;
+    card.innerHTML = `
+        <h3>Asesoría para: ${asesoria.modelo_solicitud?.modelo_cuenta_estudiante?.nombre ?? 'Desconocido'}</h3>
+        <p><strong>Tema:</strong> ${asesoria.modelo_solicitud?.tema ?? 'No disponible'}</p>
+        <p><strong>Modalidad:</strong> ${asesoria.modelo_solicitud?.modalidad ?? 'No disponible'}</p>
+        <p><strong>Fecha límite:</strong> ${asesoria.modelo_solicitud?.fecha_limite ?? 'No disponible'}</p>
+        <p><strong>Asesor asignado:</strong> ${asesoria.modelo_solicitud?.modelo_cuenta_asesor?.nombre ?? 'No disponible'}</p>
+        <p><strong>Fecha de asignación:</strong> ${asesoria.fecha_creacion ?? 'No disponible'}</p>
+    `;
 
       contenedor.appendChild(card);
     });
@@ -39,6 +39,3 @@ async function cargarAsesoriasAsignadas() {
     console.error('Error al cargar asesorías:', error.message);
   }
 }
-
-// Ejecutar al cargar la vista
-document.addEventListener('DOMContentLoaded', cargarAsesoriasAsignadas);

@@ -66,7 +66,8 @@ export class AsesoriaControler {
   
       static async obtenerAsesoriasAsignadas(req, res) {
     try {
-      const asesorias = await AsesoriaModel.obtenerAsesoriasAsignadas(); // Implementar en el modelo
+      const asesorias = await AsesoriaModel.obtenerAsesoriasAsignadas();
+      console.log('🧾 Asesorías asignadas:', asesorias);
 
       if (!asesorias || asesorias.length === 0) {
         return res.status(404).json({ error: "No hay asesorías asignadas registradas" });

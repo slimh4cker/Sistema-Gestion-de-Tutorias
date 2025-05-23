@@ -173,8 +173,8 @@ de manera aislada.
       where: { estado: 'asignada' },
       include: [
         {
-          model: Solicitud,
-          include: [{ model: Estudiante }]
+          model: modelo_solicitud,
+          include: [{ model: modelo_cuenta_estudiante }]
         }
       ]
     });
