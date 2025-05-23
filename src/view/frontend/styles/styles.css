@@ -531,6 +531,10 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     height: calc(100vh - 85px);
 }
 
+.white-card > div:not(:last-child) {
+    margin-bottom: 1.5rem; /* Ajusta este valor según necesites (24px) */
+}
+
 /* Ajuste para el contenido principal */
 .main-content {
     flex: 1;
