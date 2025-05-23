@@ -37,7 +37,7 @@ Content-Type: application/json
 
 {
     "email": "juan@admin.com",
-    "password": "a"
+    "password": "admin123"
 }
 
 ## Para agregar una cuenta
