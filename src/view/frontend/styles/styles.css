@@ -755,6 +755,11 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     display: flex;
     flex-direction: column;
     gap: 0.5rem; /* Nuevo: espacio entre elementos */
+    
+}
+
+.curso-card:hover {
+    transform: scale(1.005);
 }
 
 /* Cabecera de la tarjeta */

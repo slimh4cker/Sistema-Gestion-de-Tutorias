@@ -304,7 +304,10 @@ async function loginUser() {
 
         if(response.status === 404) {
             throw new Error('No se encontro un usuario con estas credenciales');
-        } else if (response.status === 400) {
+        } else if (response.status === 401) {
+            throw new Error(data.error || 'Credenciales incorrectas');
+        }
+        else if (response.status === 400) {
             throw new Error('Error en la solicitud, por favor verifique los datos');
         } else if (!response.ok) {
             throw new Error(data.message || 'Error en la autenticación');

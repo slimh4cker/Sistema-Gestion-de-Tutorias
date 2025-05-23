@@ -57,16 +57,16 @@ export class AsesoriaModel{
             attributes: ['id', 'solicitud_id', 'estado', 'fecha_creacion'],
             include: [{
                 model: modelo_solicitud,
-                requrided: true,
+                required: true,
                 attributes: ['id', 'estudiante_id', 'asesor_id', 'tema', 'observaciones', 'fecha_limite', 'modalidad', 'nivel_urgencia', 'estado'],
                 include: [{
                     model: modelo_cuenta_estudiante,
-                    requrided: true,
+                    required: true,
                         attributes: ['id', 'nombre', 'email'],
                     },
                     {
                         model: modelo_cuenta_asesor,
-                        requrided: true,
+                        required: true,
                         attributes: ['id', 'nombre', 'email','area_especializacion','disponibilidad'],
                         where: {
                             email: email_asesor
@@ -77,7 +77,7 @@ export class AsesoriaModel{
                 estado: 'pendiente'
             }
         })
-        console.log(pendientes)
+        console.log("Los pendientes son los siguientes: ",pendientes)
         if (!pendientes || pendientes.length === 0){
             return false
         }
@@ -167,4 +167,16 @@ de manera aislada.
             throw new Error("Error al actualizar la asesoría", error);
         }
     }
+
+    static async obtenerAsesoriasAsignadas() {
+    return await modelo_asesorias.findAll({
+      where: { estado: 'asignada' },
+      include: [
+        {
+          model: modelo_solicitud,
+          include: [{ model: modelo_cuenta_estudiante }]
+        }
+      ]
+    });
+  }
 }
