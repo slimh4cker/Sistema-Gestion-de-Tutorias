@@ -32,10 +32,6 @@ export async function asignacionAutomatica(solicitudId){
 
 }
 
-asignacionAutomatica(3)
-asignacionAutomatica(4)
-asignacionAutomatica(5)
-
 /**
  * Algoritmo que busca un asesor disponible y asigna la solicitud al primero que cumpla con los criterios.
  * Si no hay asesores disponibles o hay errores en el proceso, retorna `null`.
