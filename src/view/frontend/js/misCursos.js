@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             }
         });
-        const gridContainer = document.querySelector('#asesoria-container');
+        const gridContainer = document.querySelector('.cursos-grid-container');
         gridContainer.innerHTML = ''; // Limpiar contenido estático
 
         if (!response.ok) {
