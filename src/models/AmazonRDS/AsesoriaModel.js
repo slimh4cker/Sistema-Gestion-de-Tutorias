@@ -167,4 +167,16 @@ de manera aislada.
             throw new Error("Error al actualizar la asesoría", error);
         }
     }
+
+    static async obtenerAsesoriasAsignadas() {
+    return await modelo_asesorias.findAll({
+      where: { estado: 'asignada' },
+      include: [
+        {
+          model: modelo_solicitud,
+          include: [{ model: modelo_cuenta_estudiante }]
+        }
+      ]
+    });
+  }
 }

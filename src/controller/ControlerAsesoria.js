@@ -15,7 +15,7 @@ export class AsesoriaControler {
           requiere_sesiones 
         } = req.body;
 
-        if (!estado || !['pendiente', 'asignada', 'completada', 'cancelada'].includes(estado)) {
+        if (!estado || !['pendiente', 'asignada', 'en_proceso', 'terminada', 'aplazada'].includes(estado)) {
           return res.status(400).json({ error: "Estado no válido o faltante" });
         }
 
@@ -63,7 +63,24 @@ export class AsesoriaControler {
         });
       }
     }
-  static async obtenerCursosAlumno(req, res) {
+  
+      static async obtenerAsesoriasAsignadas(req, res) {
+    try {
+      const asesorias = await AsesoriaModel.obtenerAsesoriasAsignadas();
+      console.log('🧾 Asesorías asignadas:', asesorias);
+
+      if (!asesorias || asesorias.length === 0) {
+        return res.status(404).json({ error: "No hay asesorías asignadas registradas" });
+      }
+
+      res.status(200).json(asesorias);
+    } catch (error) {
+      console.error("Error en obtenerAsesoriasAsignadas:", error);
+      res.status(500).json({ error: "Error al obtener asesorías asignadas" });
+    }
+  }
+
+    static async obtenerCursosAlumno(req, res) {
       try {
           const correo = obtenerMailDeReq(req);
           const cursos = await AsesoriaModel.getAseoriaByAlumnoEmail(correo);
