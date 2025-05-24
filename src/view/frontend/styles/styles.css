@@ -728,6 +728,12 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 }
 
 /* Sistema grid mejorado */
+#cusos-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
 .cursos-grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -751,7 +757,7 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
 
 /* Contenido de la tarjeta */
 .curso-card-content {
-    flex: 1;
+    flex: 2;
     display: flex;
     flex-direction: column;
     gap: 0.5rem; /* Nuevo: espacio entre elementos */
