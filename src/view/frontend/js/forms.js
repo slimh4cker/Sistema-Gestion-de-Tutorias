@@ -80,6 +80,12 @@ const formTemplates = {
                         <option value="Vibraciones mecánicas">Vibraciones mecánicas</option>
                     </select>
             </div>
+
+            <div class="mb-3">
+                    <label class="form-label">Disponibilidad de horario:</label>
+                    <input type="text" class="form-control" placeholder="Ej: De Lunes a Viernes de 10:00 A.M. a 12:00 P.M. " id="txtNombre">
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Contraseña:</label>
                 <input type="password" class="form-control" placeholder="mínimo 8 caracteres" id="txtPassword">
