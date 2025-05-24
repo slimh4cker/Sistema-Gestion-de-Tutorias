@@ -2,6 +2,16 @@
 /*ESTE ARCHIVO SOLO SERA PARA EL LOGIN.HTML*/
 /* ESTILOS GENERALES */
 
+.bienvenida-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 35px;
+    color: #2c2c2c;
+    margin-top: 10px;
+    margin-right: 90px;
+    font-weight: 550; /* letra ligera */
+    text-align: center;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
@@ -58,7 +68,7 @@ body {
 
 .contenedorimgyb{
     background-color: #ffffff;
-    margin-bottom: 150px;
+    margin-bottom: 100px;
 }
 
 /* SECCIÃ“N DE IMAGEN */
@@ -176,7 +186,7 @@ DINAMICO, POR ESO NO HAY QUE BORRARLO*/
     width: 100%;
     max-width: 450px;
     transition: all 0.3s ease;
-    margin-bottom: 10vh;
+    margin-bottom: 20vh;
 }
 
 
@@ -281,13 +291,121 @@ DINAMICO, POR ESO NO HAY QUE BORRARLO*/
 }
 
 /* RESPONSIVE */
-@media (max-width: 993px) {
+/*ESTE LO DEBO MEJORAR*/
+/* PEQUEÑO: Pantallas hasta 480px (móviles) */
+@media (max-width: 480px) {
     .top-bar h1 {
         font-size: 1.2rem;
     }
-    .top-bar{
+    .top-bar {
         padding: 20px;
+        flex-direction: column;
+    }
+    
+    .logo-left, .logo-right {
+        width: 100px;
+        height: 60px;
+    }
+    
+    .row {
+        flex-direction: column;
+    }
+    
+    .button-group-adjustment {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
 
+    .btn-role {
+        width: 100%;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .styled-image{
+        display: none;
+    }
+
+    .logo-left{
+        display: none;
+    }
+    .logo-right{
+        display: none;
+    }
+    
+    .login-card {
+        padding: 20px;
+    }
+    .contenedorimgyb{
+        margin: auto;
+    }
+}
+/*ESTE ES BUENO*/
+/*Creo que podria mejorarse pero no estoy seguro porque no lo pude ver en pantalla chica*/
+/* MEDIANO: Pantallas entre 481px y 768px (tablets pequeñas) */
+@media (min-width: 481px) and (max-width: 992px) {
+    .top-bar h1 {
+        font-size: 1.2rem;
+    }
+    .top-bar {
+        padding: 25px;
+        flex-direction: row;
+    }
+    
+    .logo-left, .logo-right {
+        width: 120px;
+        height: 70px;
+    }
+    
+    .row {
+        flex-direction: column;
+    }
+    
+    .button-group-adjustment {
+        flex-direction: row;
+        margin-bottom: 20px;
+    }
+
+    .btn-role {
+        width: 110px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .styled-image{
+        display: none;
+    }
+
+    .logo-left{
+        display: none;
+    }
+    .logo-right{
+        display: none;
+    }
+    
+    .login-card {
+        padding: 0px;
+        margin-top: 0px;
+    }
+
+
+.contenedorimgyb{
+    background-color: #ffffff;
+    margin-bottom: auto;
+}
+
+}
+
+/* GRANDE: Pantallas entre 769px y 992px (tablets grandes/pantallas pequeñas) 
+@media (min-width: 769px) and (max-width: 992px) {
+    .top-bar h1 {
+        font-size: 1.2rem;
+    }
+    .top-bar {
+        padding: 20px;
     }
     
     .logo-left, .logo-right {
@@ -313,40 +431,4 @@ DINAMICO, POR ESO NO HAY QUE BORRARLO*/
     .logo-right{
         display: none;
     }
-}
-
-@media (max-width: 768px) {
-    .top-bar {
-        flex-direction: column;
-        padding: 25px;
-    }
-    
-    
-    
-    .logo-left, .logo-right {
-        width: 100px;
-        height: 60px;
-    }
-    
-    .btn-role {
-        width: 110px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
-    
-    .login-card {
-        
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .button-group-adjustment {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn-role {
-        width: 100%;
-    }
-}
+}*/

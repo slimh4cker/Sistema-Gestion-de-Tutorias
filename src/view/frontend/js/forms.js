@@ -195,9 +195,9 @@ const formTemplates = {
                 <div class="extra-space" style="height: 60px;"></div>
                 <div class="form-footer">
                     <button class="btn-primary-action" id="btnIniciarSesion">INICIAR SESIÓN</button>
-                    <!--<p class="text-center mt-3 small">
-                        ¿No tienes cuenta? <a href="#" class="text-primary fw-bold toggle-form">Regístrate aquí</a>
-                    </p> -->
+                    <p class="text-center mt-3 small">
+                             <br>
+                    </p> 
                 </div>
             </form>
         </div>
@@ -212,10 +212,10 @@ let isLoginForm = false;
 
 function switchForm(userType, login = false) {
     // Scroll suave al formulario en móviles
-    if (window.innerWidth < 768) {
+    /* if (window.innerWidth < 768) {
         const formWrapper = document.getElementById('form-wrapper');
         formWrapper.scrollIntoView({ behavior: 'smooth' });
-    }
+    } */
 
     const formContainer = document.getElementById('form-container');
     currentUserType = userType;
