@@ -195,6 +195,7 @@ export class AsesorModel{
                     [Sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
                 ],
             });
+            console.log(asesores)
             return asesores
         } catch (error) {
             console.error("Error al obtener asesores activos:", error);

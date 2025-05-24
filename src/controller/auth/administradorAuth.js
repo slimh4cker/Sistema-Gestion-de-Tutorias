@@ -2,8 +2,19 @@ import { AdminModel } from '../../models/AmazonRDS/AdminModel.js';
 import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
 import { validarAdminZod } from '../../schemas/users/admin.js';
+import bcryptjs from "bcryptjs";
 
-// Registrar admin (solo accesible por otros admins)
+/**
+ * 
+ * Controlador para registrar un nuevo administrador en el sistema.
+ * Este método solo puede ser ejecutado por usuarios con el rol de administrador.
+ * 
+ * @function registrarAdmin
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express, que debe contener en `body` los campos: nombre, email, password.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con los datos del nuevo administrador o un mensaje de error.
+ */
 export const registrarAdmin = async (req, res) => {
   try {
     const { nombre, email, password } = req.body;
@@ -48,11 +59,28 @@ export const registrarAdmin = async (req, res) => {
   }
 };
 
+
+/**
+ * 
+ * Controlador para el inicio de sesión de un administrador.
+ * Verifica el correo, la contraseña y genera un token JWT si es válido.
+ * 
+ * @function loginAdmin
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express, debe contener `email` y `password` en el body.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con el token de autenticación y los datos del administrador, o un mensaje de error.
+ */
 export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
     
     const user = await AdminModel.getAdminByMail(email);
+    
+    console.log("Contraseña recibida:", password);
+    console.log("Hash almacenado:", user?.password);
+    const hash = await bcryptjs.hash(password, 10);
+    console.log("Hash generado:", hash);
     
     if (!user) {
       return res.status(404).json({ error: "Admin no registrado" });

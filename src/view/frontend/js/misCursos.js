@@ -1,14 +1,13 @@
 // En misCursos.js
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('http://localhost:1234/alumno/cursos', {
+        const response = await fetch('http://localhost:1234/alumno/solicitud?estado=activo', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             }
         });
-        console.log(response.status)
         const gridContainer = document.querySelector('.cursos-grid-container');
         gridContainer.innerHTML = ''; // Limpiar contenido estático
 
@@ -30,10 +29,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const cursos = await response.json();
+        console.log(cursos);
         
         
         cursos.forEach(curso => {
             const cursoCard = document.createElement('div');
+            console.log(curso)
             cursoCard.className = 'curso-card';
             cursoCard.onclick = () => window.location.href = `curso-detalle.html?curso=${curso.id}`;
             
@@ -41,10 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="curso-card-content">
                     <div class="curso-header">
                         <h3 class="curso-title">${curso.tema}</h3>
-                        <span class="badge ${curso.tipo === 'T' ? 'bg-primary' : 'bg-success'} curso-badge">${curso.tipo}</span>
+                        <span class="badge ${curso.modalidad === 'presencial' ? 'bg-primary' : 'bg-success'} curso-badge">${curso.modalidad}</span>
                     </div>
                     <p class="profesor-info">
-                        <i class="fas fa-chalkboard-teacher me-2"></i>${curso.profesor}
+                        <i class="fas fa-chalkboard-teacher me-2"></i>${curso.asesor.nombre}
                     </p>
                     <div class="sesion-info">
                         <p class="sesion-label">Próxima sesión</p>

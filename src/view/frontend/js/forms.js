@@ -53,14 +53,32 @@ const formTemplates = {
             <div class="mb-3">
                 <label class="form-label">Especialidad:</label>
                 <select class="form-select" id="txtEspecialidad" required>
-                    <option value="" disabled selected>Selecciona una especialidad</option>
-                    <option value="matematicas">Matemáticas</option>
-                    <option value="fisica">Física</option>
-                    <option value="programacion">Programación</option>
-                    <option value="quimica">Química</option>
-                    <option value="ingles">Inglés</option>
-                    <option value="electronica">Electrónica</option>
-                </select>
+                        <option value="" disabled selected>Selecciona una materia</option>
+                        <option value="Administración de Bases de Datos">Administración de Bases de Datos</option>
+                        <option value="Álgebra">Álgebra</option>
+                        <option value="Álgebra lineal">Álgebra lineal</option>
+                        <option value="Álgebra/Precálculo">Álgebra/Precálculo</option>
+                        <option value="Cálculo Diferencial">Cálculo Diferencial</option>
+                        <option value="Cálculo Integral">Cálculo Integral</option>
+                        <option value="Cálculo Vectorial">Cálculo Vectorial</option>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Dibujo Asistido">Dibujo Asistido</option>
+                        <option value="Dibujo en SolidWorks">Dibujo en SolidWorks</option>
+                        <option value="Dinámica">Dinámica</option>
+                        <option value="Electromagnetismo">Electromagnetismo</option>
+                        <option value="Electrónica Básica">Electrónica Básica</option>
+                        <option value="Estadística">Estadística</option>
+                        <option value="Estática">Estática</option>
+                        <option value="Física">Física</option>
+                        <option value="Fundamentos de Bases de Datos">Fundamentos de Bases de Datos</option>
+                        <option value="Fundamentos de Investigación">Fundamentos de Investigación</option>
+                        <option value="Programación Básica">Programación Básica</option>
+                        <option value="Química">Química</option>
+                        <option value="Taller de Bases de Datos">Taller de Bases de Datos</option>
+                        <option value="Taller de Investigación 1">Taller de Investigación 1</option>
+                        <option value="Taller de Investigación 2">Taller de Investigación 2</option>
+                        <option value="Vibraciones mecánicas">Vibraciones mecánicas</option>
+                    </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Contraseña:</label>
@@ -253,7 +271,12 @@ async function loginUser() {
     const password = document.getElementById('txtContraLogin')?.value;
 
     if (!email || !password) {
-        alert('Por favor complete todos los campos');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos requeridos',
+            text: 'Por favor complete todos los campos',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
 
@@ -286,7 +309,10 @@ async function loginUser() {
 
         if(response.status === 404) {
             throw new Error('No se encontro un usuario con estas credenciales');
-        } else if (response.status === 400) {
+        } else if (response.status === 401) {
+            throw new Error(data.error || 'Credenciales incorrectas');
+        }
+        else if (response.status === 400) {
             throw new Error('Error en la solicitud, por favor verifique los datos');
         } else if (!response.ok) {
             throw new Error(data.message || 'Error en la autenticación');
@@ -310,7 +336,13 @@ async function loginUser() {
                     break;
             }
         } else {
-            alert(data.message || 'Credenciales incorrectas');
+            Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Credenciales incorrectas',
+            confirmButtonColor: '#d33'
+});
+
         }
     } catch (error) {
         console.error('Error:', error);
@@ -319,14 +351,12 @@ async function loginUser() {
 }
 
 function showAlertModal(message) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'alert-message';
-    alertDiv.textContent = message;
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000);
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message,
+        confirmButtonColor: '#d33'
+    });
 }
 
 async function registerUser() {
@@ -342,9 +372,14 @@ async function registerUser() {
 
     const errorMsg = validarCamposRegistro(currentUserType, { nombre, email, password, especialidad });
     if (errorMsg) {
-        alert(errorMsg);
-        return;
-    }
+    Swal.fire({
+        icon: 'warning',
+        title: 'Campos inválidos',
+        text: errorMsg,
+        confirmButtonColor: '#3085d6'
+    });
+    return;
+}
 
     console.log('Tipo de usuario:', currentUserType);
     // Configurar según el tipo de usuario
@@ -356,11 +391,16 @@ async function registerUser() {
         case 'asesor':
             
             if (!especialidad) {
-                alert('Por favor seleccione una especialidad');
-                return;
-            }
+            Swal.fire({
+                icon: 'warning',
+                title: 'Falta especialidad',
+                text: 'Por favor seleccione una especialidad',
+                confirmButtonColor: '#3085d6'
+            });
+            return;
+}
             endpoint = 'http://localhost:1234/asesor';
-            body = { nombre, email, password, especialidad };
+            body = { nombre, email, password, area_especializacion: especialidad };
             break;
         case 'admin':
             endpoint = 'http://localhost:1234/admin';
@@ -386,11 +426,23 @@ async function registerUser() {
             throw new Error(`${data.message}, ${data.error}` || 'Error en el registro');
         }
 
-        alert('Registro exitoso! Por favor inicie sesión');
+        Swal.fire({
+        icon: 'success',
+        title: '¡Registro exitoso!',
+        text: 'Por favor inicie sesión',
+        confirmButtonColor: '#3085d6'
+        });
+
         switchForm(currentUserType, true); // Cambiar a formulario de login
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message || 'Error al registrar el usuario');
+        Swal.fire({
+        icon: 'error',
+        title: 'Error en el registro',
+        text: error.message || 'Error al registrar el usuario',
+        confirmButtonColor: '#d33'
+});
+
     }
 }
 

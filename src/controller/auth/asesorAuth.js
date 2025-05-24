@@ -3,6 +3,18 @@ import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
 import { validarAsesorZod } from "../../schemas/users/asesor.js";
 
+
+/**
+ * 
+ * Controlador para registrar un nuevo asesor en el sistema.
+ * Valida los datos proporcionados y registra al asesor con estado activo.
+ * 
+ * @function registrarAsesor
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express. Debe contener en `body` los campos: nombre, email, password, area_especializacion.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con los datos del asesor registrado o un mensaje de error.
+ */
 export const registrarAsesor = async (req, res) => {
   try {
     const { nombre, email, password, area_especializacion } = req.body;
@@ -47,6 +59,17 @@ export const registrarAsesor = async (req, res) => {
   }
 };
 
+/**
+ * 
+ * Controlador para el inicio de sesión de un asesor.
+ * Verifica las credenciales y genera un token JWT si son válidas.
+ * 
+ * @function loginAsesor
+ * @async
+ * @param {Object} req - Objeto de solicitud de Express. Debe contener `email` y `password` en el body.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {JSON} Retorna un objeto JSON con el token de autenticación y los datos del asesor, o un mensaje de error.
+ */
 export const loginAsesor = async (req, res) => {
   try {
     const { email, password } = req.body;

@@ -20,6 +20,14 @@ estudiante_id: z.number().int(),
  estado: z.enum(estados).optional(),
 })
 
+/**
+ * Valida si un objeto `solicitud` cumple con **todos** los campos requeridos definidos en `solicitudSchema`.
+ *
+ * @async
+ * @function validarSolicitud
+ * @param {object} solicitud - Objeto que representa una solicitud.
+ * @returns {Promise<boolean>} - `true` si la solicitud es completamente válida; `false` si falta algún campo obligatorio o hay errores.
+ */
 export async function validarSolicitud(solicitud) {
   const resultado = solicitudSchema.safeParse(solicitud);
   return resultado.success; 

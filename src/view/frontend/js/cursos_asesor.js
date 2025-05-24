@@ -12,13 +12,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.status === 401) {
         alert("Sesión expirada");
-        window.location.reload();
+        window.location.href = '../login.html';
         return;
       }
 
-      if (!response.ok) throw new Error("Error en la respuesta");
-
       const asesorias = await response.json();
+
+      // si no se recibe un 200, se muestra el error
+      if (!response.ok) {
+        let mensaje = "Error al cargar las asesorías";
+        if (asesorias.error) {
+          mensaje =asesorias.error;
+        }
+        cursosContainer.innerHTML = `
+        <div class="alert alert-danger">
+          ${mensaje}
+        </div>`;
+        return;
+      }
+
       renderizarAsesorias(asesorias);
 
     } catch (error) {

@@ -70,8 +70,8 @@ export class SolicitudModel{
     const buscar_solicitud = await modelo_solicitud.findOne({
         attributes: [
             'id',
-            [sequelize.col("modelo_cuenta_estudiante.nombre"), 'estudiante_id'],
-            [sequelize.col("modelo_cuenta_asesor.nombre"), 'asesor_id'],
+            'estudiante_id',
+            'asesor_id',
             'tema',
             'observaciones', 
             'fecha_limite', 
@@ -230,6 +230,10 @@ export class SolicitudModel{
         return solicitudes.map(s => ({
             id: s.id,
             tema: s.tema,
+            observaciones: s.observaciones,
+            fecha_limite: s.fecha_limite,
+            modalidad: s.modalidad,
+            nivel_urgencia: s.nivel_urgencia,
             estado: s.estado,
             estudiante: s.modelo_cuenta_estudiante ? {
                 nombre: s.modelo_cuenta_estudiante.nombre,
