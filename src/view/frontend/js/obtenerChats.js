@@ -43,6 +43,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const chats = await obtenerChats(token);
         console.log('Chats obtenidos:', chats);
         const chatList = document.getElementsByClassName('conversation-items');
+        const messageArea = document.getElementById('message-area');
+        if (!chatList || chatList.length === 0) {
+            console.error('No se encontró el elemento de lista de chats');
+            return;
+        }
         chatList.innerHTML = ''; // Limpiar lista antes de agregar
 
         chats.forEach(chat => {

@@ -1,7 +1,8 @@
-async function mensaje_chat(chatId, token) {
+async function mensaje_chat(id_asesoria, token) {
     try {
 /*         const mensajeInput = document.getElementById('mensaje');
- */
+ */     
+        // Llama a todos los mensajes del chat especificado
         const response = await fetch('http://localhost:1234/mensajes/mensajes', {
             method: 'POST',
             headers: {
@@ -9,7 +10,7 @@ async function mensaje_chat(chatId, token) {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                id_asesoria: chatId,
+                id_asesoria: id_asesoria,
             })
         });
 
@@ -31,13 +32,18 @@ async function mensaje_chat(chatId, token) {
     }
 }
 
-
-async function portadaChat(chatId, token){
+/**
+ * Metodo para obtener toda la información referente a la portada de un chat
+ * @param {string} id_asesoria 
+ * @param {string} JWT 
+ * @returns 
+ */
+async function portadaChat(id_asesoria, token){
     try {
         if (!token) {
             token = localStorage.getItem('authToken');
         }
-        const datos_chat = await mensaje_chat(chatId, token);
+        const datos_chat = await mensaje_chat(id_asesoria, token);
         const mensajesEnviados = datos_chat.mensajes.filter(mensaje => mensaje.estado === 'enviado').length;
         const otro_usuario = datos_chat.otro_usuario.nombre || 'Usuario desconocido';
         const ultimoMensaje = datos_chat.mensajes.length > 0 ? datos_chat.mensajes[datos_chat.mensajes.length - 1].contenido : 'Sin mensajes aún';
