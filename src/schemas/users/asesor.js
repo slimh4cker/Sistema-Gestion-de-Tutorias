@@ -1,11 +1,20 @@
 import z from 'zod'
 import { nombreAtributo, emailAtributo, passwordAtributo } from './commons.js'
 
+// Validador para arrays de horas entre 4 y 22
+const horasSchema = z.array(
+  z.number().int().min(4).max(22)
+);
+
+// Validador para el objeto disponibilidad
+const disponibilidadSchema = z.record(horasSchema);
+
 const asesorSchema = z.object({
   nombre: nombreAtributo,
   email: emailAtributo,
   password: passwordAtributo, 
-  area_especializacion: z.string().min(2).max(100)
+  area_especializacion: z.string().min(2).max(100),
+  disponibilidad: disponibilidadSchema
 })
 
 /**
@@ -44,3 +53,22 @@ export function validarParcialAsesor(asesor){
 export function validarAsesorZod(asesor){
   return asesorSchema.safeParse(asesor)
 }
+
+/* 
+ Asi se mira un asesor valido
+  */
+ const asesorValido = {
+  nombre: "Ana",
+  email: "ana@correo.com",
+  password: "Aecreto123!",
+  area_especializacion: "Psicología",
+  disponibilidad: {
+    lunes: [8, 9, 10],
+    jueves: [15, 16, 17],
+    domingo: [10]
+  }
+};
+
+
+
+console.log(validarAsesorZod(asesorValido).error)
