@@ -110,20 +110,20 @@ export class AsesorModel{
      * @returns {Array} cantidad de filas modificadas
      */
     static async updateAsesor(datos, emailOriginal) {
-  try {
-    // Buscar asesor por email
-    const asesor = await modelo_cuenta_asesor.findOne({
-      where: { email: emailOriginal }
-    });
+        try {
+            // Buscar asesor por email
+            const asesor = await modelo_cuenta_asesor.findOne({
+            where: { email: emailOriginal }
+            });
 
-    if (!asesor) {
-      return null;
-    }
+            if (!asesor) {
+            return null;
+            }
 
-    // Extraer password y el resto de datos
-    const { password, ...otrosDatos } = datos;
+            // Extraer password y el resto de datos
+            const { password, ...otrosDatos } = datos;
 
-    // Si se envió un nuevo password, se hashea
+            // Si se envió un nuevo password, se hashea
     if (password) {
       otrosDatos.password = await hashPassword(password, 10);
     }
@@ -159,7 +159,7 @@ export class AsesorModel{
         try {
             const asesores = await modelo_cuenta_asesor.findAll({
                 where: { estado: 'activo' },
-                attributes: ['nombre', 'email', 'area_especializacion']
+                attributes: ['nombre', 'email', 'area_especializacion', 'disponibilidad'],
             });
             return asesores.map(asesor => {
                 // Convertir el string de áreas en un array
