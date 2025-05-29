@@ -56,7 +56,7 @@ export function validarAsesorZod(asesor){
 
 /* 
  Asi se mira un asesor valido
-  */
+  
  const asesorValido = {
   nombre: "Ana",
   email: "ana@correo.com",
@@ -67,8 +67,4 @@ export function validarAsesorZod(asesor){
     jueves: [15, 16, 17],
     domingo: [10]
   }
-};
-
-
-
-console.log(validarAsesorZod(asesorValido).error)
+}; */
