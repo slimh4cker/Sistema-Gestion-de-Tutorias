@@ -102,6 +102,13 @@
 }
 
 </style>
+
+<script>
+    if(!localStorage.getItem('authToken')){
+      window.location.href = "../login.html"
+    }
+  </script>
+
     <div class="alumno-container">
 
         <!-- Contenido principal -->
