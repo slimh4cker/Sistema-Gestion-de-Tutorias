@@ -92,6 +92,13 @@
         }
     </style>
 </head>
+
+<script>
+    if(!localStorage.getItem('authToken')){
+      window.location.href = "login.html"
+    }
+  </script>
+
 <body>
     <div class="admin-container">
         <!-- Sidebar se insertará aquí -->

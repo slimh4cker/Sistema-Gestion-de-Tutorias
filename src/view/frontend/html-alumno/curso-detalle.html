@@ -9,6 +9,13 @@
 
    
 </head>
+
+<script>
+    if(!localStorage.getItem('authToken')){
+      window.location.href = "../login.html"
+    }
+  </script>
+
 <body>
     <div class="alumno-container">
         <!-- Barra lateral se insertará aquí -->

@@ -100,6 +100,13 @@
             padding-bottom: 30px;
         }
     </style>
+    
+<script>
+    if(!localStorage.getItem('authToken')){
+      window.location.href = "login.html"
+    }
+  </script>
+
 </head>
 <body>
     <div class="admin-container">
