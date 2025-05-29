@@ -175,15 +175,21 @@ export class AsesorModel{
         }
     }
 
-    static async getAsesoresDisponibles(diaRequerido, especializacion ) {
+    // Método para obtener asesores disponibles según el día y especialización
+    /**
+     * Obtiene los asesores disponibles que cumplan con el mismo dia y el mismo 
+     * @param {string} diaRequerido - Día de la semana requerido (ejemplo: "lunes").
+     * @param {string} especializacion - Especialización requerida (ejemplo: "Matemáticas").
+     * @param {number|null} horaRequerida - Hora específica requerida (opcional).
+     * @returns {Promise<Array>} Lista de asesores disponibles.
+     */
+    static async getAsesoresDisponibles(diaRequerido, especializacion , horaRequerida = null) {
         try {
+            // Obtenemos filtrando primero por especializacion
             const asesores = await modelo_cuenta_asesor.findAll({
                 where: {
                     estado: 'activo',
-                    [Sequelize.Op.or]: [
-                        { disponibilidad: { [Sequelize.Op.like]: `%${diaRequerido}%` } },
-                        { disponibilidad: null }
-                    ]
+                    area_especializacion: especializacion,
                 },
                 order: [
                     [Sequelize.literal(`CASE 
@@ -195,8 +201,32 @@ export class AsesorModel{
                     [Sequelize.literal(`LENGTH(area_especializacion)`), 'ASC']
                 ],
             });
-            console.log(asesores)
-            return asesores
+            
+            // Filtrar asesores según la disponibilidad del día y hora
+            const asesoresDisponibles = asesores.filter(asesor => {
+                try {
+                    const disponibilidad = JSON.parse(asesor.disponibilidad || '{}');
+                    const horasDisponibles = disponibilidad[diaRequerido.toLowerCase()];
+                    console.log("horasDisponibles", horasDisponibles);
+                    
+                    // Verificar si si es un array
+                    if (!Array.isArray(horasDisponibles)) return false;
+
+                    // Si se especifica hora, validar que esté disponible
+                    if (horaRequerida !== null) {
+                        return horasDisponibles.includes(horaRequerida);
+                    }
+
+                    // Si no se especifica hora, basta con que haya al menos una hora
+                    return horasDisponibles.length > 0;
+
+                } catch (err) {
+                    console.error(`Error al parsear disponibilidad del asesor ID ${asesor.id}:`, err);
+                    return false;
+                }
+            });
+
+            return asesoresDisponibles
         } catch (error) {
             console.error("Error al obtener asesores activos:", error);
             throw error;
