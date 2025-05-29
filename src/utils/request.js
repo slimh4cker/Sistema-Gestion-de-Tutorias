@@ -11,3 +11,8 @@ export const obtenerMailDeReq = (req) => {
 export function obtenerIdDeReq (req) {
   return req.user.id
 }
+
+export function obtenerRolDeReq (req){
+  return req.user.rol
+}
+

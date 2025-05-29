@@ -151,29 +151,44 @@ const modelo_mensajes = sequelize.define('modelo_mensajes',{
         defaultValue: null,
         autoIncrement: true
     },
-    solicitud_id: {
+    id_asesoria: {
         type: DataTypes.INTEGER(11),
         allowNull: true,
         defaultValue: null,
         references: {
-            model: modelo_solicitud,
+            model: modelo_asesorias,
             key: 'id'
         },
     },
+    id_emisor: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: null,
+    },
     emisor_tipo: {
-        type: DataTypes.ENUM('estudiante', 'asesor', 'administrador'),
+        type: DataTypes.ENUM('alumno', 'asesor'),
         allowNull: true,
         defaultValue: null
     },
-    emisor_id: {
+    id_receptor: {
         type: DataTypes.INTEGER(11),
         allowNull: true,
         defaultValue: null
     },
-    contenido: {
-        type: DataTypes.STRING(255),
+    receptor_tipo: {
+        type: DataTypes.ENUM('alumno', 'asesor'),
         allowNull: true,
         defaultValue: null
+    },
+    contenido: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: null
+    },
+    estado: {
+        type: DataTypes.ENUM('enviado', 'leido'),
+        defaultValue: ('enviado'),
+        allowNull: false
     },
     fecha_envio: {
         type: DataTypes.DATE,
@@ -188,8 +203,8 @@ const modelo_mensajes = sequelize.define('modelo_mensajes',{
 })
 
 // Asosiación de la tabla mensajes con solicitudes
-modelo_solicitud.hasMany(modelo_mensajes, {foreignKey: 'solicitud_id'})
-modelo_mensajes.belongsTo(modelo_solicitud, {foreignKey: 'solicitud_id'})
+modelo_asesorias.hasMany(modelo_mensajes, {foreignKey: 'id_asesoria'})
+modelo_asesorias.belongsTo(modelo_asesorias, {foreignKey: 'id_asesoria'})
 
 // tabla de relaciones solicitudes - administradores
 
