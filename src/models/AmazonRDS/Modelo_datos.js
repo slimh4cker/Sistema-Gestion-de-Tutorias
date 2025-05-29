@@ -203,8 +203,8 @@ const modelo_mensajes = sequelize.define('modelo_mensajes',{
 })
 
 // Asosiación de la tabla mensajes con solicitudes
-modelo_asesorias.hasMany(modelo_mensajes, {foreignKey: 'id_asesoria'})
-modelo_asesorias.belongsTo(modelo_asesorias, {foreignKey: 'id_asesoria'})
+modelo_asesorias.hasMany(modelo_mensajes, {foreignKey: 'id'})
+modelo_asesorias.belongsTo(modelo_asesorias, {foreignKey: 'id'})
 
 // tabla de relaciones solicitudes - administradores
 

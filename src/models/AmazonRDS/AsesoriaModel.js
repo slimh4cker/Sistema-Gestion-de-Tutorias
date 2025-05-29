@@ -43,6 +43,35 @@ export class AsesoriaModel{
         }
     }
 
+    static async getAsesoriaById(id){
+        try {
+            const asesoria = await modelo_asesorias.findByPk(id, {
+                include: [{
+                    model: modelo_solicitud,
+                    include: [
+                        { model: modelo_cuenta_estudiante, attributes: ['id', 'nombre'] },
+                        { model: modelo_cuenta_asesor, attributes: ['id', 'nombre'] }
+                    ]
+                }]
+            });
+            return {
+                estudiante: {
+                    id: asesoria.modelo_solicitud.modelo_cuenta_estudiante.id,
+                    nombre: asesoria.modelo_solicitud.modelo_cuenta_estudiante.nombre
+                },
+                asesor: {
+                    id: asesoria.modelo_solicitud.modelo_cuenta_asesor.id,
+                    nombre: asesoria.modelo_solicitud.modelo_cuenta_asesor.nombre
+                }
+            }
+                
+
+        } catch (error) {
+            console.error("Error en getAsesoriaById:", error);
+            throw new Error("Error al obtener la asesoría por ID", error);
+        }
+    }
+
     /**
  * Obtiene todas las solicitudes de asesoría pendientes con detalles extendidos de estudiantes y asesores,
  * incluyendo solo cuentas activas de estudiantes. Devuelve los resultados en un formato estructurado.
