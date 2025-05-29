@@ -64,11 +64,11 @@ Content-Type: application/json
 
 ### Admin
 POST http://localhost:1234/admin
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJpYUBhZG1pbi5jb20iLCJyb2wiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzQ4NTA0NjQ0LCJleHAiOjE3NDg1MDgyNDR9.dD5ofsGk23HZj42nOcsUpNec5fmMTjmESgCWrUY5Uls
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJpYUBhZG1pbi5jb20iLCJyb2wiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzQ4NTA4NTIyLCJleHAiOjE3NDg1MTIxMjJ9.7zaQ08K4ctDDbXiuVCPeasExtDwnTN1LD4tOuas3z9g
 Content-Type: application/json
 
 {
-    "nombre": "Alexia",
-    "email": "Alexia@gmail.com",
-    "password": "Alexia123"
+    "nombre": "Brandon",
+    "email": "Brandon@gmail.com",
+    "password": "Brandon123"
 }

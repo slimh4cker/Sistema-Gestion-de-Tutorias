@@ -6,10 +6,13 @@
     font-family: 'Dancing Script', cursive;
     font-size: 35px;
     color: #2c2c2c;
-    margin-top: 10px;
-    margin-right: 90px;
+    margin-right: 5vh;
+    margin-bottom: 3vh;
+    /*margin-top: 10px;
+    margin-right: 90px;*/
     font-weight: 550; /* letra ligera */
     text-align: center;
+    align-items: center;
 }
 
 body {
