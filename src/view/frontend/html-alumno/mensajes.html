@@ -1,220 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensajes - Alumno</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-<style>
-    /********************************************************************************************/
-/* Estilos para la interfaz de mensajes */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mensajes - Alumno</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="../styles/styles.css"> -->
+  <link rel="stylesheet" href="../styles/stylesAsesor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
 .messages-container {
-    display: flex;
-    height: calc(100vh - 180px);
-    overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: 1rem;
+  height: calc(100vh - 120px); /* o ajusta según tu navbar/topbar */
+  overflow: hidden;
 }
 
+/* Lista de conversaciones */
 .conversation-list {
-    width: 300px;
-    border-right: 1px solid #e9ecef;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  width: 300px;
+  border-right: 1px solid #e9ecef;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 
-.conversation-items {
-    flex: 1;
-    max-height: 9rem;
-    overflow-y: auto;
-    border: 1px solid #e9ecef;
-    overflow-y: auto;
+/* Área de mensajes */
+.message-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+
+.conversation-list.active,
+.message-area.active {
+  display: flex;
+  flex-direction: column;
 }
 
 .conversation-item {
-    cursor: pointer;
-    transition: background-color 0.2s;
+  cursor: pointer;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
 }
 
 .conversation-item:hover {
-    background-color: #f8f9fa;
-}
-
-.conversation-item.unread {
-    background-color: #f0f7ff;
-}
-
-.message-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  background-color: #f8f9fa;
 }
 
 .message-thread {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    background-color: #f8fafb;
-}
-
-.message {
-    margin-bottom: 15px;
-}
-
-.message-sender {
-    font-size: 0.9rem;
-}
-
-.message-content {
-    font-size: 0.95rem;
-}
-
-.message-time {
-    font-size: 0.8rem;
-    text-align: right;
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
 }
 
 .message-compose {
-    background-color: #fff;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  background: #fff;
 }
 
-/* Scroll personalizado */
-.conversation-items::-webkit-scrollbar,
-.message-thread::-webkit-scrollbar {
-    width: 6px;
+/* Responsive para móvil */
+@media (max-width: 768px) {
+  .messages-container {
+    flex-direction: column;
+  }
+
+  .conversation-list {
+    width: 100%;
+    border-right: none;
+  }
+
+  .message-area {
+    display: none;
+  }
+
+  .message-area.active {
+    display: flex;
+  }
 }
 
-.conversation-items::-webkit-scrollbar-track,
-.message-thread::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.conversation-items::-webkit-scrollbar-thumb,
-.message-thread::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.conversation-items::-webkit-scrollbar-thumb:hover,
-.message-thread::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-</style>
+  </style>
+</head>
+<body>
 
 <script>
-    if(!localStorage.getItem('authToken')){
-      window.location.href = "../login.html"
-    }
-  </script>
-
-    <div class="alumno-container">
-
-        <!-- Contenido principal -->
-        <div class="main-content">
-            <button class="sidebar-toggle-mobile d-lg-none">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div id="navbar-placeholder"></div>
-
-            <div class="main-content-container">
-                <div class="messages-container white-card rounded-4 shadow-sm">
-                    <!-- Lista de conversaciones -->
-                    <div class="conversation-list">
-    <!-- Encabezado "Buscar conversaciones..." -->
-    <div class="conversation-header p-3 border-bottom">
-        <h6 class="mb-0 fw-bold">Buscar conversaciones...</h6>
-    </div>
-    
-    <!-- Lista de contactos -->
-    <div class="conversation-items">
-        <!-- Conversación 1 -->
-        <div class="conversation-item unread p-3 border-bottom" id="chat">
-            <div class="conversation-content">
-                <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
-            </div>
-        </div>
-        
-        <!-- Conversación 2 -->
-        <div class="conversation-item read p-3 border-bottom">
-            <div class="conversation-content">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0">Ignacio Robles</h6>
-                    <span class="text-muted small">Ayer</span>
+  if (!localStorage.getItem('authToken')) {
+    window.location.href = "../login.html";
+  }
+</script>
+<div class="alumno-container d-flex">
+    <div class="main-content flex-grow-1">
+        <div id="navbar-placeholder"></div>
+        <div class="main-content-container">
+            <div class="messages-container white-card rounded-4 shadow-sm" id="messages-container">
+                <!-- Lista de conversaciones -->
+                <div class="conversation-list active" id="conversationList">
+                <div class="p-3 border-bottom">
+                    <h5 class="mb-0">Conversaciones</h5>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Conversación 3 -->
-        <div class="conversation-item unread p-3 border-bottom">
-            <div class="conversation-content">
-                <div class="d-flex justify-content-between align-items-center">
+
+                <div class="conversation-item" data-name="Luis Armando Cardenas Florido">
+                    <h6 class="mb-0">Luis Armando Cardenas Florido</h6>
+                </div>
+
+                <div class="conversation-item" data-name="Ignacio Robles">
+                    <h6 class="mb-0">Ignacio Robles</h6>
+                </div>
+
+                <div class="conversation-item" data-name="Andres Barragan">
                     <h6 class="mb-0">Andres Barragan</h6>
-                    <span class="badge bg-primary rounded-pill">1</span>
+                </div>
+                </div>
+
+                <!-- Área de mensajes -->
+                <div class="message-area" id="messageArea">
+                <div class="message-header p-3 border-bottom d-flex align-items-center">
+                    <button class="btn btn-link me-3" id="backButton">←</button>
+                    <h5 class="mb-0" id="chatName">Chat</h5>
+                </div>
+
+                <div class="message-thread" id="messageThread"></div>
+
+                <div class="message-compose">
+                    <textarea class="form-control mb-2" id="contenido-mensaje" rows="2" placeholder="Escribe tu mensaje..." style="resize: none; min-height: 80px;"></textarea>
+                    <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" id="enviar-mensaje-btn">
+                        <i class="fas fa-paper-plane me-1"></i> Enviar
+                    </button>
+                    </div>
+            
                 </div>
             </div>
         </div>
     </div>
 </div>
-                    
-                    <!-- Área de mensajes -->
-                    <div class="message-area">
-                        <div class="message-header p-3 border-bottom">
-                            <h5 class="mb-0">Ignacio Robles</h5>
-                        </div>
-                        
-                        <div class="message-thread">
-                            <!-- Mensaje recibido -->
-                            <div class="message received p-3">
-                                <div class="message-sender fw-bold">Ignacio Robles</div>
-                                <div class="message-content my-2">
-                                    <p class="mb-0">Hola, ¿cómo estás? He revisado tus preguntas sobre el protocolo TCP/IP y puedo ayudarte con eso. ¿Qué día te viene bien para una sesión?</p>
-                                </div>
-                                <div class="message-time text-muted small">10:45 AM - 20 Jun 2025</div>
-                            </div>
-                            
-                            <!-- Mensaje enviado -->
-                            <div class="message sent p-3 bg-light">
-                                <div class="message-sender fw-bold">Tú</div>
-                                <div class="message-content my-2">
-                                    <p class="mb-0">¡Hola Ignacio! Gracias por responder. ¿Podría ser el viernes por la tarde? Tengo disponibilidad después de las 3pm.</p>
-                                </div>
-                                <div class="message-time text-muted small">11:20 AM - 20 Jun 2025</div>
-                            </div>
-                            
-                            <!-- Mensaje recibido -->
-                            <div class="message received p-3">
-                                <div class="message-sender fw-bold">Ignacio Robles</div>
-                                <div class="message-content my-2">
-                                    <p class="mb-0">Perfecto, confirmado entonces nuestra sesión será el viernes a las 3pm en la sala de estudio de la biblioteca. Lleva tus apuntes sobre el tema.</p>
-                                </div>
-                                <div class="message-time text-muted small">11:45 AM - 20 Jun 2025</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Área de escritura -->
-                        <div class="message-compose p-3 border-top">
-                            <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aquí..." style="resize: none; min-height: 80px;"></textarea>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-paper-plane me-1"></i> Enviar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+<script src="../js/navbar.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/obtenerChats.js"></script>
+<script src="../js/mensajes.js"></script>
+<script src="../js/fechaFormateada.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  chatItem.addEventListener('click', () => {
+  const messageArea = document.getElementById("messageArea");
+  const conversationList = document.getElementById("conversationList");
+
+  const chatNameElem = document.getElementById("chatName");
+  const messageThread = document.getElementById("messageThread");
+
+  chatNameElem.textContent = portada.nombre;
+  messageThread.innerHTML = `
+    <div class="message received">
+      <strong>${portada.nombre}</strong>
+      <p>${portada.ultimoMensaje || 'Sin mensajes aún'}</p>
+      <small class="text-muted">Ahora</small>
     </div>
-    <script src="../js/navbar.js"></script>
-    <script src="../js/sidebar.js"></script>
-    <script src="../js/obtenerChats"></script>
-    <script src="../js/mensajes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  `;
+
+  if (window.innerWidth < 768) {
+    conversationList.classList.remove("active");
+    messageArea.classList.add("active");
+  } else {
+    messageArea.classList.add("active"); // visible siempre en escritorio
+  }
+});
+
+
+
+</script>
+
 </body>
-</html>
 </html>
