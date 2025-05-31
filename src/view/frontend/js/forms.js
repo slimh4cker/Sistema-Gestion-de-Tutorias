@@ -266,7 +266,6 @@ function switchForm(userType, login = false) {
         // Si es asesor, crear el selector de disponibilidad
         if (userType === 'asesor' && !login) {
             // Crear el selector de disponibilidad
-            console.log(document.getElementById('selectorHorario'))
             getHorarioJSON = crearSelectorDeDisponibilidad('selectorHorario')
         }
 
