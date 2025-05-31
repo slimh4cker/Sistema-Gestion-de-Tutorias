@@ -3,7 +3,6 @@ import { generarUserToken } from '../../utils/jwt/jwt.js';
 import { compararPassword } from '../../utils/security.js';
 import { validarAsesorZod } from "../../schemas/users/asesor.js";
 
-
 /**
  * 
  * Controlador para registrar un nuevo asesor en el sistema.
@@ -18,6 +17,7 @@ import { validarAsesorZod } from "../../schemas/users/asesor.js";
 export const registrarAsesor = async (req, res) => {
   try {
     const { nombre, email, password, area_especializacion, disponibilidad } = req.body;
+    console.log(nombre, email, password, area_especializacion, disponibilidad)
 
     // realizar validacion
     const validacion = validarAsesorZod(req.body);
