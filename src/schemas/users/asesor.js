@@ -14,7 +14,21 @@ const asesorSchema = z.object({
   email: emailAtributo,
   password: passwordAtributo, 
   area_especializacion: z.string().min(2).max(100),
-  disponibilidad: disponibilidadSchema
+  disponibilidad: z
+    .string()
+    .transform((val, ctx) => {
+      try {
+        const parsed = JSON.parse(val);
+        return parsed;
+      } catch (err) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "El campo 'disponibilidad' debe ser una cadena JSON válida.",
+        });
+        return z.NEVER;
+      }
+    })
+    .pipe(disponibilidadSchema)
 })
 
 /**
@@ -25,6 +39,16 @@ const asesorSchema = z.object({
  * @returns {boolean} - `true` si el objeto es completamente válido; `false` si falta algún campo obligatorio.
  */
 export function validarAsesor(asesor) {
+  try {
+    // transformar disponibilidad del asesor a json
+    if (asesor.disponibilidad) {
+      asesor.disponibilidad = JSON.parse(asesor.disponibilidad);
+    }
+  } catch (error) {
+    console.error("Error al parsear la disponibilidad:", error);
+    return false; // Si hay un error al parsear, consideramos que no es válido
+  }
+
  const resultado =  asesorSchema.safeParse(asesor)
  return resultado.success;
 }
@@ -56,15 +80,13 @@ export function validarAsesorZod(asesor){
 
 /* 
  Asi se mira un asesor valido
-  
+
  const asesorValido = {
   nombre: "Ana",
   email: "ana@correo.com",
   password: "Aecreto123!",
   area_especializacion: "Psicología",
-  disponibilidad: {
-    lunes: [8, 9, 10],
-    jueves: [15, 16, 17],
-    domingo: [10]
-  }
-}; */
+  disponibilidad: "{\"lunes\": [8,9,10,11,12,15,16,17,18], \"martes\": [8,9,10,11,12,13,14,15,16,17,18], \"miercoles\": [15,16,17,18], \"jueves\": [8,9,10,11,12,15,16,17,18,19,20,21], \"viernes\": [8,9,10,11,12,15,16,17,18,19,20,21], \"sabado\": []}"
+}; 
+*/
+
