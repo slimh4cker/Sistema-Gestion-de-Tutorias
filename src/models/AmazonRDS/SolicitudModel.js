@@ -450,13 +450,3 @@ export class SolicitudModel{
 
 
 }
-
-SolicitudModel.datosAsesorAsesoria(27).then((solicitud) => {
-    if (solicitud) {
-        console.log("Solicitud encontrada:", solicitud);
-    } else {
-        console.log("Solicitud no encontrada");
-    }
-}).catch((error) => {
-    console.error("Error al buscar la solicitud:", error);
-});

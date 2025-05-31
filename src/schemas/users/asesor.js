@@ -75,6 +75,7 @@ export function validarParcialAsesor(asesor){
  * @returns {Zod.SafeParseReturnType<any, any>} - Resultado completo de la validación usando Zod.
  */
 export function validarAsesorZod(asesor){
+  console.log("datos Asesor: ", asesor)
   return asesorSchema.safeParse(asesor)
 }
 

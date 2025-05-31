@@ -427,6 +427,7 @@ async function registerUser() {
             }
             endpoint = 'http://localhost:1234/asesor';
             body = { nombre, email, password, area_especializacion: especialidad, disponibilidad: horarioJSON };
+            console.log(body)
             break;
         case 'admin':
             endpoint = 'http://localhost:1234/admin';
