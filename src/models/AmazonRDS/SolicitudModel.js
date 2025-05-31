@@ -82,11 +82,17 @@ export class SolicitudModel{
         include: [
             {
                 model: modelo_cuenta_estudiante,
-                attributes: []
+                attributes: ['nombre', 'email'],
+                where: {
+                    estado: 'activo' // Aseguramos que solo se incluyan estudiantes activos
+                }
             },
             {
                 model: modelo_cuenta_asesor,
-                attributes: []
+                attributes: ['nombre', 'email'],
+                where: {
+                    estado: 'activo' // Aseguramos que solo se incluyan asesores activos
+                }
             }
         ],
         where: {
@@ -401,4 +407,56 @@ export class SolicitudModel{
             return null;
         }
     }
+
+    /**
+     * 
+     * @param {*} id 
+     * @returns 
+     */
+    static async datosAsesorAsesoria(id) {
+    const buscar_solicitud = await modelo_solicitud.findOne({
+        attributes: [
+            'id',
+            'tema',
+        ],
+        include: {
+            model: modelo_cuenta_asesor,
+            attributes: ['id', 'nombre', 'email'],
+            where: {
+                estado: 'activo'
+            }
+        },
+        where: {
+            id: id
+        },
+        raw: true
+    });
+
+    if (!buscar_solicitud) {
+        return null;
+    }
+
+    return {
+        id: buscar_solicitud.id,
+        tema: buscar_solicitud.tema,
+        asesor: {
+            asesor_id: buscar_solicitud['modelo_cuenta_asesor.id'],
+            nombre: buscar_solicitud['modelo_cuenta_asesor.nombre'],
+            email: buscar_solicitud['modelo_cuenta_asesor.email']
+        }
+    };
 }
+
+
+
+}
+
+SolicitudModel.datosAsesorAsesoria(27).then((solicitud) => {
+    if (solicitud) {
+        console.log("Solicitud encontrada:", solicitud);
+    } else {
+        console.log("Solicitud no encontrada");
+    }
+}).catch((error) => {
+    console.error("Error al buscar la solicitud:", error);
+});
