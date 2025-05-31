@@ -45,6 +45,11 @@ window.onload = () => {
         // Se mandan a llamar los elementos del DOM 
         const input_nombre = document.getElementById('nombre');
         const input_password = document.getElementById('password');
+
+        // Agregar al espacio local los datos del usuario y evento
+        // Evento agregado para que funciones puedan activarse cuando se cargan los datos del usuario
+        localStorage.setItem('datos_usuario', usuario);
+        document.dispatchEvent(new CustomEvent('datosUsuarioCargados', { detail: usuario }));
         
         // Se asignan los valores a los elementos del DOM
         document.getElementById('email').innerText = usuario.email;
