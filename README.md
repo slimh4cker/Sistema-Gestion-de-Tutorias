@@ -120,7 +120,8 @@ JWT_SECRET= #clave con la que generar tokens
 
 ### 6. Creacion de Administradores
 El proyecto cuenta con un administrador por defecto, sus credenciales son: {corre: juan@admin.com password: admin123}.
-Despues de esto se ha de dirigir a la ventana "Agregar Admin" y entonces se agregan los usuarios que se requieran.
+Ingrese a la paguina para hacer login, despues presione el boton que dice "Administradores" e ingrese las credenciales.
+Una vez adentro de esto se ha de dirigir a la ventana "Agregar Admin" y entonces se agregan los usuarios que se requieran para manejar el sistema.
 
 ## Scripts
 ### Iniciar el servidor
