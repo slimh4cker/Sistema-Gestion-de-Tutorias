@@ -17,7 +17,7 @@ import { validarAsesorZod } from "../../schemas/users/asesor.js";
  */
 export const registrarAsesor = async (req, res) => {
   try {
-    const { nombre, email, password, area_especializacion } = req.body;
+    const { nombre, email, password, area_especializacion, disponibilidad } = req.body;
 
     // realizar validacion
     const validacion = validarAsesorZod(req.body);
@@ -33,6 +33,7 @@ export const registrarAsesor = async (req, res) => {
       email,
       password,
       area_especializacion,
+      disponibilidad,
       estado: 1 // Asegura el estado activo
     });
 
@@ -48,7 +49,8 @@ export const registrarAsesor = async (req, res) => {
         id: nuevoAsesor.id,
         nombre: nuevoAsesor.nombre,
         email: nuevoAsesor.email,
-        area_especializacion: nuevoAsesor.area_especializacion
+        area_especializacion: nuevoAsesor.area_especializacion,
+        disponibilidad: nuevoAsesor.disponibilidad
       }
     });
 
