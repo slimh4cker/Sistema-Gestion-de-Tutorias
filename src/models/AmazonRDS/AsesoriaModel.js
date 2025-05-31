@@ -106,7 +106,6 @@ export class AsesoriaModel{
                 estado: 'asignada'
             }
         })
-        console.log("Los pendientes son los siguientes: ",pendientes)
         if (!pendientes || pendientes.length === 0){
             return false
         }

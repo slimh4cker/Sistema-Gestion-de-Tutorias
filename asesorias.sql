@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2025 at 02:56 AM
--- Server version: 11.5.2-MariaDB
--- PHP Version: 8.2.18
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 30-05-2025 a las 20:15:21
+-- Versión del servidor: 11.5.2-MariaDB
+-- Versión de PHP: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `asesorias`
+-- Base de datos: `asesorias`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administradores`
+-- Estructura de tabla para la tabla `administradores`
 --
 
 DROP TABLE IF EXISTS `administradores`;
@@ -36,20 +36,22 @@ CREATE TABLE IF NOT EXISTS `administradores` (
   `estado` enum('activo','inactivo') DEFAULT 'activo',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `administradores`
+-- Volcado de datos para la tabla `administradores`
 --
 
 INSERT INTO `administradores` (`id`, `nombre`, `email`, `password`, `estado`) VALUES
-(1, 'Juan Pérez', 'juan@admin.com', 'admin123', 'activo'),
-(2, 'María Gómez', 'maria@admin.com', 'admin456', 'activo');
+(1, 'Juan Pérez', 'juan@admin.com', '$2b$10$90zn9PsWflmTK8XxrbnzRekfLOwQerM/ktJctA4CP2meTZaAW1ZjK', 'activo'),
+(2, 'Maria Tomez Perez', 'maria@asesor.io', 'myPassword33', 'activo'),
+(3, 'Maria Tomez 2', 'Maria@hotmail.com', 'myPassword33', 'activo'),
+(6, 'Maria Tomez Aguilar', 'maria@admin.org', 'myPassword33', 'activo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asesores`
+-- Estructura de tabla para la tabla `asesores`
 --
 
 DROP TABLE IF EXISTS `asesores`;
@@ -59,32 +61,32 @@ CREATE TABLE IF NOT EXISTS `asesores` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `area_especializacion` varchar(255) DEFAULT NULL,
-  `disponibilidad` varchar(255) DEFAULT NULL,
+  `disponibilidad` varchar(400) DEFAULT NULL,
   `estado` enum('activo','inactivo') DEFAULT 'activo',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `asesores`
+-- Volcado de datos para la tabla `asesores`
 --
 
 INSERT INTO `asesores` (`id`, `nombre`, `email`, `password`, `area_especializacion`, `disponibilidad`, `estado`) VALUES
-(1, 'Carlos Torres', 'carlos@asesor.com', 'asesor123', 'Matemáticas', 'Lunes-Viernes', 'activo'),
+(1, 'Carlos Torres', 'carlos@asesor.com', 'asesor123', 'Matemáticas', 'Lunes-Viernes', 'inactivo'),
 (2, 'Ana López', 'ana@asesor.com', 'asesor456', 'Física', 'Martes y Jueves', 'activo'),
-(5, 'Carlos Ramírez', 'carlos.ramirez@example.com', '$2b$10$EjemploDeHashContraseñaEncriptada', 'Matemáticas Avanzadas', 'Lunes a Viernes de 9:00 AM a 5:00 PM', 'activo');
+(5, 'Carlos Ramírez Carlos', 'carlos.ramirez@example.com', '$2b$10$JI.TZPLB3zj2.3TaUxtJa.Abii2Yf9ZYDzMLRNu/kK/NwuekBcLea', 'Matemáticas Avanzadas', 'Lunes a Viernes de 9:00 AM a 5:00 PM', 'activo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asesorias`
+-- Estructura de tabla para la tabla `asesorias`
 --
 
 DROP TABLE IF EXISTS `asesorias`;
 CREATE TABLE IF NOT EXISTS `asesorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `solicitud_id` int(11) DEFAULT NULL,
-  `estado` enum('pendiente','asignada','en_progreso','terminada','aplazada') DEFAULT NULL,
+  `estado` enum('pendiente','asignada','en_progreso','terminada','aplazada') DEFAULT 'pendiente',
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_atencion` date DEFAULT NULL,
   `hora_inicial` time DEFAULT NULL,
@@ -94,20 +96,30 @@ CREATE TABLE IF NOT EXISTS `asesorias` (
   `requiere_sesiones` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `solicitud_id` (`solicitud_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `asesorias`
+-- Volcado de datos para la tabla `asesorias`
 --
 
 INSERT INTO `asesorias` (`id`, `solicitud_id`, `estado`, `fecha_creacion`, `fecha_atencion`, `hora_inicial`, `hora_final`, `total_horas`, `porcentaje_cumplimiento`, `requiere_sesiones`) VALUES
-(1, 1, 'pendiente', '2025-04-24 00:00:00', NULL, '11:00:00', '12:11:09', NULL, 80.00, NULL),
-(2, 1, 'asignada', '2025-05-24 00:00:00', '2025-06-01', '12:00:00', '13:07:01', NULL, 78.00, NULL);
+(2, 1, 'asignada', '2025-05-24 00:00:00', '2025-06-01', '12:00:00', '13:07:01', NULL, 78.00, NULL),
+(4, 5, 'pendiente', '2025-05-07 20:58:05', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 6, 'pendiente', '2025-05-07 21:04:18', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 7, 'pendiente', '2025-05-07 21:04:42', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 9, 'pendiente', '2025-05-22 00:27:39', NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 10, 'pendiente', '2025-05-22 00:30:05', NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 23, 'pendiente', '2025-05-22 13:40:25', NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 24, 'pendiente', '2025-05-23 00:13:43', NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 25, 'pendiente', '2025-05-23 00:14:24', NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 26, 'asignada', '2025-05-23 20:23:41', NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 27, 'asignada', '2025-05-23 20:24:07', NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 28, 'asignada', '2025-05-23 20:26:35', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `calendario`
+-- Estructura de tabla para la tabla `calendario`
 --
 
 DROP TABLE IF EXISTS `calendario`;
@@ -124,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `calendario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `calendario`
+-- Volcado de datos para la tabla `calendario`
 --
 
 INSERT INTO `calendario` (`id`, `solicitud_id`, `fecha_sesion`, `evento_calendar_id`, `recordatorio_enviado`, `fecha_recordatorio`, `estado`) VALUES
@@ -133,7 +145,7 @@ INSERT INTO `calendario` (`id`, `solicitud_id`, `fecha_sesion`, `evento_calendar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contenido_apoyo`
+-- Estructura de tabla para la tabla `contenido_apoyo`
 --
 
 DROP TABLE IF EXISTS `contenido_apoyo`;
@@ -150,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `contenido_apoyo` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `contenido_apoyo`
+-- Volcado de datos para la tabla `contenido_apoyo`
 --
 
 INSERT INTO `contenido_apoyo` (`id`, `asesor_id`, `titulo`, `descripcion`, `url_video`, `fecha_subida`, `estado`) VALUES
@@ -160,7 +172,7 @@ INSERT INTO `contenido_apoyo` (`id`, `asesor_id`, `titulo`, `descripcion`, `url_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `encuestas`
+-- Estructura de tabla para la tabla `encuestas`
 --
 
 DROP TABLE IF EXISTS `encuestas`;
@@ -177,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `encuestas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estudiantes`
+-- Estructura de tabla para la tabla `estudiantes`
 --
 
 DROP TABLE IF EXISTS `estudiantes`;
@@ -189,45 +201,82 @@ CREATE TABLE IF NOT EXISTS `estudiantes` (
   `estado` enum('activo','inactivo') DEFAULT 'activo',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `estudiantes`
+-- Volcado de datos para la tabla `estudiantes`
 --
 
 INSERT INTO `estudiantes` (`id`, `nombre`, `email`, `password`, `estado`) VALUES
 (1, 'Luis Ramírez', 'luis@estudiante.com', 'estudiante123', 'inactivo'),
-(2, 'Laura Fernández', 'laura@estudiante.com', 'estudiante456', 'activo');
+(2, 'Laura Fernández', 'laura@estudiante.com', 'estudiante456', 'activo'),
+(3, 'Juan Perez', 'juan@estudiant.com', '$2b$10$ypQvqp3PD3kU5KLMReChhewAgBjlbxzYM0DlD6ErCdVd3nzT1n.m.', 'activo'),
+(5, 'Diego Francisco Soto Flores', 'al22760575@ite.edu.mx', '$2b$10$oWevczze9ewyed.ZDbTGDO4JIIalajEkzGaDXp3ZWU9e8VFi53b7C', 'activo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mensajes`
+-- Estructura de tabla para la tabla `mensajes`
 --
 
 DROP TABLE IF EXISTS `mensajes`;
 CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `solicitud_id` int(11) DEFAULT NULL,
-  `emisor_tipo` enum('estudiante','asesor','administrador') DEFAULT NULL,
-  `emisor_id` int(11) DEFAULT NULL,
-  `contenido` text DEFAULT NULL,
+  `id_asesoria` int(11) NOT NULL,
+  `id_emisor` int(11) NOT NULL,
+  `emisor_tipo` enum('alumno','asesor') NOT NULL,
+  `id_receptor` int(11) NOT NULL,
+  `receptor_tipo` enum('alumno','asesor') NOT NULL,
+  `contenido` text NOT NULL,
+  `estado` enum('enviado','leído') NOT NULL DEFAULT 'enviado',
   `fecha_envio` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `solicitud_id` (`solicitud_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  KEY `id_asesoria` (`id_asesoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `mensajes`
+-- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`id`, `solicitud_id`, `emisor_tipo`, `emisor_id`, `contenido`, `fecha_envio`) VALUES
-(1, 1, 'estudiante', 1, 'Hola, ¿puedes ayudarme con una duda?', '2025-03-26 09:30:00');
+INSERT INTO `mensajes` (`id`, `id_asesoria`, `id_emisor`, `emisor_tipo`, `id_receptor`, `receptor_tipo`, `contenido`, `estado`, `fecha_envio`) VALUES
+(1, 26, 5, 'alumno', 2, 'asesor', 'Muchas gracias asesor, estaré al pendiente de ello, gracias', 'leído', '2025-05-29 00:08:37'),
+(4, 26, 2, 'asesor', 5, 'alumno', 'De nada, para eso estamos', 'leído', '2025-05-29 00:10:53'),
+(6, 27, 5, 'alumno', 5, 'asesor', 'Que le digo profe, es la mera cabra para esto', 'leído', '2025-05-29 00:19:16'),
+(7, 27, 5, 'asesor', 5, 'alumno', 'no sea grosero joven', 'leído', '2025-05-29 00:19:37'),
+(8, 26, 5, 'alumno', 2, 'asesor', 'No neta que se la rifó en esta, ahí nos vemos luego. Saludos!', 'leído', '2025-05-29 02:05:23'),
+(10, 27, 5, 'alumno', 5, 'asesor', 'Hola profe!!', 'leído', '2025-05-30 04:04:51'),
+(11, 27, 5, 'asesor', 5, 'alumno', 'Buenas tardes, en que le puedo ayudar?', 'leído', '2025-05-30 04:09:19'),
+(12, 27, 5, 'alumno', 5, 'asesor', 'Me gustaría aprender otra cosa', 'leído', '2025-05-30 04:10:41'),
+(13, 27, 5, 'alumno', 5, 'asesor', 'oki??', 'leído', '2025-05-30 04:11:24'),
+(14, 27, 5, 'asesor', 5, 'alumno', 'está bien, mañana empezamos', 'leído', '2025-05-30 04:14:41'),
+(15, 27, 5, 'alumno', 5, 'asesor', 'Arreee', 'leído', '2025-05-30 04:15:08'),
+(16, 27, 5, 'asesor', 5, 'alumno', 'empezamos la proxima sesión', 'leído', '2025-05-30 04:17:15'),
+(17, 27, 5, 'alumno', 5, 'asesor', 'bien, gracias profe', 'leído', '2025-05-30 04:19:29'),
+(18, 27, 5, 'alumno', 5, 'asesor', 'va', 'leído', '2025-05-30 04:20:53'),
+(19, 27, 5, 'alumno', 5, 'asesor', 'va', 'leído', '2025-05-30 04:22:55'),
+(20, 27, 5, 'alumno', 5, 'asesor', 'prueba2.0', 'leído', '2025-05-30 04:24:20'),
+(21, 27, 5, 'alumno', 5, 'asesor', 'okok', 'leído', '2025-05-30 04:37:19'),
+(22, 27, 5, 'alumno', 5, 'asesor', 'okok', 'leído', '2025-05-30 04:38:38'),
+(23, 27, 5, 'alumno', 5, 'asesor', 'koko', 'leído', '2025-05-30 04:38:44'),
+(24, 26, 5, 'alumno', 2, 'asesor', 'Hola profe', 'leído', '2025-05-30 12:05:52'),
+(25, 27, 5, 'alumno', 5, 'asesor', 'Hola de nuevo', 'leído', '2025-05-30 14:23:12'),
+(26, 27, 5, 'alumno', 5, 'asesor', 'Hola otra vez!!', 'leído', '2025-05-30 14:24:05'),
+(27, 27, 5, 'alumno', 5, 'asesor', 'pssss!!', 'leído', '2025-05-30 14:25:48'),
+(28, 27, 5, 'alumno', 5, 'asesor', 'Hola profe', 'leído', '2025-05-30 15:16:58'),
+(29, 27, 5, 'asesor', 5, 'alumno', 'que pasó joven?', 'leído', '2025-05-30 15:19:47'),
+(30, 27, 5, 'alumno', 5, 'asesor', 'Nada, le quería avisar que no me quedaron claros algunos temas', 'leído', '2025-05-30 15:20:42'),
+(31, 27, 5, 'asesor', 5, 'alumno', 'Ok, luego lo vemos', 'leído', '2025-05-30 16:36:16'),
+(32, 27, 5, 'alumno', 5, 'asesor', 'va que va', 'leído', '2025-05-30 17:39:42'),
+(33, 27, 5, 'alumno', 5, 'asesor', 'hola esta es una prueba de mensajes', 'leído', '2025-05-30 17:40:10'),
+(34, 27, 5, 'asesor', 5, 'alumno', 'Hola', 'leído', '2025-05-30 18:30:53'),
+(35, 27, 5, 'alumno', 5, 'asesor', 'Hola', 'leído', '2025-05-30 19:49:01'),
+(36, 27, 5, 'alumno', 5, 'asesor', 'Le queria preguntar algo', 'leído', '2025-05-30 19:49:59'),
+(37, 27, 5, 'asesor', 5, 'alumno', 'Que pasó joven?', 'enviado', '2025-05-30 20:11:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notificaciones`
+-- Estructura de tabla para la tabla `notificaciones`
 --
 
 DROP TABLE IF EXISTS `notificaciones`;
@@ -244,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `notificaciones` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `notificaciones`
+-- Volcado de datos para la tabla `notificaciones`
 --
 
 INSERT INTO `notificaciones` (`id`, `solicitud_id`, `destinatario_tipo`, `destinatario_id`, `mensaje`, `fecha_envio`, `estado`) VALUES
@@ -253,7 +302,7 @@ INSERT INTO `notificaciones` (`id`, `solicitud_id`, `destinatario_tipo`, `destin
 -- --------------------------------------------------------
 
 --
--- Table structure for table `preguntas_encuesta`
+-- Estructura de tabla para la tabla `preguntas_encuesta`
 --
 
 DROP TABLE IF EXISTS `preguntas_encuesta`;
@@ -269,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `preguntas_encuesta` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reportes`
+-- Estructura de tabla para la tabla `reportes`
 --
 
 DROP TABLE IF EXISTS `reportes`;
@@ -295,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `reportes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `reportes`
+-- Volcado de datos para la tabla `reportes`
 --
 
 INSERT INTO `reportes` (`id`, `titulo`, `descripcion`, `fecha_generacion`, `total_asesorias`, `total_atendidas`, `total_pendientes`, `promedio_tiempo_respuesta`, `promedio_tiempo_resolucion`, `promedio_cumplimiento`, `total_horas_asesoria`, `filtro_fecha_inicio`, `filtro_fecha_fin`, `filtro_area_especializacion`, `filtro_asesor_id`, `filtro_estado`, `estado`) VALUES
@@ -309,7 +358,7 @@ INSERT INTO `reportes` (`id`, `titulo`, `descripcion`, `fecha_generacion`, `tota
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reportes_asesorias`
+-- Estructura de tabla para la tabla `reportes_asesorias`
 --
 
 DROP TABLE IF EXISTS `reportes_asesorias`;
@@ -325,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `reportes_asesorias` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitudes`
+-- Estructura de tabla para la tabla `solicitudes`
 --
 
 DROP TABLE IF EXISTS `solicitudes`;
@@ -342,21 +391,33 @@ CREATE TABLE IF NOT EXISTS `solicitudes` (
   PRIMARY KEY (`id`),
   KEY `estudiante_id` (`estudiante_id`),
   KEY `asesor_id` (`asesor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `solicitudes`
+-- Volcado de datos para la tabla `solicitudes`
 --
 
 INSERT INTO `solicitudes` (`id`, `estudiante_id`, `asesor_id`, `tema`, `observaciones`, `fecha_limite`, `modalidad`, `nivel_urgencia`, `estado`) VALUES
 (1, 1, 1, 'Álgebra', 'Dudas con ecuaciones', '2025-04-10', 'en_linea', 'alta', 'activo'),
 (2, 1, 1, 'Programación Orientada a Objetos en Python', 'El estudiante muestra buen avance.', '2025-09-25', 'en_linea', 'media', 'activo'),
-(3, 2, 2, 'Cálculo Multivariable', NULL, '2025-10-18', 'presencial', 'baja', 'activo');
+(3, 2, 2, 'Cálculo Multivariable', 'ninguna', '2025-10-18', 'presencial', 'baja', 'activo'),
+(4, 2, 2, 'Calculo vectorial', 'ninguna', '2025-04-21', 'presencial', 'media', 'activo'),
+(5, 5, 5, 'Programación Web', 'Conexión de una interfaz con una API', '2025-05-22', 'en_linea', 'alta', 'inactivo'),
+(6, 5, 5, 'Física Cuántica', 'fdsafdasf', '2025-05-02', 'en_linea', 'media', 'inactivo'),
+(7, 5, 5, 'Matemáticas Avanzadas', 'fdsagrhad', '2025-05-23', 'presencial', 'baja', 'inactivo'),
+(9, 5, NULL, 'Física', 'Particularidades de los neutrinos en el vacio', '2025-05-25', 'presencial', 'media', 'inactivo'),
+(10, 5, NULL, 'Física', 'NEUTRINOOOOS', '2025-05-26', 'presencial', 'media', 'inactivo'),
+(23, 5, 2, 'Física', 'fdsfsdffd', '2025-05-28', 'presencial', 'media', 'activo'),
+(24, 5, 2, 'Dinámica', 'hOLA COMO ESTASTFDS', '2025-05-23', 'en_linea', 'media', 'activo'),
+(25, 5, 2, 'Física', 'FDASFDASFSDF', '2025-05-23', 'presencial', 'media', 'activo'),
+(26, 5, NULL, 'Contabilidad', 'fjdasklñfjlñdas', '2025-05-26', 'presencial', 'alta', 'inactivo'),
+(27, 5, 2, 'Física', 'fjdklajñklñjcklñc', '2025-05-28', 'presencial', 'baja', 'activo'),
+(28, 5, 5, 'Electromagnetismo', 'jkljklñfkdñsac', '2025-05-27', 'en_linea', 'media', 'activo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitudes_administradores`
+-- Estructura de tabla para la tabla `solicitudes_administradores`
 --
 
 DROP TABLE IF EXISTS `solicitudes_administradores`;
@@ -372,67 +433,67 @@ CREATE TABLE IF NOT EXISTS `solicitudes_administradores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `asesorias`
+-- Filtros para la tabla `asesorias`
 --
 ALTER TABLE `asesorias`
   ADD CONSTRAINT `asesorias_ibfk_1` FOREIGN KEY (`solicitud_id`) REFERENCES `solicitudes` (`id`);
 
 --
--- Constraints for table `calendario`
+-- Filtros para la tabla `calendario`
 --
 ALTER TABLE `calendario`
   ADD CONSTRAINT `calendario_ibfk_1` FOREIGN KEY (`solicitud_id`) REFERENCES `solicitudes` (`id`);
 
 --
--- Constraints for table `contenido_apoyo`
+-- Filtros para la tabla `contenido_apoyo`
 --
 ALTER TABLE `contenido_apoyo`
   ADD CONSTRAINT `contenido_apoyo_ibfk_1` FOREIGN KEY (`asesor_id`) REFERENCES `asesores` (`id`);
 
 --
--- Constraints for table `encuestas`
+-- Filtros para la tabla `encuestas`
 --
 ALTER TABLE `encuestas`
   ADD CONSTRAINT `encuestas_ibfk_1` FOREIGN KEY (`asesoria_id`) REFERENCES `asesorias` (`id`);
 
 --
--- Constraints for table `mensajes`
+-- Filtros para la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`solicitud_id`) REFERENCES `solicitudes` (`id`);
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`id_asesoria`) REFERENCES `asesorias` (`id`);
 
 --
--- Constraints for table `notificaciones`
+-- Filtros para la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
   ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`solicitud_id`) REFERENCES `solicitudes` (`id`);
 
 --
--- Constraints for table `preguntas_encuesta`
+-- Filtros para la tabla `preguntas_encuesta`
 --
 ALTER TABLE `preguntas_encuesta`
   ADD CONSTRAINT `preguntas_encuesta_ibfk_1` FOREIGN KEY (`encuesta_id`) REFERENCES `encuestas` (`id`);
 
 --
--- Constraints for table `reportes_asesorias`
+-- Filtros para la tabla `reportes_asesorias`
 --
 ALTER TABLE `reportes_asesorias`
   ADD CONSTRAINT `reportes_asesorias_ibfk_1` FOREIGN KEY (`reporte_id`) REFERENCES `reportes` (`id`),
   ADD CONSTRAINT `reportes_asesorias_ibfk_2` FOREIGN KEY (`asesoria_id`) REFERENCES `asesorias` (`id`);
 
 --
--- Constraints for table `solicitudes`
+-- Filtros para la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
   ADD CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiantes` (`id`),
   ADD CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`asesor_id`) REFERENCES `asesores` (`id`);
 
 --
--- Constraints for table `solicitudes_administradores`
+-- Filtros para la tabla `solicitudes_administradores`
 --
 ALTER TABLE `solicitudes_administradores`
   ADD CONSTRAINT `solicitudes_administradores_ibfk_1` FOREIGN KEY (`solicitud_id`) REFERENCES `solicitudes` (`id`),

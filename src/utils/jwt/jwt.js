@@ -12,7 +12,6 @@ export const generarToken = (usuario, tipoModelo) => {
       rol: tipoModelo, // El rol se determina por el tipo de modelo
     };
     
-    console.log("JWT Utilizado")
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
   
@@ -29,9 +28,7 @@ export const generarToken = (usuario, tipoModelo) => {
   export const verificarToken = async (token) => {
     if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET no está definido');
     
-    console.log("[DEBUG] Token recibido:", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("[DEBUG] Rol decodificado:", decoded.rol);
     
     let usuario;
     switch(decoded.rol) {
@@ -82,7 +79,6 @@ export const authMiddleware = (rolesPermitidos = []) => {
           ...(usuario.nombre && { nombre: usuario.nombre }),
           ...(usuario.matricula && { matricula: usuario.matricula })
         };
-        console.log("[DEBUG] req.user inyectado:", req.user);
         next();
       } catch (error) {
         let status = 401;

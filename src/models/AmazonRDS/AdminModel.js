@@ -59,7 +59,6 @@ export class AdminModel{
                     ...datos,
                     password: hashedPassword,
                 });
-                console.log("Admin agregado correctamente");
                 return crear_admin.dataValues;
             }
     
@@ -77,7 +76,6 @@ export class AdminModel{
             }
     
             if (admin.dataValues.estado === "activo") {
-                console.log("Ya existe un Administrador registrado con ese correo electrónico");
                 return null;
             }
     
@@ -134,13 +132,11 @@ export class AdminModel{
                 email: correo
             }
         })
-        console.log(delete_admin)
         return delete_admin[0] > 0 // Si se elimina retorna true, si no retorna false
         
     }
 
     static async reactivarAdmin(datos) {
-        console.log("Correo reactivado Correctamente")
         return await modelo_cuenta_administrador.update({
             nombre: datos.nombre,
             password: datos.password,

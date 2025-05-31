@@ -148,14 +148,8 @@ FORMULARIO PARA INICIAR SESION O HACER REGISTRO*/
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Contenedor principal fijo */
-
-
 }
-/* Contenedor principal fijo */
-/* .container {
-    overflow: hidden;
-} */
+
 
 .form-content {
     flex: 1;
@@ -1639,6 +1633,8 @@ html, body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+
 
 
 

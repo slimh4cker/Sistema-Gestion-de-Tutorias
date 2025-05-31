@@ -341,7 +341,6 @@ export class SolicitudModel{
                 return false;
             }
     
-            console.log("Solicitud y asesoría creadas correctamente");
             return solicitudCreada;
     
         } catch (error) {

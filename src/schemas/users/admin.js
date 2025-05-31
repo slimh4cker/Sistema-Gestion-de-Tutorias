@@ -41,6 +41,5 @@ export function validarParcialAdmin(admin){
  * @returns {Zod.SafeParseReturnType<any, any>} - Resultado completo de la validación (éxito o errores).
  */
 export function validarAdminZod(admin) {
-  console.log(admin)
   return adminSchema.safeParse(admin)
 }

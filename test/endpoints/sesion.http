@@ -36,8 +36,8 @@ POST http://localhost:1234/auth/admin
 Content-Type: application/json
 
 {
-    "email": "maria@admin.com",
-    "password": "brandon123"
+    "email": "juan@admin.com",
+    "password": "admin123"
 }
 
 ## Para agregar una cuenta

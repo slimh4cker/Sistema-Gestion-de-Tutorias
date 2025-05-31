@@ -1,4 +1,4 @@
-import { modelo_mensajes } from "./Modelo_datos.js";
+import { modelo_mensajes, modelo_asesorias } from "./Modelo_datos.js";
 import { Op } from "sequelize";
 
 
@@ -10,7 +10,14 @@ export class MensajesModel {
             [Op.or]: [
             { id_emisor: id_usuario, emisor_tipo: tipo_usuario },
             { id_receptor: id_usuario, receptor_tipo: tipo_usuario }
-            ]
+            ],
+            
+        },
+        include: {
+          model: modelo_asesorias,
+          where: {
+            estado: 'asignada' // Filtrar solo asesorías activas
+          }
         },
         attributes: ['id_asesoria'],
         group: ['id_asesoria'],
@@ -31,7 +38,7 @@ export class MensajesModel {
     try {
       const mensajes = await modelo_mensajes.findAll({
         where: {
-          id_asesoria: id_asesoria
+          id_asesoria: id_asesoria,
         },
         order: [['fecha_envio', 'ASC']]
       });
@@ -117,6 +124,20 @@ export class MensajesModel {
       throw error;
     }
   }
+
+  // En tu modelo de mensajes
+static async marcarMensajesLeidos(idsMensajes) {
+    try {
+        await this.update(
+            { estado: 'leído' },
+            { where: { id_mensaje: idsMensajes } }
+        );
+        return true;
+    } catch (error) {
+        console.error('Error al actualizar estado de mensajes:', error);
+        return false;
+    }
+}
 
  static async actualizarEstadoMensaje(id_mensaje, nuevoEstado) {
   try {

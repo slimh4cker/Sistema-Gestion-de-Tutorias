@@ -67,7 +67,7 @@ const modelo_cuenta_asesor = sequelize.define('modelo_cuenta_asesor',{
         defaultValue: null
     },
     disponibilidad: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(400),
         allowNull: true,
         defaultValue: null,
     },

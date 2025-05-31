@@ -8,16 +8,101 @@
     <link rel="stylesheet" href="../styles/stylesAsesor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+
+      /* CONTENEDOR PRINCIPAL */
+.message-thread {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.8rem;
+}
+
+/* CONTENEDOR DE MENSAJE */
+.message-container {
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* CONTENEDOR ALINEADO A LA DERECHA (EMISOR) */
+.message-container.sent {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+/* CONTENEDOR ALINEADO A LA IZQUIERDA (RECEPTOR) */
+.message-container.received {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+
+.message-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: 1.15rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
+    max-width: 100%;
+}
+
+
+.message-bubble.sent {
+    background: #248bf5;
+    color: white;
+    border-bottom-right-radius: 0.5rem;
+}
+
+
+.message-bubble.received {
+    background: #e5e5ea;
+    color: #000;
+    border-bottom-left-radius: 0.5rem;
+    border: 1px solid #e0e0e0;
+}
+
+
+.message-time {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-top: 0.3rem;
+    padding: 0 0.5rem;
+}
+
 .messages-container {
   display: flex;
   flex-direction: row;
   gap: 3rem;
   padding: 1rem;
-  height: calc(100vh - 120px); /* o ajusta según tu navbar/topbar */
+  height: calc(100vh - 120px); 
   overflow: hidden;
 }
+.emisor {
+  background-color: #79a3fd;
+  max-width: 50%;
+  padding: 0.3em .5em;
+  border-radius: 5px;
+  word-wrap: break-word;
+  margin-bottom: 0.5rem;
+  align-self: flex-end;
+}
 
-/* Lista de conversaciones */
+.receptor {
+  background-color: #FFFFFF;
+  max-width: 50%;
+  padding: 0.3rem .4rem;
+  border-radius: 5px;
+  word-wrap: break-word;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.text-muted {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+
 .conversation-list {
   width: 300px;
   border-right: 1px solid #e9ecef;
@@ -25,12 +110,14 @@
   flex-shrink: 0;
 }
 
-/* Área de mensajes */
+
 .message-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  background-color: #fafafa;
+  border-radius: 10px;
 }
 
 
@@ -63,7 +150,7 @@
   background: #fff;
 }
 
-/* Responsive para móvil */
+
 @media (max-width: 768px) {
   .messages-container {
     flex-direction: column;
@@ -81,6 +168,10 @@
   .message-area.active {
     display: flex;
   }
+}
+#contenido-mensaje.form-control {
+  height: auto !important;
+  min-height: 80px;
 }
 
   </style>
@@ -142,36 +233,7 @@
     <script src="../js/navbar_asesor.js"></script>
     <script src="../js/sidebar_asesor.js"></script>
     <script src="../js/mensajes.js"></script>
-    <script src="../js/obtenerChats.js"></script>
-    <script src="../js/mensajes.js"></script>
     <script src="../js/fechaFormateada.js"></script>
-    <script>
-  chatItem.addEventListener('click', () => {
-    console.log("Chat item clicked");
-  const messageArea = document.getElementById("messageArea");
-  const conversationList = document.getElementById("conversationList");
-
-  const chatNameElem = document.getElementById("chatName");
-  const messageThread = document.getElementById("messageThread");
-
-  chatNameElem.textContent = portada.nombre;
-  messageThread.innerHTML = `
-    <div class="message received">
-      <strong>${portada.nombre}</strong>
-      <p>${portada.ultimoMensaje || 'Sin mensajes aún'}</p>
-      <small class="text-muted">Ahora</small>
-    </div>
-  `;
-
-  if (window.innerWidth < 768) {
-    conversationList.classList.remove("active");
-    messageArea.classList.add("active");
-  } else {
-    messageArea.classList.add("active"); // visible siempre en escritorio
-  }
-});
-
-
 
 </script>
 </body>

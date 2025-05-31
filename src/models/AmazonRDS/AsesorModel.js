@@ -71,14 +71,12 @@ export class AsesorModel{
                     ...datos,
                     password: hashedPassword,
                 });
-                console.log("Asesor creado correctamente")
                 return crear_asesor.dataValues
             }
             else if (asesor.dataValues.estado === 'inactivo'){
                 return this.reactivarAsesor(datos)
             }
             else if(asesor.dataValues.estado === 'activo'){
-                console.log("Este asesor ya está registrado")
                 return null
             }
         }
@@ -90,7 +88,6 @@ export class AsesorModel{
     }
 
     static async reactivarAsesor(datos){
-        console.log("Correo Reactivado Correctamente")
         return await modelo_cuenta_asesor.update({
             nombre: datos.nombre,
             password: datos.password,

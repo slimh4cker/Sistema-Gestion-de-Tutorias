@@ -13,17 +13,15 @@ export class AlumnoModel{
      * AlumnoModel.getAlumnoByMail("email@example.com")
      */
     static async getAlumnoByMail(email) {
-        console.log("[DEBUG] Buscando alumno con email:", email); // 👁️ Verifica el email recibido
+
         const correo_alumno = await modelo_cuenta_estudiante.findOne({
             where: { email, estado: 'activo' }
         });
         
         if (!correo_alumno) {
-            console.log("[DEBUG] No se encontró alumno activo con ese email");
             return null;
         }
         
-        console.log("[DEBUG] Alumno encontrado:", correo_alumno.dataValues); // 👁️ Verifica los datos
         return correo_alumno.dataValues;
     }
 
@@ -33,11 +31,8 @@ export class AlumnoModel{
         });
         
         if (!alumno) {
-            console.log("[DEBUG] No se encontró alumno activo con id", id);
             return null;
         }
-        
-        console.log("[DEBUG] Alumno encontrado:", alumno.dataValues); // 👁️ Verifica los datos
         return alumno.dataValues
     }
     /**
@@ -62,12 +57,10 @@ export class AlumnoModel{
             })
             if(alumno === null){
                 const hashedPassword = await hashPassword(datos.password, 10);
-                console.log(hashedPassword)
                 crear_alumno = await modelo_cuenta_estudiante.create({
                     ...datos,
                     password: hashedPassword,
                 });
-                console.log("Alumno creado correctamente")
                 return crear_alumno
             }
             else if (alumno.dataValues.estado === 'inactivo'){
@@ -90,8 +83,6 @@ export class AlumnoModel{
      */
     static async updateAlumno(emailOriginal, datos) {
   try {
-    console.log("Datos a actualizar:", datos); // 👁️ Verifica los datos recibidos
-    console.log("Email original:", emailOriginal); // 👁️ Verifica el email original
     // Buscar alumno por email
     const alumno = await modelo_cuenta_estudiante.findOne({
       where: { email: emailOriginal }
@@ -153,7 +144,6 @@ export class AlumnoModel{
         return deleteAlumno[0] > 0
     }
     static async reactivarAlumno (datos) {
-        console.log("Correo reactivado Correctamente")
         return await modelo_cuenta_estudiante.update({
             nombre: datos.nombre,
             password: datos.password,
