@@ -118,6 +118,10 @@ EMAIL_PASS=  # contraseña del correo, si se utiliza google se ocupa utilizar un
 #para tokens
 JWT_SECRET= #clave con la que generar tokens
 
+### 6. Creacion de Administradores
+El proyecto cuenta con un administrador por defecto, sus credenciales son: {corre: juan@admin.com password: admin123}.
+Despues de esto se ha de dirigir a la ventana "Agregar Admin" y entonces se agregan los usuarios que se requieran.
+
 ## Scripts
 ### Iniciar el servidor
   npm run start
