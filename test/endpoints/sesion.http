@@ -59,7 +59,8 @@ Content-Type: application/json
     "nombre": "Emilio Prueba",
     "email": "EmilioSanshez@hotmail.com",
     "password": "myPassword33",
-    "area_especializacion": "Ingenieria de Software"
+    "area_especializacion": "Ingenieria de Software",
+    "disponibilidad":  "{\"lunes\": [8,9,10,11,12,15,16,17,18], \"martes\": [8,9,10,11,12,13,14,15,16,17,18], \"miercoles\": [15,16,17,18], \"jueves\": [8,9,10,11,12,15,16,17,18,19,20,21], \"viernes\": [8,9,10,11,12,15,16,17,18,19,20,21], \"sabado\": []}"
 }
 
 ### Admin

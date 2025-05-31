@@ -1,5 +1,5 @@
 import  {validarCamposRegistro}  from '../../utils/validaciones/usuario.js';
-
+import { crearSelectorDeDisponibilidad } from './selector_disponibilidad.js';
 const formTemplates = {
     alumno: `
             <div class="alumno"> 
@@ -83,7 +83,10 @@ const formTemplates = {
 
             <div class="mb-3">
                     <label class="form-label">Disponibilidad de horario:</label>
-                    <input type="text" class="form-control" placeholder="Ej: De Lunes a Viernes de 10:00 A.M. a 12:00 P.M. " id="txtNombre">
+                    <div style="overflow-y:scroll; height: 200px;" >
+                        <!-- Contenedor fijo donde se cargará el selector -->
+                        <div id="selectorHorario" class="selector-container"></div>
+                    </div>
             </div>
 
             <div class="mb-3">
@@ -241,17 +244,31 @@ function switchForm(userType, login = false) {
         formWrapper.scrollIntoView({ behavior: 'smooth' });
     } */
 
+    // Elemento forms el cual sera alterado
     const formContainer = document.getElementById('form-container');
+
+    // Tiepo de usuario [ej alumno, asesor, admin]
     currentUserType = userType;
+    // Determina si es un formulario de login o registro
     isLoginForm = login;
     
     formContainer.style.opacity = '0';
     
     setTimeout(() => {
+        // determinar la plantilla a usar
         const formKey = login ? `login_${userType}` : userType;
+
+        // aplicar la plantilla
         formContainer.innerHTML = formTemplates[formKey];
 
         formContainer.style.opacity = '1';
+
+        // Si es asesor, crear el selector de disponibilidad
+        if (userType === 'asesor' && !login) {
+            // Crear el selector de disponibilidad
+            console.log(document.getElementById('selectorHorario'))
+            getHorarioJSON = crearSelectorDeDisponibilidad('selectorHorario')
+        }
 
         /*LO COMENTE SOLO PORQUE  VOY A DARLE COLORES ESTATICOS A LOS BOTONES
         NO LO BORRE PORQUE ES POSIBLE QUE SE PUEDA RESUSAR*/
@@ -385,7 +402,7 @@ async function registerUser() {
         confirmButtonColor: '#3085d6'
     });
     return;
-}
+    }
 
     console.log('Tipo de usuario:', currentUserType);
     // Configurar según el tipo de usuario
@@ -447,13 +464,17 @@ async function registerUser() {
         title: 'Error en el registro',
         text: error.message || 'Error al registrar el usuario',
         confirmButtonColor: '#d33'
-});
+        });
 
     }
 }
 
+// Función para obtener el horario en formato JSON dentro de la pantalla de asesor
+let getHorarioJSON = () => {console.error('Se llamo a la funcion getHorarioJSON sin definirla')};
+
 // Event Delegation para manejar todos los clicks
 document.addEventListener('click', (e) => {
+    
     // Botón de iniciar sesión
     if (e.target && e.target.id === 'btnIniciarSesion') {
         e.preventDefault();
