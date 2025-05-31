@@ -69,7 +69,7 @@ export function crearSelectorDeDisponibilidad(containerId) {
 
   // Retorna una función para obtener el JSON cuando se necesite
   return () => {
-    const json = JSON.stringify(horarioSeleccionado, null, 2);
+    const json = JSON.stringify(horarioSeleccionado, null, 0);
     console.log(json)
     return json;
   };

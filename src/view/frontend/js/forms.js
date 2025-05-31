@@ -391,7 +391,11 @@ async function registerUser() {
     const nombre = document.getElementById('txtNombre')?.value;
     const email = document.getElementById('txtCorreo')?.value || document.getElementById('txtCorreo')?.value;
     const password = document.getElementById('txtPassword')?.value;
+
+    // campo especial del asesor
     const especialidad = document.getElementById('txtEspecialidad')?.value;
+    // obtener datos de el json
+    const horarioJSON = currentUserType === 'asesor' ? getHorarioJSON() : null;
 
     const errorMsg = validarCamposRegistro(currentUserType, { nombre, email, password, especialidad });
     if (errorMsg) {
@@ -421,9 +425,9 @@ async function registerUser() {
                 confirmButtonColor: '#3085d6'
             });
             return;
-}
+            }
             endpoint = 'http://localhost:1234/asesor';
-            body = { nombre, email, password, area_especializacion: especialidad };
+            body = { nombre, email, password, area_especializacion: especialidad, disponibilidad: horarioJSON };
             break;
         case 'admin':
             endpoint = 'http://localhost:1234/admin';
