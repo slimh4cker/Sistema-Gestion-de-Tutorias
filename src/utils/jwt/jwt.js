@@ -80,6 +80,7 @@ export const authMiddleware = (rolesPermitidos = []) => {
           ...(usuario.matricula && { matricula: usuario.matricula })
         };
         next();
+        console.log(req.user)
       } catch (error) {
         let status = 401;
         let message = 'Error de autenticación';

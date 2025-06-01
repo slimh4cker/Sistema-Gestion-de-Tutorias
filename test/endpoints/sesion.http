@@ -10,7 +10,7 @@ POST http://localhost:1234/auth/alumno
 Content-Type: application/json
 
 {
-    "email": "carlos.ramirez@example.com",
+    "email": "al22760575@ite.edu.mx",
     "password": "ENSENADA2004"
 }
 ###

@@ -41,7 +41,7 @@ export class MensajeControler {
         const usuarioTipo = obtenerRolDeReq(req);
         const {id_asesoria} = req.query
         console.log("ID de asesoría:", id_asesoria);
-        const { limit = 10, lastMessageId = null  } = req.query;
+        const { limit = 1, lastMessageId = null  } = req.query;
         const parseLimit = parseInt(limit, 10);
         if (isNaN(parseLimit) || parseLimit <= 0) {
             return res.status(400).json({ error: 'Los parámetros limit y offset deben ser números válidos' });
@@ -93,6 +93,50 @@ export class MensajeControler {
                     tipo: otroUsuarioTipo
                 },
                 mensajes
+            });
+
+        } catch (error) {
+            console.error('Error al obtener mensajes:', error);
+            res.status(500).json({ error: 'Error al obtener mensajes' });
+        }
+    }
+
+    static async obtenerMensajesSinLeer(req, res){
+        const {id_asesoria} = req.body
+        console.log("query", req.body)
+        const usuarioTipo = obtenerRolDeReq(req)
+
+        if (!id_asesoria) {
+            return res.status(400).json({ error: 'ID de asesoria no proporcionado' });
+        }
+        try {
+            const asesoria = await AsesoriaModel.getAsesoriaById(id_asesoria);
+            if (!asesoria) {
+                return res.status(404).json({ error: 'Asesoría no encontrada' });
+            }
+
+            let otroUsuarioId, otroUsuarioTipo, otroUsuarioNombre;
+
+            if (usuarioTipo === 'alumno') {
+                otroUsuarioId = asesoria.asesor.id;
+                otroUsuarioTipo = 'asesor';
+                const asesor = await modelo_cuenta_asesor.findByPk(otroUsuarioId);
+                otroUsuarioNombre = asesor ? asesor.nombre : 'Asesor no encontrado';
+            } else if (usuarioTipo === 'asesor') {
+                otroUsuarioId = asesoria.estudiante.id;
+                otroUsuarioTipo = 'alumno';
+                const estudiante = await modelo_cuenta_estudiante.findByPk(otroUsuarioId);
+                otroUsuarioNombre = estudiante ? estudiante.nombre : 'Estudiante no encontrado';
+            } else {
+                return res.status(403).json({ error: 'Rol no permitido para ver mensajes de esta asesoría' });
+            }       
+
+            const mensajes = await MensajesModel.obtenerMensajesPorAsesoriaSinLeer(id_asesoria);
+
+            res.status(200).json({
+                success: true,
+                asesoria_id: id_asesoria,
+                sinLeer: mensajes
             });
 
         } catch (error) {

@@ -32,6 +32,21 @@ export class MensajesModel {
     }
 }
 
+static async obtenerMensajesPorAsesoriaSinLeer(id_asesoria){
+  try{
+    const mensajesSinLeer = await modelo_mensajes.findAndCountAll({
+      where: {
+        id_asesoria: id_asesoria,
+        estado: "enviado"
+      }
+    });
+    return mensajesSinLeer.count
+  }
+  catch(error){
+    console.error("Error al obtener los mensajes pendientes")
+  }
+}
+
 
   // Obtener mensajes por id_asesoria ordenados por fecha
   static async obtenerMensajesPorAsesoria(limit, whereCondition) {

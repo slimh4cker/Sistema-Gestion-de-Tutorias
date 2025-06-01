@@ -1,7 +1,7 @@
 import { sequelize } from "../../utils/database_connection.js";
 import { AsesoriaModel } from "./AsesoriaModel.js"
 import { modelo_cuenta_asesor, modelo_cuenta_estudiante } from "./Modelo_cuentas.js";
-import { modelo_solicitud } from "./Modelo_datos.js";
+import { modelo_asesorias, modelo_solicitud } from "./Modelo_datos.js";
 
 export class SolicitudModel{
 
@@ -104,7 +104,7 @@ export class SolicitudModel{
     if (!buscar_solicitud) {
         return null;
     }
-
+    console.log(buscar_solicitud)
     return buscar_solicitud;
 }
     static async asignarAsesorAutomatico(solicitudId) {
@@ -367,6 +367,9 @@ export class SolicitudModel{
             }
             solicitud.asesor_id = asesorId;
             solicitud.estado = 'activo';
+            const asesoria = await modelo_asesorias.findOne({where: {solicitud_id: solicitudId}})
+            asesoria.estado = 'asignada'
+            await asesoria.save()
             await solicitud.save();
             return solicitud;
         } catch (error) {  

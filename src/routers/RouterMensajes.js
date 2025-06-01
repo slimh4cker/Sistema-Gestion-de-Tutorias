@@ -10,9 +10,13 @@ router.post('/crear', authMiddleware(['alumno', 'asesor']), MensajeControler.cre
 router.get('/chats', authMiddleware(['alumno', 'asesor']), MensajeControler.obtenerChats);
 
 // Ruta para obtener los mensajes de una asesoria
-router.post('/mensajes', authMiddleware(['alumno', 'asesor']), MensajeControler.obtenerMensajes);
+router.get('/mensajes', authMiddleware(['alumno', 'asesor']), MensajeControler.obtenerMensajes);
+
+//ruta para obtener mensajes sin leer
+router.post('/leidos', authMiddleware(['alumno', 'asesor']), MensajeControler.obtenerMensajesSinLeer)
 
 // Ruta para cambiar el estado de los mensajes
 router.put('/estado', authMiddleware(['alumno', 'asesor']), MensajeControler.actualizarEstadoMensaje);
+
 
 export default router
