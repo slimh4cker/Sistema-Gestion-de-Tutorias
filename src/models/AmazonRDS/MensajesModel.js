@@ -34,14 +34,17 @@ export class MensajesModel {
 
 
   // Obtener mensajes por id_asesoria ordenados por fecha
-  static async obtenerMensajesPorAsesoria(id_asesoria) {
+  static async obtenerMensajesPorAsesoria(limit, whereCondition) {
+    console.log("parametros de consulta", limit, whereCondition);
     try {
       const mensajes = await modelo_mensajes.findAll({
-        where: {
-          id_asesoria: id_asesoria,
-        },
-        order: [['fecha_envio', 'ASC']]
+        where: 
+          whereCondition,
+  
+        limit: limit,
+        order: [['fecha_envio', 'DESC']]
       });
+      console.log("Mensajes obtenidos:", mensajes);
       return mensajes.map(mensaje=>({
         id_mensaje: mensaje.id,
         id_asesoria: mensaje.id_asesoria,
@@ -107,7 +110,7 @@ export class MensajesModel {
   }
 
   // Obtener mensajes de un usuario (opcional)
-  static async obtenerMensajesDeUsuario(usuarioId, usuarioTipo) {
+  static async obtenerMensajesDeUsuario(usuarioId, usuarioTipo, limit, offset) {
     try {
       const mensajes = await modelo_mensajes.findAll({
         where: {
@@ -116,7 +119,9 @@ export class MensajesModel {
             { receptor_id: usuarioId, receptor_tipo: usuarioTipo }
           ]
         },
-        order: [['fecha_envio', 'DESC']]
+        limit: limit,
+        offset: offset,
+        order: [['fecha_envio', 'ASC']]
       });
       return mensajes;
     } catch (error) {

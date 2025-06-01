@@ -3,15 +3,17 @@ import { AsesorModel } from "../models/AmazonRDS/AsesorModel.js";
 import { modelo_cuenta_asesor, modelo_cuenta_estudiante } from "../models/AmazonRDS/Modelo_cuentas.js";
 import { MensajesModel } from "../models/AmazonRDS/MensajesModel.js";
 import { obtenerIdDeReq, obtenerRolDeReq } from "../utils/request.js";
+import { Op } from "sequelize";
 
 export class MensajeControler {
 
     static async crearMensaje(req, res) {
-        const { id_asesoria, id_receptor, receptor_tipo, contenido } = req.body; 
+        const { id_asesoria, id_receptor, receptor_tipo, contenido} = req.body;
         const id_emisor = obtenerIdDeReq(req)
         const emisor_tipo = obtenerRolDeReq(req)
 
         if (!id_asesoria || !id_receptor || !receptor_tipo || !contenido) {
+            console.error("Datos incompletos para crear mensaje:", { id_asesoria, id_receptor, receptor_tipo, contenido, limit});
             return res.status(400).json({ error: 'Faltan datos requeridos para crear el mensaje' });
         }
 
@@ -36,11 +38,26 @@ export class MensajeControler {
     }
 
     static async obtenerMensajes(req, res) {
-        const id_asesoria = req.body.id_asesoria;
         const usuarioTipo = obtenerRolDeReq(req);
+        const {id_asesoria} = req.query
+        console.log("ID de asesoría:", id_asesoria);
+        const { limit = 10, lastMessageId = null  } = req.query;
+        const parseLimit = parseInt(limit, 10);
+        if (isNaN(parseLimit) || parseLimit <= 0) {
+            return res.status(400).json({ error: 'Los parámetros limit y offset deben ser números válidos' });
+        }
+        if (lastMessageId && isNaN(parseInt(lastMessageId, 10))) {
+            return res.status(400).json({ error: 'El parámetro lastMessageId debe ser un número válido' });
+        }
 
         if (!id_asesoria) {
             return res.status(400).json({ error: 'ID de asesoria no proporcionado' });
+        }
+        let whereCondition = {
+            id_asesoria: id_asesoria // Filtrar por el ID de la asesoría (chat)
+        };
+        if (lastMessageId) {
+            whereCondition.id = { [Op.lt]: lastMessageId }; // id_mensaje < lastMessageId
         }
 
         try {
@@ -63,9 +80,9 @@ export class MensajeControler {
                 otroUsuarioNombre = estudiante ? estudiante.nombre : 'Estudiante no encontrado';
             } else {
                 return res.status(403).json({ error: 'Rol no permitido para ver mensajes de esta asesoría' });
-            }
+            }       
 
-            const mensajes = await MensajesModel.obtenerMensajesPorAsesoria(id_asesoria);
+            const mensajes = await MensajesModel.obtenerMensajesPorAsesoria(parseLimit, whereCondition);
 
             res.status(200).json({
                 success: true,
