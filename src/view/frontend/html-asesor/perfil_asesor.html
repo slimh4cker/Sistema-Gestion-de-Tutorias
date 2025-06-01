@@ -154,24 +154,15 @@
 
     <script type="module">
         import { crearSelectorDeDisponibilidad } from '../js/selector_disponibilidad.js';
+        window.getHorarioJSON = null;
 
         // Tengo que asegurarme que los datos del usuario han sido guardados en el localStorage antes de ver si cuenta con disponibilidad
         // se llama este evento dentro de perfil.js
         document.addEventListener("datosUsuarioCargados", function(event) {
+            const usuario = event.detail 
 
-            // Obtener el horario del asesor desde el localStorage
-            let disponibilidad = null;
-            const usuario = event.detail
-            console.log("disponibilidad del usuario:", usuario);
-
-            // Si existe, parsearlo y usarlo para crear el selector
-            if (usuario.disponibilidad){
-                
-                disponibilidad = JSON.parse(usuario.disponibilidad);
-            }
-
-            let getHorarioJSON = crearSelectorDeDisponibilidad('selectorHorario', 
-                disponibilidad,
+            window.getHorarioJSON = crearSelectorDeDisponibilidad('selectorHorario', 
+                usuario.disponibilidad ? JSON.parse(usuario.disponibilidad) : null
             )
         });
 

@@ -1,5 +1,5 @@
 // Actualizar perfil
-async function updatePerfil(nombre, nuevaContrasenia) {
+async function updatePerfil(nombre, nuevaContrasenia, campos = {}) {
   try {
     let endpoint;
     // Selecciona el tipo de usuario y asigna endpoint correspondiente
@@ -22,13 +22,21 @@ async function updatePerfil(nombre, nuevaContrasenia) {
     const datosActualizados = {};
     if (nombre) datosActualizados.nombre = nombre;
     if (nuevaContrasenia) datosActualizados.password = nuevaContrasenia;
+    // Incluir datos adicionales si se proporcionan en la variable campos
+    if (Object.keys(campos).length > 0) {
+      Object.assign(datosActualizados, campos);
+    }
+
+    console.log('Datos a actualizar:', datosActualizados);
+
+    // Si no hay datos para actualizar, muestra un mensaje y termina la función
     if (Object.keys(datosActualizados).length === 0) {
       Swal.fire({
-      icon: 'info',
-      title: 'Sin cambios',
-      text: 'No se han realizado cambios para actualizar.',
-      confirmButtonColor: '#3085d6'
-});
+        icon: 'info',
+        title: 'Sin cambios',
+        text: 'No se han realizado cambios para actualizar.',
+        confirmButtonColor: '#3085d6'
+      });
       return;
     }
 
@@ -51,25 +59,24 @@ async function updatePerfil(nombre, nuevaContrasenia) {
       text: 'Perfil actualizado correctamente',
       confirmButtonColor: '#3085d6'
     });
-}   else {
+    }  else {
     Swal.fire({
       icon: 'error',
       title: 'Error',
       text: resultado.mensaje || 'No se pudo actualizar el perfil',
       confirmButtonColor: '#d33'
     });
-}
+    }
 
-  } catch (error) {
+    } catch (error) {
     console.error('Error al actualizar perfil:', error);
     Swal.fire({
-  icon: 'error',
-  title: 'Error inesperado',
-  text: 'Ocurrió un error al actualizar el perfil.',
-  timer: 3000,
-  showConfirmButton: false
-});
-
+      icon: 'error',
+      title: 'Error inesperado',
+      text: 'Ocurrió un error al actualizar el perfil.',
+      timer: 3000,
+      showConfirmButton: false
+    });
   }
 }
 
@@ -96,13 +103,18 @@ form.addEventListener('submit', async (e) => {
       title: 'Contraseña inválida',
       text: 'Las contraseñas no coinciden.',
       confirmButtonColor: '#f0ad4e'
-});
-
+      });
       return;
     }
   }
-  console.log('Nombre:', nombre);
-  console.log('Nueva contraseña:', newPassword);
+
+  // ver si existen datos adicionales
+  let camposAdicionales = {};
+  let getHorarioJSON = window.getHorarioJSON || null;
+  if (getHorarioJSON) {
+    camposAdicionales.disponibilidad = window.getHorarioJSON();
+  }
+
   // Llamar a la actualización
-  updatePerfil(nombre, newPassword);
+  updatePerfil(nombre, newPassword, camposAdicionales);
 });
