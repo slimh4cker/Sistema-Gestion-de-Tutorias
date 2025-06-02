@@ -23,8 +23,8 @@ function inicializarNotificaciones() {
 
 function inicializarSolicitarAsesoria() {
     const btnSolicitar = document.getElementById('btn-solicitar-asesoria');
-    const asesoriaContainer = document.getElementById('cursos-grid-container') || 
-                            document.querySelector('.main-content-container');
+    const asesoriaContainer = document.querySelector('.main-content-container');
+
 
     if (btnSolicitar && asesoriaContainer) {
         btnSolicitar.addEventListener('click', function (e) {
