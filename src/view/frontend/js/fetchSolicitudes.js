@@ -86,53 +86,62 @@ function crearTarjeta(solicitud) {
     if (solicitud.estado === 'Aceptada') {
         agregarDetalle('Asesor asignado:', solicitud.asesor_asignado);
     } else {
-        // Input para ingresar el ID del asesor
-        const inputAsesor = document.createElement('input');
-        inputAsesor.type = 'text';
-        inputAsesor.placeholder = 'ID del asesor';
-        inputAsesor.className = 'input-asesor form-control mb-2';
+        // Crear input para ingresar ID del asesor
+        const inputId = document.createElement('input');
+        inputId.type = 'number';
+        inputId.placeholder = 'ID del asesor';
+        inputId.className = 'form-control mb-2';
+        inputId.style.maxWidth = '200px';
 
-        // Botón para asignar asesor
         const boton = document.createElement('button');
         boton.className = 'btn-asignar';
         boton.textContent = 'Asignar';
 
-        // Evento para enviar la asignación
         boton.addEventListener('click', async () => {
-            const asesorId = inputAsesor.value.trim();
+            const asesorId = inputId.value;
+
             if (!asesorId) {
-                alert('Por favor ingresa un ID de asesor');
+                alert('Por favor ingresa un ID de asesor.');
                 return;
             }
-
-            try {
-                const response = await fetch('http://localhost:1234/admin/asesoria', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
-                    },
-                    body: JSON.stringify({
-                        solicitud_id: solicitud.id,
-                        asesor_id: asesorId
-                    })
+            
+            console.log('Enviando al backend:', {
+                    solicitud_id: solicitud.id,
+                    asesor_id: parseInt(asesorId)
                 });
 
-                if (!response.ok) throw new Error('No se pudo asignar el asesor');
-                alert('Asesor asignado correctamente');
-                cargarSolicitudes(); // Recargar datos
+                try {
+                    const respuesta = await fetch('http://localhost:1234/admin/asesoria', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                        },
+                        body: JSON.stringify({
+                            id_solicitud: solicitud.id,
+                            id_asesor: parseInt(asesorId)
+                        })
+                    });
+
+                const resultado = await respuesta.json();
+                console.log('Respuesta del servidor:', resultado);
+
+                if (!respuesta.ok) throw new Error(resultado.error || 'No se pudo asignar el asesor');
+
+                alert('Asesor asignado exitosamente');
+                cargarSolicitudes(); // recargar para actualizar vista
             } catch (error) {
-                console.error(error);
-                alert('Error al asignar asesor');
+                console.error('Error al asignar asesor:', error);
+                alert('Error al asignar asesor: ' + error.message);
             }
         });
 
-        detalles.appendChild(inputAsesor);
+        detalles.appendChild(inputId);
         detalles.appendChild(boton);
     }
 
     contenido.appendChild(detalles);
     card.append(header, contenido);
-    
+
     return card;
 }
