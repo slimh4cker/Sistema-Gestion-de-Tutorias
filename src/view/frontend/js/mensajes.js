@@ -3,6 +3,7 @@ let chatActual = null;
 const mensajesPorCarga = 10;
 let fetchingMenssages = false;
 let allMessagesLoaded = false;
+let badgeHTML = null
 
 //  funciones Utilitarias
 function truncarCadena(cadena, maxCaracteres) {
@@ -148,26 +149,16 @@ async function enviarMensaje() {
         if (data.success) {
             mensajeInput.value = '';
             agregarMensajeAlChat(data.nuevoMensaje, tipoUsuario);
-            // After sending a message, refresh the unread count for the current chat
             const chatItem = document.querySelector(`.conversation-item[data-id="${id_asesoria}"]`);
             if (chatItem) {
-                // Update the badge or remove it if there are no unread messages for the current chat
-                // This assumes your server returns the correct unread count after sending a message.
-                // If not, you might need to re-fetch portadaChat for the current chat.
-                // For simplicity, we'll just re-fetch for the current chat's unread status.
-                portadaChat(id_asesoria, token).then(portada => {
-                    const badgeElement = chatItem.querySelector('.badge');
-                    if (badgeElement) {
-                        if (portada.mensajesSinLeer > 0) {
-                            badgeElement.textContent = portada.mensajesSinLeer;
-                        } else {
-                            badgeElement.remove();
-                        }
-                    } else if (portada.mensajesSinLeer > 0) {
-                        const badgeHTML = `<span class="badge bg-primary rounded-pill">${portada.mensajesSinLeer}</span>`;
-                        chatItem.querySelector('.d-flex').insertAdjacentHTML('beforeend', badgeHTML);
-                    }
-                });
+                const iconElement = chatItem.querySelector('i.bi');
+                if (iconElement) {
+                    iconElement.className = 'bi bi-check2'; // Cambiar a enviado
+                } else {
+                    const newIcon = document.createElement('i');
+                    newIcon.className = 'bi bi-check2';
+                    chatItem.querySelector('.d-flex').appendChild(newIcon);
+                }
             }
 
         } else {
@@ -205,7 +196,6 @@ async function portadaChat(id_asesoria, token) {
         });
         const data = await response.json();
         if (data.success) {
-            // Only count messages that are not sent by the current user
             mensajesSinLeer = data.sinLeer;
         }
 
@@ -235,6 +225,14 @@ async function marcarLeido(id_mensaje, token) {
             })
         });
         if (!response.ok) throw new Error('Error al actualizar estado');
+
+        const chatItem = document.querySelector(`.conversation-item[data-id="${chatActual}"]`);
+    if (chatItem) {
+        const iconElement = chatItem.querySelector('i.bi');
+        if (iconElement) {
+            iconElement.className = 'bi bi-check2-all'; // Cambiar a leído
+        }
+    }
     } catch (error) {
         console.error('Error al actualizar estado:', error);
     }
@@ -314,8 +312,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (!portada) return;
                 const chatItem = document.createElement('div');
                 chatItem.className = 'conversation-item p-3 border-bottom';
-                chatItem.dataset.id = chat.id_asesoria; // Add data-id for easy lookup
-                const badgeHTML = portada.mensajesSinLeer > 0 ? `<i class="bi bi-check2"></i>` : '<i class="bi bi-check2-all"></i>';
+                chatItem.dataset.id = chat.id_asesoria;
+                badgeHTML = portada.mensajesSinLeer > 0 ? `<i class="bi bi-check2"></i>` : '<i class="bi bi-check2-all"></i>';
 
                 chatItem.innerHTML = `
                     <div class="conversation-content">
