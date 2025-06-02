@@ -144,8 +144,9 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
 
 ## Manuales
-Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=sharing
-Manual Tecnico: https://docs.google.com/document/d/1Un6ONxT1LbLohSMlB8PGMq2-evtZOCSjo4u6yS-ZurU/edit?usp=sharing
+
+- Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=drive_link
+- Manual Tecnico: https://docs.google.com/document/d/1Un6ONxT1LbLohSMlB8PGMq2-evtZOCSjo4u6yS-ZurU/edit?usp=drive_link
 
 ## Integrantes del equipo
 
