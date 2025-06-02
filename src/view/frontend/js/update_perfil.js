@@ -53,12 +53,16 @@ async function updatePerfil(nombre, nuevaContrasenia, campos = {}) {
     const resultado = await response.json();
 
     if (response.ok) {
-    Swal.fire({
-      icon: 'success',
-      title: '¡Éxito!',
-      text: 'Perfil actualizado correctamente',
-      confirmButtonColor: '#3085d6'
-    });
+  Swal.fire({
+    icon: 'success',
+    title: '¡Éxito!',
+    text: 'Perfil actualizado correctamente',
+    confirmButtonColor: '#3085d6'
+  }).then(() => {
+      location.reload(); // Recarga la pagina
+    }
+  );
+
     }  else {
     Swal.fire({
       icon: 'error',
@@ -128,3 +132,4 @@ form.addEventListener('submit', async (e) => {
   // Llamar a la actualización
   updatePerfil(nombre, newPassword, camposAdicionales);
 });
+

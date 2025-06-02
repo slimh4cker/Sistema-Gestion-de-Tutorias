@@ -152,13 +152,31 @@ async function solicitarAsesoria() {
         });
 
         if (response.ok) {
-            alert('Solicitud enviada correctamente');
+            //alert('Solicitud enviada correctamente');
+            Swal.fire({
+        icon: 'success',
+        title: '¡Solicitud enviada!',
+        text: 'Se le asignara un asesor a la brevedad',
+        confirmButtonColor: '#3085d6'
+        });
             document.getElementById('form-solicitud-asesoria').reset();
         } else {
-            alert('Error al enviar solicitud. Verifica los datos.');
+            //alert('Error al enviar solicitud. Verifica los datos.');
+            Swal.fire({
+        icon: 'error',
+        title: 'Error al enviar la solicitud !',
+        text: 'Verifique los datos',
+        confirmButtonColor: '#3085d6'
+        });
         }
     } catch (error) {
         console.error('Error de red o del servidor:', error);
-        alert('Error de red o del servidor.');
+        //alert('Error de red o del servidor.');
+           Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Verifique el servidor o la red',
+        confirmButtonColor: '#3085d6'
+        });
     }
 }

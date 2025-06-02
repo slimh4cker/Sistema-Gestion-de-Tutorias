@@ -38,8 +38,8 @@
                             <div class="profile-field">
                                 <label for="nombre"><strong>Nombre:</strong></label>
                                 <div class="input-group">
-                                    <input type="text" id="nombre" class="form-control" value="">
-                                    <button type="button" class="btn btn-outline-secondary edit-btn">
+                                    <input type="text" id="nombre" class="form-control" value="" >
+                                    <button type="button" class="btn btn-outline-secondary edit-btn" id="edit-nombre-btn" >
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                 </div>
@@ -54,7 +54,8 @@
                                 <label for="password"><strong>Contraseña:</strong></label>
                                 <div class="input-group">
                                     <input type="password" id="password" class="form-control" value="" readonly>
-                                    <button type="button" class="btn btn-outline-secondary edit-btn" id="change-password-btn">
+<!--                                         <button type="button" id="toggle-password-visibility">👁️</button>
+ -->                                    <button type="button" class="btn btn-outline-secondary edit-btn" id="change-password-btn">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                 </div>
@@ -93,16 +94,31 @@
             
             if (passwordFields.style.display === 'none') {
                 passwordFields.style.display = 'block';
-                passwordInput.readOnly = false;
-                passwordInput.value = '';
-                passwordInput.focus();
+                passwordInput.readOnly = true;
+                /* passwordInput.value = '';
+                passwordInput.focus(); */
             } else {
                 passwordFields.style.display = 'none';
                 passwordInput.readOnly = true;
                 passwordInput.value = localStorage.getItem('password')
             }
         });
+     /*    document.getElementById('toggle-password-visibility').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
+    const isPassword = passwordInput.type === 'password';
+
+    passwordInput.type = isPassword ? 'text' : 'password';
+    this.textContent = isPassword ? '🙈' : '👁️'; // Cambia el icono también (opcional)
+}); */
+
+        document.getElementById('edit-nombre-btn').addEventListener('click', function() {
+    document.getElementById('nombre').focus();
+});
+
+        
     </script>
+
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
