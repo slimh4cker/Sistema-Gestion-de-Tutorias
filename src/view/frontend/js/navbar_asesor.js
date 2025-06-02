@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 navbarPlaceholder.innerHTML = data;
                 // Inicializar cualquier funcionalidad específica del navbar de asesor
-                inicializarDropdowns();
+                //inicializarDropdowns();
             })
             .catch(error => console.error('Error cargando el navbar:', error));
     }

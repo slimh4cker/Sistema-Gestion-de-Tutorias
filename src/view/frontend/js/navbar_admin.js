@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 navbarPlaceholder.innerHTML = data;
                 // Inicializar dropdowns y funcionalidades específicas de admin
-                inicializarDropdownsAdmin();
+                //inicializarDropdownsAdmin();
                 // Cargar notificaciones iniciales
-                cargarNotificacionesAdmin();
+                //cargarNotificacionesAdmin();
             })
             .catch(error => {
                 console.error('Error cargando el navbar de admin:', error);
