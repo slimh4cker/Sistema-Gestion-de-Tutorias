@@ -170,6 +170,11 @@ export class SolicitudControler {
                 if(!asignarAsesoria){
                     res.status(404).json("no se encontró la asesoria solicitada")
                 }
+                try{
+                    await envairMailAsignarSolicitud(id_solicitud)
+                } catch {
+                    console.error('No se pudo asignar el correo')
+                }
                 res.status(200).json({success: true, message: "Asesoria asignada corectamente"})
             }
             catch(error){
