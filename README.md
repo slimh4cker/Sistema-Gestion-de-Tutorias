@@ -1,8 +1,12 @@
 # Sistema-Gestion-de-Tutorias
-Desarrollar un sistema de software que facilite la gestión y el seguimiento de las solicitudes de asesoría académica, optimizando la asignación de maestros asesores y mejorando la comunicación entre estudiantes, asesores y la administración.
+Este proyecto tiene el fin de facilitar la asignacion de tutorias dentro del instituto tecnologico de ensenada, con este se pretende facilitar, digitalizar y automatizar este proceso.
+En nuestro proecto se tienen 3 roles, los alumnos los cuales realizan peticiones de asesorias, los asesores los cuales imparten las asesorias, y los administradoers que asignan peticiones a asesores. Estos procesos se realizan en una paguina web y cuando se asignan asesorias se envia una notificacion mediante email a el alumno y asesor relacionados a esa peticion.
+
+Para el funcionamiento de este se tiene el servidor y se tiene la parte de la paguina web, la paguina pide datos del servidor mediante multiples APIs y se mantiene la seguridad de este mediante JSON Web Tokens 
 
 ## Estructura del proyecto
-
+### Archivos
+La estructura de los archivos es la siguiente:
 - Sistema-Gestion-de-Tutorias/
   - src/
     - controllers/
@@ -28,6 +32,19 @@ Desarrollar un sistema de software que facilite la gestión y el seguimiento de 
   - package-lock.json
   - package.json
   - README.md
+
+### Arquitectura
+Se siguio una arquitectura MVC, donde las APIs funcionan como la vista. Ademas de esto en las rutas pertintentes se tienen de middlewares verificadores de web tokens y multples routers para simplificar el proyecto. 
+Al seguir la arquitectura MVC el proyecto es muy modular y se pueden alterar los componentes o el comportamiento de estos sin requerir un cambio a la estructura gneral, por ejemplos epuede remplazar un modelo por otro si se quiere migrar la base de datos de ser local a ser en la nube.
+
+### Despliegue
+Este proyecto esta pensado para ser desplegado dentro de un servidor. No se opto por utilizar docker pues se facilita de esta forma manejar el servidor localmente por algun administrador o encargado, ademas la mayor ventaja de docker es la facil escalabilidad pero para el caso de uso del proyecto no se considera que crecera mucho pues estara limitado de alcanze a el instituto mismo.
+
+Para la planeacion de este proyecto se considera que en la misma maquina se distribuya la API y la paguina web, sin embargo estos pueden ser manejados separadamente ajustando la direccion de las APIs.
+
+Se cuenta con el servidor, la paguina web, los controladores y la base de datos, los 3 incluidos en el mismo sistema. La parte del backend no se conecta directamente con la paguina web, sino que el cliente recibe la paguina web y de esto realiza peticiones al servidor.
+![Esquema de diagrama de arquitectura](https://github.com/user-attachments/assets/f0b3ba07-4f6c-418b-a41e-f67ffb7b592f)
+Figura 2. Diagrama de despliegue del sistema
 
 ## Requisitos
 
@@ -78,17 +95,33 @@ Instale MySQL de https://dev.mysql.com/downloads/installer/ y ejecute el instala
 
 Dentro de este cree la base de datos "asesorias" y de la forma que prefiera importe la base de datos desde el archivo asesorias.sql . Cabe notar que se puede cambiar el nombre de la base de datos si se altera de la forma apropiada el archivo .env
 
-### 4. Configurar archivo .env
+### 4. Configuracion de correo
+Este proyecto utiliza gmail para enviar coreos para enviar notificaciones.
+Para que esta parte del proyecto funcione se ha de tener una cuenta de gmail, dentro de esta cuenta se ha de generar una contraseña de aplicacion como es indicado en esta paguina: https://support.google.com/mail/answer/185833?hl=es-419
+Esta clave se ha de configurar en el .env como se describe despues en este README, asegurese de que su correo pueda generar contraseñas de aplicacion.
+
+### 5. Configurar archivo .env
 El programa por default cuenta con varios parametros establecidos por default en caso de no tener un archivo .env  sin embargo se tienen varias variables para poder ser configuradas personalmente:
 
-DB_NAME=      //nombre de la base de datos
-DB_USER=      //nombre del usuario raiz
-DB_PASS=      //contrasena del, usuario raiz
-DB_HOST=      //host de la base ded atos
-DB_PORT=      //puerto de la base de datos
-DB_DIALECT=   //si utiliza mysql u otra base ded atos
-DB_TIMEZONE=  //zona horaria
+DB_NAME=      #nombre de la base de datos
+DB_USER=      #nombre del usuario raiz
+DB_PASS=      #contrasena del, usuario raiz
+DB_HOST=      #host de la base ded atos
+DB_PORT=      #puerto de la base de datos
+DB_DIALECT=   #si utiliza mysql u otra base ded atos
+DB_TIMEZONE=  #zona horaria
 
+#para correo
+EMAIL_HOST=  # correo desde el cual se notificara
+EMAIL_PASS=  # contraseña del correo, si se utiliza google se ocupa utilizar una contraseña de aplicacion
+
+#para tokens
+JWT_SECRET= #clave con la que generar tokens
+
+### 6. Creacion de Administradores
+El proyecto cuenta con un administrador por defecto, sus credenciales son: {corre: juan@admin.com password: admin123}.
+Ingrese a la paguina para hacer login, despues presione el boton que dice "Administradores" e ingrese las credenciales.
+Una vez adentro de esto se ha de dirigir a la ventana "Agregar Admin" y entonces se agregan los usuarios que se requieran para manejar el sistema.
 
 ## Scripts
 ### Iniciar el servidor
@@ -110,6 +143,11 @@ Ademas de este comando se puede probar estas partes de forma independiente con l
 
 Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sql para poder realizar las pruebas.
 
+## Manuales
+
+- Manual de Usuario: https://docs.google.com/document/d/1v5N1bBVqzyfu71PtVIzkythhiYPpSTTuCkDBqb6bX5A/edit?usp=drive_link
+- Manual Tecnico: https://docs.google.com/document/d/1Un6ONxT1LbLohSMlB8PGMq2-evtZOCSjo4u6yS-ZurU/edit?usp=drive_link
+
 ## Integrantes del equipo
 
 A continuación se listan los integrantes del equipo de desarrollo del proyecto **Sistema de Gestión de Tutorías**:
@@ -119,4 +157,3 @@ A continuación se listan los integrantes del equipo de desarrollo del proyecto 
 - **Laguna Bernal Salvador**
 - **Montelongo Ramirez Alexia Ismeray**
 - **Soto Flores Diego Francisco**
-
