@@ -11,6 +11,8 @@ router.get('/alumno', authMiddleware(['alumno']), AlumnoControler.getAlumnoByMai
 // Ruta: POST /alumno/solicitud 
 router.post('/solicitud', authMiddleware(['alumno']), SolicitudControler.crearSolicitudDeAlumno);
 
+router.post('/solicitud/manual', authMiddleware(['alumno']), SolicitudControler.asignarAsesor)
+
 router.get('/cursos', authMiddleware(['alumno']), AsesoriaControler.obtenerCursosAlumno)
 
 // Ruta: GET /alumno/solicitud?estado=asignada (nueva funcionalidad)

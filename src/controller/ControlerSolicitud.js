@@ -155,6 +155,33 @@ export class SolicitudControler {
         }
     }
 
+    static async asignarAsesor(req, res){
+        try{
+            const {id_solicitud, id_asesor} = req.body
+            const solicitudParse = parseInt(id_solicitud,10)
+            const asesorParse = parseInt(id_asesor, 10)
+            console.log(id_solicitud, id_asesor)
+
+            if(!solicitudParse || !asesorParse){
+                return res.status(400).json({error: "Datos invalidos"})
+            }
+            try {
+                const asignarAsesoria = SolicitudModel.asignarAsesor(solicitudParse, asesorParse)
+                if(!asignarAsesoria){
+                    res.status(404).json("no se encontró la asesoria solicitada")
+                }
+                res.status(200).json({success: true, message: "Asesoria asignada corectamente"})
+            }
+            catch(error){
+                return res.status(500).json({sucess: false, message: "Error al asignar la asesoria"})
+            }
+        }
+        catch(error){
+            return res.status(500).json({error: "Error al asignar el asesor", message:error})
+            
+        }
+    }
+
     // Modificamos el método de asignación para hacerlo reutilizable
     static async asignarSolicitudAutomatica(req, res) {
         try {

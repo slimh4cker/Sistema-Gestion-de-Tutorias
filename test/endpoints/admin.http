@@ -13,6 +13,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 GET http://localhost:1234/admin/asesores
 Authorization: Bearer
 
+
+### Asigna manualmente una asesoria
+
+POST http://localhost:1234/admin/asesoria
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDg4NTMzMDAsImV4cCI6MTc0ODg1NjkwMH0.307omN3WBsiLoIKPmBtVMBFzdA8KtQU0FMH2xCCF9E0
+Content-Type: application/json
+
+{
+    "id_solicitud": 38,
+    "id_asesor": 2
+}
+
+
 #### alterar estado de una solicitud en especifico
 PATCH http://localhost:1234/admin/solicitud/?id=3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqdWFuQGFkbWluLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NDY0ODUxMDIsImV4cCI6MTc0NjQ4ODcwMn0._lNZsAtb2yN2E-oxbt_-iFjaF433Hm10wXtNU1r6k1E
