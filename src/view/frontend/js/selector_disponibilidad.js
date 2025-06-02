@@ -63,10 +63,6 @@ export function crearSelectorDeDisponibilidad(containerId, horarioExistente = nu
       checkbox.type = "checkbox";
       checkbox.dataset.dia = dia;
       checkbox.value = hora;
-      // comprobar si el horario existe y marcar los checkboxes
-      if (horarioExistente && horarioExistente[dia] && horarioExistente[dia].includes(hora)) {
-          checkbox.checked = true;
-      }
 
       checkbox.addEventListener("change", function () {
           const dia = this.dataset.dia;
@@ -81,6 +77,15 @@ export function crearSelectorDeDisponibilidad(containerId, horarioExistente = nu
           horarioSeleccionado[dia].sort((a, b) => a - b);  // Opcional: ordenar
       });
 
+      // comprobar si el horario existe y marcar los checkboxes)
+      if (horarioExistente && horarioExistente[dia] && horarioExistente[dia].includes(hora)) {
+          checkbox.checked = true;
+          // agregar a horarioSeleccionado
+          if (!horarioSeleccionado[dia].includes(hora)) {
+              horarioSeleccionado[dia].push(hora);
+          }
+      }
+
       label.appendChild(checkbox);
       label.appendChild(document.createTextNode(` ${hora}:00`));
       seccion.appendChild(label);
@@ -94,7 +99,6 @@ export function crearSelectorDeDisponibilidad(containerId, horarioExistente = nu
   // Retorna una función para obtener el JSON cuando se necesite
   return () => {
     const json = JSON.stringify(horarioSeleccionado, null, 0);
-    console.log(json)
     return json;
   };
 }
