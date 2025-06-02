@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         #cursos-grid-container {
-    max-height: 60vh; /* o ajusta según preferencia */
+    max-height: 60vh; 
     overflow-y: auto;
     padding-right: 10px; /* espacio para el scroll */
     margin-right: 0;
@@ -34,7 +34,15 @@
     margin-bottom: 50px;    /* agrega espacio debajo */
 }
 
-    </style>
+
+  .curso-card {
+    pointer-events: none; /* Desactiva todos los clics EN UN FUTURO SI SE NECESITA HACER 
+                              CLICK EN ALGO ES NECESARIO BORRAR */
+    opacity: 0.95;       
+    cursor: default;      /* Cambia el cursor para que no parezca clickeable */
+  }
+</style>
+
 </head>
 
 <script>
@@ -45,7 +53,6 @@
 
 <body>
     <div class="alumno-container">
-        <!-- Barra lateral se insertará aquí -->
         
         <!-- Contenido principal -->
         <div class="main-content">
@@ -59,10 +66,10 @@
                     <!-- Título de página -->
                     <h2 class="page-title"><i class="fas fa-book-open me-2"></i>Mis Cursos</h2>
                     
-                    <!-- Contenedor grid con scroll si es necesario -->
+                    <!-- Contenedor grid con scroll -->
                     <div id="cursos-grid-container" class="row g-3">
                         <!-- Curso 1 -->
-                        <div class="curso-card" onclick="window.location.href='curso-detalle.html?curso=bd'">
+                        
                             <div class="curso-card-content">
                                 <div class="curso-header">
                                     <h3 class="curso-title">Bases De Datos y Fundamentos de Programación Avanzada</h3>
@@ -76,7 +83,7 @@
                                     <p class="sesion-date">12/04/2025 - 08:00</p>
                                 </div>
                             </div>
-                        </div>
+                        
                         
                         <!-- Curso 2 -->
                         <div class="curso-card">
