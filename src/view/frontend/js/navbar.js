@@ -23,15 +23,23 @@ function inicializarNotificaciones() {
 
 function inicializarSolicitarAsesoria() {
     const btnSolicitar = document.getElementById('btn-solicitar-asesoria');
-    const asesoriaContainer = document.getElementById('cursos-grid-container') || 
-                            document.querySelector('.main-content-container');
+    const cursosContainer = document.getElementById('cursos-grid-container');
+    const formContainer = document.getElementById('formulario-asesoria-container');
+    const dynamicTitle = document.getElementById('dynamic-title');
 
-    if (btnSolicitar && asesoriaContainer) {
-        btnSolicitar.addEventListener('click', function (e) {
+    if (btnSolicitar && cursosContainer && formContainer) {
+        btnSolicitar.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Crear formulario de asesoría
-            const formHTML = `
+            // 1. Ocultar cursos y mostrar formulario
+            cursosContainer.style.display = 'none';
+            formContainer.style.display = 'block';
+            
+            // 2. Cambiar título
+            dynamicTitle.textContent = '';
+            
+            // 3. Insertar formulario
+            formContainer.innerHTML = `
             <div class="white-card rounded-4 shadow-sm p-4">
                 <div class="form-asesoria">
                     <h4 class="fw-bold mb-3">Solicitar asesoría</h4>
@@ -101,23 +109,16 @@ function inicializarSolicitarAsesoria() {
             </div>
             `;
 
-            // Insertar el formulario
-            asesoriaContainer.innerHTML = formHTML;
-
-            // Enlazar evento de cancelar
+            // 4. Manejar cancelar
             document.querySelector('.btn-cancelar').addEventListener('click', function() {
-                asesoriaContainer.innerHTML = `
-                <div class="white-card rounded-4 shadow-sm">
-                    <div class="empty-state-content">
-                        <p class="empty-state-text fw-bold text-secondary">
-                            No ninguna asesoría por el momento
-                        </p>
-                        <i class="fas fa-calendar-times empty-state-icon text-secondary"></i>
-                    </div>
-                </div>`;
+                // Restaurar vista original
+                cursosContainer.style.display = 'grid'; // o 'flex' dependiendo de tu CSS
+                formContainer.style.display = 'none';
+                formContainer.innerHTML = '';
+                pageTitle.innerHTML = '<i class="fas fa-book-open me-2"></i>Mis Cursos';
             });
 
-            // Enlazar evento de envío del formulario
+            // 5. Manejar envío (tu código existente)
             document.getElementById('form-solicitud-asesoria').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 await solicitarAsesoria();
