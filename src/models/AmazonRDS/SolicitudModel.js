@@ -450,6 +450,4 @@ export class SolicitudModel{
     };
 }
 
-
-
 }
