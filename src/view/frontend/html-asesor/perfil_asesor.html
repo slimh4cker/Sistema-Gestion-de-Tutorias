@@ -108,33 +108,9 @@
                             </div>
 
                             <!-- Sección de Temas a enseñar -->
-                            <div class="profile-field topics-container">
-                                <label><strong>Temas a enseñar:</strong></label>
-                                <div class="topics-list" id="selected-topics">
-                                    <!-- Temas seleccionados aparecerán aquí -->
-                                    <div class="topic-item">
-                                        Matemáticas discretas
-                                        <span class="remove-topic" onclick="removeTopic(this)"><i class="fas fa-times"></i></span>
-                                    </div>
-                                    <div class="topic-item">
-                                        Bases de datos
-                                        <span class="remove-topic" onclick="removeTopic(this)"><i class="fas fa-times"></i></span>
-                                    </div>
-                                    <div class="topic-item">
-                                        Programación
-                                        <span class="remove-topic" onclick="removeTopic(this)"><i class="fas fa-times"></i></span>
-                                    </div>
+                            <label class="form-label">Especialidad:</label>
+                                <div id="contenedorEspecialidad" class="form-control">
                                 </div>
-                                
-                                <div class="input-group">
-                                    <select class="form-select topics-select" id="topics-select">
-                                        <option value="" selected disabled>Selecciona un tema para agregar</option>
-                                    </select>
-                                    <button type="button" class="btn btn-primary add-topic-btn" onclick="addTopic()">
-                                        <i class="fas fa-plus me-1"></i> Agregar
-                                    </button>
-                                </div>
-                            </div>
                             
                             <div class="profile-actions">
                                 <button type="submit" class="btn btn-primary save-btn">Guardar cambios</button>
@@ -149,6 +125,7 @@
     </div>
     
     <!-- Scripts -->
+
     <script src="../js/navbar_asesor.js"></script>
     <script src="../js/sidebar_asesor.js"></script>
 
@@ -165,16 +142,28 @@
                 usuario.disponibilidad ? JSON.parse(usuario.disponibilidad) : null
             )
         });
-
-
     </script>
 
+    <!-- Cargar el contenido del selector de especialidad -->
+    <script type="module">
+        import { crearSelectMaterias } from '../js/especializacionesMetodos.js';
+
+        // se llama este evento dentro de perfil.js
+        document.addEventListener("datosUsuarioCargados", function(event) {
+
+            // Inicializar el select de especialidades con las materias del usuario
+            const usuario = event.detail;
+            const especialidadContenedor = document.getElementById('contenedorEspecialidad');
+            especialidadContenedor.appendChild(crearSelectMaterias(usuario.area_especializacion));
+
+        });
+    </script>
     <script src="../js/perfil.js"></script>
     <script src="../js/update_perfil.js"></script>
 
     <!-- <script src="../js/admin_temas.js"></script> -->
     
-    <script src="../js/asesor_temas.js"></script>
+    <!-- <script src="../js/asesor_temas.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
