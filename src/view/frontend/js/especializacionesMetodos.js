@@ -34,7 +34,7 @@ export const materias = {
  * @param {string} [opcionInicial] - Texto que se mostrará como la primera opción.
  * @returns {HTMLSelectElement} El elemento <select> con las opciones generadas.
  */
-export function crearSelectMaterias(opcionInicial) {
+export function crearSelectMaterias(opcionInicial = null) {
   const select = document.createElement('select');
 
   // Crea un array de objetos { id, nombre }
