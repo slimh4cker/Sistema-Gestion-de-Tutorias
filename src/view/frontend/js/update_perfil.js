@@ -110,9 +110,16 @@ form.addEventListener('submit', async (e) => {
 
   // ver si existen datos adicionales
   let camposAdicionales = {};
+
+  // horario
   let getHorarioJSON = window.getHorarioJSON || null;
   if (getHorarioJSON) {
     camposAdicionales.disponibilidad = window.getHorarioJSON();
+  }
+  // especialidad
+  let especialidad = document.getElementById('txtEspecialidad');
+  if (especialidad && especialidad.value) {
+    camposAdicionales.especialidad = especialidad.value.trim();
   }
 
   // Llamar a la actualización
