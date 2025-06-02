@@ -36,6 +36,8 @@ export const materias = {
  */
 export function crearSelectMaterias(opcionInicial = null) {
   const select = document.createElement('select');
+  select.className = 'form-select';
+  select.id = 'especialidad-select';
 
   // Crea un array de objetos { id, nombre }
   let listaMaterias = Object.entries(materias).map(([id, nombre]) => ({

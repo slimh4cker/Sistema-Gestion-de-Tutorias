@@ -116,10 +116,13 @@ form.addEventListener('submit', async (e) => {
   if (getHorarioJSON) {
     camposAdicionales.disponibilidad = window.getHorarioJSON();
   }
+
   // especialidad
-  let especialidad = document.getElementById('txtEspecialidad');
-  if (especialidad && especialidad.value) {
-    camposAdicionales.especialidad = especialidad.value.trim();
+  const especialidadSelect = document.getElementById('especialidad-select');
+  let especialidad = especialidadSelect ? especialidadSelect.options[especialidadSelect.selectedIndex].innerText : null;
+  
+  if (especialidad) {
+    camposAdicionales.area_especializacion = especialidad
   }
 
   // Llamar a la actualización
