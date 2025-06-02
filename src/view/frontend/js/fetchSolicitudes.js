@@ -86,9 +86,48 @@ function crearTarjeta(solicitud) {
     if (solicitud.estado === 'Aceptada') {
         agregarDetalle('Asesor asignado:', solicitud.asesor_asignado);
     } else {
+        // Input para ingresar el ID del asesor
+        const inputAsesor = document.createElement('input');
+        inputAsesor.type = 'text';
+        inputAsesor.placeholder = 'ID del asesor';
+        inputAsesor.className = 'input-asesor form-control mb-2';
+
+        // Botón para asignar asesor
         const boton = document.createElement('button');
         boton.className = 'btn-asignar';
         boton.textContent = 'Asignar';
+
+        // Evento para enviar la asignación
+        boton.addEventListener('click', async () => {
+            const asesorId = inputAsesor.value.trim();
+            if (!asesorId) {
+                alert('Por favor ingresa un ID de asesor');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:1234/admin/asesoria', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    },
+                    body: JSON.stringify({
+                        solicitud_id: solicitud.id,
+                        asesor_id: asesorId
+                    })
+                });
+
+                if (!response.ok) throw new Error('No se pudo asignar el asesor');
+                alert('Asesor asignado correctamente');
+                cargarSolicitudes(); // Recargar datos
+            } catch (error) {
+                console.error(error);
+                alert('Error al asignar asesor');
+            }
+        });
+
+        detalles.appendChild(inputAsesor);
         detalles.appendChild(boton);
     }
 
