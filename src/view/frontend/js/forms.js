@@ -348,13 +348,13 @@ async function loginUser() {
             // Redirection logic
             switch(currentUserType) {
                 case 'alumno':
-                    window.location.href = './html-alumno/home_alumno.html';
+                    window.location.href = './html-alumno/cursos.html';
                     break;
                 case 'asesor':
-                    window.location.href = './html-asesor/home_asesor.html';
+                    window.location.href = './html-asesor/cursos_asesor.html';
                     break;
                 case 'admin':
-                    window.location.href = 'home_admin.html';
+                    window.location.href = 'solicitudes.html';
                     break;
             }
         } else {
