@@ -145,8 +145,8 @@ Cabe notar que para controlers y modelos se ha de iniciar primero el servidor sq
 
 ## Manuales
 
-- Manual de Usuario: https://drive.google.com/file/d/1XgkzPkSZ8y_zS3tBisl86ubKAwemnE_h/view?usp=sharing
-- Manual Tecnico: https://drive.google.com/file/d/1GXNm4I0ocP_KwD-eoEKegQRroSh_Bwof/view?usp=sharing
+Manual de Usuario: https://drive.google.com/file/d/1anthjWDEc7UiMRV_a4SxRGaMNxViGPl4/view?usp=sharing
+Manual Tecnico: https://drive.google.com/file/d/1uHCKxZrKpbaG0_f-aIuVXC5n4VIPBz9W/view?usp=sharing
 
 ## Integrantes del equipo
 
